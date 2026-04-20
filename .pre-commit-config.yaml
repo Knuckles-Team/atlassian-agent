@@ -1,0 +1,80 @@
+default_language_version:
+  python: python3
+exclude: 'dotnet'
+ci:
+  autofix_prs: true
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit suggestions'
+  autoupdate_schedule: 'monthly'
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+    - id: check-added-large-files
+      exclude: |
+          (?x)^(
+            atlassian_agent/skills/.*-docs/.*|
+            .*_report\.md|
+            validation_report\.md|
+            mermaids/.*
+          )$
+    - id: check-ast
+    - id: check-yaml
+    - id: check-toml
+    - id: check-json
+    - id: fix-byte-order-marker
+      exclude: .gitignore
+    - id: check-merge-conflict
+    - id: detect-private-key
+    - id: trailing-whitespace
+      exclude: |
+          (?x)^(
+            .*_report\.md|
+            validation_report\.md|
+            mermaids/.*
+          )$
+    - id: end-of-file-fixer
+      exclude: |
+          (?x)^(
+            .*_report\.md|
+            validation_report\.md|
+            mermaids/.*
+          )$
+    - id: no-commit-to-branch
+  - repo: https://github.com/psf/black
+    rev: 26.3.1
+    hooks:
+    - id: black
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.8
+    hooks:
+      - id: ruff
+        exclude: ^(tests/|test/|scripts/|script/)
+        types_or: [ python, pyi, jupyter ]
+        args: ["--fix", "--ignore=E402"]
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: v2.16
+    hooks:
+      - id: vulture
+        pass_filenames: false
+        args: [ ".", "--min-confidence", "95" ]   # or 100 if you want very high confidence only
+        require_serial: true
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.2
+    hooks:
+      - id: codespell
+        args: ["-L", "ans,linar,nam,tread,ot,"]
+        exclude: |
+            (?x)^(
+              \./test/.*|
+              \./tests/.*|
+              atlassian_agent/skills/.*|
+              .*_report\.md|
+              validation_report\.md|
+              mermaids/.*
+            )$
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.9.1
+    hooks:
+      - id: nbqa-black
+        exclude: ^(tests/|test/|scripts/|script/)

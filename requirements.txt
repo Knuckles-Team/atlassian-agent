@@ -1,0 +1,2 @@
+agent-utilities[mcp]>=0.2.12
+atlassian-python-api

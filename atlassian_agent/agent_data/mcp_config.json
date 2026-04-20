@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "atlassian": {
+      "command": "atlassian-mcp",
+      "args": [
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "ATLASSIAN_URL": "${ATLASSIAN_URL:-http://localhost:8080}",
+        "ATLASSIAN_TOKEN": "${ATLASSIAN_TOKEN}"
+      }
+    }
+  }
+}
