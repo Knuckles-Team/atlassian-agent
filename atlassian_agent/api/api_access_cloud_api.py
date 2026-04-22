@@ -1,7 +1,8 @@
 # Generated API Client for APIAccessCloud
-from typing import Any, Dict, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class APIAccessCloudAPI:
@@ -11,8 +12,8 @@ class APIAccessCloudAPI:
     def api_access_cloud_get_all_api_tokens_by_org_id(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all API tokens in an org
 
@@ -20,7 +21,7 @@ class APIAccessCloudAPI:
         Method: GET
         """
         path = f"/orgs/{org_id}/api-tokens"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -31,8 +32,8 @@ class APIAccessCloudAPI:
     def api_access_cloud_bulk_revoke_api_tokens(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk revoke API tokens in an organization
 
@@ -40,7 +41,7 @@ class APIAccessCloudAPI:
         Method: DELETE
         """
         path = f"/orgs/{org_id}/api-tokens"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -51,8 +52,8 @@ class APIAccessCloudAPI:
     def api_access_cloud_get_api_token_count_by_org_id(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get API token count in an org
 
@@ -60,7 +61,7 @@ class APIAccessCloudAPI:
         Method: GET
         """
         path = f"/orgs/{org_id}/api-tokens/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -71,8 +72,8 @@ class APIAccessCloudAPI:
     def api_access_cloud_count_service_account_api_tokens(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get service account API token count in an org
 
@@ -80,7 +81,7 @@ class APIAccessCloudAPI:
         Method: POST
         """
         path = f"/orgs/{org_id}/service-accounts/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -92,9 +93,9 @@ class APIAccessCloudAPI:
         self,
         org_id: str,
         account_id: str,
-        token_label: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        token_label: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all service account API tokens in an org
 
@@ -116,8 +117,8 @@ class APIAccessCloudAPI:
         self,
         org_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Revoke all API tokens for a service account
 
@@ -125,7 +126,7 @@ class APIAccessCloudAPI:
         Method: DELETE
         """
         path = f"/orgs/{org_id}/service-accounts/{account_id}/api-tokens"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -136,8 +137,8 @@ class APIAccessCloudAPI:
     def api_access_cloud_get_api_key_count_by_org_id(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get API key count in an org
 
@@ -145,7 +146,7 @@ class APIAccessCloudAPI:
         Method: GET
         """
         path = f"/orgs/{org_id}/api-keys/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -156,8 +157,8 @@ class APIAccessCloudAPI:
     def api_access_cloud_get_all_api_keys_by_org_id(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all API keys in an org
 
@@ -165,7 +166,7 @@ class APIAccessCloudAPI:
         Method: GET
         """
         path = f"/orgs/{org_id}/api-keys"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -177,8 +178,8 @@ class APIAccessCloudAPI:
         self,
         org_id: str,
         api_key_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Revoke an API key for an org
 
@@ -186,7 +187,7 @@ class APIAccessCloudAPI:
         Method: PATCH
         """
         path = f"/orgs/{org_id}/api-keys/revoke/{api_key_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

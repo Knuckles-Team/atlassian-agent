@@ -1,6 +1,8 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
+
 import requests
+
 from ..models import Response
 
 logger = logging.getLogger(__name__)
@@ -20,8 +22,8 @@ class BaseAtlassianClient:
         self,
         method: str,
         path: str,
-        params: Optional[Dict[str, Any]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        params: dict[str, Any] | None = None,
+        json: dict[str, Any] | None = None,
     ) -> Response:
         url = f"{self.base_url}/{path.lstrip('/')}"
         try:

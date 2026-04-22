@@ -1,7 +1,9 @@
 # Generated MCP Tools for ConfluenceServer
-from typing import Any, Dict, List, Optional
+from typing import Any
+
+from fastmcp import Context, FastMCP
 from pydantic import Field
-from fastmcp import FastMCP, Context
+
 from ..api.confluence_server_api import ConfluenceServerAPI
 from ..auth import get_base_client
 
@@ -16,8 +18,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_get_access_mode_status(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get access mode status"""
         api = get_api()
         response = api.confluence_server_get_access_mode_status()
@@ -25,11 +27,11 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_create", tags={"confluence-server-other"})
     def confluence_server_create(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create group"""
         api = get_api()
         response = api.confluence_server_create(
@@ -40,8 +42,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_delete", tags={"confluence-server-other"})
     def confluence_server_delete(
         group_name: str = Field(..., description="the group name to be deleted"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete group"""
         api = get_api()
         response = api.confluence_server_delete(
@@ -56,11 +58,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         username: str = Field(
             ..., description="the username identifying the given user"
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Change password"""
         api = get_api()
         response = api.confluence_server_change_password(
@@ -71,11 +73,11 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_create_user", tags={"confluence-server-user"})
     def confluence_server_create_user(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create user"""
         api = get_api()
         response = api.confluence_server_create_user(
@@ -88,8 +90,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         username: str = Field(
             ..., description="the username identifying the given user"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete user"""
         api = get_api()
         response = api.confluence_server_delete_1(
@@ -102,8 +104,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         username: str = Field(
             ..., description="the username identifying the given user"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Disable user"""
         api = get_api()
         response = api.confluence_server_disable(
@@ -116,8 +118,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         username: str = Field(
             ..., description="the username identifying the given user"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Enable user"""
         api = get_api()
         response = api.confluence_server_enable(
@@ -132,28 +134,28 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content the attachment is on."
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="(optional) a comma separated list of properties to expand on the Attachments returned. Optional.",
         ),
-        filename: Optional[str] = Field(
+        filename: str | None = Field(
             None,
             description="(optional) filter parameter to return only the Attachment with the matching file name.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="(optional) how many items should be returned after the start index.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None,
             description="(optional) the index of the first item within the result set that should be returned.",
         ),
-        media_type: Optional[str] = Field(
+        media_type: str | None = Field(
             None,
             description="(optional) a comma separated list of properties to expand on the Attachments returned.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get attachment"""
         api = get_api()
         response = api.confluence_server_get_attachments(
@@ -173,23 +175,23 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content the attachment is on."
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="(optional) a comma separated list of properties to expand on the Attachments returned. Optional.",
         ),
-        allow_duplicated: Optional[str] = Field(
+        allow_duplicated: str | None = Field(
             None,
             description="(optional) allows to upload an attachment with an existing filename.",
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None,
             description="a string containing the status of the attachments content container, supports current or draft, defaults to current",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create attachments"""
         api = get_api()
         response = api.confluence_server_create_attachments(
@@ -208,9 +210,9 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_get_attachment_extracted_text(
         attachment_id: str = Field(..., description="Parameter attachmentId"),
         id_: str = Field(..., description="Parameter id"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        limit: int | None = Field(None, description="Parameter limit"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """No description provided."""
         api = get_api()
         response = api.confluence_server_get_attachment_extracted_text(
@@ -228,12 +230,10 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content the attachment is on."
         ),
-        new_name: Optional[str] = Field(None, description="Parameter newName"),
-        new_content_id: Optional[str] = Field(
-            None, description="Parameter newContentId"
-        ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        new_name: str | None = Field(None, description="Parameter newName"),
+        new_content_id: str | None = Field(None, description="Parameter newContentId"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Move attachment"""
         api = get_api()
         response = api.confluence_server_move(
@@ -252,11 +252,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content the attachment is on."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update non-binary data of an Attachment"""
         api = get_api()
         response = api.confluence_server_update(
@@ -276,8 +276,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content the attachment is on."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Remove attachment"""
         api = get_api()
         response = api.confluence_server_remove_attachment(
@@ -298,8 +298,8 @@ def register_confluence_server_tools(mcp: FastMCP):
             ..., description="The id of the content the attachment is on."
         ),
         version: int = Field(..., description="Parameter version"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Remove attachment version"""
         api = get_api()
         response = api.confluence_server_remove_attachment_version(
@@ -317,11 +317,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content the attachment is on."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update binary data of an attachment"""
         api = get_api()
         response = api.confluence_server_update_data(
@@ -335,8 +335,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         name="confluence_server_get_audit_records", tags={"confluence-server-other"}
     )
     def confluence_server_get_audit_records(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """No description provided."""
         api = get_api()
         response = api.confluence_server_get_audit_records()
@@ -347,8 +347,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_cancel_all_queued_jobs(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Cancel all queued jobs"""
         api = get_api()
         response = api.confluence_server_cancel_all_queued_jobs()
@@ -357,8 +357,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_cancel_job", tags={"confluence-server-other"})
     def confluence_server_cancel_job(
         job_id: str = Field(..., description="id of the backup/restore job"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Cancel job"""
         api = get_api()
         response = api.confluence_server_cancel_job(
@@ -371,11 +371,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_create_site_backup_job(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create site backup job"""
         api = get_api()
         response = api.confluence_server_create_site_backup_job(
@@ -388,11 +388,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_create_site_restore_job(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create site restore job"""
         api = get_api()
         response = api.confluence_server_create_site_restore_job(
@@ -405,11 +405,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_create_site_restore_job_for_uploaded_backup_file(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create site restore job for upload backup file"""
         api = get_api()
         response = (
@@ -424,11 +424,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-space"},
     )
     def confluence_server_create_space_backup_job(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create space backup job"""
         api = get_api()
         response = api.confluence_server_create_space_backup_job(
@@ -441,11 +441,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-space"},
     )
     def confluence_server_create_space_restore_job(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create space restore job"""
         api = get_api()
         response = api.confluence_server_create_space_restore_job(
@@ -458,11 +458,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-space"},
     )
     def confluence_server_create_space_restore_job_for_uploaded_backup_file(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create space restore job for upload backup file"""
         api = get_api()
         response = (
@@ -477,8 +477,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_download_backup_file(
         job_id: str = Field(..., description="id of the backup/restore job"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Download backup file"""
         api = get_api()
         response = api.confluence_server_download_backup_file(
@@ -488,35 +488,35 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_find_jobs", tags={"confluence-server-other"})
     def confluence_server_find_jobs(
-        owner: Optional[str] = Field(
+        owner: str | None = Field(
             None, description="userName of user who had created a job."
         ),
-        space_key: Optional[str] = Field(
+        space_key: str | None = Field(
             None, description="the key of the Space the User is attempting to view."
         ),
-        from_date: Optional[str] = Field(
+        from_date: str | None = Field(
             None,
             description="minimum job creation date. Supported date format is `yyyy-MM-ddTHH:mm:ss.SSSZ`",
         ),
-        job_states: Optional[str] = Field(
+        job_states: str | None = Field(
             None,
             description="list of job states. Acceptable values: 'QUEUED', 'PROCESSING', 'FINISHED', 'CANCELLING', 'CANCELLED', 'FAILED'",
         ),
-        to_date: Optional[str] = Field(
+        to_date: str | None = Field(
             None,
             description="maximum job create date. Supported date format is `yyyy-MM-ddTHH:mm:ss.SSSZ`",
         ),
-        job_operation: Optional[str] = Field(
+        job_operation: str | None = Field(
             None, description="job operation. Acceptable values: 'BACKUP' and 'RESTORE'"
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None, description="amount of jobs that should be returned"
         ),
-        job_scope: Optional[str] = Field(
+        job_scope: str | None = Field(
             None, description="scope of the job. Acceptable values: 'SPACE' and 'SITE'"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Find jobs by filters"""
         api = get_api()
         response = api.confluence_server_find_jobs(
@@ -533,12 +533,12 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_files", tags={"confluence-server-other"})
     def confluence_server_get_files(
-        job_scope: Optional[str] = Field(
+        job_scope: str | None = Field(
             None,
             description="name of type of restore job (SITE or SPACE or null), if null, all backup files are listed",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get files in restore directory"""
         api = get_api()
         response = api.confluence_server_get_files(
@@ -549,8 +549,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_job", tags={"confluence-server-other"})
     def confluence_server_get_job(
         job_id: str = Field(..., description="id of the backup/restore job"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get job by ID"""
         api = get_api()
         response = api.confluence_server_get_job(
@@ -568,8 +568,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         category_name: str = Field(
             ..., description="The name of the category to remove"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Remove a category from a space"""
         api = get_api()
         response = api.confluence_server_remove_category(
@@ -585,22 +585,20 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content to retrieve children for"
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the children",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None, description="how many items should be returned after the start index"
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None,
             description="the index of the first item within the result set that should be returned",
         ),
-        parent_version: Optional[int] = Field(
-            None, description="Parameter parentVersion"
-        ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        parent_version: int | None = Field(None, description="Parameter parentVersion"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get children of content"""
         api = get_api()
         response = api.confluence_server_children(
@@ -621,22 +619,20 @@ def register_confluence_server_tools(mcp: FastMCP):
             ..., description="The id of the content to retrieve children for"
         ),
         type_: str = Field(..., description="a  content type to filter children on."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the children",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None, description="how many items should be returned after the start index"
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None,
             description="the index of the first item within the result set that should be returned",
         ),
-        parent_version: Optional[int] = Field(
-            None, description="Parameter parentVersion"
-        ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        parent_version: int | None = Field(None, description="Parameter parentVersion"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get children of content by type"""
         api = get_api()
         response = api.confluence_server_children_of_type(
@@ -656,30 +652,28 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="The id of the content to retrieve children for"
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the children",
         ),
-        depth: Optional[str] = Field(
+        depth: str | None = Field(
             None,
             description="(optional, default: '') the depth of the comments. Possible values are: '' (ROOT only), 'all'",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None, description="how many items should be returned after the start index"
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None,
             description="the index of the first item within the result set that should be returned",
         ),
-        location: Optional[str] = Field(
+        location: str | None = Field(
             None,
             description="(optional, default: '' means all) the location of the comments. Possible values are: 'inline', 'footer', 'resolved'. You can define multiple location params. The results will be the comments matched by any location.",
         ),
-        parent_version: Optional[int] = Field(
-            None, description="Parameter parentVersion"
-        ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        parent_version: int | None = Field(None, description="Parameter parentVersion"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get comments of content"""
         api = get_api()
         response = api.confluence_server_comments_of_content(
@@ -698,18 +692,18 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_publish_shared_draft(
         draft_id: str = Field(..., description="the id of the draft"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="A comma separated list of properties to expand on the content. Default value: <code>body.storage,history,space,version,ancestors</code>",
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None, description="only support 'draft' status for now."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Publish shared draft"""
         api = get_api()
         response = api.confluence_server_publish_shared_draft(
@@ -725,18 +719,18 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_publish_legacy_draft(
         draft_id: str = Field(..., description="the id of the draft"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="A comma separated list of properties to expand on the content. Default value: <code>body.storage,history,space,version,ancestors</code>",
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None, description="only support 'draft' status for now."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Publish legacy draft"""
         api = get_api()
         response = api.confluence_server_publish_legacy_draft(
@@ -750,15 +744,15 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_convert", tags={"confluence-server-other"})
     def confluence_server_convert(
         to: str = Field(..., description="the representation to convert to."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="A comma separated list of properties to expand on the content. Default value: <code>body.storage,history,space,version,ancestors</code>",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Convert body representation"""
         api = get_api()
         response = api.confluence_server_convert(
@@ -773,18 +767,18 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="the id of the content to get the labels for"
         ),
-        prefix: Optional[str] = Field(
+        prefix: str | None = Field(
             None, description="the prefixes to filter the labels with."
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="he start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get labels"""
         api = get_api()
         response = api.confluence_server_labels(
@@ -800,11 +794,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="the id of the content to get the labels for"
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Add Labels"""
         api = get_api()
         response = api.confluence_server_add_labels(
@@ -821,11 +815,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         id_: str = Field(
             ..., description="the id of the content to get the labels for"
         ),
-        name: Optional[str] = Field(
+        name: str | None = Field(
             None, description="the name of the label to be removed from the content"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete label with query param"""
         api = get_api()
         response = api.confluence_server_delete_label_with_query_param(
@@ -842,8 +836,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         label: str = Field(
             ..., description="the name of the label to be removed from the content"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete label"""
         api = get_api()
         response = api.confluence_server_delete_label(
@@ -855,19 +849,19 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_find_all", tags={"confluence-server-other"})
     def confluence_server_find_all(
         id_: str = Field(..., description="the id of the content"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the content properties. Default value: <code>version</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Find all content properties"""
         api = get_api()
         response = api.confluence_server_find_all(
@@ -881,11 +875,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_create_1", tags={"confluence-server-other"})
     def confluence_server_create_1(
         id_: str = Field(..., description="the id of the content"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create a content property"""
         api = get_api()
         response = api.confluence_server_create_1(
@@ -898,16 +892,16 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_find_by_key(
         id_: str = Field(..., description="the id of the content"),
         key: str = Field(..., description="the key of the content property. Required."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the content properties. Default value: <code>version</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Find content property by key"""
         api = get_api()
         response = api.confluence_server_find_by_key(
@@ -922,15 +916,15 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_update_1(
         id_: str = Field(..., description="the id of the content"),
         key: str = Field(..., description="the key of the content property. Required."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the content properties. Default value: <code>version</code>.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update content property"""
         api = get_api()
         response = api.confluence_server_update_1(
@@ -945,11 +939,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_create_2(
         id_: str = Field(..., description="the id of the content"),
         key: str = Field(..., description="Parameter key"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """No description provided."""
         api = get_api()
         response = api.confluence_server_create_2(
@@ -963,8 +957,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_delete_2(
         id_: str = Field(..., description="the id of the content"),
         key: str = Field(..., description="the key of the content property. Required."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete content property"""
         api = get_api()
         response = api.confluence_server_delete_2(
@@ -975,39 +969,39 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_content", tags={"confluence-server-content"})
     def confluence_server_get_content(
-        space_key: Optional[str] = Field(
+        space_key: str | None = Field(
             None, description="the space key to find content under."
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the content. Default value: <code>history,space,version</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        posting_day: Optional[str] = Field(
+        posting_day: str | None = Field(
             None,
             description="the posting day of the blog post. Required for <code>blogpost</code> type. Format: <code>yyyy-mm-dd</code>. Example: <code>2013-02-13</code>",
         ),
-        ids: Optional[str] = Field(None, description="a list of content ids to fetch."),
-        title: Optional[str] = Field(
+        ids: str | None = Field(None, description="a list of content ids to fetch."),
+        title: str | None = Field(
             None,
             description="the title of the page to find. Required for <code>page</code> type.",
         ),
-        type_: Optional[str] = Field(
+        type_: str | None = Field(
             None,
             description="the content type to return. Default value: <code>page</code>. Valid values: <code>page, blogpost</code>. All types are returned if fetching via list of IDS",
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None,
             description="list of statuses the content to be found is in. Defaults to current is not specified. If set to 'any', content in 'current' and 'trashed' status will be fetched. Does not support 'historical' status for now.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get content"""
         api = get_api()
         response = api.confluence_server_get_content(
@@ -1027,19 +1021,19 @@ def register_confluence_server_tools(mcp: FastMCP):
         name="confluence_server_create_content", tags={"confluence-server-content"}
     )
     def confluence_server_create_content(
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="comma separated list of properties to expand on the content. Default value: <code>history,space,version</code>",
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None,
             description="list of Content statuses to filter results on.    Default value: <code>[current]</code>.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create content"""
         api = get_api()
         response = api.confluence_server_create_content(
@@ -1054,17 +1048,17 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_content_by_id(
         id_: str = Field(..., description="the id of the content."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="A comma separated list of properties to expand on the content. Default value: <code>history,space,version</code>.    We can also specify some extensions such as <code>extensions.inlineProperties</code> (for getting inline comment-specific properties) or <code>extensions.resolution</code> for the resolution status of each comment in the results",
         ),
-        version: Optional[str] = Field(None, description="version of the content."),
-        status: Optional[str] = Field(
+        version: str | None = Field(None, description="version of the content."),
+        status: str | None = Field(
             None,
             description="list of Content statuses to filter results on.    Default value: <code>[current]</code>.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get content by ID"""
         api = get_api()
         response = api.confluence_server_get_content_by_id(
@@ -1078,11 +1072,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_delete_3", tags={"confluence-server-other"})
     def confluence_server_delete_3(
         id_: str = Field(..., description="the id of the content."),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None, description="the status of the content to be deleted."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete content"""
         api = get_api()
         response = api.confluence_server_delete_3(
@@ -1094,12 +1088,12 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_history", tags={"confluence-server-other"})
     def confluence_server_get_history(
         id_: str = Field(..., description="the id of the content."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the content. Default value: <code>previousVersion,nextVersion,lastUpdated</code>.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get history of content"""
         api = get_api()
         response = api.confluence_server_get_history(
@@ -1118,8 +1112,8 @@ def register_confluence_server_tools(mcp: FastMCP):
             ..., description="the version of the content which the hash belongs."
         ),
         hash: str = Field(..., description="the macroId to find the correct macro."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get macro body by hash"""
         api = get_api()
         response = api.confluence_server_get_macro_body_by_hash(
@@ -1141,8 +1135,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         version: str = Field(
             ..., description="the version of the content which the hash belongs."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get macro body by macro ID"""
         api = get_api()
         response = api.confluence_server_get_macro_body_by_macro_id(
@@ -1154,31 +1148,31 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_scan_content", tags={"confluence-server-content"})
     def confluence_server_scan_content(
-        cursor: Optional[str] = Field(
+        cursor: str | None = Field(
             None,
             description="the identifier which is used to skip results from a previous query when paginating. Cursor is empty in first request, to move forward or backward use cursor provided in response.",
         ),
-        space_key: Optional[str] = Field(
+        space_key: str | None = Field(
             None, description="the space key to find content under."
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the content. Default value: <code>history,space,version</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits.",
         ),
-        type_: Optional[str] = Field(
+        type_: str | None = Field(
             None,
             description="the content type to return. Default value: <code>page</code>. Valid values: <code>page, blogpost, comment</code>. All types are returned if fetching via list of IDS. Type is only required for first request, latest request will use cursor",
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None,
             description="list of statuses the content to be found is in. Defaults to current is not specified. If set to 'any', content in 'current' and 'trashed' status will be fetched. Does not support 'historical' status for now.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Scan content by space key"""
         api = get_api()
         response = api.confluence_server_scan_content(
@@ -1193,26 +1187,26 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_search", tags={"confluence-server-other"})
     def confluence_server_search(
-        cqlcontext: Optional[str] = Field(
+        cqlcontext: str | None = Field(
             None,
             description="the context to execute a cql search in, this is the json serialized form of SearchContext",
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the content. Default value: <code>history,space,version</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        cql: Optional[str] = Field(
+        cql: str | None = Field(
             None, description="a cql query string to use to locate content."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Search content using CQL"""
         api = get_api()
         response = api.confluence_server_search(
@@ -1227,20 +1221,20 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_update_2", tags={"confluence-server-other"})
     def confluence_server_update_2(
         content_id: str = Field(..., description="the id of the content."),
-        async_reconciliation: Optional[bool] = Field(
+        async_reconciliation: bool | None = Field(
             None, description="Parameter asyncReconciliation"
         ),
-        conflict_policy: Optional[str] = Field(
+        conflict_policy: str | None = Field(
             None, description="the conflict policy, default value: <code>abort<code>"
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None, description="the existing status of the content to be updated."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update content"""
         api = get_api()
         response = api.confluence_server_update_2(
@@ -1255,12 +1249,12 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_by_operation", tags={"confluence-server-other"})
     def confluence_server_by_operation(
         id_: str = Field(..., description="The id of the content"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="A comma separated list of properties to expand on the content properties. Default value: group.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all restrictions by Operation"""
         api = get_api()
         response = api.confluence_server_by_operation(
@@ -1273,14 +1267,14 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_for_operation(
         operation_key: str = Field(..., description="key of the operation."),
         id_: str = Field(..., description="The id of the content"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="Aa comma separated list of properties to expand on the content properties. Default value: group.",
         ),
-        limit: Optional[str] = Field(None, description="pagination limit."),
-        start: Optional[str] = Field(None, description="pagination start."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        limit: str | None = Field(None, description="pagination limit."),
+        start: str | None = Field(None, description="pagination start."),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all restrictions for given operation"""
         api = get_api()
         response = api.confluence_server_for_operation(
@@ -1298,16 +1292,16 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_relevant_view_restrictions(
         id_: str = Field(..., description="The id of the content"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="A comma separated list of properties to expand on the content properties. Default value: relevantViewRestrictions",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None, description="pagination limit, Max 50 per page"
         ),
-        start: Optional[str] = Field(None, description="pagination start."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        start: str | None = Field(None, description="pagination start."),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all view restriction both direct and inherited."""
         api = get_api()
         response = api.confluence_server_relevant_view_restrictions(
@@ -1323,17 +1317,17 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_update_restrictions(
         id_: str = Field(..., description="The id of the content"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="A comma separated list of properties to expand in the response. Default is <code>restrictions.user, restrictions.group</code> Default value: group.",
         ),
-        limit: Optional[str] = Field(None, description="pagination limit."),
-        start: Optional[str] = Field(None, description="pagination start."),
-        payload: Optional[Dict[str, Any]] = Field(
+        limit: str | None = Field(None, description="pagination limit."),
+        start: str | None = Field(None, description="pagination start."),
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update restrictions"""
         api = get_api()
         response = api.confluence_server_update_restrictions(
@@ -1354,8 +1348,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         version_number: str = Field(
             ..., description="version number starts from 1 up to current version."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete content history"""
         api = get_api()
         response = api.confluence_server_delete_content_history(
@@ -1370,15 +1364,15 @@ def register_confluence_server_tools(mcp: FastMCP):
             ...,
             description="the ID of the Content the User is attempting to view the watchers for.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="The limit of the number of users to return, this may be restricted by fixed system limit.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="The start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Fetch users watching a given content"""
         api = get_api()
         response = api.confluence_server_index(
@@ -1394,12 +1388,12 @@ def register_confluence_server_tools(mcp: FastMCP):
             ...,
             description="the ID of the Content the User is attempting to view the descendants for.",
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the descendants.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get Descendants"""
         api = get_api()
         response = api.confluence_server_descendants(
@@ -1417,20 +1411,20 @@ def register_confluence_server_tools(mcp: FastMCP):
             description="the ID of the Content the User is attempting to view the descendants for.",
         ),
         type_: str = Field(..., description="content type to filter descendants on."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the descendants.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="(optional, default: site limit) how many items should be returned after the start index.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None,
             description="(optional, default: 0) the index of the first item within the result set that should be returned.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get descendants of type"""
         api = get_api()
         response = api.confluence_server_descendants_of_type(
@@ -1447,8 +1441,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_get_default_color_scheme(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get default global color scheme"""
         api = get_api()
         response = api.confluence_server_get_default_color_scheme()
@@ -1459,8 +1453,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_get_global_color_scheme(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get global color scheme"""
         api = get_api()
         response = api.confluence_server_get_global_color_scheme()
@@ -1470,11 +1464,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         name="confluence_server_update_color_scheme", tags={"confluence-server-other"}
     )
     def confluence_server_update_color_scheme(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Set global color scheme"""
         api = get_api()
         response = api.confluence_server_update_color_scheme(
@@ -1487,8 +1481,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_reset_global_color_scheme(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Reset global color scheme"""
         api = get_api()
         response = api.confluence_server_reset_global_color_scheme()
@@ -1499,8 +1493,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-other"},
     )
     def confluence_server_get_all_global_permissions(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get global permissions"""
         api = get_api()
         response = api.confluence_server_get_all_global_permissions()
@@ -1511,8 +1505,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-user"},
     )
     def confluence_server_get_permissions_granted_to_anonymous_users(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Gets the permissions granted to an anonymous user"""
         api = get_api()
         response = api.confluence_server_get_permissions_granted_to_anonymous_users()
@@ -1524,8 +1518,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_permissions_granted_to_group(
         group_name: str = Field(..., description="Parameter groupName"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Gets global permissions granted to a group"""
         api = get_api()
         response = api.confluence_server_get_permissions_granted_to_group(
@@ -1538,8 +1532,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-user"},
     )
     def confluence_server_get_permissions_granted_to_unlicensed_users(
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Gets the permissions granted to an unlicensed users"""
         api = get_api()
         response = api.confluence_server_get_permissions_granted_to_unlicensed_users()
@@ -1551,8 +1545,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_permissions_granted_to_user(
         user_key: str = Field(..., description="Parameter userKey"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Gets global permissions granted to a user"""
         api = get_api()
         response = api.confluence_server_get_permissions_granted_to_user(
@@ -1562,21 +1556,21 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_find_webhooks", tags={"confluence-server-other"})
     def confluence_server_find_webhooks(
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return"
         ),
-        event: Optional[str] = Field(
+        event: str | None = Field(
             None, description="list of webhook event ids to filter for"
         ),
-        statistics: Optional[str] = Field(
+        statistics: str | None = Field(
             None, description="if statistics should be provided for all found webhooks."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Find webhooks"""
         api = get_api()
         response = api.confluence_server_find_webhooks(
@@ -1589,11 +1583,11 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_create_webhook", tags={"confluence-server-other"})
     def confluence_server_create_webhook(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create webhook"""
         api = get_api()
         response = api.confluence_server_create_webhook(
@@ -1604,9 +1598,9 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_webhook", tags={"confluence-server-other"})
     def confluence_server_get_webhook(
         webhook_id: str = Field(..., description="id of the webhook"),
-        statistics: Optional[bool] = Field(None, description="Parameter statistics"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        statistics: bool | None = Field(None, description="Parameter statistics"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get webhook"""
         api = get_api()
         response = api.confluence_server_get_webhook(
@@ -1618,11 +1612,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_update_webhook", tags={"confluence-server-other"})
     def confluence_server_update_webhook(
         webhook_id: str = Field(..., description="the existing webhook id"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update webhook"""
         api = get_api()
         response = api.confluence_server_update_webhook(
@@ -1636,8 +1630,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         webhook_id: str = Field(
             ..., description="the id of the webhook to be deleted."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete webhook"""
         api = get_api()
         response = api.confluence_server_delete_webhook(
@@ -1650,17 +1644,17 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_latest_invocation(
         webhook_id: str = Field(..., description="id of the webhook"),
-        outcomes: Optional[str] = Field(
+        outcomes: str | None = Field(
             None,
             description="the outcome to filter for. Can be SUCCESS, FAILURE, ERROR. None specified means that the all will be considered.",
         ),
-        event: Optional[str] = Field(
+        event: str | None = Field(
             None,
             description="the string id of a specific event to retrieve the last invocation for.",
         ),
-        outcome: Optional[List[Any]] = Field(None, description="Parameter outcome"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        outcome: list[Any] | None = Field(None, description="Parameter outcome"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get latest invocations"""
         api = get_api()
         response = api.confluence_server_get_latest_invocation(
@@ -1674,12 +1668,12 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_statistics", tags={"confluence-server-other"})
     def confluence_server_get_statistics(
         webhook_id: str = Field(..., description="id of the webhook"),
-        event: Optional[str] = Field(
+        event: str | None = Field(
             None,
             description="the string id of a specific event to retrieve the last invocation for.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get statistic"""
         api = get_api()
         response = api.confluence_server_get_statistics(
@@ -1694,8 +1688,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_statistics_summary(
         webhook_id: str = Field(..., description="id of the webhook"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get statistics summary"""
         api = get_api()
         response = api.confluence_server_get_statistics_summary(
@@ -1706,8 +1700,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_test_webhook", tags={"confluence-server-other"})
     def confluence_server_test_webhook(
         url: str = Field(..., description="the url in which to connect to"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Test webhook"""
         api = get_api()
         response = api.confluence_server_test_webhook(
@@ -1720,10 +1714,10 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_ancestor_groups(
         group_name: str = Field(..., description="Parameter groupName"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group ancestor of a group"""
         api = get_api()
         response = api.confluence_server_get_ancestor_groups(
@@ -1738,11 +1732,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-group"},
     )
     def confluence_server_get_ancestor_groups_by_group_name(
-        group_name: Optional[str] = Field(None, description="Parameter groupName"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        group_name: str | None = Field(None, description="Parameter groupName"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group ancestor of a group"""
         api = get_api()
         response = api.confluence_server_get_ancestor_groups_by_group_name(
@@ -1755,9 +1749,9 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_group", tags={"confluence-server-group"})
     def confluence_server_get_group(
         group_name: str = Field(..., description="Parameter groupName"),
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group by name"""
         api = get_api()
         response = api.confluence_server_get_group(
@@ -1771,10 +1765,10 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-group"},
     )
     def confluence_server_get_group_by_group_name(
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        group_name: Optional[str] = Field(None, description="Parameter groupName"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        group_name: str | None = Field(None, description="Parameter groupName"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group by name"""
         api = get_api()
         response = api.confluence_server_get_group_by_group_name(
@@ -1785,11 +1779,11 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_groups", tags={"confluence-server-group"})
     def confluence_server_get_groups(
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get groups"""
         api = get_api()
         response = api.confluence_server_get_groups(
@@ -1802,11 +1796,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_members", tags={"confluence-server-other"})
     def confluence_server_get_members(
         group_name: str = Field(..., description="Parameter groupName"),
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get members of group"""
         api = get_api()
         response = api.confluence_server_get_members(
@@ -1822,12 +1816,12 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-group"},
     )
     def confluence_server_get_members_by_group_name(
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        group_name: Optional[str] = Field(None, description="Parameter groupName"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        group_name: str | None = Field(None, description="Parameter groupName"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get members of group"""
         api = get_api()
         response = api.confluence_server_get_members_by_group_name(
@@ -1844,11 +1838,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_nested_group_members(
         group_name: str = Field(..., description="Parameter groupName"),
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group members of group"""
         api = get_api()
         response = api.confluence_server_get_nested_group_members(
@@ -1864,12 +1858,12 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-group"},
     )
     def confluence_server_get_nested_group_members_by_group_name(
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        group_name: Optional[str] = Field(None, description="Parameter groupName"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        group_name: str | None = Field(None, description="Parameter groupName"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group members of group"""
         api = get_api()
         response = api.confluence_server_get_nested_group_members_by_group_name(
@@ -1885,11 +1879,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_parent_groups(
         group_name: str = Field(..., description="Parameter groupName"),
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group parents of a group"""
         api = get_api()
         response = api.confluence_server_get_parent_groups(
@@ -1905,12 +1899,12 @@ def register_confluence_server_tools(mcp: FastMCP):
         tags={"confluence-server-group"},
     )
     def confluence_server_get_parent_groups_by_group_name(
-        expand: Optional[str] = Field(None, description="Parameter expand"),
-        group_name: Optional[str] = Field(None, description="Parameter groupName"),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        expand: str | None = Field(None, description="Parameter expand"),
+        group_name: str | None = Field(None, description="Parameter groupName"),
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get group parents of a group"""
         api = get_api()
         response = api.confluence_server_get_parent_groups_by_group_name(
@@ -1922,7 +1916,7 @@ def register_confluence_server_tools(mcp: FastMCP):
         return response.model_dump()
 
     @mcp.tool(name="confluence_server_index_1", tags={"confluence-server-other"})
-    def confluence_server_index_1(_ctx: Optional[Context] = None) -> Dict[str, Any]:
+    def confluence_server_index_1(_ctx: Context | None = None) -> dict[str, Any]:
         """Get instance metrics"""
         api = get_api()
         response = api.confluence_server_index_1()
@@ -1935,15 +1929,15 @@ def register_confluence_server_tools(mcp: FastMCP):
         label_name: str = Field(
             ..., description="the name of the label (namespace prefixes permitted)."
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the maximum number of related labels to return. Default to be 100.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get related labels, currently returning global labels only."""
         api = get_api()
         response = api.confluence_server_get_related_labels(
@@ -1955,15 +1949,15 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_recent", tags={"confluence-server-other"})
     def confluence_server_recent(
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get recently used labels"""
         api = get_api()
         response = api.confluence_server_recent(
@@ -1975,12 +1969,12 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_task", tags={"confluence-server-other"})
     def confluence_server_get_task(
         id_: str = Field(..., description="the key of the task to be returned."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the task.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get task by ID"""
         api = get_api()
         response = api.confluence_server_get_task(
@@ -1991,19 +1985,19 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_tasks", tags={"confluence-server-other"})
     def confluence_server_get_tasks(
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="comma separated list of properties to expand on the tasks.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get tasks"""
         api = get_api()
         response = api.confluence_server_get_tasks(
@@ -2015,38 +2009,38 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_search_1", tags={"confluence-server-other"})
     def confluence_server_search_1(
-        cqlcontext: Optional[str] = Field(
+        cqlcontext: str | None = Field(
             None,
             description="the execution context for CQL functions, provides current space key and content id. If this is not provided some CQL functions will not be available.",
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="the properties to expand on the search result, this may cause database requests for some properties",
         ),
-        include_archived_spaces: Optional[str] = Field(
+        include_archived_spaces: str | None = Field(
             None,
             description="whether to include content in archived spaces in the result, this defaults to false.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="he start point of the collection to return."
         ),
-        excerpt: Optional[str] = Field(
+        excerpt: str | None = Field(
             None,
             description="the excerpt strategy to apply to the result, one of : indexed, highlight, none. This defaults to highlight.",
         ),
-        cql: Optional[str] = Field(
+        cql: str | None = Field(
             None,
             description="the CQL query see <a href='https://developer.atlassian.com/confdev/confluence-rest-api/advanced-searching-using-cql'>advanced searching in confluence using CQL</a>",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Search for entities in confluence"""
         api = get_api()
         response = api.confluence_server_search_1(
@@ -2062,7 +2056,7 @@ def register_confluence_server_tools(mcp: FastMCP):
         return response.model_dump()
 
     @mcp.tool(name="confluence_server_index_2", tags={"confluence-server-other"})
-    def confluence_server_index_2(_ctx: Optional[Context] = None) -> Dict[str, Any]:
+    def confluence_server_index_2(_ctx: Context | None = None) -> dict[str, Any]:
         """Get server information"""
         api = get_api()
         response = api.confluence_server_index_2()
@@ -2075,8 +2069,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="Space key of the space to request color scheme type for."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get Space color scheme type"""
         api = get_api()
         response = api.confluence_server_get_color_scheme_type(
@@ -2092,11 +2086,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="space key of the space to update color scheme type for."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update Space color scheme type"""
         api = get_api()
         response = api.confluence_server_update_color_scheme_type(
@@ -2113,8 +2107,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="space key of the space to request color scheme for."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get Space color scheme"""
         api = get_api()
         response = api.confluence_server_get_space_color_scheme(
@@ -2130,11 +2124,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="space key of the space to set color scheme for."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update Space color scheme"""
         api = get_api()
         response = api.confluence_server_update_space_color_scheme(
@@ -2151,8 +2145,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="Space key of the space to reset color scheme for."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Reset Space color scheme"""
         api = get_api()
         response = api.confluence_server_reset_space_color_scheme(
@@ -2165,15 +2159,15 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="a string containing the key of the space"
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Fetch all labels"""
         api = get_api()
         response = api.confluence_server_index_3(
@@ -2188,15 +2182,15 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="a string containing the key of the space"
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get popular labels"""
         api = get_api()
         response = api.confluence_server_popular(
@@ -2211,15 +2205,15 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="a string containing the key of the space"
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get recent labels"""
         api = get_api()
         response = api.confluence_server_recent_1(
@@ -2237,15 +2231,15 @@ def register_confluence_server_tools(mcp: FastMCP):
         label_name: str = Field(
             ..., description="a string containing the name of the label"
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get related labels"""
         api = get_api()
         response = api.confluence_server_related(
@@ -2262,8 +2256,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_all_space_permissions(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all space permissions"""
         api = get_api()
         response = api.confluence_server_get_all_space_permissions(
@@ -2276,11 +2270,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_set_permissions(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Set permissions to multiple users/groups/anonymous user in the given space"""
         api = get_api()
         response = api.confluence_server_set_permissions(
@@ -2295,8 +2289,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_get_permissions_granted_to_anonymous_users_1(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Gets the permissions granted to an anonymous user in a space"""
         api = get_api()
         response = api.confluence_server_get_permissions_granted_to_anonymous_users_1(
@@ -2311,8 +2305,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_get_permissions_granted_to_group_1(
         space_key: str = Field(..., description="Parameter spaceKey"),
         group_name: str = Field(..., description="Parameter groupName"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Gets the permissions granted to a group in a space"""
         api = get_api()
         response = api.confluence_server_get_permissions_granted_to_group_1(
@@ -2328,8 +2322,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_get_permissions_granted_to_user_1(
         space_key: str = Field(..., description="Parameter spaceKey"),
         user_key: str = Field(..., description="Parameter userKey"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Gets the permissions granted to a user in a space"""
         api = get_api()
         response = api.confluence_server_get_permissions_granted_to_user_1(
@@ -2344,11 +2338,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_grant_permissions_to_anonymous_users(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Grants space permissions to anonymous user"""
         api = get_api()
         response = api.confluence_server_grant_permissions_to_anonymous_users(
@@ -2364,11 +2358,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_grant_permissions_to_group(
         space_key: str = Field(..., description="Parameter spaceKey"),
         group_name: str = Field(..., description="Parameter groupName"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Grants space permissions to a group"""
         api = get_api()
         response = api.confluence_server_grant_permissions_to_group(
@@ -2385,11 +2379,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_grant_permissions_to_user(
         space_key: str = Field(..., description="Parameter spaceKey"),
         user_key: str = Field(..., description="Parameter userKey"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Grants space permissions to a user"""
         api = get_api()
         response = api.confluence_server_grant_permissions_to_user(
@@ -2405,11 +2399,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_revoke_permissions_from_anonymous_user(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Revoke space permissions from anonymous user"""
         api = get_api()
         response = api.confluence_server_revoke_permissions_from_anonymous_user(
@@ -2425,11 +2419,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_revoke_permissions_from_group(
         space_key: str = Field(..., description="Parameter spaceKey"),
         group_name: str = Field(..., description="Parameter groupName"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Revoke space permissions from a group"""
         api = get_api()
         response = api.confluence_server_revoke_permissions_from_group(
@@ -2446,11 +2440,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_revoke_permissions_from_user(
         space_key: str = Field(..., description="Parameter spaceKey"),
         user_key: str = Field(..., description="Parameter userKey"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Revoke space permissions from a user"""
         api = get_api()
         response = api.confluence_server_revoke_permissions_from_user(
@@ -2463,19 +2457,19 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_get_1", tags={"confluence-server-other"})
     def confluence_server_get_1(
         space_key: str = Field(..., description="The key of the space"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the space properties. Default value: <code>version</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="he start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get space properties"""
         api = get_api()
         response = api.confluence_server_get_1(
@@ -2489,11 +2483,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_create_3", tags={"confluence-server-other"})
     def confluence_server_create_3(
         space_key: str = Field(..., description="The key of the space"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create a space property"""
         api = get_api()
         response = api.confluence_server_create_3(
@@ -2506,19 +2500,19 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_get(
         space_key: str = Field(..., description="The key of the space"),
         key: str = Field(..., description="Parameter key"),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the space properties. Default value: <code>version</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of items to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="he start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get space property by key"""
         api = get_api()
         response = api.confluence_server_get(
@@ -2534,11 +2528,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_update_3(
         space_key: str = Field(..., description="The key of the space"),
         key: str = Field(..., description="the key of the property"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update space property"""
         api = get_api()
         response = api.confluence_server_update_3(
@@ -2552,11 +2546,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_create_4(
         space_key: str = Field(..., description="The key of the space"),
         key: str = Field(..., description="property key of the property to be created"),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create a space property with a specific key"""
         api = get_api()
         response = api.confluence_server_create_4(
@@ -2570,8 +2564,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     def confluence_server_delete_4(
         space_key: str = Field(..., description="The key of the space"),
         key: str = Field(..., description="the key of the property."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete space property"""
         api = get_api()
         response = api.confluence_server_delete_4(
@@ -2583,8 +2577,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_archive", tags={"confluence-server-other"})
     def confluence_server_archive(
         space_key: str = Field(..., description="the key of the space to update."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Archive space"""
         api = get_api()
         response = api.confluence_server_archive(
@@ -2595,23 +2589,23 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_contents", tags={"confluence-server-content"})
     def confluence_server_contents(
         space_key: str = Field(..., description="the key of the space to update."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the space.",
         ),
-        depth: Optional[str] = Field(
+        depth: str | None = Field(
             None,
             description="a string indicating if all content, or just the root content of the space is returned. Default value: <code>all</code>. Valid values: <code>all, root</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="he start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get contents in space"""
         api = get_api()
         response = api.confluence_server_contents(
@@ -2632,23 +2626,23 @@ def register_confluence_server_tools(mcp: FastMCP):
             ...,
             description="the type of content to return with the space. Valid values: <code>page, blogpost</code>.",
         ),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the space.",
         ),
-        depth: Optional[str] = Field(
+        depth: str | None = Field(
             None,
             description="a string indicating if all content, or just the root content of the space is returned. Default value: <code>all</code>. Valid values: <code>all, root</code>.",
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of labels to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="he start point of the collection to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get contents by type"""
         api = get_api()
         response = api.confluence_server_contents_with_type(
@@ -2665,11 +2659,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         name="confluence_server_create_private_space", tags={"confluence-server-space"}
     )
     def confluence_server_create_private_space(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create private space"""
         api = get_api()
         response = api.confluence_server_create_private_space(
@@ -2679,57 +2673,57 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_spaces", tags={"confluence-server-space"})
     def confluence_server_spaces(
-        space_key_single: Optional[str] = Field(
+        space_key_single: str | None = Field(
             None, description="Parameter spaceKeySingle"
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None, description="the start point of the collection to return."
         ),
-        label: Optional[str] = Field(
+        label: str | None = Field(
             None, description="filter the list of spaces returned by label."
         ),
-        favourite: Optional[str] = Field(
+        favourite: str | None = Field(
             None, description="filter the list of spaces returned by favourites."
         ),
-        type_: Optional[str] = Field(
+        type_: str | None = Field(
             None,
             description="filter the list of spaces returned by type (global, personal).",
         ),
-        space_key: Optional[str] = Field(
+        space_key: str | None = Field(
             None, description="the key of the space to fetch information from."
         ),
-        space_id: Optional[List[Any]] = Field(None, description="Parameter spaceId"),
-        expand: Optional[str] = Field(
+        space_id: list[Any] | None = Field(None, description="Parameter spaceId"),
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the spaces.",
         ),
-        has_retention_policy: Optional[str] = Field(
+        has_retention_policy: str | None = Field(
             None, description="filter the list of spaces returned by retention policy."
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of spaces to return, this may be restricted by fixed system limits",
         ),
-        space_keys: Optional[str] = Field(
+        space_keys: str | None = Field(
             None, description="the keys of the spaces to fetch information from."
         ),
-        content_label: Optional[str] = Field(
+        content_label: str | None = Field(
             None,
             description="filter the list of spaces returned by content containing provided label.",
         ),
-        space_ids: Optional[str] = Field(
+        space_ids: str | None = Field(
             None,
             description="the ids of the spaces to fetch information from. Cannot be used in conjunction with spaceKey(s)",
         ),
-        status: Optional[str] = Field(
+        status: str | None = Field(
             None,
             description="filter the list of spaces returned by status (current, archived).",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get spaces by key"""
         api = get_api()
         response = api.confluence_server_spaces(
@@ -2753,11 +2747,11 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_create_space", tags={"confluence-server-space"})
     def confluence_server_create_space(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Creates a new Space."""
         api = get_api()
         response = api.confluence_server_create_space(
@@ -2768,12 +2762,12 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_space", tags={"confluence-server-space"})
     def confluence_server_space(
         space_key: str = Field(..., description="the key of the space to update."),
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None,
             description="a comma separated list of properties to expand on the space.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get space"""
         api = get_api()
         response = api.confluence_server_space(
@@ -2785,11 +2779,11 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_update_4", tags={"confluence-server-other"})
     def confluence_server_update_4(
         space_key: str = Field(..., description="the key of the space to update."),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update Space"""
         api = get_api()
         response = api.confluence_server_update_4(
@@ -2801,8 +2795,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_delete_5", tags={"confluence-server-other"})
     def confluence_server_delete_5(
         space_key: str = Field(..., description="the key of the space to update."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete Space"""
         api = get_api()
         response = api.confluence_server_delete_5(
@@ -2813,8 +2807,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_restore", tags={"confluence-server-other"})
     def confluence_server_restore(
         space_key: str = Field(..., description="the key of the space to update."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Restore space"""
         api = get_api()
         response = api.confluence_server_restore(
@@ -2825,8 +2819,8 @@ def register_confluence_server_tools(mcp: FastMCP):
     @mcp.tool(name="confluence_server_trash", tags={"confluence-server-other"})
     def confluence_server_trash(
         space_key: str = Field(..., description="the key of the space to update."),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Remove all trash contents"""
         api = get_api()
         response = api.confluence_server_trash(
@@ -2839,10 +2833,10 @@ def register_confluence_server_tools(mcp: FastMCP):
         space_key: str = Field(
             ..., description="the key of the Space the User is attempting to view."
         ),
-        limit: Optional[int] = Field(None, description="Parameter limit"),
-        start: Optional[int] = Field(None, description="Parameter start"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        limit: int | None = Field(None, description="Parameter limit"),
+        start: int | None = Field(None, description="Parameter start"),
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Fetch users watching space"""
         api = get_api()
         response = api.confluence_server_index_4(
@@ -2860,8 +2854,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         username: str = Field(
             ..., description="The username identifying the given user."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update user group"""
         api = get_api()
         response = api.confluence_server_update_5(
@@ -2878,8 +2872,8 @@ def register_confluence_server_tools(mcp: FastMCP):
         username: str = Field(
             ..., description="The username identifying the given user."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete user group"""
         api = get_api()
         response = api.confluence_server_delete_6(
@@ -2892,11 +2886,11 @@ def register_confluence_server_tools(mcp: FastMCP):
         name="confluence_server_change_password_1", tags={"confluence-server-other"}
     )
     def confluence_server_change_password_1(
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Change password"""
         api = get_api()
         response = api.confluence_server_change_password_1(
@@ -2906,11 +2900,11 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_anonymous", tags={"confluence-server-other"})
     def confluence_server_get_anonymous(
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None, description="properties to expand on the user."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get information about anonymous user type"""
         api = get_api()
         response = api.confluence_server_get_anonymous(
@@ -2920,11 +2914,11 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_current", tags={"confluence-server-other"})
     def confluence_server_get_current(
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None, description="properties to expand on the user."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get current user"""
         api = get_api()
         response = api.confluence_server_get_current(
@@ -2934,25 +2928,25 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_groups_1", tags={"confluence-server-group"})
     def confluence_server_get_groups_1(
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None, description="properties to expand on the user."
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of users to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None,
             description="the start point of the collection to return. This must be non-negative. Default value is 0.",
         ),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userkey of the user to request from this resource"
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="userName of the user to get the groups for."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get groups"""
         api = get_api()
         response = api.confluence_server_get_groups_1(
@@ -2966,17 +2960,17 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_user", tags={"confluence-server-user"})
     def confluence_server_get_user(
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None, description="properties to expand on the user."
         ),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userkey of the user to request from this resource."
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="userName of the user to create the new watcher for."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get user"""
         api = get_api()
         response = api.confluence_server_get_user(
@@ -2988,19 +2982,19 @@ def register_confluence_server_tools(mcp: FastMCP):
 
     @mcp.tool(name="confluence_server_get_users", tags={"confluence-server-user"})
     def confluence_server_get_users(
-        expand: Optional[str] = Field(
+        expand: str | None = Field(
             None, description="properties to expand on the user."
         ),
-        limit: Optional[str] = Field(
+        limit: str | None = Field(
             None,
             description="the limit of the number of users to return, this may be restricted by fixed system limits.",
         ),
-        start: Optional[str] = Field(
+        start: str | None = Field(
             None,
             description="the start point of the collection to return. This must be non-negative. Default value is 0.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get registered users"""
         api = get_api()
         response = api.confluence_server_get_users(
@@ -3015,14 +3009,14 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_is_watching_content(
         content_id: str = Field(..., description="id of the content."),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userkey of the user to check for watching state."
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="username of the user to check for watching state."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get information about content watcher"""
         api = get_api()
         response = api.confluence_server_is_watching_content(
@@ -3037,14 +3031,14 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_add_content_watcher(
         content_id: str = Field(..., description="id of the content."),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userkey of the user to check for watching state."
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="username of the user to check for watching state."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Add content watcher"""
         api = get_api()
         response = api.confluence_server_add_content_watcher(
@@ -3060,14 +3054,14 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_remove_content_watcher(
         content_id: str = Field(..., description="id of the content."),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userkey of the user to check for watching state."
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="username of the user to check for watching state."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Remove content watcher"""
         api = get_api()
         response = api.confluence_server_remove_content_watcher(
@@ -3082,17 +3076,17 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_is_watching_space(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        content_type: Optional[str] = Field(
+        content_type: str | None = Field(
             None, description="an optional content type to check for watching state."
         ),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userkey of the user to check for watching state."
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="username of the user to check for watching state."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get information about space watcher"""
         api = get_api()
         response = api.confluence_server_is_watching_space(
@@ -3108,17 +3102,17 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_add_space_watch(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        content_type: Optional[str] = Field(
+        content_type: str | None = Field(
             None, description="the optional content type to delete the watcher for."
         ),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userKey of the user to create the new watcher for."
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="userName of the user to create the new watcher for."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Add space watcher"""
         api = get_api()
         response = api.confluence_server_add_space_watch(
@@ -3134,17 +3128,17 @@ def register_confluence_server_tools(mcp: FastMCP):
     )
     def confluence_server_remove_space_watch(
         space_key: str = Field(..., description="Parameter spaceKey"),
-        content_type: Optional[str] = Field(
+        content_type: str | None = Field(
             None, description="the optional content type to delete the watcher for."
         ),
-        key: Optional[str] = Field(
+        key: str | None = Field(
             None, description="userkey of the user to delete the watcher for."
         ),
-        username: Optional[str] = Field(
+        username: str | None = Field(
             None, description="username of the user to delete the watcher for."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Remove space watcher"""
         api = get_api()
         response = api.confluence_server_remove_space_watch(

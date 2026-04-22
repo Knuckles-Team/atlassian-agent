@@ -1,7 +1,8 @@
 # Generated API Client for UserProvisioningCloud
-from typing import Any, Dict, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class UserProvisioningCloudAPI:
@@ -12,8 +13,8 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get a group by ID
 
@@ -21,7 +22,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/Groups/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -33,8 +34,8 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update a group by ID
 
@@ -42,7 +43,7 @@ class UserProvisioningCloudAPI:
         Method: PUT
         """
         path = f"/scim/directory/{directory_id}/Groups/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -54,8 +55,8 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete a group by ID
 
@@ -63,7 +64,7 @@ class UserProvisioningCloudAPI:
         Method: DELETE
         """
         path = f"/scim/directory/{directory_id}/Groups/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -75,8 +76,8 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update a group by ID (PATCH)
 
@@ -84,7 +85,7 @@ class UserProvisioningCloudAPI:
         Method: PATCH
         """
         path = f"/scim/directory/{directory_id}/Groups/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -95,11 +96,11 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_all_groups_from_an_active_directory(
         self,
         directory_id: str,
-        filter: Optional[str] = None,
-        start_index: Optional[int] = None,
-        count: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        filter: str | None = None,
+        start_index: int | None = None,
+        count: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get groups
 
@@ -122,8 +123,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_create_a_group_in_active_directory(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a group
 
@@ -131,7 +132,7 @@ class UserProvisioningCloudAPI:
         Method: POST
         """
         path = f"/scim/directory/{directory_id}/Groups"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -142,8 +143,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_schemas(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all schemas
 
@@ -151,7 +152,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/Schemas"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -162,8 +163,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_resource_types(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get resource types
 
@@ -171,7 +172,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/ResourceTypes"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -182,8 +183,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_user_resource_type(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user resource types
 
@@ -191,7 +192,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/ResourceTypes/User"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -202,8 +203,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_group_resource_type(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group resource types
 
@@ -211,7 +212,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/ResourceTypes/Group"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -222,8 +223,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_user_schemas(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user schemas
 
@@ -231,7 +232,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/Schemas/urn:ietf:params:scim:schemas:core:2.0:User"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -242,8 +243,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_group_schemas(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group schemas
 
@@ -251,7 +252,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/Schemas/urn:ietf:params:scim:schemas:core:2.0:Group"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -262,8 +263,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_extension_user_schemas(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user enterprise extension schemas
 
@@ -271,7 +272,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/Schemas/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -282,8 +283,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_config(
         self,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get feature metadata
 
@@ -291,7 +292,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/scim/directory/{directory_id}/ServiceProviderConfig"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -303,10 +304,10 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         user_id: str,
-        attributes: Optional[str] = None,
-        excluded_attributes: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        attributes: str | None = None,
+        excluded_attributes: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get a user by ID
 
@@ -329,10 +330,10 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         user_id: str,
-        attributes: Optional[str] = None,
-        excluded_attributes: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        attributes: str | None = None,
+        excluded_attributes: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update user via user attributes
 
@@ -355,8 +356,8 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         user_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete a user
 
@@ -364,7 +365,7 @@ class UserProvisioningCloudAPI:
         Method: DELETE
         """
         path = f"/scim/directory/{directory_id}/Users/{user_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -376,10 +377,10 @@ class UserProvisioningCloudAPI:
         self,
         directory_id: str,
         user_id: str,
-        attributes: Optional[str] = None,
-        excluded_attributes: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        attributes: str | None = None,
+        excluded_attributes: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update user by ID (PATCH)
 
@@ -401,13 +402,13 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_users_from_an_active_directory(
         self,
         directory_id: str,
-        attributes: Optional[str] = None,
-        excluded_attributes: Optional[str] = None,
-        filter: Optional[str] = None,
-        start_index: Optional[int] = None,
-        count: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        attributes: str | None = None,
+        excluded_attributes: str | None = None,
+        filter: str | None = None,
+        start_index: int | None = None,
+        count: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get users
 
@@ -432,10 +433,10 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_create_a_user_in_an_active_directory(
         self,
         directory_id: str,
-        attributes: Optional[str] = None,
-        excluded_attributes: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        attributes: str | None = None,
+        excluded_attributes: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a user
 
@@ -458,8 +459,8 @@ class UserProvisioningCloudAPI:
         self,
         org_id: str,
         aaid: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete user in SCIM DB
 
@@ -469,7 +470,7 @@ class UserProvisioningCloudAPI:
         path = (
             f"/admin/user-provisioning/v1/org/{org_id}/user/{aaid}/onlyDeleteUserInDB"
         )
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -481,8 +482,8 @@ class UserProvisioningCloudAPI:
         self,
         org_id: str,
         aa_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get SCIM links for an account
 
@@ -490,7 +491,7 @@ class UserProvisioningCloudAPI:
         Method: GET
         """
         path = f"/admin/user-provisioning/v1/org/{org_id}/user/{aa_id}/get-scim-links"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -501,8 +502,8 @@ class UserProvisioningCloudAPI:
     def user_provisioning_cloud_get_scim_links_by_email(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get SCIM Links for an email
 
@@ -510,7 +511,7 @@ class UserProvisioningCloudAPI:
         Method: POST
         """
         path = f"/admin/user-provisioning/v1/org/{org_id}/get-scim-links-for-email"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -523,8 +524,8 @@ class UserProvisioningCloudAPI:
         org_id: str,
         scim_directory_id: str,
         scim_user_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Unlink a SCIM user from their Atlassian account
 
@@ -532,7 +533,7 @@ class UserProvisioningCloudAPI:
         Method: PATCH
         """
         path = f"/admin/user-provisioning/v1/org/{org_id}/scimDirectoryId/{scim_directory_id}/scimUserId/{scim_user_id}/unlink"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

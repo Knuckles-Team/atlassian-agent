@@ -1,7 +1,8 @@
 # Generated API Client for JiraCloud
-from typing import Any, Dict, List, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class JiraCloudAPI:
@@ -9,7 +10,7 @@ class JiraCloudAPI:
         self.base_api = base_api
 
     def jira_cloud_get_banner(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get announcement banner configuration
 
@@ -17,7 +18,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/announcementBanner"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -26,7 +27,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_banner(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Update announcement banner configuration
 
@@ -34,7 +35,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/announcementBanner"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -44,15 +45,15 @@ class JiraCloudAPI:
 
     def jira_cloud_get_custom_fields_configurations(
         self,
-        id_: Optional[List[Any]] = None,
-        field_context_id: Optional[List[Any]] = None,
-        issue_id: Optional[int] = None,
-        project_key_or_id: Optional[str] = None,
-        issue_type_id: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        id_: list[Any] | None = None,
+        field_context_id: list[Any] | None = None,
+        issue_id: int | None = None,
+        project_key_or_id: str | None = None,
+        issue_type_id: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk get custom field configurations
 
@@ -78,9 +79,9 @@ class JiraCloudAPI:
 
     def jira_cloud_update_multiple_custom_field_values(
         self,
-        generate_changelog: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        generate_changelog: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update custom fields
 
@@ -101,15 +102,15 @@ class JiraCloudAPI:
     def jira_cloud_get_custom_field_configuration(
         self,
         field_id_or_key: str,
-        id_: Optional[List[Any]] = None,
-        field_context_id: Optional[List[Any]] = None,
-        issue_id: Optional[int] = None,
-        project_key_or_id: Optional[str] = None,
-        issue_type_id: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        id_: list[Any] | None = None,
+        field_context_id: list[Any] | None = None,
+        issue_id: int | None = None,
+        project_key_or_id: str | None = None,
+        issue_type_id: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom field configurations
 
@@ -136,8 +137,8 @@ class JiraCloudAPI:
     def jira_cloud_update_custom_field_configuration(
         self,
         field_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update custom field configurations
 
@@ -145,7 +146,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/app/field/{field_id_or_key}/context/configuration"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -156,9 +157,9 @@ class JiraCloudAPI:
     def jira_cloud_update_custom_field_value(
         self,
         field_id_or_key: str,
-        generate_changelog: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        generate_changelog: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update custom field value
 
@@ -178,11 +179,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_application_property(
         self,
-        key: Optional[str] = None,
-        permission_level: Optional[str] = None,
-        key_filter: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        permission_level: str | None = None,
+        key_filter: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get application property
 
@@ -203,7 +204,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_advanced_settings(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get advanced settings
 
@@ -211,7 +212,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/application-properties/advanced-settings"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -222,8 +223,8 @@ class JiraCloudAPI:
     def jira_cloud_set_application_property(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set application property
 
@@ -231,7 +232,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/application-properties/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -240,7 +241,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_all_application_roles(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all application roles
 
@@ -248,7 +249,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/applicationrole"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -259,8 +260,8 @@ class JiraCloudAPI:
     def jira_cloud_get_application_role(
         self,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get application role
 
@@ -268,7 +269,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/applicationrole/{key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -279,9 +280,9 @@ class JiraCloudAPI:
     def jira_cloud_get_attachment_content(
         self,
         id_: str,
-        redirect: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        redirect: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachment content
 
@@ -300,7 +301,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_attachment_meta(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get Jira attachment settings
 
@@ -308,7 +309,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/attachment/meta"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -319,12 +320,12 @@ class JiraCloudAPI:
     def jira_cloud_get_attachment_thumbnail(
         self,
         id_: str,
-        redirect: Optional[bool] = None,
-        fallback_to_default: Optional[bool] = None,
-        width: Optional[int] = None,
-        height: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        redirect: bool | None = None,
+        fallback_to_default: bool | None = None,
+        width: int | None = None,
+        height: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachment thumbnail
 
@@ -348,8 +349,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_attachment(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete attachment
 
@@ -357,7 +358,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/attachment/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -368,8 +369,8 @@ class JiraCloudAPI:
     def jira_cloud_get_attachment(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachment metadata
 
@@ -377,7 +378,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/attachment/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -388,8 +389,8 @@ class JiraCloudAPI:
     def jira_cloud_expand_attachment_for_humans(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all metadata for an expanded attachment
 
@@ -397,7 +398,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/attachment/{id_}/expand/human"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -408,8 +409,8 @@ class JiraCloudAPI:
     def jira_cloud_expand_attachment_for_machines(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get contents metadata for an expanded attachment
 
@@ -417,7 +418,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/attachment/{id_}/expand/raw"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -427,13 +428,13 @@ class JiraCloudAPI:
 
     def jira_cloud_get_audit_records(
         self,
-        offset: Optional[int] = None,
-        limit: Optional[int] = None,
-        filter: Optional[str] = None,
-        from_: Optional[str] = None,
-        to: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        offset: int | None = None,
+        limit: int | None = None,
+        filter: str | None = None,
+        from_: str | None = None,
+        to: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get audit records
 
@@ -458,8 +459,8 @@ class JiraCloudAPI:
     def jira_cloud_get_all_system_avatars(
         self,
         type_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get system avatars by type
 
@@ -467,7 +468,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/avatar/{type_}/system"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -476,7 +477,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_submit_bulk_delete(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk delete issues
 
@@ -484,7 +485,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/bulk/issues/delete"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -495,11 +496,11 @@ class JiraCloudAPI:
     def jira_cloud_get_bulk_editable_fields(
         self,
         issue_ids_or_keys: str,
-        search_text: Optional[str] = None,
-        ending_before: Optional[str] = None,
-        starting_after: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        search_text: str | None = None,
+        ending_before: str | None = None,
+        starting_after: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get bulk editable fields
 
@@ -521,7 +522,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_submit_bulk_edit(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk edit issues
 
@@ -529,7 +530,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/bulk/issues/fields"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -538,7 +539,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_submit_bulk_move(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk move issues
 
@@ -546,7 +547,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/bulk/issues/move"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -557,10 +558,10 @@ class JiraCloudAPI:
     def jira_cloud_get_available_transitions(
         self,
         issue_ids_or_keys: str,
-        ending_before: Optional[str] = None,
-        starting_after: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        ending_before: str | None = None,
+        starting_after: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get available transitions
 
@@ -581,7 +582,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_submit_bulk_transition(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk transition issue statuses
 
@@ -589,7 +590,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/bulk/issues/transition"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -598,7 +599,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_submit_bulk_unwatch(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk unwatch issues
 
@@ -606,7 +607,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/bulk/issues/unwatch"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -615,7 +616,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_submit_bulk_watch(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk watch issues
 
@@ -623,7 +624,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/bulk/issues/watch"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -634,8 +635,8 @@ class JiraCloudAPI:
     def jira_cloud_get_bulk_operation_progress(
         self,
         task_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get bulk issue operation progress
 
@@ -643,7 +644,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/bulk/queue/{task_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -652,7 +653,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_bulk_changelogs(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk fetch changelogs
 
@@ -660,7 +661,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/changelog/bulkfetch"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -670,10 +671,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_user_data_classification_levels(
         self,
-        status: Optional[List[Any]] = None,
-        order_by: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        status: list[Any] | None = None,
+        order_by: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all classification levels
 
@@ -694,9 +695,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_comments_by_ids(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get comments by IDs
 
@@ -717,8 +718,8 @@ class JiraCloudAPI:
     def jira_cloud_get_comment_property_keys(
         self,
         comment_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get comment property keys
 
@@ -726,7 +727,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/comment/{comment_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -738,8 +739,8 @@ class JiraCloudAPI:
         self,
         comment_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete comment property
 
@@ -747,7 +748,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/comment/{comment_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -759,8 +760,8 @@ class JiraCloudAPI:
         self,
         comment_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get comment property
 
@@ -768,7 +769,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/comment/{comment_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -780,8 +781,8 @@ class JiraCloudAPI:
         self,
         comment_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set comment property
 
@@ -789,7 +790,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/comment/{comment_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -799,13 +800,13 @@ class JiraCloudAPI:
 
     def jira_cloud_find_components_for_projects(
         self,
-        project_ids_or_keys: Optional[List[Any]] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        order_by: Optional[str] = None,
-        query: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_ids_or_keys: list[Any] | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        order_by: str | None = None,
+        query: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find components for projects
 
@@ -828,7 +829,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_component(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create component
 
@@ -836,7 +837,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/component"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -847,9 +848,9 @@ class JiraCloudAPI:
     def jira_cloud_delete_component(
         self,
         id_: str,
-        move_issues_to: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        move_issues_to: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete component
 
@@ -870,8 +871,8 @@ class JiraCloudAPI:
     def jira_cloud_get_component(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get component
 
@@ -879,7 +880,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/component/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -890,8 +891,8 @@ class JiraCloudAPI:
     def jira_cloud_update_component(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update component
 
@@ -899,7 +900,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/component/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -910,8 +911,8 @@ class JiraCloudAPI:
     def jira_cloud_get_component_related_issues(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get component issues count
 
@@ -919,7 +920,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/component/{id_}/relatedIssueCounts"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -929,12 +930,12 @@ class JiraCloudAPI:
 
     def jira_cloud_get_field_association_schemes(
         self,
-        project_id: Optional[List[Any]] = None,
-        query: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: list[Any] | None = None,
+        query: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field schemes
 
@@ -956,7 +957,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_field_association_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create field scheme
 
@@ -964,7 +965,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/config/fieldschemes"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -973,7 +974,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_remove_fields_associated_with_schemes(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Remove fields associated with field schemes
 
@@ -981,7 +982,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = "/rest/api/3/config/fieldschemes/fields"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -990,7 +991,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_update_fields_associated_with_schemes(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Update fields associated with field schemes
 
@@ -998,7 +999,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/config/fieldschemes/fields"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1007,7 +1008,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_remove_field_association_scheme_item_parameters(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Remove field parameters
 
@@ -1015,7 +1016,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = "/rest/api/3/config/fieldschemes/fields/parameters"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1024,7 +1025,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_update_field_association_scheme_item_parameters(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Update field parameters
 
@@ -1032,7 +1033,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/config/fieldschemes/fields/parameters"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1042,11 +1043,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_projects_with_field_schemes(
         self,
-        project_id: List[Any],
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: list[Any],
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get projects with field schemes
 
@@ -1067,7 +1068,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_associate_projects_to_field_association_schemes(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Associate projects to field schemes
 
@@ -1075,7 +1076,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/config/fieldschemes/projects"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1086,8 +1087,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_field_association_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete a field scheme
 
@@ -1095,7 +1096,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/config/fieldschemes/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1106,8 +1107,8 @@ class JiraCloudAPI:
     def jira_cloud_get_field_association_scheme_by_id(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field scheme
 
@@ -1115,7 +1116,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/config/fieldschemes/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1126,8 +1127,8 @@ class JiraCloudAPI:
     def jira_cloud_update_field_association_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update field scheme
 
@@ -1135,7 +1136,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/config/fieldschemes/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1146,8 +1147,8 @@ class JiraCloudAPI:
     def jira_cloud_clone_field_association_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Clone field scheme
 
@@ -1155,7 +1156,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/config/fieldschemes/{id_}/clone"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1166,11 +1167,11 @@ class JiraCloudAPI:
     def jira_cloud_search_field_association_scheme_fields(
         self,
         id_: int,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        field_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        field_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search field scheme fields
 
@@ -1194,8 +1195,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         field_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field parameters
 
@@ -1203,7 +1204,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/config/fieldschemes/{id_}/fields/{field_id}/parameters"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1214,11 +1215,11 @@ class JiraCloudAPI:
     def jira_cloud_search_field_association_scheme_projects(
         self,
         id_: int,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        project_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        project_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search field scheme projects
 
@@ -1239,7 +1240,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_configuration(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get global settings
 
@@ -1247,7 +1248,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/configuration"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1256,7 +1257,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_selected_time_tracking_implementation(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get selected time tracking provider
 
@@ -1264,7 +1265,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/configuration/timetracking"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1273,7 +1274,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_select_time_tracking_implementation(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Select time tracking provider
 
@@ -1281,7 +1282,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/configuration/timetracking"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1290,7 +1291,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_available_time_tracking_implementations(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all time tracking providers
 
@@ -1298,7 +1299,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/configuration/timetracking/list"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1307,7 +1308,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_shared_time_tracking_configuration(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get time tracking settings
 
@@ -1315,7 +1316,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/configuration/timetracking/options"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1324,7 +1325,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_shared_time_tracking_configuration(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set time tracking settings
 
@@ -1332,7 +1333,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/configuration/timetracking/options"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1343,8 +1344,8 @@ class JiraCloudAPI:
     def jira_cloud_get_custom_field_option(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom field option
 
@@ -1352,7 +1353,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/customFieldOption/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1362,11 +1363,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_dashboards(
         self,
-        filter: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        filter: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all dashboards
 
@@ -1388,9 +1389,9 @@ class JiraCloudAPI:
 
     def jira_cloud_create_dashboard(
         self,
-        extend_admin_permissions: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        extend_admin_permissions: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create dashboard
 
@@ -1409,7 +1410,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_bulk_edit_dashboards(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk edit dashboards
 
@@ -1417,7 +1418,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/dashboard/bulk/edit"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1426,7 +1427,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_all_available_dashboard_gadgets(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get available gadgets
 
@@ -1434,7 +1435,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/dashboard/gadgets"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1444,19 +1445,19 @@ class JiraCloudAPI:
 
     def jira_cloud_get_dashboards_paginated(
         self,
-        dashboard_name: Optional[str] = None,
-        account_id: Optional[str] = None,
-        owner: Optional[str] = None,
-        groupname: Optional[str] = None,
-        group_id: Optional[str] = None,
-        project_id: Optional[int] = None,
-        order_by: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        status: Optional[str] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        dashboard_name: str | None = None,
+        account_id: str | None = None,
+        owner: str | None = None,
+        groupname: str | None = None,
+        group_id: str | None = None,
+        project_id: int | None = None,
+        order_by: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        status: str | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search for dashboards
 
@@ -1487,11 +1488,11 @@ class JiraCloudAPI:
     def jira_cloud_get_all_gadgets(
         self,
         dashboard_id: int,
-        module_key: Optional[List[Any]] = None,
-        uri: Optional[List[Any]] = None,
-        gadget_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        module_key: list[Any] | None = None,
+        uri: list[Any] | None = None,
+        gadget_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get gadgets
 
@@ -1514,8 +1515,8 @@ class JiraCloudAPI:
     def jira_cloud_add_gadget(
         self,
         dashboard_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add gadget to dashboard
 
@@ -1523,7 +1524,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/dashboard/{dashboard_id}/gadget"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1535,8 +1536,8 @@ class JiraCloudAPI:
         self,
         dashboard_id: int,
         gadget_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove gadget from dashboard
 
@@ -1544,7 +1545,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/dashboard/{dashboard_id}/gadget/{gadget_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1556,8 +1557,8 @@ class JiraCloudAPI:
         self,
         dashboard_id: int,
         gadget_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update gadget on dashboard
 
@@ -1565,7 +1566,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/dashboard/{dashboard_id}/gadget/{gadget_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1577,8 +1578,8 @@ class JiraCloudAPI:
         self,
         dashboard_id: str,
         item_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get dashboard item property keys
 
@@ -1586,7 +1587,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/dashboard/{dashboard_id}/items/{item_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1599,8 +1600,8 @@ class JiraCloudAPI:
         dashboard_id: str,
         item_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete dashboard item property
 
@@ -1608,7 +1609,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/dashboard/{dashboard_id}/items/{item_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1621,8 +1622,8 @@ class JiraCloudAPI:
         dashboard_id: str,
         item_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get dashboard item property
 
@@ -1630,7 +1631,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/dashboard/{dashboard_id}/items/{item_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1643,8 +1644,8 @@ class JiraCloudAPI:
         dashboard_id: str,
         item_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set dashboard item property
 
@@ -1652,7 +1653,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/dashboard/{dashboard_id}/items/{item_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1663,8 +1664,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_dashboard(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete dashboard
 
@@ -1672,7 +1673,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/dashboard/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1683,8 +1684,8 @@ class JiraCloudAPI:
     def jira_cloud_get_dashboard(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get dashboard
 
@@ -1692,7 +1693,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/dashboard/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1703,9 +1704,9 @@ class JiraCloudAPI:
     def jira_cloud_update_dashboard(
         self,
         id_: str,
-        extend_admin_permissions: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        extend_admin_permissions: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update dashboard
 
@@ -1726,9 +1727,9 @@ class JiraCloudAPI:
     def jira_cloud_copy_dashboard(
         self,
         id_: str,
-        extend_admin_permissions: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        extend_admin_permissions: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Copy dashboard
 
@@ -1747,7 +1748,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_policy(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get data policy for the workspace
 
@@ -1755,7 +1756,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/data-policy"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1765,9 +1766,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_policies(
         self,
-        ids: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        ids: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get data policy for projects
 
@@ -1786,7 +1787,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_events(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get events
 
@@ -1794,7 +1795,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/events"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1804,9 +1805,9 @@ class JiraCloudAPI:
 
     def jira_cloud_analyse_expression(
         self,
-        check: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        check: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Analyse Jira expression
 
@@ -1826,9 +1827,9 @@ class JiraCloudAPI:
 
     def jira_cloud_evaluate_jira_expression(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Currently being removed. Evaluate Jira expression
 
@@ -1848,9 +1849,9 @@ class JiraCloudAPI:
 
     def jira_cloud_evaluate_jsis_jira_expression(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Evaluate Jira expression using enhanced search API
 
@@ -1869,7 +1870,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_fields(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get fields
 
@@ -1877,7 +1878,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/field"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1886,7 +1887,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_custom_field(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create custom field
 
@@ -1894,7 +1895,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/field"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1903,7 +1904,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_remove_associations(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Remove associations
 
@@ -1911,7 +1912,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = "/rest/api/3/field/association"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1920,7 +1921,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_associations(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create associations
 
@@ -1928,7 +1929,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/field/association"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1938,16 +1939,16 @@ class JiraCloudAPI:
 
     def jira_cloud_get_fields_paginated(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        type_: Optional[List[Any]] = None,
-        id_: Optional[List[Any]] = None,
-        query: Optional[str] = None,
-        order_by: Optional[str] = None,
-        expand: Optional[str] = None,
-        project_ids: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        type_: list[Any] | None = None,
+        id_: list[Any] | None = None,
+        query: str | None = None,
+        order_by: str | None = None,
+        expand: str | None = None,
+        project_ids: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get fields paginated
 
@@ -1974,14 +1975,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_trashed_fields_paginated(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        query: Optional[str] = None,
-        expand: Optional[str] = None,
-        order_by: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        id_: list[Any] | None = None,
+        query: str | None = None,
+        expand: str | None = None,
+        order_by: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get fields in trash paginated
 
@@ -2007,8 +2008,8 @@ class JiraCloudAPI:
     def jira_cloud_update_custom_field(
         self,
         field_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update custom field
 
@@ -2016,7 +2017,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2027,10 +2028,10 @@ class JiraCloudAPI:
     def jira_cloud_get_field_project_associations(
         self,
         field_id: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field project associations
 
@@ -2052,13 +2053,13 @@ class JiraCloudAPI:
     def jira_cloud_get_contexts_for_field(
         self,
         field_id: str,
-        is_any_issue_type: Optional[bool] = None,
-        is_global_context: Optional[bool] = None,
-        context_id: Optional[List[Any]] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        is_any_issue_type: bool | None = None,
+        is_global_context: bool | None = None,
+        context_id: list[Any] | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom field contexts
 
@@ -2083,8 +2084,8 @@ class JiraCloudAPI:
     def jira_cloud_create_custom_field_context(
         self,
         field_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create custom field context
 
@@ -2092,7 +2093,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/field/{field_id}/context"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2103,11 +2104,11 @@ class JiraCloudAPI:
     def jira_cloud_get_default_values(
         self,
         field_id: str,
-        context_id: Optional[List[Any]] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        context_id: list[Any] | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom field contexts default values
 
@@ -2130,8 +2131,8 @@ class JiraCloudAPI:
     def jira_cloud_set_default_values(
         self,
         field_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set custom field contexts default values
 
@@ -2139,7 +2140,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_id}/context/defaultValue"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2150,11 +2151,11 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_type_mappings_for_contexts(
         self,
         field_id: str,
-        context_id: Optional[List[Any]] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        context_id: list[Any] | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue types for custom field context
 
@@ -2177,10 +2178,10 @@ class JiraCloudAPI:
     def jira_cloud_get_custom_field_contexts_for_projects_and_issue_types(
         self,
         field_id: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom field contexts for projects and issue types
 
@@ -2202,11 +2203,11 @@ class JiraCloudAPI:
     def jira_cloud_get_project_context_mapping(
         self,
         field_id: str,
-        context_id: Optional[List[Any]] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        context_id: list[Any] | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project mappings for custom field context
 
@@ -2230,8 +2231,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete custom field context
 
@@ -2239,7 +2240,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2251,8 +2252,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update custom field context
 
@@ -2260,7 +2261,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2272,8 +2273,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add issue types to context
 
@@ -2281,7 +2282,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/issuetype"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2293,8 +2294,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove issue types from context
 
@@ -2302,7 +2303,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/issuetype/remove"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2314,12 +2315,12 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        option_id: Optional[int] = None,
-        only_options: Optional[bool] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        option_id: int | None = None,
+        only_options: bool | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom field options (context)
 
@@ -2344,8 +2345,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create custom field options (context)
 
@@ -2353,7 +2354,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/option"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2365,8 +2366,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update custom field options (context)
 
@@ -2374,7 +2375,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/option"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2386,8 +2387,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reorder custom field options (context)
 
@@ -2395,7 +2396,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/option/move"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2408,8 +2409,8 @@ class JiraCloudAPI:
         field_id: str,
         context_id: int,
         option_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete custom field options (context)
 
@@ -2417,7 +2418,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/option/{option_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2430,10 +2431,10 @@ class JiraCloudAPI:
         field_id: str,
         option_id: int,
         context_id: int,
-        replace_with: Optional[int] = None,
-        jql: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        replace_with: int | None = None,
+        jql: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Replace custom field options
 
@@ -2456,8 +2457,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Assign custom field context to projects
 
@@ -2465,7 +2466,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2477,8 +2478,8 @@ class JiraCloudAPI:
         self,
         field_id: str,
         context_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove custom field context from projects
 
@@ -2486,7 +2487,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/field/{field_id}/context/{context_id}/project/remove"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2497,10 +2498,10 @@ class JiraCloudAPI:
     def jira_cloud_get_contexts_for_field_deprecated(
         self,
         field_id: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get contexts for a field
 
@@ -2522,11 +2523,11 @@ class JiraCloudAPI:
     def jira_cloud_get_screens_for_field(
         self,
         field_id: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get screens for a field
 
@@ -2549,10 +2550,10 @@ class JiraCloudAPI:
     def jira_cloud_get_all_issue_field_options(
         self,
         field_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all issue field options
 
@@ -2574,8 +2575,8 @@ class JiraCloudAPI:
     def jira_cloud_create_issue_field_option(
         self,
         field_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create issue field option
 
@@ -2583,7 +2584,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/field/{field_key}/option"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2594,11 +2595,11 @@ class JiraCloudAPI:
     def jira_cloud_get_selectable_issue_field_options(
         self,
         field_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        project_id: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        project_id: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get selectable issue field options
 
@@ -2621,11 +2622,11 @@ class JiraCloudAPI:
     def jira_cloud_get_visible_issue_field_options(
         self,
         field_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        project_id: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        project_id: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get visible issue field options
 
@@ -2649,8 +2650,8 @@ class JiraCloudAPI:
         self,
         field_key: str,
         option_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue field option
 
@@ -2658,7 +2659,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/field/{field_key}/option/{option_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2670,8 +2671,8 @@ class JiraCloudAPI:
         self,
         field_key: str,
         option_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue field option
 
@@ -2679,7 +2680,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/field/{field_key}/option/{option_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2691,8 +2692,8 @@ class JiraCloudAPI:
         self,
         field_key: str,
         option_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue field option
 
@@ -2700,7 +2701,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/field/{field_key}/option/{option_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2712,12 +2713,12 @@ class JiraCloudAPI:
         self,
         field_key: str,
         option_id: int,
-        replace_with: Optional[int] = None,
-        jql: Optional[str] = None,
-        override_screen_security: Optional[bool] = None,
-        override_editable_flag: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        replace_with: int | None = None,
+        jql: str | None = None,
+        override_screen_security: bool | None = None,
+        override_editable_flag: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Replace issue field option
 
@@ -2741,8 +2742,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_custom_field(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete custom field
 
@@ -2750,7 +2751,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/field/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2761,8 +2762,8 @@ class JiraCloudAPI:
     def jira_cloud_restore_custom_field(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Restore custom field from trash
 
@@ -2770,7 +2771,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/field/{id_}/restore"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2781,8 +2782,8 @@ class JiraCloudAPI:
     def jira_cloud_trash_custom_field(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Move custom field to trash
 
@@ -2790,7 +2791,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/field/{id_}/trash"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2800,13 +2801,13 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_field_configurations(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        is_default: Optional[bool] = None,
-        query: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        id_: list[Any] | None = None,
+        is_default: bool | None = None,
+        query: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all field configurations
 
@@ -2829,7 +2830,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_field_configuration(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create field configuration
 
@@ -2837,7 +2838,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/fieldconfiguration"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2848,8 +2849,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_field_configuration(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete field configuration
 
@@ -2857,7 +2858,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/fieldconfiguration/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2868,8 +2869,8 @@ class JiraCloudAPI:
     def jira_cloud_update_field_configuration(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update field configuration
 
@@ -2877,7 +2878,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/fieldconfiguration/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2888,10 +2889,10 @@ class JiraCloudAPI:
     def jira_cloud_get_field_configuration_items(
         self,
         id_: int,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field configuration items
 
@@ -2913,8 +2914,8 @@ class JiraCloudAPI:
     def jira_cloud_update_field_configuration_items(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update field configuration items
 
@@ -2922,7 +2923,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/fieldconfiguration/{id_}/fields"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2932,11 +2933,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_field_configuration_schemes(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        id_: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all field configuration schemes
 
@@ -2957,7 +2958,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_field_configuration_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create field configuration scheme
 
@@ -2965,7 +2966,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/fieldconfigurationscheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2975,11 +2976,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_field_configuration_scheme_mappings(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        field_configuration_scheme_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        field_configuration_scheme_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field configuration issue type items
 
@@ -3001,11 +3002,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_field_configuration_scheme_project_mapping(
         self,
-        project_id: List[Any],
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: list[Any],
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field configuration schemes for projects
 
@@ -3026,7 +3027,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_assign_field_configuration_scheme_to_project(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Assign field configuration scheme to project
 
@@ -3034,7 +3035,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/fieldconfigurationscheme/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3045,8 +3046,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_field_configuration_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete field configuration scheme
 
@@ -3054,7 +3055,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/fieldconfigurationscheme/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3065,8 +3066,8 @@ class JiraCloudAPI:
     def jira_cloud_update_field_configuration_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update field configuration scheme
 
@@ -3074,7 +3075,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/fieldconfigurationscheme/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3085,8 +3086,8 @@ class JiraCloudAPI:
     def jira_cloud_set_field_configuration_scheme_mapping(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Assign issue types to field configurations
 
@@ -3094,7 +3095,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/fieldconfigurationscheme/{id_}/mapping"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3105,8 +3106,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_issue_types_from_global_field_configuration_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove issue types from field configuration scheme
 
@@ -3114,7 +3115,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/fieldconfigurationscheme/{id_}/mapping/delete"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3124,10 +3125,10 @@ class JiraCloudAPI:
 
     def jira_cloud_create_filter(
         self,
-        expand: Optional[str] = None,
-        override_share_permissions: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        override_share_permissions: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create filter
 
@@ -3147,7 +3148,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_default_share_scope(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get default share scope
 
@@ -3155,7 +3156,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/filter/defaultShareScope"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3164,7 +3165,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_default_share_scope(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set default share scope
 
@@ -3172,7 +3173,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/filter/defaultShareScope"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3182,9 +3183,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_favourite_filters(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get favorite filters
 
@@ -3204,10 +3205,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_my_filters(
         self,
-        expand: Optional[str] = None,
-        include_favourites: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        include_favourites: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get my filters
 
@@ -3228,21 +3229,21 @@ class JiraCloudAPI:
 
     def jira_cloud_get_filters_paginated(
         self,
-        filter_name: Optional[str] = None,
-        account_id: Optional[str] = None,
-        owner: Optional[str] = None,
-        groupname: Optional[str] = None,
-        group_id: Optional[str] = None,
-        project_id: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        order_by: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        expand: Optional[str] = None,
-        override_share_permissions: Optional[bool] = None,
-        is_substring_match: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        filter_name: str | None = None,
+        account_id: str | None = None,
+        owner: str | None = None,
+        groupname: str | None = None,
+        group_id: str | None = None,
+        project_id: int | None = None,
+        id_: list[Any] | None = None,
+        order_by: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        expand: str | None = None,
+        override_share_permissions: bool | None = None,
+        is_substring_match: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search for filters
 
@@ -3275,8 +3276,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_filter(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete filter
 
@@ -3284,7 +3285,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/filter/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3295,10 +3296,10 @@ class JiraCloudAPI:
     def jira_cloud_get_filter(
         self,
         id_: int,
-        expand: Optional[str] = None,
-        override_share_permissions: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        override_share_permissions: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get filter
 
@@ -3320,10 +3321,10 @@ class JiraCloudAPI:
     def jira_cloud_update_filter(
         self,
         id_: int,
-        expand: Optional[str] = None,
-        override_share_permissions: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        override_share_permissions: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update filter
 
@@ -3345,8 +3346,8 @@ class JiraCloudAPI:
     def jira_cloud_reset_columns(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reset columns
 
@@ -3354,7 +3355,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/filter/{id_}/columns"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3365,8 +3366,8 @@ class JiraCloudAPI:
     def jira_cloud_get_columns(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get columns
 
@@ -3374,7 +3375,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/filter/{id_}/columns"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3385,8 +3386,8 @@ class JiraCloudAPI:
     def jira_cloud_set_columns(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set columns
 
@@ -3394,7 +3395,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/filter/{id_}/columns"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3405,9 +3406,9 @@ class JiraCloudAPI:
     def jira_cloud_delete_favourite_for_filter(
         self,
         id_: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove filter as favorite
 
@@ -3428,9 +3429,9 @@ class JiraCloudAPI:
     def jira_cloud_set_favourite_for_filter(
         self,
         id_: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add filter as favorite
 
@@ -3451,8 +3452,8 @@ class JiraCloudAPI:
     def jira_cloud_change_filter_owner(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Change filter owner
 
@@ -3460,7 +3461,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/filter/{id_}/owner"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3471,8 +3472,8 @@ class JiraCloudAPI:
     def jira_cloud_get_share_permissions(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get share permissions
 
@@ -3480,7 +3481,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/filter/{id_}/permission"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3491,8 +3492,8 @@ class JiraCloudAPI:
     def jira_cloud_add_share_permission(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add share permission
 
@@ -3500,7 +3501,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/filter/{id_}/permission"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3512,8 +3513,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         permission_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete share permission
 
@@ -3521,7 +3522,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/filter/{id_}/permission/{permission_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3533,8 +3534,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         permission_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get share permission
 
@@ -3542,7 +3543,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/filter/{id_}/permission/{permission_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3551,7 +3552,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_bulk_pin_unpin_projects_async(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk pin or unpin issue panel to projects
 
@@ -3559,7 +3560,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/forge/panel/action/bulk/async"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3569,12 +3570,12 @@ class JiraCloudAPI:
 
     def jira_cloud_remove_group(
         self,
-        groupname: Optional[str] = None,
-        group_id: Optional[str] = None,
-        swap_group: Optional[str] = None,
-        swap_group_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        groupname: str | None = None,
+        group_id: str | None = None,
+        swap_group: str | None = None,
+        swap_group_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove group
 
@@ -3597,11 +3598,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_group(
         self,
-        groupname: Optional[str] = None,
-        group_id: Optional[str] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        groupname: str | None = None,
+        group_id: str | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group
 
@@ -3622,7 +3623,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_group(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create group
 
@@ -3630,7 +3631,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/group"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3640,14 +3641,14 @@ class JiraCloudAPI:
 
     def jira_cloud_bulk_get_groups(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        group_id: Optional[List[Any]] = None,
-        group_name: Optional[List[Any]] = None,
-        access_type: Optional[str] = None,
-        application_key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        group_id: list[Any] | None = None,
+        group_name: list[Any] | None = None,
+        access_type: str | None = None,
+        application_key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk get groups
 
@@ -3672,13 +3673,13 @@ class JiraCloudAPI:
 
     def jira_cloud_get_users_from_group(
         self,
-        groupname: Optional[str] = None,
-        group_id: Optional[str] = None,
-        include_inactive_users: Optional[bool] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        groupname: str | None = None,
+        group_id: str | None = None,
+        include_inactive_users: bool | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get users from group
 
@@ -3703,11 +3704,11 @@ class JiraCloudAPI:
     def jira_cloud_remove_user_from_group(
         self,
         account_id: str,
-        groupname: Optional[str] = None,
-        group_id: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        groupname: str | None = None,
+        group_id: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove user from group
 
@@ -3730,10 +3731,10 @@ class JiraCloudAPI:
 
     def jira_cloud_add_user_to_group(
         self,
-        groupname: Optional[str] = None,
-        group_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        groupname: str | None = None,
+        group_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add user to group
 
@@ -3754,15 +3755,15 @@ class JiraCloudAPI:
 
     def jira_cloud_find_groups(
         self,
-        account_id: Optional[str] = None,
-        query: Optional[str] = None,
-        exclude: Optional[List[Any]] = None,
-        exclude_id: Optional[List[Any]] = None,
-        max_results: Optional[int] = None,
-        case_insensitive: Optional[bool] = None,
-        user_name: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        query: str | None = None,
+        exclude: list[Any] | None = None,
+        exclude_id: list[Any] | None = None,
+        max_results: int | None = None,
+        case_insensitive: bool | None = None,
+        user_name: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find groups
 
@@ -3789,16 +3790,16 @@ class JiraCloudAPI:
     def jira_cloud_find_users_and_groups(
         self,
         query: str,
-        max_results: Optional[int] = None,
-        show_avatar: Optional[bool] = None,
-        field_id: Optional[str] = None,
-        project_id: Optional[List[Any]] = None,
-        issue_type_id: Optional[List[Any]] = None,
-        avatar_size: Optional[str] = None,
-        case_insensitive: Optional[bool] = None,
-        exclude_connect_addons: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        max_results: int | None = None,
+        show_avatar: bool | None = None,
+        field_id: str | None = None,
+        project_id: list[Any] | None = None,
+        issue_type_id: list[Any] | None = None,
+        avatar_size: str | None = None,
+        case_insensitive: bool | None = None,
+        exclude_connect_addons: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users and groups
 
@@ -3825,7 +3826,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_license(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get license
 
@@ -3833,7 +3834,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/instance/license"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3843,9 +3844,9 @@ class JiraCloudAPI:
 
     def jira_cloud_create_issue(
         self,
-        update_history: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        update_history: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create issue
 
@@ -3864,7 +3865,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_archive_issues_async(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Archive issue(s) by JQL
 
@@ -3872,7 +3873,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issue/archive"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3881,7 +3882,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_archive_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Archive issue(s) by issue ID/key
 
@@ -3889,7 +3890,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/issue/archive"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3898,7 +3899,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk create issue
 
@@ -3906,7 +3907,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issue/bulk"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3915,7 +3916,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_bulk_fetch_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk fetch issues
 
@@ -3923,7 +3924,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issue/bulkfetch"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3933,13 +3934,13 @@ class JiraCloudAPI:
 
     def jira_cloud_get_create_issue_meta(
         self,
-        project_ids: Optional[List[Any]] = None,
-        project_keys: Optional[List[Any]] = None,
-        issuetype_ids: Optional[List[Any]] = None,
-        issuetype_names: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_ids: list[Any] | None = None,
+        project_keys: list[Any] | None = None,
+        issuetype_ids: list[Any] | None = None,
+        issuetype_names: list[Any] | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get create issue metadata
 
@@ -3964,10 +3965,10 @@ class JiraCloudAPI:
     def jira_cloud_get_create_issue_meta_issue_types(
         self,
         project_id_or_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get create metadata issue types for a project
 
@@ -3990,10 +3991,10 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         issue_type_id: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get create field metadata for a project and issue type id
 
@@ -4014,9 +4015,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_issue_limit_report(
         self,
-        is_returning_keys: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        is_returning_keys: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue limit report
 
@@ -4036,14 +4037,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_issue_picker_resource(
         self,
-        query: Optional[str] = None,
-        current_jql: Optional[str] = None,
-        current_issue_key: Optional[str] = None,
-        current_project_id: Optional[str] = None,
-        show_sub_tasks: Optional[bool] = None,
-        show_sub_task_parent: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        query: str | None = None,
+        current_jql: str | None = None,
+        current_issue_key: str | None = None,
+        current_project_id: str | None = None,
+        show_sub_tasks: bool | None = None,
+        show_sub_task_parent: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue picker suggestions
 
@@ -4067,7 +4068,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_bulk_set_issues_properties_list(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk set issues properties by list
 
@@ -4075,7 +4076,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issue/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4084,7 +4085,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_bulk_set_issue_properties_by_issue(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk set issue properties by issue
 
@@ -4092,7 +4093,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issue/properties/multi"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4103,8 +4104,8 @@ class JiraCloudAPI:
     def jira_cloud_bulk_delete_issue_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk delete issue property
 
@@ -4112,7 +4113,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issue/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4123,8 +4124,8 @@ class JiraCloudAPI:
     def jira_cloud_bulk_set_issue_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk set issue property
 
@@ -4132,7 +4133,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issue/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4141,7 +4142,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_unarchive_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Unarchive issue(s) by issue keys/ID
 
@@ -4149,7 +4150,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/issue/unarchive"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4158,7 +4159,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_is_watching_issue_bulk(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get is watching issue bulk
 
@@ -4166,7 +4167,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issue/watching"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4177,9 +4178,9 @@ class JiraCloudAPI:
     def jira_cloud_delete_issue(
         self,
         issue_id_or_key: str,
-        delete_subtasks: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        delete_subtasks: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue
 
@@ -4200,14 +4201,14 @@ class JiraCloudAPI:
     def jira_cloud_get_issue(
         self,
         issue_id_or_key: str,
-        fields: Optional[List[Any]] = None,
-        fields_by_keys: Optional[bool] = None,
-        expand: Optional[str] = None,
-        properties: Optional[List[Any]] = None,
-        update_history: Optional[bool] = None,
-        fail_fast: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        fields: list[Any] | None = None,
+        fields_by_keys: bool | None = None,
+        expand: str | None = None,
+        properties: list[Any] | None = None,
+        update_history: bool | None = None,
+        fail_fast: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue
 
@@ -4233,13 +4234,13 @@ class JiraCloudAPI:
     def jira_cloud_edit_issue(
         self,
         issue_id_or_key: str,
-        notify_users: Optional[bool] = None,
-        override_screen_security: Optional[bool] = None,
-        override_editable_flag: Optional[bool] = None,
-        return_issue: Optional[bool] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        notify_users: bool | None = None,
+        override_screen_security: bool | None = None,
+        override_editable_flag: bool | None = None,
+        return_issue: bool | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Edit issue
 
@@ -4264,8 +4265,8 @@ class JiraCloudAPI:
     def jira_cloud_assign_issue(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Assign issue
 
@@ -4273,7 +4274,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/assignee"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4284,8 +4285,8 @@ class JiraCloudAPI:
     def jira_cloud_add_attachment(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add attachment
 
@@ -4293,7 +4294,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/attachments"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4304,10 +4305,10 @@ class JiraCloudAPI:
     def jira_cloud_get_change_logs(
         self,
         issue_id_or_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get changelogs
 
@@ -4329,8 +4330,8 @@ class JiraCloudAPI:
     def jira_cloud_get_change_logs_by_ids(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get changelogs by IDs
 
@@ -4338,7 +4339,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/changelog/list"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4349,12 +4350,12 @@ class JiraCloudAPI:
     def jira_cloud_get_comments(
         self,
         issue_id_or_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        order_by: Optional[str] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        order_by: str | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get comments
 
@@ -4378,9 +4379,9 @@ class JiraCloudAPI:
     def jira_cloud_add_comment(
         self,
         issue_id_or_key: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add comment
 
@@ -4402,8 +4403,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete comment
 
@@ -4411,7 +4412,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/comment/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4423,9 +4424,9 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         id_: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get comment
 
@@ -4447,11 +4448,11 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         id_: str,
-        notify_users: Optional[bool] = None,
-        override_editable_flag: Optional[bool] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        notify_users: bool | None = None,
+        override_editable_flag: bool | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update comment
 
@@ -4474,10 +4475,10 @@ class JiraCloudAPI:
     def jira_cloud_get_edit_issue_meta(
         self,
         issue_id_or_key: str,
-        override_screen_security: Optional[bool] = None,
-        override_editable_flag: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        override_screen_security: bool | None = None,
+        override_editable_flag: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get edit issue metadata
 
@@ -4499,8 +4500,8 @@ class JiraCloudAPI:
     def jira_cloud_notify(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Send notification for issue
 
@@ -4508,7 +4509,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/notify"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4519,8 +4520,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_property_keys(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue property keys
 
@@ -4528,7 +4529,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4540,8 +4541,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue property
 
@@ -4549,7 +4550,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4561,8 +4562,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue property
 
@@ -4570,7 +4571,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4582,8 +4583,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set issue property
 
@@ -4591,7 +4592,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4603,8 +4604,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         global_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete remote issue link by global ID
 
@@ -4625,9 +4626,9 @@ class JiraCloudAPI:
     def jira_cloud_get_remote_issue_links(
         self,
         issue_id_or_key: str,
-        global_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        global_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get remote issue links
 
@@ -4648,8 +4649,8 @@ class JiraCloudAPI:
     def jira_cloud_create_or_update_remote_issue_link(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create or update remote issue link
 
@@ -4657,7 +4658,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/remotelink"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4669,8 +4670,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         link_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete remote issue link by ID
 
@@ -4678,7 +4679,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/remotelink/{link_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4690,8 +4691,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         link_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get remote issue link by ID
 
@@ -4699,7 +4700,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/remotelink/{link_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4711,8 +4712,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         link_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update remote issue link by ID
 
@@ -4720,7 +4721,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/remotelink/{link_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4731,13 +4732,13 @@ class JiraCloudAPI:
     def jira_cloud_get_transitions(
         self,
         issue_id_or_key: str,
-        expand: Optional[str] = None,
-        transition_id: Optional[str] = None,
-        skip_remote_only_condition: Optional[bool] = None,
-        include_unavailable_transitions: Optional[bool] = None,
-        sort_by_ops_bar_and_status: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        transition_id: str | None = None,
+        skip_remote_only_condition: bool | None = None,
+        include_unavailable_transitions: bool | None = None,
+        sort_by_ops_bar_and_status: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get transitions
 
@@ -4762,8 +4763,8 @@ class JiraCloudAPI:
     def jira_cloud_do_transition(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Transition issue
 
@@ -4771,7 +4772,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/transitions"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4782,8 +4783,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_vote(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete vote
 
@@ -4791,7 +4792,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/votes"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4802,8 +4803,8 @@ class JiraCloudAPI:
     def jira_cloud_get_votes(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get votes
 
@@ -4811,7 +4812,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/votes"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4822,8 +4823,8 @@ class JiraCloudAPI:
     def jira_cloud_add_vote(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add vote
 
@@ -4831,7 +4832,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/votes"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4842,10 +4843,10 @@ class JiraCloudAPI:
     def jira_cloud_remove_watcher(
         self,
         issue_id_or_key: str,
-        username: Optional[str] = None,
-        account_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        username: str | None = None,
+        account_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete watcher
 
@@ -4867,8 +4868,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_watchers(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue watchers
 
@@ -4876,7 +4877,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/watchers"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4887,8 +4888,8 @@ class JiraCloudAPI:
     def jira_cloud_add_watcher(
         self,
         issue_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add watcher
 
@@ -4896,7 +4897,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/watchers"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4907,10 +4908,10 @@ class JiraCloudAPI:
     def jira_cloud_bulk_delete_worklogs(
         self,
         issue_id_or_key: str,
-        adjust_estimate: Optional[str] = None,
-        override_editable_flag: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        adjust_estimate: str | None = None,
+        override_editable_flag: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk delete worklogs
 
@@ -4932,13 +4933,13 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_worklog(
         self,
         issue_id_or_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        started_after: Optional[int] = None,
-        started_before: Optional[int] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        started_after: int | None = None,
+        started_before: int | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue worklogs
 
@@ -4963,14 +4964,14 @@ class JiraCloudAPI:
     def jira_cloud_add_worklog(
         self,
         issue_id_or_key: str,
-        notify_users: Optional[bool] = None,
-        adjust_estimate: Optional[str] = None,
-        new_estimate: Optional[str] = None,
-        reduce_by: Optional[str] = None,
-        expand: Optional[str] = None,
-        override_editable_flag: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        notify_users: bool | None = None,
+        adjust_estimate: str | None = None,
+        new_estimate: str | None = None,
+        reduce_by: str | None = None,
+        expand: str | None = None,
+        override_editable_flag: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add worklog
 
@@ -4996,10 +4997,10 @@ class JiraCloudAPI:
     def jira_cloud_bulk_move_worklogs(
         self,
         issue_id_or_key: str,
-        adjust_estimate: Optional[str] = None,
-        override_editable_flag: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        adjust_estimate: str | None = None,
+        override_editable_flag: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk move worklogs
 
@@ -5022,13 +5023,13 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         id_: str,
-        notify_users: Optional[bool] = None,
-        adjust_estimate: Optional[str] = None,
-        new_estimate: Optional[str] = None,
-        increase_by: Optional[str] = None,
-        override_editable_flag: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        notify_users: bool | None = None,
+        adjust_estimate: str | None = None,
+        new_estimate: str | None = None,
+        increase_by: str | None = None,
+        override_editable_flag: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete worklog
 
@@ -5054,9 +5055,9 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         id_: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get worklog
 
@@ -5078,13 +5079,13 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         id_: str,
-        notify_users: Optional[bool] = None,
-        adjust_estimate: Optional[str] = None,
-        new_estimate: Optional[str] = None,
-        expand: Optional[str] = None,
-        override_editable_flag: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        notify_users: bool | None = None,
+        adjust_estimate: str | None = None,
+        new_estimate: str | None = None,
+        expand: str | None = None,
+        override_editable_flag: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update worklog
 
@@ -5110,8 +5111,8 @@ class JiraCloudAPI:
         self,
         issue_id_or_key: str,
         worklog_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get worklog property keys
 
@@ -5119,7 +5120,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/worklog/{worklog_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5132,8 +5133,8 @@ class JiraCloudAPI:
         issue_id_or_key: str,
         worklog_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete worklog property
 
@@ -5141,7 +5142,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/worklog/{worklog_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5154,8 +5155,8 @@ class JiraCloudAPI:
         issue_id_or_key: str,
         worklog_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get worklog property
 
@@ -5163,7 +5164,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/worklog/{worklog_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5176,8 +5177,8 @@ class JiraCloudAPI:
         issue_id_or_key: str,
         worklog_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set worklog property
 
@@ -5185,7 +5186,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issue/{issue_id_or_key}/worklog/{worklog_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5194,7 +5195,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_link_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create issue link
 
@@ -5202,7 +5203,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issueLink"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5213,8 +5214,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_issue_link(
         self,
         link_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue link
 
@@ -5222,7 +5223,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issueLink/{link_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5233,8 +5234,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_link(
         self,
         link_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue link
 
@@ -5242,7 +5243,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issueLink/{link_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5251,7 +5252,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_issue_link_types(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get issue link types
 
@@ -5259,7 +5260,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/issueLinkType"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5268,7 +5269,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_issue_link_type(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create issue link type
 
@@ -5276,7 +5277,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issueLinkType"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5287,8 +5288,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_issue_link_type(
         self,
         issue_link_type_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue link type
 
@@ -5296,7 +5297,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issueLinkType/{issue_link_type_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5307,8 +5308,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_link_type(
         self,
         issue_link_type_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue link type
 
@@ -5316,7 +5317,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issueLinkType/{issue_link_type_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5327,8 +5328,8 @@ class JiraCloudAPI:
     def jira_cloud_update_issue_link_type(
         self,
         issue_link_type_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue link type
 
@@ -5336,7 +5337,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issueLinkType/{issue_link_type_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5345,7 +5346,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_export_archived_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Export archived issue(s)
 
@@ -5353,7 +5354,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/issues/archive/export"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5362,7 +5363,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_issue_security_schemes(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get issue security schemes
 
@@ -5370,7 +5371,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/issuesecurityschemes"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5379,7 +5380,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_issue_security_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create issue security scheme
 
@@ -5387,7 +5388,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issuesecurityschemes"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5397,13 +5398,13 @@ class JiraCloudAPI:
 
     def jira_cloud_get_security_levels(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        id_: Optional[List[Any]] = None,
-        scheme_id: Optional[List[Any]] = None,
-        only_default: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        id_: list[Any] | None = None,
+        scheme_id: list[Any] | None = None,
+        only_default: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue security levels
 
@@ -5426,7 +5427,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_default_levels(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set default issue security levels
 
@@ -5434,7 +5435,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/issuesecurityschemes/level/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5444,14 +5445,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_security_level_members(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        id_: Optional[List[Any]] = None,
-        scheme_id: Optional[List[Any]] = None,
-        level_id: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        id_: list[Any] | None = None,
+        scheme_id: list[Any] | None = None,
+        level_id: list[Any] | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue security level members
 
@@ -5476,12 +5477,12 @@ class JiraCloudAPI:
 
     def jira_cloud_search_projects_using_security_schemes(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        issue_security_scheme_id: Optional[List[Any]] = None,
-        project_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        issue_security_scheme_id: list[Any] | None = None,
+        project_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get projects using issue security schemes
 
@@ -5503,7 +5504,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_associate_schemes_to_projects(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Associate security scheme to project
 
@@ -5511,7 +5512,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/issuesecurityschemes/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5521,12 +5522,12 @@ class JiraCloudAPI:
 
     def jira_cloud_search_security_schemes(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        id_: Optional[List[Any]] = None,
-        project_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        id_: list[Any] | None = None,
+        project_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search issue security schemes
 
@@ -5550,8 +5551,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_security_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue security scheme
 
@@ -5559,7 +5560,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issuesecurityschemes/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5570,8 +5571,8 @@ class JiraCloudAPI:
     def jira_cloud_update_issue_security_scheme(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue security scheme
 
@@ -5579,7 +5580,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuesecurityschemes/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5590,12 +5591,12 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_security_level_members(
         self,
         issue_security_scheme_id: int,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        issue_security_level_id: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        issue_security_level_id: list[Any] | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue security level members by issue security scheme
 
@@ -5619,8 +5620,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_security_scheme(
         self,
         scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue security scheme
 
@@ -5628,7 +5629,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issuesecurityschemes/{scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5639,8 +5640,8 @@ class JiraCloudAPI:
     def jira_cloud_add_security_level(
         self,
         scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add issue security levels
 
@@ -5648,7 +5649,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuesecurityschemes/{scheme_id}/level"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5660,9 +5661,9 @@ class JiraCloudAPI:
         self,
         scheme_id: str,
         level_id: str,
-        replace_with: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        replace_with: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove issue security level
 
@@ -5684,8 +5685,8 @@ class JiraCloudAPI:
         self,
         scheme_id: str,
         level_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue security level
 
@@ -5693,7 +5694,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuesecurityschemes/{scheme_id}/level/{level_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5705,8 +5706,8 @@ class JiraCloudAPI:
         self,
         scheme_id: str,
         level_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add issue security level members
 
@@ -5714,7 +5715,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuesecurityschemes/{scheme_id}/level/{level_id}/member"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5727,8 +5728,8 @@ class JiraCloudAPI:
         scheme_id: str,
         level_id: str,
         member_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove member from issue security level
 
@@ -5736,7 +5737,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issuesecurityschemes/{scheme_id}/level/{level_id}/member/{member_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5745,7 +5746,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_issue_all_types(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all issue types for user
 
@@ -5753,7 +5754,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/issuetype"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5762,7 +5763,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_issue_type(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create issue type
 
@@ -5770,7 +5771,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issuetype"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5781,9 +5782,9 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_types_for_project(
         self,
         project_id: int,
-        level: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        level: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue types for project
 
@@ -5805,9 +5806,9 @@ class JiraCloudAPI:
     def jira_cloud_delete_issue_type(
         self,
         id_: str,
-        alternative_issue_type_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        alternative_issue_type_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue type
 
@@ -5828,8 +5829,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_type(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type
 
@@ -5837,7 +5838,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issuetype/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5848,8 +5849,8 @@ class JiraCloudAPI:
     def jira_cloud_update_issue_type(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue type
 
@@ -5857,7 +5858,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuetype/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5868,8 +5869,8 @@ class JiraCloudAPI:
     def jira_cloud_get_alternative_issue_types(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get alternative issue types
 
@@ -5877,7 +5878,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issuetype/{id_}/alternatives"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5889,10 +5890,10 @@ class JiraCloudAPI:
         self,
         id_: str,
         size: int,
-        x: Optional[int] = None,
-        y: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        x: int | None = None,
+        y: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Load issue type avatar
 
@@ -5915,8 +5916,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_type_property_keys(
         self,
         issue_type_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type property keys
 
@@ -5924,7 +5925,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issuetype/{issue_type_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5936,8 +5937,8 @@ class JiraCloudAPI:
         self,
         issue_type_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue type property
 
@@ -5945,7 +5946,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issuetype/{issue_type_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5957,8 +5958,8 @@ class JiraCloudAPI:
         self,
         issue_type_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type property
 
@@ -5966,7 +5967,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/issuetype/{issue_type_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5978,8 +5979,8 @@ class JiraCloudAPI:
         self,
         issue_type_id: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set issue type property
 
@@ -5987,7 +5988,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuetype/{issue_type_id}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5997,14 +5998,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_issue_type_schemes(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        order_by: Optional[str] = None,
-        expand: Optional[str] = None,
-        query_string: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        id_: list[Any] | None = None,
+        order_by: str | None = None,
+        expand: str | None = None,
+        query_string: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all issue type schemes
 
@@ -6028,7 +6029,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_issue_type_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create issue type scheme
 
@@ -6036,7 +6037,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issuetypescheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6046,11 +6047,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_issue_type_schemes_mapping(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        issue_type_scheme_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        issue_type_scheme_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type scheme items
 
@@ -6072,11 +6073,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_issue_type_scheme_for_projects(
         self,
-        project_id: List[Any],
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: list[Any],
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type schemes for projects
 
@@ -6097,7 +6098,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_assign_issue_type_scheme_to_project(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Assign issue type scheme to project
 
@@ -6105,7 +6106,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/issuetypescheme/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6116,8 +6117,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_issue_type_scheme(
         self,
         issue_type_scheme_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue type scheme
 
@@ -6125,7 +6126,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issuetypescheme/{issue_type_scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6136,8 +6137,8 @@ class JiraCloudAPI:
     def jira_cloud_update_issue_type_scheme(
         self,
         issue_type_scheme_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue type scheme
 
@@ -6145,7 +6146,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuetypescheme/{issue_type_scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6156,8 +6157,8 @@ class JiraCloudAPI:
     def jira_cloud_add_issue_types_to_issue_type_scheme(
         self,
         issue_type_scheme_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add issue types to issue type scheme
 
@@ -6165,7 +6166,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuetypescheme/{issue_type_scheme_id}/issuetype"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6176,8 +6177,8 @@ class JiraCloudAPI:
     def jira_cloud_reorder_issue_types_in_issue_type_scheme(
         self,
         issue_type_scheme_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Change order of issue types
 
@@ -6185,7 +6186,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuetypescheme/{issue_type_scheme_id}/issuetype/move"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6197,8 +6198,8 @@ class JiraCloudAPI:
         self,
         issue_type_scheme_id: int,
         issue_type_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove issue type from issue type scheme
 
@@ -6206,7 +6207,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issuetypescheme/{issue_type_scheme_id}/issuetype/{issue_type_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6216,14 +6217,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_issue_type_screen_schemes(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        query_string: Optional[str] = None,
-        order_by: Optional[str] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        id_: list[Any] | None = None,
+        query_string: str | None = None,
+        order_by: str | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type screen schemes
 
@@ -6247,7 +6248,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_issue_type_screen_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create issue type screen scheme
 
@@ -6255,7 +6256,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/issuetypescreenscheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6265,11 +6266,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_issue_type_screen_scheme_mappings(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        issue_type_screen_scheme_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        issue_type_screen_scheme_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type screen scheme items
 
@@ -6291,11 +6292,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_issue_type_screen_scheme_project_associations(
         self,
-        project_id: List[Any],
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: list[Any],
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type screen schemes for projects
 
@@ -6316,7 +6317,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_assign_issue_type_screen_scheme_to_project(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Assign issue type screen scheme to project
 
@@ -6324,7 +6325,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/issuetypescreenscheme/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6335,8 +6336,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_issue_type_screen_scheme(
         self,
         issue_type_screen_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue type screen scheme
 
@@ -6344,7 +6345,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/issuetypescreenscheme/{issue_type_screen_scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6355,8 +6356,8 @@ class JiraCloudAPI:
     def jira_cloud_update_issue_type_screen_scheme(
         self,
         issue_type_screen_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue type screen scheme
 
@@ -6364,7 +6365,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuetypescreenscheme/{issue_type_screen_scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6375,8 +6376,8 @@ class JiraCloudAPI:
     def jira_cloud_append_mappings_for_issue_type_screen_scheme(
         self,
         issue_type_screen_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Append mappings to issue type screen scheme
 
@@ -6386,7 +6387,7 @@ class JiraCloudAPI:
         path = (
             f"/rest/api/3/issuetypescreenscheme/{issue_type_screen_scheme_id}/mapping"
         )
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6397,8 +6398,8 @@ class JiraCloudAPI:
     def jira_cloud_update_default_screen_scheme(
         self,
         issue_type_screen_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update issue type screen scheme default screen scheme
 
@@ -6406,7 +6407,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/issuetypescreenscheme/{issue_type_screen_scheme_id}/mapping/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6417,8 +6418,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_mappings_from_issue_type_screen_scheme(
         self,
         issue_type_screen_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove mappings from issue type screen scheme
 
@@ -6426,7 +6427,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/issuetypescreenscheme/{issue_type_screen_scheme_id}/mapping/remove"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6437,11 +6438,11 @@ class JiraCloudAPI:
     def jira_cloud_get_projects_for_issue_type_screen_scheme(
         self,
         issue_type_screen_scheme_id: int,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        query: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        query: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type screen scheme projects
 
@@ -6464,7 +6465,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_auto_complete(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get field reference data (GET)
 
@@ -6472,7 +6473,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/jql/autocompletedata"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6481,7 +6482,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_auto_complete_post(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get field reference data (POST)
 
@@ -6489,7 +6490,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/jql/autocompletedata"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6499,12 +6500,12 @@ class JiraCloudAPI:
 
     def jira_cloud_get_field_auto_complete_for_query_string(
         self,
-        field_name: Optional[str] = None,
-        field_value: Optional[str] = None,
-        predicate_name: Optional[str] = None,
-        predicate_value: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        field_name: str | None = None,
+        field_value: str | None = None,
+        predicate_name: str | None = None,
+        predicate_value: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get field auto complete suggestions
 
@@ -6527,12 +6528,12 @@ class JiraCloudAPI:
 
     def jira_cloud_get_precomputations(
         self,
-        function_key: Optional[List[Any]] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        order_by: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        function_key: list[Any] | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        order_by: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get precomputations (apps)
 
@@ -6555,9 +6556,9 @@ class JiraCloudAPI:
 
     def jira_cloud_update_precomputations(
         self,
-        skip_not_found_precomputations: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        skip_not_found_precomputations: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update precomputations (apps)
 
@@ -6577,9 +6578,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_precomputations_by_id(
         self,
-        order_by: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        order_by: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get precomputations by ID (apps)
 
@@ -6598,7 +6599,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_match_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Check issues against JQL
 
@@ -6606,7 +6607,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/jql/match"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6617,8 +6618,8 @@ class JiraCloudAPI:
     def jira_cloud_parse_jql_queries(
         self,
         validation: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Parse JQL query
 
@@ -6637,7 +6638,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_migrate_queries(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Convert user identifiers to account IDs in JQL queries
 
@@ -6645,7 +6646,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/jql/pdcleaner"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6654,7 +6655,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_sanitise_jql_queries(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Sanitize JQL queries
 
@@ -6662,7 +6663,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/jql/sanitize"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6672,10 +6673,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_labels(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all labels
 
@@ -6695,7 +6696,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_approximate_license_count(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get approximate license count
 
@@ -6703,7 +6704,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/license/approximateLicenseCount"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6714,8 +6715,8 @@ class JiraCloudAPI:
     def jira_cloud_get_approximate_application_license_count(
         self,
         application_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get approximate application license count
 
@@ -6723,7 +6724,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/license/approximateLicenseCount/product/{application_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6733,16 +6734,16 @@ class JiraCloudAPI:
 
     def jira_cloud_get_my_permissions(
         self,
-        project_key: Optional[str] = None,
-        project_id: Optional[str] = None,
-        issue_key: Optional[str] = None,
-        issue_id: Optional[str] = None,
-        permissions: Optional[str] = None,
-        project_uuid: Optional[str] = None,
-        project_configuration_uuid: Optional[str] = None,
-        comment_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_key: str | None = None,
+        project_id: str | None = None,
+        issue_key: str | None = None,
+        issue_id: str | None = None,
+        permissions: str | None = None,
+        project_uuid: str | None = None,
+        project_configuration_uuid: str | None = None,
+        comment_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get my permissions
 
@@ -6770,8 +6771,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_preference(
         self,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete preference
 
@@ -6792,8 +6793,8 @@ class JiraCloudAPI:
     def jira_cloud_get_preference(
         self,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get preference
 
@@ -6814,8 +6815,8 @@ class JiraCloudAPI:
     def jira_cloud_set_preference(
         self,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set preference
 
@@ -6834,7 +6835,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_locale(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get locale
 
@@ -6842,7 +6843,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/mypreferences/locale"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6851,7 +6852,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_locale(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set locale
 
@@ -6859,7 +6860,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/mypreferences/locale"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6869,9 +6870,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_current_user(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get current user
 
@@ -6891,14 +6892,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_notification_schemes(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        id_: Optional[List[Any]] = None,
-        project_id: Optional[List[Any]] = None,
-        only_default: Optional[bool] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        id_: list[Any] | None = None,
+        project_id: list[Any] | None = None,
+        only_default: bool | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get notification schemes paginated
 
@@ -6922,7 +6923,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_notification_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create notification scheme
 
@@ -6930,7 +6931,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/notificationscheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -6940,12 +6941,12 @@ class JiraCloudAPI:
 
     def jira_cloud_get_notification_scheme_to_project_mappings(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        notification_scheme_id: Optional[List[Any]] = None,
-        project_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        notification_scheme_id: list[Any] | None = None,
+        project_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get projects using notification schemes paginated
 
@@ -6969,9 +6970,9 @@ class JiraCloudAPI:
     def jira_cloud_get_notification_scheme(
         self,
         id_: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get notification scheme
 
@@ -6992,8 +6993,8 @@ class JiraCloudAPI:
     def jira_cloud_update_notification_scheme(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update notification scheme
 
@@ -7001,7 +7002,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/notificationscheme/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7012,8 +7013,8 @@ class JiraCloudAPI:
     def jira_cloud_add_notifications(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add notifications to notification scheme
 
@@ -7021,7 +7022,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/notificationscheme/{id_}/notification"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7032,8 +7033,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_notification_scheme(
         self,
         notification_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete notification scheme
 
@@ -7041,7 +7042,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/notificationscheme/{notification_scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7053,8 +7054,8 @@ class JiraCloudAPI:
         self,
         notification_scheme_id: str,
         notification_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove notification from notification scheme
 
@@ -7062,7 +7063,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/notificationscheme/{notification_scheme_id}/notification/{notification_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7071,7 +7072,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_all_permissions(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all permissions
 
@@ -7079,7 +7080,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/permissions"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7088,7 +7089,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_bulk_permissions(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get bulk permissions
 
@@ -7096,7 +7097,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/permissions/check"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7105,7 +7106,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_permitted_projects(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get permitted projects
 
@@ -7113,7 +7114,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/permissions/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7123,9 +7124,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_permission_schemes(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all permission schemes
 
@@ -7145,9 +7146,9 @@ class JiraCloudAPI:
 
     def jira_cloud_create_permission_scheme(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create permission scheme
 
@@ -7168,8 +7169,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_permission_scheme(
         self,
         scheme_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete permission scheme
 
@@ -7177,7 +7178,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/permissionscheme/{scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7188,9 +7189,9 @@ class JiraCloudAPI:
     def jira_cloud_get_permission_scheme(
         self,
         scheme_id: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permission scheme
 
@@ -7211,9 +7212,9 @@ class JiraCloudAPI:
     def jira_cloud_update_permission_scheme(
         self,
         scheme_id: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update permission scheme
 
@@ -7234,9 +7235,9 @@ class JiraCloudAPI:
     def jira_cloud_get_permission_scheme_grants(
         self,
         scheme_id: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permission scheme grants
 
@@ -7257,9 +7258,9 @@ class JiraCloudAPI:
     def jira_cloud_create_permission_grant(
         self,
         scheme_id: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create permission grant
 
@@ -7281,8 +7282,8 @@ class JiraCloudAPI:
         self,
         scheme_id: int,
         permission_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete permission scheme grant
 
@@ -7290,7 +7291,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/permissionscheme/{scheme_id}/permission/{permission_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7302,9 +7303,9 @@ class JiraCloudAPI:
         self,
         scheme_id: int,
         permission_id: int,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permission scheme grant
 
@@ -7324,12 +7325,12 @@ class JiraCloudAPI:
 
     def jira_cloud_get_plans(
         self,
-        include_trashed: Optional[bool] = None,
-        include_archived: Optional[bool] = None,
-        cursor: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        include_trashed: bool | None = None,
+        include_archived: bool | None = None,
+        cursor: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get plans paginated
 
@@ -7352,9 +7353,9 @@ class JiraCloudAPI:
 
     def jira_cloud_create_plan(
         self,
-        use_group_id: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        use_group_id: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create plan
 
@@ -7375,9 +7376,9 @@ class JiraCloudAPI:
     def jira_cloud_get_plan(
         self,
         plan_id: int,
-        use_group_id: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        use_group_id: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get plan
 
@@ -7398,9 +7399,9 @@ class JiraCloudAPI:
     def jira_cloud_update_plan(
         self,
         plan_id: int,
-        use_group_id: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        use_group_id: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update plan
 
@@ -7421,8 +7422,8 @@ class JiraCloudAPI:
     def jira_cloud_archive_plan(
         self,
         plan_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Archive plan
 
@@ -7430,7 +7431,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/archive"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7441,8 +7442,8 @@ class JiraCloudAPI:
     def jira_cloud_duplicate_plan(
         self,
         plan_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Duplicate plan
 
@@ -7450,7 +7451,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/duplicate"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7461,10 +7462,10 @@ class JiraCloudAPI:
     def jira_cloud_get_teams(
         self,
         plan_id: int,
-        cursor: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get teams in plan paginated
 
@@ -7486,8 +7487,8 @@ class JiraCloudAPI:
     def jira_cloud_add_atlassian_team(
         self,
         plan_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add Atlassian team to plan
 
@@ -7495,7 +7496,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/atlassian"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7507,8 +7508,8 @@ class JiraCloudAPI:
         self,
         plan_id: int,
         atlassian_team_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove Atlassian team from plan
 
@@ -7516,7 +7517,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/atlassian/{atlassian_team_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7528,8 +7529,8 @@ class JiraCloudAPI:
         self,
         plan_id: int,
         atlassian_team_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get Atlassian team in plan
 
@@ -7537,7 +7538,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/atlassian/{atlassian_team_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7549,8 +7550,8 @@ class JiraCloudAPI:
         self,
         plan_id: int,
         atlassian_team_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update Atlassian team in plan
 
@@ -7558,7 +7559,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/atlassian/{atlassian_team_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7569,8 +7570,8 @@ class JiraCloudAPI:
     def jira_cloud_create_plan_only_team(
         self,
         plan_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create plan-only team
 
@@ -7578,7 +7579,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/planonly"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7590,8 +7591,8 @@ class JiraCloudAPI:
         self,
         plan_id: int,
         plan_only_team_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete plan-only team
 
@@ -7599,7 +7600,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/planonly/{plan_only_team_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7611,8 +7612,8 @@ class JiraCloudAPI:
         self,
         plan_id: int,
         plan_only_team_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get plan-only team
 
@@ -7620,7 +7621,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/planonly/{plan_only_team_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7632,8 +7633,8 @@ class JiraCloudAPI:
         self,
         plan_id: int,
         plan_only_team_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update plan-only team
 
@@ -7641,7 +7642,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/team/planonly/{plan_only_team_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7652,8 +7653,8 @@ class JiraCloudAPI:
     def jira_cloud_trash_plan(
         self,
         plan_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Trash plan
 
@@ -7661,7 +7662,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/plans/plan/{plan_id}/trash"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7670,7 +7671,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_priorities(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get priorities
 
@@ -7678,7 +7679,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/priority"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7687,7 +7688,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_priority(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create priority
 
@@ -7695,7 +7696,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/priority"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7704,7 +7705,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_default_priority(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set default priority
 
@@ -7712,7 +7713,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/priority/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7721,7 +7722,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_move_priorities(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Move priorities
 
@@ -7729,7 +7730,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/priority/move"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7739,15 +7740,15 @@ class JiraCloudAPI:
 
     def jira_cloud_search_priorities(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        id_: Optional[List[Any]] = None,
-        project_id: Optional[List[Any]] = None,
-        priority_name: Optional[str] = None,
-        only_default: Optional[bool] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        id_: list[Any] | None = None,
+        project_id: list[Any] | None = None,
+        priority_name: str | None = None,
+        only_default: bool | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search priorities
 
@@ -7774,8 +7775,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_priority(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete priority
 
@@ -7783,7 +7784,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/priority/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7794,8 +7795,8 @@ class JiraCloudAPI:
     def jira_cloud_get_priority(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get priority
 
@@ -7803,7 +7804,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/priority/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7814,8 +7815,8 @@ class JiraCloudAPI:
     def jira_cloud_update_priority(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update priority
 
@@ -7823,7 +7824,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/priority/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7833,16 +7834,16 @@ class JiraCloudAPI:
 
     def jira_cloud_get_priority_schemes(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        priority_id: Optional[List[Any]] = None,
-        scheme_id: Optional[List[Any]] = None,
-        scheme_name: Optional[str] = None,
-        only_default: Optional[bool] = None,
-        order_by: Optional[str] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        priority_id: list[Any] | None = None,
+        scheme_id: list[Any] | None = None,
+        scheme_name: str | None = None,
+        only_default: bool | None = None,
+        order_by: str | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get priority schemes
 
@@ -7868,7 +7869,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_priority_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create priority scheme
 
@@ -7876,7 +7877,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/priorityscheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7885,7 +7886,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_suggested_priorities_for_mappings(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Suggested priorities for mappings
 
@@ -7893,7 +7894,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/priorityscheme/mappings"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7904,12 +7905,12 @@ class JiraCloudAPI:
     def jira_cloud_get_available_priorities_by_priority_scheme(
         self,
         scheme_id: str,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        query: Optional[str] = None,
-        exclude: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        query: str | None = None,
+        exclude: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get available priorities by priority scheme
 
@@ -7934,8 +7935,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_priority_scheme(
         self,
         scheme_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete priority scheme
 
@@ -7943,7 +7944,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/priorityscheme/{scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7954,8 +7955,8 @@ class JiraCloudAPI:
     def jira_cloud_update_priority_scheme(
         self,
         scheme_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update priority scheme
 
@@ -7963,7 +7964,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/priorityscheme/{scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -7974,10 +7975,10 @@ class JiraCloudAPI:
     def jira_cloud_get_priorities_by_priority_scheme(
         self,
         scheme_id: str,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get priorities by priority scheme
 
@@ -7999,12 +8000,12 @@ class JiraCloudAPI:
     def jira_cloud_get_projects_by_priority_scheme(
         self,
         scheme_id: str,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        project_id: Optional[List[Any]] = None,
-        query: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        project_id: list[Any] | None = None,
+        query: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get projects by priority scheme
 
@@ -8027,11 +8028,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_projects(
         self,
-        expand: Optional[str] = None,
-        recent: Optional[int] = None,
-        properties: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        recent: int | None = None,
+        properties: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all projects
 
@@ -8052,7 +8053,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_project(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create project
 
@@ -8060,7 +8061,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8069,7 +8070,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_project_with_custom_template(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create custom project
 
@@ -8077,7 +8078,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/project-template"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8086,7 +8087,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_edit_template(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Edit a custom project template
 
@@ -8094,7 +8095,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/project-template/edit-template"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8104,10 +8105,10 @@ class JiraCloudAPI:
 
     def jira_cloud_live_template(
         self,
-        project_id: Optional[str] = None,
-        template_key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: str | None = None,
+        template_key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Gets a custom project template
 
@@ -8129,8 +8130,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_template(
         self,
         template_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Deletes a custom project template
 
@@ -8149,7 +8150,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_save_template(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Save a custom project template
 
@@ -8157,7 +8158,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/project-template/save-template"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8167,10 +8168,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_recent(
         self,
-        expand: Optional[str] = None,
-        properties: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        properties: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get recent projects
 
@@ -8191,21 +8192,21 @@ class JiraCloudAPI:
 
     def jira_cloud_search_projects(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        order_by: Optional[str] = None,
-        id_: Optional[List[Any]] = None,
-        keys: Optional[List[Any]] = None,
-        query: Optional[str] = None,
-        type_key: Optional[str] = None,
-        category_id: Optional[int] = None,
-        action: Optional[str] = None,
-        expand: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        properties: Optional[List[Any]] = None,
-        property_query: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        order_by: str | None = None,
+        id_: list[Any] | None = None,
+        keys: list[Any] | None = None,
+        query: str | None = None,
+        type_key: str | None = None,
+        category_id: int | None = None,
+        action: str | None = None,
+        expand: str | None = None,
+        status: list[Any] | None = None,
+        properties: list[Any] | None = None,
+        property_query: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get projects paginated
 
@@ -8236,7 +8237,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_all_project_types(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all project types
 
@@ -8244,7 +8245,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/project/type"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8253,7 +8254,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_all_accessible_project_types(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get licensed project types
 
@@ -8261,7 +8262,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/project/type/accessible"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8272,8 +8273,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_type_by_key(
         self,
         project_type_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project type by key
 
@@ -8281,7 +8282,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/type/{project_type_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8292,8 +8293,8 @@ class JiraCloudAPI:
     def jira_cloud_get_accessible_project_type_by_key(
         self,
         project_type_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get accessible project type by key
 
@@ -8301,7 +8302,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/type/{project_type_key}/accessible"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8312,9 +8313,9 @@ class JiraCloudAPI:
     def jira_cloud_delete_project(
         self,
         project_id_or_key: str,
-        enable_undo: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        enable_undo: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete project
 
@@ -8335,10 +8336,10 @@ class JiraCloudAPI:
     def jira_cloud_get_project(
         self,
         project_id_or_key: str,
-        expand: Optional[str] = None,
-        properties: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        properties: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project
 
@@ -8360,9 +8361,9 @@ class JiraCloudAPI:
     def jira_cloud_update_project(
         self,
         project_id_or_key: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update project
 
@@ -8383,8 +8384,8 @@ class JiraCloudAPI:
     def jira_cloud_archive_project(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Archive project
 
@@ -8392,7 +8393,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/project/{project_id_or_key}/archive"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8403,8 +8404,8 @@ class JiraCloudAPI:
     def jira_cloud_update_project_avatar(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set project avatar
 
@@ -8412,7 +8413,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/project/{project_id_or_key}/avatar"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8424,8 +8425,8 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete project avatar
 
@@ -8433,7 +8434,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/project/{project_id_or_key}/avatar/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8444,11 +8445,11 @@ class JiraCloudAPI:
     def jira_cloud_create_project_avatar(
         self,
         project_id_or_key: str,
-        x: Optional[int] = None,
-        y: Optional[int] = None,
-        size: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        x: int | None = None,
+        y: int | None = None,
+        size: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Load project avatar
 
@@ -8471,8 +8472,8 @@ class JiraCloudAPI:
     def jira_cloud_get_all_project_avatars(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all project avatars
 
@@ -8480,7 +8481,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/avatars"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8491,8 +8492,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_classification_config(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get the classification configuration for a project
 
@@ -8500,7 +8501,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/classification-config"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8511,8 +8512,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_default_project_classification(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove the default data classification level from a project
 
@@ -8520,7 +8521,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/project/{project_id_or_key}/classification-level/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8531,8 +8532,8 @@ class JiraCloudAPI:
     def jira_cloud_get_default_project_classification(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get the default data classification level of a project
 
@@ -8540,7 +8541,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/classification-level/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8551,8 +8552,8 @@ class JiraCloudAPI:
     def jira_cloud_update_default_project_classification(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update the default data classification level of a project
 
@@ -8560,7 +8561,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/project/{project_id_or_key}/classification-level/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8571,13 +8572,13 @@ class JiraCloudAPI:
     def jira_cloud_get_project_components_paginated(
         self,
         project_id_or_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        order_by: Optional[str] = None,
-        component_source: Optional[str] = None,
-        query: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        order_by: str | None = None,
+        component_source: str | None = None,
+        query: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project components paginated
 
@@ -8602,9 +8603,9 @@ class JiraCloudAPI:
     def jira_cloud_get_project_components(
         self,
         project_id_or_key: str,
-        component_source: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        component_source: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project components
 
@@ -8625,8 +8626,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_project_asynchronously(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete project asynchronously
 
@@ -8634,7 +8635,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/project/{project_id_or_key}/delete"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8645,8 +8646,8 @@ class JiraCloudAPI:
     def jira_cloud_get_features_for_project(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project features
 
@@ -8654,7 +8655,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/features"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8666,8 +8667,8 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         feature_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set project feature state
 
@@ -8675,7 +8676,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/project/{project_id_or_key}/features/{feature_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8686,8 +8687,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_property_keys(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project property keys
 
@@ -8695,7 +8696,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8707,8 +8708,8 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete project property
 
@@ -8716,7 +8717,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/project/{project_id_or_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8728,8 +8729,8 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project property
 
@@ -8737,7 +8738,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8749,8 +8750,8 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set project property
 
@@ -8758,7 +8759,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/project/{project_id_or_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8769,8 +8770,8 @@ class JiraCloudAPI:
     def jira_cloud_restore(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Restore deleted or archived project
 
@@ -8778,7 +8779,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/project/{project_id_or_key}/restore"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8789,8 +8790,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_roles(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project roles for project
 
@@ -8798,7 +8799,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/role"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8810,11 +8811,11 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         id_: int,
-        user: Optional[str] = None,
-        group: Optional[str] = None,
-        group_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        user: str | None = None,
+        group: str | None = None,
+        group_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete actors from project role
 
@@ -8838,9 +8839,9 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         id_: int,
-        exclude_inactive_users: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        exclude_inactive_users: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project role for project
 
@@ -8862,8 +8863,8 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add actors to project role
 
@@ -8871,7 +8872,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/project/{project_id_or_key}/role/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8883,8 +8884,8 @@ class JiraCloudAPI:
         self,
         project_id_or_key: str,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set actors for project role
 
@@ -8892,7 +8893,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/project/{project_id_or_key}/role/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8903,11 +8904,11 @@ class JiraCloudAPI:
     def jira_cloud_get_project_role_details(
         self,
         project_id_or_key: str,
-        current_member: Optional[bool] = None,
-        exclude_connect_addons: Optional[bool] = None,
-        exclude_other_service_roles: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        current_member: bool | None = None,
+        exclude_connect_addons: bool | None = None,
+        exclude_other_service_roles: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project role details
 
@@ -8930,8 +8931,8 @@ class JiraCloudAPI:
     def jira_cloud_get_all_statuses(
         self,
         project_id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all statuses for project
 
@@ -8939,7 +8940,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id_or_key}/statuses"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -8950,14 +8951,14 @@ class JiraCloudAPI:
     def jira_cloud_get_project_versions_paginated(
         self,
         project_id_or_key: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        order_by: Optional[str] = None,
-        query: Optional[str] = None,
-        status: Optional[str] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        order_by: str | None = None,
+        query: str | None = None,
+        status: str | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project versions paginated
 
@@ -8983,9 +8984,9 @@ class JiraCloudAPI:
     def jira_cloud_get_project_versions(
         self,
         project_id_or_key: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project versions
 
@@ -9006,8 +9007,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_email(
         self,
         project_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project's sender email
 
@@ -9015,7 +9016,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id}/email"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9026,8 +9027,8 @@ class JiraCloudAPI:
     def jira_cloud_update_project_email(
         self,
         project_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set project's sender email
 
@@ -9035,7 +9036,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/project/{project_id}/email"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9046,8 +9047,8 @@ class JiraCloudAPI:
     def jira_cloud_get_hierarchy(
         self,
         project_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project issue type hierarchy
 
@@ -9055,7 +9056,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_id}/hierarchy"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9066,8 +9067,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_issue_security_scheme(
         self,
         project_key_or_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project issue security scheme
 
@@ -9075,7 +9076,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_key_or_id}/issuesecuritylevelscheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9086,9 +9087,9 @@ class JiraCloudAPI:
     def jira_cloud_get_notification_scheme_for_project(
         self,
         project_key_or_id: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project notification scheme
 
@@ -9109,9 +9110,9 @@ class JiraCloudAPI:
     def jira_cloud_get_assigned_permission_scheme(
         self,
         project_key_or_id: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get assigned permission scheme
 
@@ -9132,9 +9133,9 @@ class JiraCloudAPI:
     def jira_cloud_assign_permission_scheme(
         self,
         project_key_or_id: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Assign permission scheme
 
@@ -9155,8 +9156,8 @@ class JiraCloudAPI:
     def jira_cloud_get_security_levels_for_project(
         self,
         project_key_or_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project issue security levels
 
@@ -9164,7 +9165,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/project/{project_key_or_id}/securitylevel"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9173,7 +9174,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_all_project_categories(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all project categories
 
@@ -9181,7 +9182,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/projectCategory"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9190,7 +9191,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_project_category(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create project category
 
@@ -9198,7 +9199,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/projectCategory"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9209,8 +9210,8 @@ class JiraCloudAPI:
     def jira_cloud_remove_project_category(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete project category
 
@@ -9218,7 +9219,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/projectCategory/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9229,8 +9230,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_category_by_id(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project category by ID
 
@@ -9238,7 +9239,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/projectCategory/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9249,8 +9250,8 @@ class JiraCloudAPI:
     def jira_cloud_update_project_category(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update project category
 
@@ -9258,7 +9259,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/projectCategory/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9268,13 +9269,13 @@ class JiraCloudAPI:
 
     def jira_cloud_get_project_fields(
         self,
-        project_id: List[Any],
-        work_type_id: List[Any],
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        field_id: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: list[Any],
+        work_type_id: list[Any],
+        start_at: int | None = None,
+        max_results: int | None = None,
+        field_id: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get fields for projects
 
@@ -9298,9 +9299,9 @@ class JiraCloudAPI:
 
     def jira_cloud_validate_project_key(
         self,
-        key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Validate project key
 
@@ -9320,9 +9321,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_valid_project_key(
         self,
-        key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get valid project key
 
@@ -9343,8 +9344,8 @@ class JiraCloudAPI:
     def jira_cloud_get_valid_project_name(
         self,
         name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get valid project name
 
@@ -9363,7 +9364,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_redact(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Redact
 
@@ -9371,7 +9372,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/redact"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9382,8 +9383,8 @@ class JiraCloudAPI:
     def jira_cloud_get_redaction_status(
         self,
         job_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get redaction status
 
@@ -9391,7 +9392,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/redact/status/{job_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9400,7 +9401,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_resolutions(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get resolutions
 
@@ -9408,7 +9409,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/resolution"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9417,7 +9418,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_resolution(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create resolution
 
@@ -9425,7 +9426,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/resolution"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9434,7 +9435,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_default_resolution(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set default resolution
 
@@ -9442,7 +9443,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/resolution/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9451,7 +9452,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_move_resolutions(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Move resolutions
 
@@ -9459,7 +9460,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/resolution/move"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9469,12 +9470,12 @@ class JiraCloudAPI:
 
     def jira_cloud_search_resolutions(
         self,
-        start_at: Optional[str] = None,
-        max_results: Optional[str] = None,
-        id_: Optional[List[Any]] = None,
-        only_default: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: str | None = None,
+        max_results: str | None = None,
+        id_: list[Any] | None = None,
+        only_default: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search resolutions
 
@@ -9499,8 +9500,8 @@ class JiraCloudAPI:
         self,
         id_: str,
         replace_with: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete resolution
 
@@ -9521,8 +9522,8 @@ class JiraCloudAPI:
     def jira_cloud_get_resolution(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get resolution
 
@@ -9530,7 +9531,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/resolution/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9541,8 +9542,8 @@ class JiraCloudAPI:
     def jira_cloud_update_resolution(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update resolution
 
@@ -9550,7 +9551,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/resolution/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9559,7 +9560,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_all_project_roles(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all project roles
 
@@ -9567,7 +9568,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/role"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9576,7 +9577,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_project_role(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create project role
 
@@ -9584,7 +9585,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/role"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9595,9 +9596,9 @@ class JiraCloudAPI:
     def jira_cloud_delete_project_role(
         self,
         id_: int,
-        swap: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        swap: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete project role
 
@@ -9618,8 +9619,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_role_by_id(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project role by ID
 
@@ -9627,7 +9628,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/role/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9638,8 +9639,8 @@ class JiraCloudAPI:
     def jira_cloud_partial_update_project_role(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Partial update project role
 
@@ -9647,7 +9648,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/role/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9658,8 +9659,8 @@ class JiraCloudAPI:
     def jira_cloud_fully_update_project_role(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Fully update project role
 
@@ -9667,7 +9668,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/role/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9678,11 +9679,11 @@ class JiraCloudAPI:
     def jira_cloud_delete_project_role_actors_from_role(
         self,
         id_: int,
-        user: Optional[str] = None,
-        group_id: Optional[str] = None,
-        group: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        user: str | None = None,
+        group_id: str | None = None,
+        group: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete default actors from project role
 
@@ -9705,8 +9706,8 @@ class JiraCloudAPI:
     def jira_cloud_get_project_role_actors_for_role(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get default actors for project role
 
@@ -9714,7 +9715,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/role/{id_}/actors"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9725,8 +9726,8 @@ class JiraCloudAPI:
     def jira_cloud_add_project_role_actors_to_role(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add default actors to project role
 
@@ -9734,7 +9735,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/role/{id_}/actors"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9744,14 +9745,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_screens(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        query_string: Optional[str] = None,
-        scope: Optional[List[Any]] = None,
-        order_by: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        id_: list[Any] | None = None,
+        query_string: str | None = None,
+        scope: list[Any] | None = None,
+        order_by: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get screens
 
@@ -9775,7 +9776,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_screen(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create screen
 
@@ -9783,7 +9784,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/screens"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9794,8 +9795,8 @@ class JiraCloudAPI:
     def jira_cloud_add_field_to_default_screen(
         self,
         field_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add field to default screen
 
@@ -9803,7 +9804,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/screens/addToDefault/{field_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9813,12 +9814,12 @@ class JiraCloudAPI:
 
     def jira_cloud_get_bulk_screen_tabs(
         self,
-        screen_id: Optional[List[Any]] = None,
-        tab_id: Optional[List[Any]] = None,
-        start_at: Optional[int] = None,
-        max_result: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        screen_id: list[Any] | None = None,
+        tab_id: list[Any] | None = None,
+        start_at: int | None = None,
+        max_result: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get bulk screen tabs
 
@@ -9842,8 +9843,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_screen(
         self,
         screen_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete screen
 
@@ -9851,7 +9852,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/screens/{screen_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9862,8 +9863,8 @@ class JiraCloudAPI:
     def jira_cloud_update_screen(
         self,
         screen_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update screen
 
@@ -9871,7 +9872,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/screens/{screen_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9882,8 +9883,8 @@ class JiraCloudAPI:
     def jira_cloud_get_available_screen_fields(
         self,
         screen_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get available screen fields
 
@@ -9891,7 +9892,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/screens/{screen_id}/availableFields"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9902,9 +9903,9 @@ class JiraCloudAPI:
     def jira_cloud_get_all_screen_tabs(
         self,
         screen_id: int,
-        project_key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all screen tabs
 
@@ -9925,8 +9926,8 @@ class JiraCloudAPI:
     def jira_cloud_add_screen_tab(
         self,
         screen_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create screen tab
 
@@ -9934,7 +9935,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/screens/{screen_id}/tabs"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9946,8 +9947,8 @@ class JiraCloudAPI:
         self,
         screen_id: int,
         tab_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete screen tab
 
@@ -9955,7 +9956,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/screens/{screen_id}/tabs/{tab_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9967,8 +9968,8 @@ class JiraCloudAPI:
         self,
         screen_id: int,
         tab_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update screen tab
 
@@ -9976,7 +9977,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/screens/{screen_id}/tabs/{tab_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -9988,9 +9989,9 @@ class JiraCloudAPI:
         self,
         screen_id: int,
         tab_id: int,
-        project_key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all screen tab fields
 
@@ -10012,8 +10013,8 @@ class JiraCloudAPI:
         self,
         screen_id: int,
         tab_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add screen tab field
 
@@ -10021,7 +10022,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/screens/{screen_id}/tabs/{tab_id}/fields"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10034,8 +10035,8 @@ class JiraCloudAPI:
         screen_id: int,
         tab_id: int,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove screen tab field
 
@@ -10043,7 +10044,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/screens/{screen_id}/tabs/{tab_id}/fields/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10056,8 +10057,8 @@ class JiraCloudAPI:
         screen_id: int,
         tab_id: int,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Move screen tab field
 
@@ -10065,7 +10066,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/screens/{screen_id}/tabs/{tab_id}/fields/{id_}/move"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10078,8 +10079,8 @@ class JiraCloudAPI:
         screen_id: int,
         tab_id: int,
         pos: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Move screen tab
 
@@ -10087,7 +10088,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/screens/{screen_id}/tabs/{tab_id}/move/{pos}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10097,14 +10098,14 @@ class JiraCloudAPI:
 
     def jira_cloud_get_screen_schemes(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        id_: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        query_string: Optional[str] = None,
-        order_by: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        id_: list[Any] | None = None,
+        expand: str | None = None,
+        query_string: str | None = None,
+        order_by: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get screen schemes
 
@@ -10128,7 +10129,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_screen_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create screen scheme
 
@@ -10136,7 +10137,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/screenscheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10147,8 +10148,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_screen_scheme(
         self,
         screen_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete screen scheme
 
@@ -10156,7 +10157,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/screenscheme/{screen_scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10167,8 +10168,8 @@ class JiraCloudAPI:
     def jira_cloud_update_screen_scheme(
         self,
         screen_scheme_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update screen scheme
 
@@ -10176,7 +10177,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/screenscheme/{screen_scheme_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10186,17 +10187,17 @@ class JiraCloudAPI:
 
     def jira_cloud_search_for_issues_using_jql(
         self,
-        jql: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        validate_query: Optional[str] = None,
-        fields: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        properties: Optional[List[Any]] = None,
-        fields_by_keys: Optional[bool] = None,
-        fail_fast: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        jql: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        validate_query: str | None = None,
+        fields: list[Any] | None = None,
+        expand: str | None = None,
+        properties: list[Any] | None = None,
+        fields_by_keys: bool | None = None,
+        fail_fast: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Currently being removed. Search for issues using JQL (GET)
 
@@ -10223,7 +10224,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_search_for_issues_using_jql_post(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Currently being removed. Search for issues using JQL (POST)
 
@@ -10231,7 +10232,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/search"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10240,7 +10241,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_count_issues(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Count issues using JQL
 
@@ -10248,7 +10249,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/search/approximate-count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10258,17 +10259,17 @@ class JiraCloudAPI:
 
     def jira_cloud_search_and_reconsile_issues_using_jql(
         self,
-        jql: Optional[str] = None,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        fields: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        properties: Optional[List[Any]] = None,
-        fields_by_keys: Optional[bool] = None,
-        fail_fast: Optional[bool] = None,
-        reconcile_issues: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        jql: str | None = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        fields: list[Any] | None = None,
+        expand: str | None = None,
+        properties: list[Any] | None = None,
+        fields_by_keys: bool | None = None,
+        fail_fast: bool | None = None,
+        reconcile_issues: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search for issues using JQL enhanced search (GET)
 
@@ -10295,7 +10296,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_search_and_reconsile_issues_using_jql_post(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Search for issues using JQL enhanced search (POST)
 
@@ -10303,7 +10304,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/search/jql"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10314,8 +10315,8 @@ class JiraCloudAPI:
     def jira_cloud_get_issue_security_level(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue security level
 
@@ -10323,7 +10324,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/securitylevel/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10332,7 +10333,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_server_info(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get Jira instance info
 
@@ -10340,7 +10341,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/serverInfo"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10349,7 +10350,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_issue_navigator_default_columns(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get issue navigator default columns
 
@@ -10357,7 +10358,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/settings/columns"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10366,7 +10367,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_set_issue_navigator_default_columns(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set issue navigator default columns
 
@@ -10374,7 +10375,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/settings/columns"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10383,7 +10384,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_statuses(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all statuses
 
@@ -10391,7 +10392,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/status"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10402,8 +10403,8 @@ class JiraCloudAPI:
     def jira_cloud_get_status(
         self,
         id_or_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get status
 
@@ -10411,7 +10412,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/status/{id_or_name}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10420,7 +10421,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_status_categories(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get all status categories
 
@@ -10428,7 +10429,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/statuscategory"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10439,8 +10440,8 @@ class JiraCloudAPI:
     def jira_cloud_get_status_category(
         self,
         id_or_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get status category
 
@@ -10448,7 +10449,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/statuscategory/{id_or_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10458,9 +10459,9 @@ class JiraCloudAPI:
 
     def jira_cloud_delete_statuses_by_id(
         self,
-        id_: List[Any],
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        id_: list[Any],
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk delete Statuses
 
@@ -10480,9 +10481,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_statuses_by_id(
         self,
-        id_: List[Any],
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        id_: list[Any],
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk get statuses
 
@@ -10501,7 +10502,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_statuses(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk create statuses
 
@@ -10509,7 +10510,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/statuses"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10518,7 +10519,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_update_statuses(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk update statuses
 
@@ -10526,7 +10527,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/statuses"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10536,10 +10537,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_statuses_by_name(
         self,
-        name: List[Any],
-        project_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        name: list[Any],
+        project_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk get statuses by name
 
@@ -10560,13 +10561,13 @@ class JiraCloudAPI:
 
     def jira_cloud_search(
         self,
-        project_id: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        search_string: Optional[str] = None,
-        status_category: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        search_string: str | None = None,
+        status_category: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search statuses paginated
 
@@ -10592,10 +10593,10 @@ class JiraCloudAPI:
         self,
         status_id: str,
         project_id: str,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue type usages by status and project
 
@@ -10617,10 +10618,10 @@ class JiraCloudAPI:
     def jira_cloud_get_project_usages_for_status(
         self,
         status_id: str,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get project usages by status
 
@@ -10642,10 +10643,10 @@ class JiraCloudAPI:
     def jira_cloud_get_workflow_usages_for_status(
         self,
         status_id: str,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow usages by status
 
@@ -10667,8 +10668,8 @@ class JiraCloudAPI:
     def jira_cloud_get_task(
         self,
         task_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get task
 
@@ -10676,7 +10677,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/task/{task_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10687,8 +10688,8 @@ class JiraCloudAPI:
     def jira_cloud_cancel_task(
         self,
         task_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Cancel task
 
@@ -10696,7 +10697,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/task/{task_id}/cancel"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10706,11 +10707,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_ui_modifications(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get UI modifications
 
@@ -10731,7 +10732,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_ui_modification(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create UI modification
 
@@ -10739,7 +10740,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/uiModifications"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10750,8 +10751,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_ui_modification(
         self,
         ui_modification_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete UI modification
 
@@ -10759,7 +10760,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/uiModifications/{ui_modification_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10770,8 +10771,8 @@ class JiraCloudAPI:
     def jira_cloud_update_ui_modification(
         self,
         ui_modification_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update UI modification
 
@@ -10779,7 +10780,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/uiModifications/{ui_modification_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10791,8 +10792,8 @@ class JiraCloudAPI:
         self,
         type_: str,
         entity_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get avatars
 
@@ -10800,7 +10801,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/universal_avatar/type/{type_}/owner/{entity_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10813,10 +10814,10 @@ class JiraCloudAPI:
         type_: str,
         entity_id: str,
         size: int,
-        x: Optional[int] = None,
-        y: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        x: int | None = None,
+        y: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Load avatar
 
@@ -10841,8 +10842,8 @@ class JiraCloudAPI:
         type_: str,
         owning_object_id: str,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete avatar
 
@@ -10850,7 +10851,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/universal_avatar/type/{type_}/owner/{owning_object_id}/avatar/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -10861,10 +10862,10 @@ class JiraCloudAPI:
     def jira_cloud_get_avatar_image_by_type(
         self,
         type_: str,
-        size: Optional[str] = None,
-        format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        size: str | None = None,
+        format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get avatar image by type
 
@@ -10887,10 +10888,10 @@ class JiraCloudAPI:
         self,
         type_: str,
         id_: int,
-        size: Optional[str] = None,
-        format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        size: str | None = None,
+        format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get avatar image by ID
 
@@ -10913,10 +10914,10 @@ class JiraCloudAPI:
         self,
         type_: str,
         entity_id: str,
-        size: Optional[str] = None,
-        format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        size: str | None = None,
+        format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get avatar image by owner
 
@@ -10938,10 +10939,10 @@ class JiraCloudAPI:
     def jira_cloud_remove_user(
         self,
         account_id: str,
-        username: Optional[str] = None,
-        key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        username: str | None = None,
+        key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete user
 
@@ -10963,12 +10964,12 @@ class JiraCloudAPI:
 
     def jira_cloud_get_user(
         self,
-        account_id: Optional[str] = None,
-        username: Optional[str] = None,
-        key: Optional[str] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        username: str | None = None,
+        key: str | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user
 
@@ -10990,7 +10991,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_user(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create user
 
@@ -10998,7 +10999,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/user"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11009,13 +11010,13 @@ class JiraCloudAPI:
     def jira_cloud_find_bulk_assignable_users(
         self,
         project_keys: str,
-        query: Optional[str] = None,
-        username: Optional[str] = None,
-        account_id: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        query: str | None = None,
+        username: str | None = None,
+        account_id: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users assignable to projects
 
@@ -11040,21 +11041,21 @@ class JiraCloudAPI:
 
     def jira_cloud_find_assignable_users(
         self,
-        query: Optional[str] = None,
-        session_id: Optional[str] = None,
-        username: Optional[str] = None,
-        account_id: Optional[str] = None,
-        project: Optional[str] = None,
-        issue_key: Optional[str] = None,
-        issue_id: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        action_descriptor_id: Optional[int] = None,
-        recommend: Optional[bool] = None,
-        account_type: Optional[List[Any]] = None,
-        app_type: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        query: str | None = None,
+        session_id: str | None = None,
+        username: str | None = None,
+        account_id: str | None = None,
+        project: str | None = None,
+        issue_key: str | None = None,
+        issue_id: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        action_descriptor_id: int | None = None,
+        recommend: bool | None = None,
+        account_type: list[Any] | None = None,
+        app_type: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users assignable to issues
 
@@ -11086,13 +11087,13 @@ class JiraCloudAPI:
 
     def jira_cloud_bulk_get_users(
         self,
-        account_id: List[Any],
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        username: Optional[List[Any]] = None,
-        key: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: list[Any],
+        start_at: int | None = None,
+        max_results: int | None = None,
+        username: list[Any] | None = None,
+        key: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk get users
 
@@ -11116,12 +11117,12 @@ class JiraCloudAPI:
 
     def jira_cloud_bulk_get_users_migration(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        username: Optional[List[Any]] = None,
-        key: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        username: list[Any] | None = None,
+        key: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get account IDs for users
 
@@ -11144,10 +11145,10 @@ class JiraCloudAPI:
 
     def jira_cloud_reset_user_columns(
         self,
-        account_id: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reset user default columns
 
@@ -11168,10 +11169,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_user_default_columns(
         self,
-        account_id: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user default columns
 
@@ -11192,9 +11193,9 @@ class JiraCloudAPI:
 
     def jira_cloud_set_user_columns(
         self,
-        account_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set user default columns
 
@@ -11215,8 +11216,8 @@ class JiraCloudAPI:
     def jira_cloud_get_user_email(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user email
 
@@ -11236,9 +11237,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_user_email_bulk(
         self,
-        account_id: List[Any],
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: list[Any],
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user email bulk
 
@@ -11259,10 +11260,10 @@ class JiraCloudAPI:
     def jira_cloud_get_user_groups(
         self,
         account_id: str,
-        username: Optional[str] = None,
-        key: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        username: str | None = None,
+        key: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user groups
 
@@ -11285,15 +11286,15 @@ class JiraCloudAPI:
     def jira_cloud_find_users_with_all_permissions(
         self,
         permissions: str,
-        query: Optional[str] = None,
-        username: Optional[str] = None,
-        account_id: Optional[str] = None,
-        issue_key: Optional[str] = None,
-        project_key: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        query: str | None = None,
+        username: str | None = None,
+        account_id: str | None = None,
+        issue_key: str | None = None,
+        project_key: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users with permissions
 
@@ -11321,14 +11322,14 @@ class JiraCloudAPI:
     def jira_cloud_find_users_for_picker(
         self,
         query: str,
-        max_results: Optional[int] = None,
-        show_avatar: Optional[bool] = None,
-        exclude: Optional[List[Any]] = None,
-        exclude_account_ids: Optional[List[Any]] = None,
-        avatar_size: Optional[str] = None,
-        exclude_connect_users: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        max_results: int | None = None,
+        show_avatar: bool | None = None,
+        exclude: list[Any] | None = None,
+        exclude_account_ids: list[Any] | None = None,
+        avatar_size: str | None = None,
+        exclude_connect_users: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users for picker
 
@@ -11354,11 +11355,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_user_property_keys(
         self,
-        account_id: Optional[str] = None,
-        user_key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        user_key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user property keys
 
@@ -11381,11 +11382,11 @@ class JiraCloudAPI:
     def jira_cloud_delete_user_property(
         self,
         property_key: str,
-        account_id: Optional[str] = None,
-        user_key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        user_key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete user property
 
@@ -11408,11 +11409,11 @@ class JiraCloudAPI:
     def jira_cloud_get_user_property(
         self,
         property_key: str,
-        account_id: Optional[str] = None,
-        user_key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        user_key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user property
 
@@ -11435,11 +11436,11 @@ class JiraCloudAPI:
     def jira_cloud_set_user_property(
         self,
         property_key: str,
-        account_id: Optional[str] = None,
-        user_key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        account_id: str | None = None,
+        user_key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set user property
 
@@ -11461,14 +11462,14 @@ class JiraCloudAPI:
 
     def jira_cloud_find_users(
         self,
-        query: Optional[str] = None,
-        username: Optional[str] = None,
-        account_id: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        property: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        query: str | None = None,
+        username: str | None = None,
+        account_id: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        property: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users
 
@@ -11494,10 +11495,10 @@ class JiraCloudAPI:
     def jira_cloud_find_users_by_query(
         self,
         query: str,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users by query
 
@@ -11520,10 +11521,10 @@ class JiraCloudAPI:
     def jira_cloud_find_user_keys_by_query(
         self,
         query: str,
-        start_at: Optional[int] = None,
-        max_result: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_result: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find user keys by query
 
@@ -11545,15 +11546,15 @@ class JiraCloudAPI:
 
     def jira_cloud_find_users_with_browse_permission(
         self,
-        query: Optional[str] = None,
-        username: Optional[str] = None,
-        account_id: Optional[str] = None,
-        issue_key: Optional[str] = None,
-        project_key: Optional[str] = None,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        query: str | None = None,
+        username: str | None = None,
+        account_id: str | None = None,
+        issue_key: str | None = None,
+        project_key: str | None = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find users with browse permission
 
@@ -11579,11 +11580,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_users_default(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all users default
 
@@ -11605,11 +11606,11 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_users(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all users
 
@@ -11630,7 +11631,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_version(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create version
 
@@ -11638,7 +11639,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/version"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11649,10 +11650,10 @@ class JiraCloudAPI:
     def jira_cloud_delete_version(
         self,
         id_: str,
-        move_fix_issues_to: Optional[str] = None,
-        move_affected_issues_to: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        move_fix_issues_to: str | None = None,
+        move_affected_issues_to: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete version
 
@@ -11674,9 +11675,9 @@ class JiraCloudAPI:
     def jira_cloud_get_version(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version
 
@@ -11697,8 +11698,8 @@ class JiraCloudAPI:
     def jira_cloud_update_version(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update version
 
@@ -11706,7 +11707,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/version/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11718,8 +11719,8 @@ class JiraCloudAPI:
         self,
         id_: str,
         move_issues_to: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Merge versions
 
@@ -11727,7 +11728,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/version/{id_}/mergeto/{move_issues_to}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11738,8 +11739,8 @@ class JiraCloudAPI:
     def jira_cloud_move_version(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Move version
 
@@ -11747,7 +11748,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/version/{id_}/move"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11758,8 +11759,8 @@ class JiraCloudAPI:
     def jira_cloud_get_version_related_issues(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version's related issues count
 
@@ -11767,7 +11768,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/version/{id_}/relatedIssueCounts"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11778,8 +11779,8 @@ class JiraCloudAPI:
     def jira_cloud_get_related_work(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get related work
 
@@ -11787,7 +11788,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/version/{id_}/relatedwork"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11798,8 +11799,8 @@ class JiraCloudAPI:
     def jira_cloud_create_related_work(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create related work
 
@@ -11807,7 +11808,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/version/{id_}/relatedwork"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11818,8 +11819,8 @@ class JiraCloudAPI:
     def jira_cloud_update_related_work(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update related work
 
@@ -11827,7 +11828,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/version/{id_}/relatedwork"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11838,8 +11839,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_and_replace_version(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete and replace version
 
@@ -11847,7 +11848,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/version/{id_}/removeAndSwap"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11858,8 +11859,8 @@ class JiraCloudAPI:
     def jira_cloud_get_version_unresolved_issues(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version's unresolved issues count
 
@@ -11867,7 +11868,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/version/{id_}/unresolvedIssueCount"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11879,8 +11880,8 @@ class JiraCloudAPI:
         self,
         version_id: str,
         related_work_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete related work
 
@@ -11888,7 +11889,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/version/{version_id}/relatedwork/{related_work_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11897,7 +11898,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_delete_webhook_by_id(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Delete webhooks by ID
 
@@ -11905,7 +11906,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = "/rest/api/3/webhook"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11915,10 +11916,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_dynamic_webhooks_for_app(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get dynamic webhooks for app
 
@@ -11938,7 +11939,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_register_dynamic_webhooks(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Register dynamic webhooks
 
@@ -11946,7 +11947,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/webhook"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11956,10 +11957,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_failed_webhooks(
         self,
-        max_results: Optional[int] = None,
-        after: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        max_results: int | None = None,
+        after: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get failed webhooks
 
@@ -11979,7 +11980,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_refresh_webhooks(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Extend webhook life
 
@@ -11987,7 +11988,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/webhook/refresh"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -11997,9 +11998,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_workflows(
         self,
-        workflow_name: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        workflow_name: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all workflows
 
@@ -12018,7 +12019,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_workflow(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create workflow
 
@@ -12026,7 +12027,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflow"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12035,7 +12036,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_read_workflow_from_history(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Read workflow version from history
 
@@ -12043,7 +12044,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflow/history"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12053,9 +12054,9 @@ class JiraCloudAPI:
 
     def jira_cloud_list_workflow_history(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """List workflow history entries
 
@@ -12075,16 +12076,16 @@ class JiraCloudAPI:
 
     def jira_cloud_get_workflow_transition_rule_configurations(
         self,
-        types: List[Any],
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        keys: Optional[List[Any]] = None,
-        workflow_names: Optional[List[Any]] = None,
-        with_tags: Optional[List[Any]] = None,
-        draft: Optional[bool] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        types: list[Any],
+        start_at: int | None = None,
+        max_results: int | None = None,
+        keys: list[Any] | None = None,
+        workflow_names: list[Any] | None = None,
+        with_tags: list[Any] | None = None,
+        draft: bool | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow transition rule configurations
 
@@ -12110,7 +12111,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_update_workflow_transition_rule_configurations(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Update workflow transition rule configurations
 
@@ -12118,7 +12119,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/workflow/rule/config"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12127,7 +12128,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_delete_workflow_transition_rule_configurations(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Delete workflow transition rule configurations
 
@@ -12135,7 +12136,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/workflow/rule/config/delete"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12145,15 +12146,15 @@ class JiraCloudAPI:
 
     def jira_cloud_get_workflows_paginated(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        workflow_name: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        query_string: Optional[str] = None,
-        order_by: Optional[str] = None,
-        is_active: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        workflow_name: list[Any] | None = None,
+        expand: str | None = None,
+        query_string: str | None = None,
+        order_by: str | None = None,
+        is_active: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflows paginated
 
@@ -12182,9 +12183,9 @@ class JiraCloudAPI:
         transition_id: int,
         key: str,
         workflow_name: str,
-        workflow_mode: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        workflow_mode: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete workflow transition property
 
@@ -12208,11 +12209,11 @@ class JiraCloudAPI:
         self,
         transition_id: int,
         workflow_name: str,
-        include_reserved_keys: Optional[bool] = None,
-        key: Optional[str] = None,
-        workflow_mode: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        include_reserved_keys: bool | None = None,
+        key: str | None = None,
+        workflow_mode: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow transition properties
 
@@ -12238,9 +12239,9 @@ class JiraCloudAPI:
         transition_id: int,
         key: str,
         workflow_name: str,
-        workflow_mode: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        workflow_mode: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create workflow transition property
 
@@ -12265,9 +12266,9 @@ class JiraCloudAPI:
         transition_id: int,
         key: str,
         workflow_name: str,
-        workflow_mode: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        workflow_mode: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update workflow transition property
 
@@ -12290,8 +12291,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_inactive_workflow(
         self,
         entity_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete inactive workflow
 
@@ -12299,7 +12300,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/workflow/{entity_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12311,10 +12312,10 @@ class JiraCloudAPI:
         self,
         workflow_id: str,
         project_id: int,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue types in a project that are using a given workflow
 
@@ -12338,10 +12339,10 @@ class JiraCloudAPI:
     def jira_cloud_get_project_usages_for_workflow(
         self,
         workflow_id: str,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get projects using a given workflow
 
@@ -12363,10 +12364,10 @@ class JiraCloudAPI:
     def jira_cloud_get_workflow_scheme_usages_for_workflow(
         self,
         workflow_id: str,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow schemes which are using a given workflow
 
@@ -12386,7 +12387,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_read_workflows(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk get workflows
 
@@ -12394,7 +12395,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflows"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12404,11 +12405,11 @@ class JiraCloudAPI:
 
     def jira_cloud_workflow_capabilities(
         self,
-        workflow_id: Optional[str] = None,
-        project_id: Optional[str] = None,
-        issue_type_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        workflow_id: str | None = None,
+        project_id: str | None = None,
+        issue_type_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get available workflow capabilities
 
@@ -12429,7 +12430,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_workflows(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk create workflows
 
@@ -12437,7 +12438,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflows/create"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12446,7 +12447,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_validate_create_workflows(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Validate create workflows
 
@@ -12454,7 +12455,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflows/create/validation"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12463,7 +12464,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_default_editor(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get the user's default workflow editor
 
@@ -12471,7 +12472,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/api/3/workflows/defaultEditor"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12480,7 +12481,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_read_workflow_previews(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Preview workflow
 
@@ -12488,7 +12489,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflows/preview"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12498,15 +12499,15 @@ class JiraCloudAPI:
 
     def jira_cloud_search_workflows(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        expand: Optional[str] = None,
-        query_string: Optional[str] = None,
-        order_by: Optional[str] = None,
-        scope: Optional[str] = None,
-        is_active: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        expand: str | None = None,
+        query_string: str | None = None,
+        order_by: str | None = None,
+        scope: str | None = None,
+        is_active: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search workflows
 
@@ -12531,7 +12532,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_update_workflows(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk update workflows
 
@@ -12539,7 +12540,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflows/update"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12548,7 +12549,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_validate_update_workflows(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Validate update workflows
 
@@ -12556,7 +12557,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflows/update/validation"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12566,10 +12567,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_all_workflow_schemes(
         self,
-        start_at: Optional[int] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start_at: int | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all workflow schemes
 
@@ -12589,7 +12590,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_create_workflow_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create workflow scheme
 
@@ -12597,7 +12598,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflowscheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12607,9 +12608,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_workflow_scheme_project_associations(
         self,
-        project_id: List[Any],
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        project_id: list[Any],
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow scheme project associations
 
@@ -12628,7 +12629,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_assign_scheme_to_project(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Assign workflow scheme to project
 
@@ -12636,7 +12637,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = "/rest/api/3/workflowscheme/project"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12645,7 +12646,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_switch_workflow_scheme_for_project(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Switch workflow scheme for project
 
@@ -12653,7 +12654,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflowscheme/project/switch"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12662,7 +12663,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_read_workflow_schemes(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Bulk get workflow schemes
 
@@ -12670,7 +12671,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflowscheme/read"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12679,7 +12680,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_update_schemes(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Update workflow scheme
 
@@ -12687,7 +12688,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflowscheme/update"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12696,7 +12697,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_required_workflow_scheme_mappings(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get required status mappings for workflow scheme update
 
@@ -12704,7 +12705,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/api/3/workflowscheme/update/mappings"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12715,8 +12716,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_workflow_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete workflow scheme
 
@@ -12724,7 +12725,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/workflowscheme/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12735,9 +12736,9 @@ class JiraCloudAPI:
     def jira_cloud_get_workflow_scheme(
         self,
         id_: int,
-        return_draft_if_exists: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        return_draft_if_exists: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow scheme
 
@@ -12758,8 +12759,8 @@ class JiraCloudAPI:
     def jira_cloud_update_workflow_scheme(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Classic update workflow scheme
 
@@ -12767,7 +12768,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/workflowscheme/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12778,8 +12779,8 @@ class JiraCloudAPI:
     def jira_cloud_create_workflow_scheme_draft_from_parent(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create draft workflow scheme
 
@@ -12787,7 +12788,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/api/3/workflowscheme/{id_}/createdraft"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12798,9 +12799,9 @@ class JiraCloudAPI:
     def jira_cloud_delete_default_workflow(
         self,
         id_: int,
-        update_draft_if_needed: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        update_draft_if_needed: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete default workflow
 
@@ -12821,9 +12822,9 @@ class JiraCloudAPI:
     def jira_cloud_get_default_workflow(
         self,
         id_: int,
-        return_draft_if_exists: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        return_draft_if_exists: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get default workflow
 
@@ -12844,8 +12845,8 @@ class JiraCloudAPI:
     def jira_cloud_update_default_workflow(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update default workflow
 
@@ -12853,7 +12854,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/workflowscheme/{id_}/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12864,8 +12865,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_workflow_scheme_draft(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete draft workflow scheme
 
@@ -12873,7 +12874,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12884,8 +12885,8 @@ class JiraCloudAPI:
     def jira_cloud_get_workflow_scheme_draft(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get draft workflow scheme
 
@@ -12893,7 +12894,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12904,8 +12905,8 @@ class JiraCloudAPI:
     def jira_cloud_update_workflow_scheme_draft(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update draft workflow scheme
 
@@ -12913,7 +12914,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12924,8 +12925,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_draft_default_workflow(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete draft default workflow
 
@@ -12933,7 +12934,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12944,8 +12945,8 @@ class JiraCloudAPI:
     def jira_cloud_get_draft_default_workflow(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get draft default workflow
 
@@ -12953,7 +12954,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12964,8 +12965,8 @@ class JiraCloudAPI:
     def jira_cloud_update_draft_default_workflow(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update draft default workflow
 
@@ -12973,7 +12974,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -12985,8 +12986,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         issue_type: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete workflow for issue type in draft workflow scheme
 
@@ -12994,7 +12995,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft/issuetype/{issue_type}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13006,8 +13007,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         issue_type: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow for issue type in draft workflow scheme
 
@@ -13015,7 +13016,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft/issuetype/{issue_type}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13027,8 +13028,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         issue_type: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set workflow for issue type in draft workflow scheme
 
@@ -13036,7 +13037,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/workflowscheme/{id_}/draft/issuetype/{issue_type}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13047,9 +13048,9 @@ class JiraCloudAPI:
     def jira_cloud_publish_draft_workflow_scheme(
         self,
         id_: int,
-        validate_only: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        validate_only: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Publish draft workflow scheme
 
@@ -13071,8 +13072,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         workflow_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue types for workflow in draft workflow scheme
 
@@ -13093,9 +13094,9 @@ class JiraCloudAPI:
     def jira_cloud_get_draft_workflow(
         self,
         id_: int,
-        workflow_name: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        workflow_name: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue types for workflows in draft workflow scheme
 
@@ -13117,8 +13118,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         workflow_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set issue types for workflow in workflow scheme
 
@@ -13140,9 +13141,9 @@ class JiraCloudAPI:
         self,
         id_: int,
         issue_type: str,
-        update_draft_if_needed: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        update_draft_if_needed: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete workflow for issue type in workflow scheme
 
@@ -13164,9 +13165,9 @@ class JiraCloudAPI:
         self,
         id_: int,
         issue_type: str,
-        return_draft_if_exists: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        return_draft_if_exists: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow for issue type in workflow scheme
 
@@ -13188,8 +13189,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         issue_type: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set workflow for issue type in workflow scheme
 
@@ -13197,7 +13198,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/api/3/workflowscheme/{id_}/issuetype/{issue_type}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13209,9 +13210,9 @@ class JiraCloudAPI:
         self,
         id_: int,
         workflow_name: str,
-        update_draft_if_needed: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        update_draft_if_needed: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete issue types for workflow in workflow scheme
 
@@ -13233,10 +13234,10 @@ class JiraCloudAPI:
     def jira_cloud_get_workflow(
         self,
         id_: int,
-        workflow_name: Optional[str] = None,
-        return_draft_if_exists: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        workflow_name: str | None = None,
+        return_draft_if_exists: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get issue types for workflows in workflow scheme
 
@@ -13259,8 +13260,8 @@ class JiraCloudAPI:
         self,
         id_: int,
         workflow_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set issue types for workflow in workflow scheme
 
@@ -13281,10 +13282,10 @@ class JiraCloudAPI:
     def jira_cloud_get_project_usages_for_workflow_scheme(
         self,
         workflow_scheme_id: str,
-        next_page_token: Optional[str] = None,
-        max_results: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        next_page_token: str | None = None,
+        max_results: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get projects which are using a given workflow scheme
 
@@ -13305,9 +13306,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_ids_of_worklogs_deleted_since(
         self,
-        since: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        since: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get IDs of deleted worklogs
 
@@ -13327,9 +13328,9 @@ class JiraCloudAPI:
 
     def jira_cloud_get_worklogs_for_ids(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get worklogs
 
@@ -13349,10 +13350,10 @@ class JiraCloudAPI:
 
     def jira_cloud_get_ids_of_worklogs_modified_since(
         self,
-        since: Optional[int] = None,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        since: int | None = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get IDs of updated worklogs
 
@@ -13374,8 +13375,8 @@ class JiraCloudAPI:
     def jira_cloud_addon_properties_resource_get_addon_properties_get(
         self,
         addon_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get app properties
 
@@ -13383,7 +13384,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/atlassian-connect/1/addons/{addon_key}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13395,8 +13396,8 @@ class JiraCloudAPI:
         self,
         addon_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete app property
 
@@ -13404,7 +13405,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/atlassian-connect/1/addons/{addon_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13416,8 +13417,8 @@ class JiraCloudAPI:
         self,
         addon_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get app property
 
@@ -13425,7 +13426,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/atlassian-connect/1/addons/{addon_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13437,8 +13438,8 @@ class JiraCloudAPI:
         self,
         addon_key: str,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set app property
 
@@ -13446,7 +13447,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/atlassian-connect/1/addons/{addon_key}/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13456,9 +13457,9 @@ class JiraCloudAPI:
 
     def jira_cloud_dynamic_modules_resource_remove_modules_delete(
         self,
-        module_key: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        module_key: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove modules
 
@@ -13477,7 +13478,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_dynamic_modules_resource_get_modules_get(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get modules
 
@@ -13485,7 +13486,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/atlassian-connect/1/app/module/dynamic"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13494,7 +13495,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_dynamic_modules_resource_register_modules_post(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Register modules
 
@@ -13502,7 +13503,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/atlassian-connect/1/app/module/dynamic"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13513,8 +13514,8 @@ class JiraCloudAPI:
     def jira_cloud_app_issue_field_value_update_resource_update_issue_fields_put(
         self,
         atlassian_transfer_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk update custom field value
 
@@ -13536,8 +13537,8 @@ class JiraCloudAPI:
         self,
         atlassian_transfer_id: str,
         entity_type: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Bulk update entity properties
 
@@ -13558,8 +13559,8 @@ class JiraCloudAPI:
     def jira_cloud_migration_resource_workflow_rule_search_post(
         self,
         atlassian_transfer_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get workflow transition rule configurations
 
@@ -13581,8 +13582,8 @@ class JiraCloudAPI:
         self,
         connect_key: str,
         jira_issue_fields_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get Connect issue field migration task
 
@@ -13590,7 +13591,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/atlassian-connect/1/migration/{connect_key}/{jira_issue_fields_key}/task"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13602,8 +13603,8 @@ class JiraCloudAPI:
         self,
         connect_key: str,
         jira_issue_fields_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Submit Connect issue field migration task
 
@@ -13611,7 +13612,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = f"/rest/atlassian-connect/1/migration/{connect_key}/{jira_issue_fields_key}/task"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13621,9 +13622,9 @@ class JiraCloudAPI:
 
     def jira_cloud_service_registry_resource_services_get(
         self,
-        service_ids: List[Any],
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        service_ids: list[Any],
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Retrieve the attributes of service registries
 
@@ -13642,7 +13643,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_forge_app_property_keys(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get app property keys (Forge)
 
@@ -13650,7 +13651,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = "/rest/forge/1/app/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13661,8 +13662,8 @@ class JiraCloudAPI:
     def jira_cloud_delete_forge_app_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete app property (Forge)
 
@@ -13670,7 +13671,7 @@ class JiraCloudAPI:
         Method: DELETE
         """
         path = f"/rest/forge/1/app/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13681,8 +13682,8 @@ class JiraCloudAPI:
     def jira_cloud_get_forge_app_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get app property (Forge)
 
@@ -13690,7 +13691,7 @@ class JiraCloudAPI:
         Method: GET
         """
         path = f"/rest/forge/1/app/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13701,8 +13702,8 @@ class JiraCloudAPI:
     def jira_cloud_put_forge_app_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set app property (Forge)
 
@@ -13710,7 +13711,7 @@ class JiraCloudAPI:
         Method: PUT
         """
         path = f"/rest/forge/1/app/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -13719,7 +13720,7 @@ class JiraCloudAPI:
         )
 
     def jira_cloud_get_worklogs_by_issue_id_and_worklog_id(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get worklogs by issue id and worklog id
 
@@ -13727,7 +13728,7 @@ class JiraCloudAPI:
         Method: POST
         """
         path = "/rest/internal/api/latest/worklog/bulk"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

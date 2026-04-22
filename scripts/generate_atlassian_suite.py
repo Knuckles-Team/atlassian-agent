@@ -1,4 +1,5 @@
 import json
+from typing import Any
 import os
 import re
 from pathlib import Path
@@ -20,7 +21,7 @@ class {{ product_name }}API:
         {% for p in m.params %}{% if p.required %}{{ p.py_name }}: {{ p.type }}, {% endif %}{% endfor %}
         {% for p in m.params %}{% if not p.required %}{{ p.py_name }}: Optional[{{ p.type }}] = None, {% endif %}{% endfor %}
         {% if m.body %}payload: Optional[Dict[str, Any]] = None, {% endif %}
-        max_pages: Optional[int] = None
+        max_pages: Optional[int] | None = None
     ) -> Response:
         \"\"\"{{ m.summary }}
 
@@ -64,7 +65,7 @@ def register_{{ module_name }}_tools(mcp: FastMCP):
         {% endif %}{% endfor %}
         {% if m.body %}payload: Optional[Dict[str, Any]] = Field(None, description=\"JSON payload for the request\"),
         {% endif %}
-        ctx: Optional[Context] = None
+        ctx: Optional[Context] | None = None
     ) -> Dict[str, Any]:
         \"\"\"{{ m.summary }}\"\"\"
         api = get_api()
@@ -175,7 +176,7 @@ def generate_suite(
 
     product_prefix = module_name
 
-    operation_ids = {}
+    operation_ids: dict[str, Any] = {}
 
     for path, path_item in paths.items():
         path_params_global = path_item.get("parameters", [])

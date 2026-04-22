@@ -1,11 +1,12 @@
 # Generated MCP Tools for JiraCloud (Modular Coordinator)
 from fastmcp import FastMCP
-from .jira_issue_tools import register_jira_issue_tools
-from .jira_project_tools import register_jira_project_tools
-from .jira_user_tools import register_jira_user_tools
-from .jira_schema_tools import register_jira_schema_tools
+
 from .jira_core_tools import register_jira_core_tools
+from .jira_issue_tools import register_jira_issue_tools
 from .jira_other_tools import register_jira_other_tools
+from .jira_project_tools import register_jira_project_tools
+from .jira_schema_tools import register_jira_schema_tools
+from .jira_user_tools import register_jira_user_tools
 
 
 def register_jira_cloud_tools(mcp: FastMCP):

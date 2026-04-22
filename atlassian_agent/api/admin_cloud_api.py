@@ -1,7 +1,8 @@
 # Generated API Client for AdminCloud
-from typing import Any, Dict, List, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class AdminCloudAPI:
@@ -10,9 +11,9 @@ class AdminCloudAPI:
 
     def admin_cloud_get_orgs(
         self,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get organizations
 
@@ -33,8 +34,8 @@ class AdminCloudAPI:
     def admin_cloud_get_org_by_id(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get an organization by ID
 
@@ -42,7 +43,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v1/orgs/{org_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -54,8 +55,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get users in an organization
 
@@ -63,7 +64,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/users"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -76,8 +77,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         user_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get details of a user in a directory
 
@@ -85,7 +86,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/users/{user_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -96,9 +97,9 @@ class AdminCloudAPI:
     def admin_cloud_get_users(
         self,
         org_id: str,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get managed accounts in an organization
 
@@ -119,8 +120,8 @@ class AdminCloudAPI:
     def admin_cloud_post_v2_orgs_org_id_users_invite(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Invite users to an organization
 
@@ -128,7 +129,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v2/orgs/{org_id}/users/invite"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -141,8 +142,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user role assignments
 
@@ -150,7 +151,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/users/{account_id}/role-assignments"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -162,8 +163,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         user_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Grant user access
 
@@ -171,7 +172,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/users/{user_id}/roles/assign"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -183,8 +184,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         user_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Revoke user access
 
@@ -192,7 +193,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/users/{user_id}/roles/revoke"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -205,8 +206,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Suspend user access in directory
 
@@ -216,7 +217,7 @@ class AdminCloudAPI:
         path = (
             f"/v2/orgs/{org_id}/directories/{directory_id}/users/{account_id}/suspend"
         )
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -229,8 +230,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Restore user access in directory
 
@@ -240,7 +241,7 @@ class AdminCloudAPI:
         path = (
             f"/v2/orgs/{org_id}/directories/{directory_id}/users/{account_id}/restore"
         )
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -253,8 +254,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove user from directory
 
@@ -262,7 +263,7 @@ class AdminCloudAPI:
         Method: DELETE
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/users/{account_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -274,8 +275,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         user_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Assign organization-level role
 
@@ -283,7 +284,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/users/{user_id}/role-assignments/assign"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -295,8 +296,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         user_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove organization-level role
 
@@ -304,7 +305,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/users/{user_id}/role-assignments/revoke"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -316,8 +317,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get count of users in an organization
 
@@ -325,7 +326,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/users/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -337,8 +338,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user stats in an organization
 
@@ -346,7 +347,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/users/stats"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -358,9 +359,9 @@ class AdminCloudAPI:
         self,
         org_id: str,
         account_id: str,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """User’s last active dates
 
@@ -381,8 +382,8 @@ class AdminCloudAPI:
     def admin_cloud_search_users(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search for users in an organization
 
@@ -390,7 +391,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/users/search"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -401,8 +402,8 @@ class AdminCloudAPI:
     def admin_cloud_post_v1_orgs_org_id_users_invite(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Invite user to org
 
@@ -410,7 +411,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/users/invite"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -422,8 +423,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Suspend user access
 
@@ -431,7 +432,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/directory/users/{account_id}/suspend-access"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -443,8 +444,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Restore user access
 
@@ -452,7 +453,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/directory/users/{account_id}/restore-access"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -464,8 +465,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove user access
 
@@ -473,7 +474,7 @@ class AdminCloudAPI:
         Method: DELETE
         """
         path = f"/v1/orgs/{org_id}/directory/users/{account_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -485,8 +486,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get groups in an organization
 
@@ -494,7 +495,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -506,8 +507,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create group
 
@@ -515,7 +516,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -528,8 +529,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group role assignments
 
@@ -537,7 +538,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/{group_id}/role-assignments"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -550,8 +551,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Grant access to group
 
@@ -559,7 +560,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/{group_id}/role-assignments/assign"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -572,8 +573,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove access from group
 
@@ -581,7 +582,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/{group_id}/role-assignments/revoke"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -594,8 +595,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add user to group
 
@@ -603,7 +604,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/{group_id}/memberships"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -617,8 +618,8 @@ class AdminCloudAPI:
         directory_id: str,
         group_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove user from group
 
@@ -626,7 +627,7 @@ class AdminCloudAPI:
         Method: DELETE
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/{group_id}/memberships/{account_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -639,8 +640,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete group
 
@@ -648,7 +649,7 @@ class AdminCloudAPI:
         Method: DELETE
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/{group_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -661,8 +662,8 @@ class AdminCloudAPI:
         org_id: str,
         directory_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group details
 
@@ -670,7 +671,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/{group_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -682,8 +683,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get the count of groups in an organization
 
@@ -691,7 +692,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -703,8 +704,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         directory_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group stats
 
@@ -712,7 +713,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories/{directory_id}/groups/stats"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -723,8 +724,8 @@ class AdminCloudAPI:
     def admin_cloud_search_groups(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search for groups within an organization
 
@@ -732,7 +733,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/groups/search"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -743,8 +744,8 @@ class AdminCloudAPI:
     def admin_cloud_post_v1_orgs_org_id_directory_groups(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create group
 
@@ -752,7 +753,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/directory/groups"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -764,9 +765,9 @@ class AdminCloudAPI:
         self,
         org_id: str,
         group_id: str,
-        force_if_not_empty: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        force_if_not_empty: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete group
 
@@ -788,8 +789,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Assign roles to a group
 
@@ -797,7 +798,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/directory/groups/{group_id}/roles/assign"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -809,8 +810,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Revoke roles from a group
 
@@ -818,7 +819,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/directory/groups/{group_id}/roles/revoke"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -830,8 +831,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         group_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add user to group
 
@@ -839,7 +840,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/directory/groups/{group_id}/memberships"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -852,8 +853,8 @@ class AdminCloudAPI:
         org_id: str,
         group_id: str,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove user from group
 
@@ -861,7 +862,7 @@ class AdminCloudAPI:
         Method: DELETE
         """
         path = f"/v1/orgs/{org_id}/directory/groups/{group_id}/memberships/{account_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -872,8 +873,8 @@ class AdminCloudAPI:
     def admin_cloud_get_directories_for_org(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get directories in an organization
 
@@ -881,7 +882,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v2/orgs/{org_id}/directories"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -892,9 +893,9 @@ class AdminCloudAPI:
     def admin_cloud_get_domains(
         self,
         org_id: str,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get domains in an organization
 
@@ -916,8 +917,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         domain_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get domain by ID
 
@@ -925,7 +926,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v1/orgs/{org_id}/domains/{domain_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -936,18 +937,18 @@ class AdminCloudAPI:
     def admin_cloud_get_events(
         self,
         org_id: str,
-        cursor: Optional[str] = None,
-        q: Optional[str] = None,
-        from_: Optional[str] = None,
-        to: Optional[str] = None,
-        action: Optional[str] = None,
-        actor: Optional[List[Any]] = None,
-        ip: Optional[List[Any]] = None,
-        product: Optional[List[Any]] = None,
-        location: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        q: str | None = None,
+        from_: str | None = None,
+        to: str | None = None,
+        action: str | None = None,
+        actor: list[Any] | None = None,
+        ip: list[Any] | None = None,
+        product: list[Any] | None = None,
+        location: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Query audit log events
 
@@ -977,13 +978,13 @@ class AdminCloudAPI:
     def admin_cloud_poll_events(
         self,
         org_id: str,
-        cursor: Optional[str] = None,
-        from_: Optional[str] = None,
-        to: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort_order: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        from_: str | None = None,
+        to: str | None = None,
+        limit: int | None = None,
+        sort_order: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Poll audit log events
 
@@ -1009,8 +1010,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         event_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get an event by ID
 
@@ -1018,7 +1019,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v1/orgs/{org_id}/events/{event_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1029,8 +1030,8 @@ class AdminCloudAPI:
     def admin_cloud_get_event_actions(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get list of event actions
 
@@ -1038,7 +1039,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v1/orgs/{org_id}/event-actions"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1049,10 +1050,10 @@ class AdminCloudAPI:
     def admin_cloud_get_policies(
         self,
         org_id: str,
-        cursor: Optional[str] = None,
-        type_: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        type_: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get list of policies
 
@@ -1074,8 +1075,8 @@ class AdminCloudAPI:
     def admin_cloud_create_policy(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a policy
 
@@ -1083,7 +1084,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/policies"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1095,8 +1096,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get a policy by ID
 
@@ -1104,7 +1105,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v1/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1116,8 +1117,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update a policy
 
@@ -1125,7 +1126,7 @@ class AdminCloudAPI:
         Method: PUT
         """
         path = f"/v1/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1137,8 +1138,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete a policy
 
@@ -1146,7 +1147,7 @@ class AdminCloudAPI:
         Method: DELETE
         """
         path = f"/v1/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1158,8 +1159,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add Resource to Policy
 
@@ -1167,7 +1168,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v1/orgs/{org_id}/policies/{policy_id}/resources"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1180,8 +1181,8 @@ class AdminCloudAPI:
         org_id: str,
         policy_id: str,
         resource_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update Policy Resource
 
@@ -1189,7 +1190,7 @@ class AdminCloudAPI:
         Method: PUT
         """
         path = f"/v1/orgs/{org_id}/policies/{policy_id}/resources/{resource_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1202,8 +1203,8 @@ class AdminCloudAPI:
         org_id: str,
         policy_id: str,
         resource_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete Policy Resource
 
@@ -1211,7 +1212,7 @@ class AdminCloudAPI:
         Method: DELETE
         """
         path = f"/v1/orgs/{org_id}/policies/{policy_id}/resources/{resource_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1223,8 +1224,8 @@ class AdminCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Validate Policy
 
@@ -1232,7 +1233,7 @@ class AdminCloudAPI:
         Method: GET
         """
         path = f"/v1/orgs/{org_id}/policies/{policy_id}/validate"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1243,8 +1244,8 @@ class AdminCloudAPI:
     def admin_cloud_query_workspaces_v2(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get list of workspaces
 
@@ -1252,7 +1253,7 @@ class AdminCloudAPI:
         Method: POST
         """
         path = f"/v2/orgs/{org_id}/workspaces"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

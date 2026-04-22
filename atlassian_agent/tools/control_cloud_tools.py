@@ -1,7 +1,9 @@
 # Generated MCP Tools for ControlCloud
-from typing import Any, Dict, Optional
+from typing import Any
+
+from fastmcp import Context, FastMCP
 from pydantic import Field
-from fastmcp import FastMCP, Context
+
 from ..api.control_cloud_api import ControlCloudAPI
 from ..auth import get_base_client
 
@@ -17,15 +19,15 @@ def register_control_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        cursor: Optional[str] = Field(
+        cursor: str | None = Field(
             None,
             description="Sets the starting point for the page of results to return.",
         ),
-        type_: Optional[str] = Field(
+        type_: str | None = Field(
             None, description="Sets the type for the page of policies to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get list of policies"""
         api = get_api()
         response = api.control_cloud_ap_is_get_policies(
@@ -41,11 +43,11 @@ def register_control_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create a new policy"""
         api = get_api()
         response = api.control_cloud_ap_is_create_policy(
@@ -63,8 +65,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get single policy"""
         api = get_api()
         response = api.control_cloud_ap_is_get_policy(
@@ -82,11 +84,11 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update single policy"""
         api = get_api()
         response = api.control_cloud_ap_is_update_policy(
@@ -105,8 +107,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete single policy"""
         api = get_api()
         response = api.control_cloud_ap_is_delete_policy(
@@ -121,15 +123,15 @@ def register_control_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        cursor: Optional[str] = Field(
+        cursor: str | None = Field(
             None,
             description="Sets the starting point for the page of results to return.",
         ),
-        type_: Optional[str] = Field(
+        type_: str | None = Field(
             None, description="Sets the type for the page of policies to return."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get list of policies V2"""
         api = get_api()
         response = api.control_cloud_ap_is_get_policies_v2(
@@ -145,11 +147,11 @@ def register_control_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create a new policy V2"""
         api = get_api()
         response = api.control_cloud_ap_is_create_policy_v2(
@@ -167,8 +169,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get single policy V2"""
         api = get_api()
         response = api.control_cloud_ap_is_get_policy_v2(
@@ -186,11 +188,11 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update single policy V2"""
         api = get_api()
         response = api.control_cloud_ap_is_update_policy_v2(
@@ -208,11 +210,11 @@ def register_control_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Publish data security policies"""
         api = get_api()
         response = api.control_cloud_ap_is_publish_draft_policies(
@@ -230,8 +232,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get list of resources associated with a policy"""
         api = get_api()
         response = api.control_cloud_ap_is_get_resources(
@@ -249,11 +251,11 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create a new policy resource"""
         api = get_api()
         response = api.control_cloud_ap_is_create_resource(
@@ -272,8 +274,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete all policy resources"""
         api = get_api()
         response = api.control_cloud_ap_is_delete_resources(
@@ -294,11 +296,11 @@ def register_control_cloud_tools(mcp: FastMCP):
         resource_id: str = Field(
             ..., description="Unique Id associated with a resource."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Update single policy resource"""
         api = get_api()
         response = api.control_cloud_ap_is_update_resource(
@@ -321,8 +323,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         resource_id: str = Field(
             ..., description="Unique Id associated with a resource."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete single policy resource"""
         api = get_api()
         response = api.control_cloud_ap_is_delete_resource(
@@ -341,8 +343,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get list of resources associated with a policy V2"""
         api = get_api()
         response = api.control_cloud_ap_is_get_resources_v2(
@@ -363,11 +365,11 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Add or remove policy resources V2"""
         api = get_api()
         response = api.control_cloud_ap_is_attach_detach_resources_v2(
@@ -388,8 +390,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Delete all policy resources V2"""
         api = get_api()
         response = api.control_cloud_ap_is_delete_resources_v2(
@@ -407,8 +409,8 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Validate a policy"""
         api = get_api()
         response = api.control_cloud_ap_is_validate_policy(
@@ -428,11 +430,11 @@ def register_control_cloud_tools(mcp: FastMCP):
         policy_id: str = Field(
             ..., description="Unique Id associated with each policy."
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Add users to a policy"""
         api = get_api()
         response = api.control_cloud_ap_is_add_users_to_policy(
@@ -452,8 +454,8 @@ def register_control_cloud_tools(mcp: FastMCP):
             ...,
             description="Unique Id obtained after adding users to an authentication policy.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get the status of a task"""
         api = get_api()
         response = api.control_cloud_ap_is_get_task_status(
@@ -470,11 +472,11 @@ def register_control_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get policy information for managed users"""
         api = get_api()
         response = api.control_cloud_ap_is_bulk_fetch_auth_policy(

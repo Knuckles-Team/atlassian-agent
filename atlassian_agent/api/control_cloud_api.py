@@ -1,7 +1,8 @@
 # Generated API Client for ControlCloud
-from typing import Any, Dict, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class ControlCloudAPI:
@@ -11,10 +12,10 @@ class ControlCloudAPI:
     def control_cloud_ap_is_get_policies(
         self,
         org_id: str,
-        cursor: Optional[str] = None,
-        type_: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        type_: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get list of policies
 
@@ -36,8 +37,8 @@ class ControlCloudAPI:
     def control_cloud_ap_is_create_policy(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a new policy
 
@@ -45,7 +46,7 @@ class ControlCloudAPI:
         Method: POST
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -57,8 +58,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get single policy
 
@@ -66,7 +67,7 @@ class ControlCloudAPI:
         Method: GET
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -78,8 +79,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update single policy
 
@@ -87,7 +88,7 @@ class ControlCloudAPI:
         Method: PUT
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -99,8 +100,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete single policy
 
@@ -108,7 +109,7 @@ class ControlCloudAPI:
         Method: DELETE
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -119,10 +120,10 @@ class ControlCloudAPI:
     def control_cloud_ap_is_get_policies_v2(
         self,
         org_id: str,
-        cursor: Optional[str] = None,
-        type_: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        type_: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get list of policies V2
 
@@ -144,8 +145,8 @@ class ControlCloudAPI:
     def control_cloud_ap_is_create_policy_v2(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a new policy V2
 
@@ -153,7 +154,7 @@ class ControlCloudAPI:
         Method: POST
         """
         path = f"/admin/control/v2/orgs/{org_id}/policies"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -165,8 +166,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get single policy V2
 
@@ -174,7 +175,7 @@ class ControlCloudAPI:
         Method: GET
         """
         path = f"/admin/control/v2/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -186,8 +187,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update single policy V2
 
@@ -195,7 +196,7 @@ class ControlCloudAPI:
         Method: PUT
         """
         path = f"/admin/control/v2/orgs/{org_id}/policies/{policy_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -206,8 +207,8 @@ class ControlCloudAPI:
     def control_cloud_ap_is_publish_draft_policies(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Publish data security policies
 
@@ -215,7 +216,7 @@ class ControlCloudAPI:
         Method: POST
         """
         path = f"/admin/control/v2/orgs/{org_id}/policies/publishDraftPolicies"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -227,8 +228,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get list of resources associated with a policy
 
@@ -236,7 +237,7 @@ class ControlCloudAPI:
         Method: GET
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}/resources"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -248,8 +249,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a new policy resource
 
@@ -257,7 +258,7 @@ class ControlCloudAPI:
         Method: POST
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}/resources"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -269,8 +270,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete all policy resources
 
@@ -278,7 +279,7 @@ class ControlCloudAPI:
         Method: DELETE
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}/resources"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -291,8 +292,8 @@ class ControlCloudAPI:
         org_id: str,
         policy_id: str,
         resource_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update single policy resource
 
@@ -300,7 +301,7 @@ class ControlCloudAPI:
         Method: PUT
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}/resources/{resource_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -313,8 +314,8 @@ class ControlCloudAPI:
         org_id: str,
         policy_id: str,
         resource_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete single policy resource
 
@@ -322,7 +323,7 @@ class ControlCloudAPI:
         Method: DELETE
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}/resources/{resource_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -334,8 +335,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get list of resources associated with a policy V2
 
@@ -343,7 +344,7 @@ class ControlCloudAPI:
         Method: GET
         """
         path = f"/admin/control/v2/orgs/{org_id}/policies/{policy_id}/resources"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -355,8 +356,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add or remove policy resources V2
 
@@ -364,7 +365,7 @@ class ControlCloudAPI:
         Method: POST
         """
         path = f"/admin/control/v2/orgs/{org_id}/policies/{policy_id}/resources"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -376,8 +377,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete all policy resources V2
 
@@ -385,7 +386,7 @@ class ControlCloudAPI:
         Method: DELETE
         """
         path = f"/admin/control/v2/orgs/{org_id}/policies/{policy_id}/resources"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -397,8 +398,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Validate a policy
 
@@ -406,7 +407,7 @@ class ControlCloudAPI:
         Method: GET
         """
         path = f"/admin/control/v1/orgs/{org_id}/policies/{policy_id}/validate"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -418,8 +419,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         policy_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add users to a policy
 
@@ -427,7 +428,7 @@ class ControlCloudAPI:
         Method: POST
         """
         path = f"/admin/control/v1/orgs/{org_id}/auth-policy/{policy_id}/add-users"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -439,8 +440,8 @@ class ControlCloudAPI:
         self,
         org_id: str,
         task_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get the status of a task
 
@@ -448,7 +449,7 @@ class ControlCloudAPI:
         Method: GET
         """
         path = f"/admin/control/v1/orgs/{org_id}/auth-policy/task/{task_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -459,8 +460,8 @@ class ControlCloudAPI:
     def control_cloud_ap_is_bulk_fetch_auth_policy(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get policy information for managed users
 
@@ -468,7 +469,7 @@ class ControlCloudAPI:
         Method: POST
         """
         path = f"/admin/control/v1/orgs/{org_id}/users/auth-policies/bulk-fetch"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

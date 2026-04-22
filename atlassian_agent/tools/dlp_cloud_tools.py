@@ -1,7 +1,9 @@
 # Generated MCP Tools for DLPCloud
-from typing import Any, Dict, Optional
+from typing import Any
+
+from fastmcp import Context, FastMCP
 from pydantic import Field
-from fastmcp import FastMCP, Context
+
 from ..api.dlp_cloud_api import DLPCloudAPI
 from ..auth import get_base_client
 
@@ -17,11 +19,11 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Create a new classification level"""
         api = get_api()
         response = api.dlp_cloud_create_level(
@@ -36,8 +38,8 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all classification levels by org_id"""
         api = get_api()
         response = api.dlp_cloud_get_level_list(
@@ -55,8 +57,8 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get a classification level"""
         api = get_api()
         response = api.dlp_cloud_get_level(
@@ -75,11 +77,11 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Edit a classification level"""
         api = get_api()
         response = api.dlp_cloud_edit_level(
@@ -95,11 +97,11 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Publish classification level(s)"""
         api = get_api()
         response = api.dlp_cloud_publish_level(
@@ -114,11 +116,11 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Archive a data classification level"""
         api = get_api()
         response = api.dlp_cloud_archive_level(
@@ -133,11 +135,11 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Restore a classification level"""
         api = get_api()
         response = api.dlp_cloud_restore_level(
@@ -152,11 +154,11 @@ def register_dlp_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and Organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Reorder classification levels"""
         api = get_api()
         response = api.dlp_cloud_reorder(

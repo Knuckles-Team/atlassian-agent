@@ -1,6 +1,7 @@
+from typing import Any, Generic, TypeVar
+
 import requests
-from typing import Any, Dict, List, Optional, Union, Generic, TypeVar
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 T = TypeVar("T")
 
@@ -13,12 +14,10 @@ class Response(BaseModel, Generic[T]):
     model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
     status_code: int = Field(..., description="HTTP status code")
-    data: Optional[Union[T, List[T], Dict[str, Any]]] = Field(
+    data: T | list[T] | dict[str, Any] | None = Field(
         default=None, description="The parsed data from the response"
     )
-    message: Optional[str] = Field(
-        None, description="Optional message or error details"
-    )
+    message: str | None = Field(None, description="Optional message or error details")
 
     @classmethod
     def from_requests_response(cls, response: requests.Response) -> "Response":

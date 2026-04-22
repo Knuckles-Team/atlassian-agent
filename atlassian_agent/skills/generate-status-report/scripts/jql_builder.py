@@ -5,7 +5,6 @@ JQL Query Builder Utility
 Helper functions for building common JQL queries for status reports.
 """
 
-from typing import List, Optional
 import re
 
 
@@ -33,7 +32,7 @@ def sanitize_jql_value(value: str) -> str:
     return value.replace('"', '""')
 
 
-def sanitize_jql_list(values: List[str]) -> List[str]:
+def sanitize_jql_list(values: list[str]) -> list[str]:
     """
     Sanitize a list of values for use in JQL.
 
@@ -48,11 +47,11 @@ def sanitize_jql_list(values: List[str]) -> List[str]:
 
 def build_project_query(
     project_key: str,
-    statuses: Optional[List[str]] = None,
+    statuses: list[str] | None = None,
     exclude_done: bool = True,
-    priorities: Optional[List[str]] = None,
-    days_back: Optional[int] = None,
-    assignee: Optional[str] = None,
+    priorities: list[str] | None = None,
+    days_back: int | None = None,
+    assignee: str | None = None,
     order_by: str = "priority DESC, updated DESC",
 ) -> str:
     """
@@ -103,7 +102,6 @@ def build_project_query(
     query = " AND ".join(conditions)
 
     if order_by:
-
         order_by = sanitize_jql_value(order_by)
         query += f" ORDER BY {order_by}"
 
@@ -138,7 +136,7 @@ def build_completed_query(project_key: str, days_back: int = 7) -> str:
 
 
 def build_in_progress_query(
-    project_key: str, priorities: Optional[List[str]] = None
+    project_key: str, priorities: list[str] | None = None
 ) -> str:
     """Build query for in-progress issues."""
     project_key = sanitize_jql_value(project_key)
@@ -162,7 +160,7 @@ def build_risk_query(project_key: str, include_overdue: bool = True) -> str:
     if include_overdue:
         risk_conditions.append("(duedate < now() AND status != Done)")
 
-    conditions.append(f'({" OR ".join(risk_conditions)})')
+    conditions.append(f"({' OR '.join(risk_conditions)})")
     conditions.append("priority IN (Highest, High)")
 
     query = " AND ".join(conditions)
@@ -183,7 +181,6 @@ def build_unassigned_query(project_key: str, exclude_done: bool = True) -> str:
 
 
 if __name__ == "__main__":
-
     project = "PROJ"
 
     print("Open Issues Query:")

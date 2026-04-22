@@ -1,7 +1,8 @@
 # Generated API Client for UserMgmtCloud
-from typing import Any, Dict, List, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class UserMgmtCloudAPI:
@@ -11,9 +12,9 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_get_users_account_id_manage(
         self,
         account_id: str,
-        privileges: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        privileges: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user management permissions
 
@@ -34,8 +35,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_get_users_account_id_manage_profile(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get profile
 
@@ -43,7 +44,7 @@ class UserMgmtCloudAPI:
         Method: GET
         """
         path = f"/users/{account_id}/manage/profile"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -54,8 +55,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_patch_users_account_id_manage_profile(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update profile
 
@@ -63,7 +64,7 @@ class UserMgmtCloudAPI:
         Method: PATCH
         """
         path = f"/users/{account_id}/manage/profile"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -74,8 +75,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_put_users_account_id_manage_email(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set email
 
@@ -83,7 +84,7 @@ class UserMgmtCloudAPI:
         Method: PUT
         """
         path = f"/users/{account_id}/manage/email"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -94,8 +95,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_get_users_account_id_manage_api_tokens(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get API tokens
 
@@ -103,7 +104,7 @@ class UserMgmtCloudAPI:
         Method: GET
         """
         path = f"/users/{account_id}/manage/api-tokens"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -115,8 +116,8 @@ class UserMgmtCloudAPI:
         self,
         account_id: str,
         token_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete API token
 
@@ -124,7 +125,7 @@ class UserMgmtCloudAPI:
         Method: DELETE
         """
         path = f"/users/{account_id}/manage/api-tokens/{token_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -135,8 +136,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_post_users_account_id_manage_lifecycle_disable(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Deactivate a user
 
@@ -144,7 +145,7 @@ class UserMgmtCloudAPI:
         Method: POST
         """
         path = f"/users/{account_id}/manage/lifecycle/disable"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -155,8 +156,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_post_users_account_id_manage_lifecycle_enable(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Activate a user
 
@@ -164,7 +165,7 @@ class UserMgmtCloudAPI:
         Method: POST
         """
         path = f"/users/{account_id}/manage/lifecycle/enable"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -175,8 +176,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_post_users_account_id_manage_lifecycle_delete(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete account
 
@@ -184,7 +185,7 @@ class UserMgmtCloudAPI:
         Method: POST
         """
         path = f"/users/{account_id}/manage/lifecycle/delete"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -195,8 +196,8 @@ class UserMgmtCloudAPI:
     def user_mgmt_cloud_post_users_account_id_manage_lifecycle_cancel_delete(
         self,
         account_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Cancel delete account
 
@@ -204,7 +205,7 @@ class UserMgmtCloudAPI:
         Method: POST
         """
         path = f"/users/{account_id}/manage/lifecycle/cancel-delete"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

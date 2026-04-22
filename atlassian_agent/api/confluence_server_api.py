@@ -1,7 +1,8 @@
 # Generated API Client for ConfluenceServer
-from typing import Any, Dict, List, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class ConfluenceServerAPI:
@@ -9,7 +10,7 @@ class ConfluenceServerAPI:
         self.base_api = base_api
 
     def confluence_server_get_access_mode_status(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get access mode status
 
@@ -17,7 +18,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/accessmode"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -26,7 +27,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create group
 
@@ -34,7 +35,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/admin/group"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -45,8 +46,8 @@ class ConfluenceServerAPI:
     def confluence_server_delete(
         self,
         group_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete group
 
@@ -54,7 +55,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/admin/group/{group_name}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -65,8 +66,8 @@ class ConfluenceServerAPI:
     def confluence_server_change_password(
         self,
         username: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Change password
 
@@ -74,7 +75,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/admin/user/{username}/password"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -83,7 +84,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_user(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create user
 
@@ -91,7 +92,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/admin/user"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -102,8 +103,8 @@ class ConfluenceServerAPI:
     def confluence_server_delete_1(
         self,
         username: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete user
 
@@ -111,7 +112,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/admin/user/{username}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -122,8 +123,8 @@ class ConfluenceServerAPI:
     def confluence_server_disable(
         self,
         username: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Disable user
 
@@ -131,7 +132,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/admin/user/{username}/disable"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -142,8 +143,8 @@ class ConfluenceServerAPI:
     def confluence_server_enable(
         self,
         username: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Enable user
 
@@ -151,7 +152,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/admin/user/{username}/enable"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -162,13 +163,13 @@ class ConfluenceServerAPI:
     def confluence_server_get_attachments(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        filename: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        media_type: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        filename: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        media_type: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachment
 
@@ -193,11 +194,11 @@ class ConfluenceServerAPI:
     def confluence_server_create_attachments(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        allow_duplicated: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        allow_duplicated: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create attachments
 
@@ -221,9 +222,9 @@ class ConfluenceServerAPI:
         self,
         attachment_id: str,
         id_: str,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """No description provided.
 
@@ -245,10 +246,10 @@ class ConfluenceServerAPI:
         self,
         attachment_id: str,
         id_: str,
-        new_name: Optional[str] = None,
-        new_content_id: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        new_name: str | None = None,
+        new_content_id: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Move attachment
 
@@ -271,8 +272,8 @@ class ConfluenceServerAPI:
         self,
         attachment_id: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update non-binary data of an Attachment
 
@@ -280,7 +281,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/content/{id_}/child/attachment/{attachment_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -292,8 +293,8 @@ class ConfluenceServerAPI:
         self,
         attachment_id: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove attachment
 
@@ -301,7 +302,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/content/{id_}/child/attachment/{attachment_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -314,8 +315,8 @@ class ConfluenceServerAPI:
         attachment_id: str,
         id_: str,
         version: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove attachment version
 
@@ -323,7 +324,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/content/{id_}/child/attachment/{attachment_id}/version/{version}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -335,8 +336,8 @@ class ConfluenceServerAPI:
         self,
         attachment_id: str,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update binary data of an attachment
 
@@ -344,7 +345,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/content/{id_}/child/attachment/{attachment_id}/data"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -353,7 +354,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_get_audit_records(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """No description provided.
 
@@ -361,7 +362,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/audit"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -370,7 +371,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_cancel_all_queued_jobs(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Cancel all queued jobs
 
@@ -378,7 +379,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = "/rest/api/backup-restore/jobs/clear-queue"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -389,8 +390,8 @@ class ConfluenceServerAPI:
     def confluence_server_cancel_job(
         self,
         job_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Cancel job
 
@@ -398,7 +399,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/backup-restore/jobs/{job_id}/cancel"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -407,7 +408,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_site_backup_job(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create site backup job
 
@@ -415,7 +416,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/backup-restore/backup/site"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -424,7 +425,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_site_restore_job(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create site restore job
 
@@ -432,7 +433,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/backup-restore/restore/site"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -441,7 +442,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_site_restore_job_for_uploaded_backup_file(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create site restore job for upload backup file
 
@@ -449,7 +450,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/backup-restore/restore/site/upload"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -458,7 +459,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_space_backup_job(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create space backup job
 
@@ -466,7 +467,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/backup-restore/backup/space"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -475,7 +476,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_space_restore_job(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create space restore job
 
@@ -483,7 +484,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/backup-restore/restore/space"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -492,7 +493,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_space_restore_job_for_uploaded_backup_file(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create space restore job for upload backup file
 
@@ -500,7 +501,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/backup-restore/restore/space/upload"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -511,8 +512,8 @@ class ConfluenceServerAPI:
     def confluence_server_download_backup_file(
         self,
         job_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Download backup file
 
@@ -520,7 +521,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/backup-restore/jobs/{job_id}/download"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -530,16 +531,16 @@ class ConfluenceServerAPI:
 
     def confluence_server_find_jobs(
         self,
-        owner: Optional[str] = None,
-        space_key: Optional[str] = None,
-        from_date: Optional[str] = None,
-        job_states: Optional[str] = None,
-        to_date: Optional[str] = None,
-        job_operation: Optional[str] = None,
-        limit: Optional[str] = None,
-        job_scope: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        owner: str | None = None,
+        space_key: str | None = None,
+        from_date: str | None = None,
+        job_states: str | None = None,
+        to_date: str | None = None,
+        job_operation: str | None = None,
+        limit: str | None = None,
+        job_scope: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find jobs by filters
 
@@ -566,9 +567,9 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_files(
         self,
-        job_scope: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        job_scope: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get files in restore directory
 
@@ -589,8 +590,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_job(
         self,
         job_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get job by ID
 
@@ -598,7 +599,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/backup-restore/jobs/{job_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -610,8 +611,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         category_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove a category from a space
 
@@ -619,7 +620,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/space/{space_key}/category/{category_name}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -630,12 +631,12 @@ class ConfluenceServerAPI:
     def confluence_server_children(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        parent_version: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        parent_version: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get children of content
 
@@ -660,12 +661,12 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         type_: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        parent_version: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        parent_version: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get children of content by type
 
@@ -689,14 +690,14 @@ class ConfluenceServerAPI:
     def confluence_server_comments_of_content(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        depth: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        location: Optional[str] = None,
-        parent_version: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        depth: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        location: str | None = None,
+        parent_version: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get comments of content
 
@@ -722,10 +723,10 @@ class ConfluenceServerAPI:
     def confluence_server_publish_shared_draft(
         self,
         draft_id: str,
-        expand: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Publish shared draft
 
@@ -747,10 +748,10 @@ class ConfluenceServerAPI:
     def confluence_server_publish_legacy_draft(
         self,
         draft_id: str,
-        expand: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Publish legacy draft
 
@@ -772,9 +773,9 @@ class ConfluenceServerAPI:
     def confluence_server_convert(
         self,
         to: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Convert body representation
 
@@ -795,11 +796,11 @@ class ConfluenceServerAPI:
     def confluence_server_labels(
         self,
         id_: str,
-        prefix: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        prefix: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels
 
@@ -822,8 +823,8 @@ class ConfluenceServerAPI:
     def confluence_server_add_labels(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add Labels
 
@@ -831,7 +832,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/content/{id_}/label"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -842,9 +843,9 @@ class ConfluenceServerAPI:
     def confluence_server_delete_label_with_query_param(
         self,
         id_: str,
-        name: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        name: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete label with query param
 
@@ -866,8 +867,8 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         label: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete label
 
@@ -875,7 +876,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/content/{id_}/label/{label}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -886,11 +887,11 @@ class ConfluenceServerAPI:
     def confluence_server_find_all(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find all content properties
 
@@ -913,8 +914,8 @@ class ConfluenceServerAPI:
     def confluence_server_create_1(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a content property
 
@@ -922,7 +923,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/content/{id_}/property"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -934,10 +935,10 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         key: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find content property by key
 
@@ -960,9 +961,9 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         key: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property
 
@@ -984,8 +985,8 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """No description provided.
 
@@ -993,7 +994,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/content/{id_}/property/{key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1005,8 +1006,8 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property
 
@@ -1014,7 +1015,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/content/{id_}/property/{key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1024,17 +1025,17 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_content(
         self,
-        space_key: Optional[str] = None,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        posting_day: Optional[str] = None,
-        ids: Optional[str] = None,
-        title: Optional[str] = None,
-        type_: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        space_key: str | None = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        posting_day: str | None = None,
+        ids: str | None = None,
+        title: str | None = None,
+        type_: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content
 
@@ -1062,10 +1063,10 @@ class ConfluenceServerAPI:
 
     def confluence_server_create_content(
         self,
-        expand: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content
 
@@ -1087,11 +1088,11 @@ class ConfluenceServerAPI:
     def confluence_server_get_content_by_id(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        version: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        version: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content by ID
 
@@ -1114,9 +1115,9 @@ class ConfluenceServerAPI:
     def confluence_server_delete_3(
         self,
         id_: str,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content
 
@@ -1137,9 +1138,9 @@ class ConfluenceServerAPI:
     def confluence_server_get_history(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get history of content
 
@@ -1162,8 +1163,8 @@ class ConfluenceServerAPI:
         id_: str,
         version: str,
         hash: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get macro body by hash
 
@@ -1171,7 +1172,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/content/{id_}/history/{version}/macro/hash/{hash}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1184,8 +1185,8 @@ class ConfluenceServerAPI:
         macro_id: str,
         id_: str,
         version: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get macro body by macro ID
 
@@ -1193,7 +1194,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/content/{id_}/history/{version}/macro/id/{macro_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1203,14 +1204,14 @@ class ConfluenceServerAPI:
 
     def confluence_server_scan_content(
         self,
-        cursor: Optional[str] = None,
-        space_key: Optional[str] = None,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        type_: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        space_key: str | None = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        type_: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Scan content by space key
 
@@ -1235,13 +1236,13 @@ class ConfluenceServerAPI:
 
     def confluence_server_search(
         self,
-        cqlcontext: Optional[str] = None,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        cql: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cqlcontext: str | None = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        cql: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search content using CQL
 
@@ -1266,11 +1267,11 @@ class ConfluenceServerAPI:
     def confluence_server_update_2(
         self,
         content_id: str,
-        async_reconciliation: Optional[bool] = None,
-        conflict_policy: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        async_reconciliation: bool | None = None,
+        conflict_policy: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content
 
@@ -1293,9 +1294,9 @@ class ConfluenceServerAPI:
     def confluence_server_by_operation(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all restrictions by Operation
 
@@ -1317,11 +1318,11 @@ class ConfluenceServerAPI:
         self,
         operation_key: str,
         id_: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all restrictions for given operation
 
@@ -1344,11 +1345,11 @@ class ConfluenceServerAPI:
     def confluence_server_relevant_view_restrictions(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all view restriction both direct and inherited.
 
@@ -1371,11 +1372,11 @@ class ConfluenceServerAPI:
     def confluence_server_update_restrictions(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update restrictions
 
@@ -1399,8 +1400,8 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         version_number: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content history
 
@@ -1408,7 +1409,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/content/{id_}/version/{version_number}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1419,10 +1420,10 @@ class ConfluenceServerAPI:
     def confluence_server_index(
         self,
         content_id: str,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Fetch users watching a given content
 
@@ -1444,9 +1445,9 @@ class ConfluenceServerAPI:
     def confluence_server_descendants(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get Descendants
 
@@ -1468,11 +1469,11 @@ class ConfluenceServerAPI:
         self,
         id_: str,
         type_: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get descendants of type
 
@@ -1493,7 +1494,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_get_default_color_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get default global color scheme
 
@@ -1501,7 +1502,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/color-scheme/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1510,7 +1511,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_get_global_color_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get global color scheme
 
@@ -1518,7 +1519,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/color-scheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1527,7 +1528,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_update_color_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Set global color scheme
 
@@ -1535,7 +1536,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = "/rest/api/color-scheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1544,7 +1545,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_reset_global_color_scheme(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Reset global color scheme
 
@@ -1552,7 +1553,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = "/rest/api/color-scheme/reset"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1561,7 +1562,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_get_all_global_permissions(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get global permissions
 
@@ -1569,7 +1570,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/permissions"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1578,7 +1579,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_get_permissions_granted_to_anonymous_users(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Gets the permissions granted to an anonymous user
 
@@ -1586,7 +1587,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/permissions/anonymous"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1597,8 +1598,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_permissions_granted_to_group(
         self,
         group_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Gets global permissions granted to a group
 
@@ -1606,7 +1607,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/permissions/group/{group_name}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1615,7 +1616,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_get_permissions_granted_to_unlicensed_users(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Gets the permissions granted to an unlicensed users
 
@@ -1623,7 +1624,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/permissions/unlicensed"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1634,8 +1635,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_permissions_granted_to_user(
         self,
         user_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Gets global permissions granted to a user
 
@@ -1643,7 +1644,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/permissions/user/{user_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1653,12 +1654,12 @@ class ConfluenceServerAPI:
 
     def confluence_server_find_webhooks(
         self,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        event: Optional[str] = None,
-        statistics: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: str | None = None,
+        start: str | None = None,
+        event: str | None = None,
+        statistics: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Find webhooks
 
@@ -1680,7 +1681,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_webhook(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create webhook
 
@@ -1688,7 +1689,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/webhooks"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1699,9 +1700,9 @@ class ConfluenceServerAPI:
     def confluence_server_get_webhook(
         self,
         webhook_id: str,
-        statistics: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        statistics: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get webhook
 
@@ -1722,8 +1723,8 @@ class ConfluenceServerAPI:
     def confluence_server_update_webhook(
         self,
         webhook_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update webhook
 
@@ -1731,7 +1732,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/webhooks/{webhook_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1742,8 +1743,8 @@ class ConfluenceServerAPI:
     def confluence_server_delete_webhook(
         self,
         webhook_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete webhook
 
@@ -1751,7 +1752,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/webhooks/{webhook_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1762,11 +1763,11 @@ class ConfluenceServerAPI:
     def confluence_server_get_latest_invocation(
         self,
         webhook_id: str,
-        outcomes: Optional[str] = None,
-        event: Optional[str] = None,
-        outcome: Optional[List[Any]] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        outcomes: str | None = None,
+        event: str | None = None,
+        outcome: list[Any] | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get latest invocations
 
@@ -1789,9 +1790,9 @@ class ConfluenceServerAPI:
     def confluence_server_get_statistics(
         self,
         webhook_id: str,
-        event: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        event: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get statistic
 
@@ -1812,8 +1813,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_statistics_summary(
         self,
         webhook_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get statistics summary
 
@@ -1821,7 +1822,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/webhooks/{webhook_id}/statistics/summary"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1832,8 +1833,8 @@ class ConfluenceServerAPI:
     def confluence_server_test_webhook(
         self,
         url: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Test webhook
 
@@ -1854,10 +1855,10 @@ class ConfluenceServerAPI:
     def confluence_server_get_ancestor_groups(
         self,
         group_name: str,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group ancestor of a group
 
@@ -1878,11 +1879,11 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_ancestor_groups_by_group_name(
         self,
-        group_name: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        group_name: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group ancestor of a group
 
@@ -1905,9 +1906,9 @@ class ConfluenceServerAPI:
     def confluence_server_get_group(
         self,
         group_name: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group by name
 
@@ -1927,10 +1928,10 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_group_by_group_name(
         self,
-        expand: Optional[str] = None,
-        group_name: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        group_name: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group by name
 
@@ -1951,11 +1952,11 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_groups(
         self,
-        expand: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get groups
 
@@ -1978,11 +1979,11 @@ class ConfluenceServerAPI:
     def confluence_server_get_members(
         self,
         group_name: str,
-        expand: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get members of group
 
@@ -2004,12 +2005,12 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_members_by_group_name(
         self,
-        expand: Optional[str] = None,
-        group_name: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        group_name: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get members of group
 
@@ -2033,11 +2034,11 @@ class ConfluenceServerAPI:
     def confluence_server_get_nested_group_members(
         self,
         group_name: str,
-        expand: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group members of group
 
@@ -2059,12 +2060,12 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_nested_group_members_by_group_name(
         self,
-        expand: Optional[str] = None,
-        group_name: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        group_name: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group members of group
 
@@ -2088,11 +2089,11 @@ class ConfluenceServerAPI:
     def confluence_server_get_parent_groups(
         self,
         group_name: str,
-        expand: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group parents of a group
 
@@ -2114,12 +2115,12 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_parent_groups_by_group_name(
         self,
-        expand: Optional[str] = None,
-        group_name: Optional[str] = None,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        group_name: str | None = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get group parents of a group
 
@@ -2141,7 +2142,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_index_1(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get instance metrics
 
@@ -2149,7 +2150,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/instance-metrics"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2160,10 +2161,10 @@ class ConfluenceServerAPI:
     def confluence_server_get_related_labels(
         self,
         label_name: str,
-        start: Optional[str] = None,
-        limit: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        start: str | None = None,
+        limit: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get related labels, currently returning global labels only.
 
@@ -2184,10 +2185,10 @@ class ConfluenceServerAPI:
 
     def confluence_server_recent(
         self,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get recently used labels
 
@@ -2209,9 +2210,9 @@ class ConfluenceServerAPI:
     def confluence_server_get_task(
         self,
         id_: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get task by ID
 
@@ -2231,11 +2232,11 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_tasks(
         self,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get tasks
 
@@ -2257,15 +2258,15 @@ class ConfluenceServerAPI:
 
     def confluence_server_search_1(
         self,
-        cqlcontext: Optional[str] = None,
-        expand: Optional[str] = None,
-        include_archived_spaces: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        excerpt: Optional[str] = None,
-        cql: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cqlcontext: str | None = None,
+        expand: str | None = None,
+        include_archived_spaces: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        excerpt: str | None = None,
+        cql: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Search for entities in confluence
 
@@ -2290,7 +2291,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_index_2(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get server information
 
@@ -2298,7 +2299,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = "/rest/api/server-information"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2309,8 +2310,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_color_scheme_type(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get Space color scheme type
 
@@ -2318,7 +2319,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/space/{space_key}/color-scheme/type"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2329,8 +2330,8 @@ class ConfluenceServerAPI:
     def confluence_server_update_color_scheme_type(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update Space color scheme type
 
@@ -2338,7 +2339,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/color-scheme/type"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2349,8 +2350,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_space_color_scheme(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get Space color scheme
 
@@ -2358,7 +2359,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/space/{space_key}/color-scheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2369,8 +2370,8 @@ class ConfluenceServerAPI:
     def confluence_server_update_space_color_scheme(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update Space color scheme
 
@@ -2378,7 +2379,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/color-scheme"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2389,8 +2390,8 @@ class ConfluenceServerAPI:
     def confluence_server_reset_space_color_scheme(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reset Space color scheme
 
@@ -2398,7 +2399,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/color-scheme/reset"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2409,10 +2410,10 @@ class ConfluenceServerAPI:
     def confluence_server_index_3(
         self,
         space_key: str,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Fetch all labels
 
@@ -2434,10 +2435,10 @@ class ConfluenceServerAPI:
     def confluence_server_popular(
         self,
         space_key: str,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get popular labels
 
@@ -2459,10 +2460,10 @@ class ConfluenceServerAPI:
     def confluence_server_recent_1(
         self,
         space_key: str,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get recent labels
 
@@ -2485,10 +2486,10 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         label_name: str,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get related labels
 
@@ -2510,8 +2511,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_all_space_permissions(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all space permissions
 
@@ -2519,7 +2520,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/space/{space_key}/permissions"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2530,8 +2531,8 @@ class ConfluenceServerAPI:
     def confluence_server_set_permissions(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set permissions to multiple users/groups/anonymous user in the given space
 
@@ -2539,7 +2540,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/space/{space_key}/permissions"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2550,8 +2551,8 @@ class ConfluenceServerAPI:
     def confluence_server_get_permissions_granted_to_anonymous_users_1(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Gets the permissions granted to an anonymous user in a space
 
@@ -2559,7 +2560,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/space/{space_key}/permissions/anonymous"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2571,8 +2572,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         group_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Gets the permissions granted to a group in a space
 
@@ -2580,7 +2581,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/space/{space_key}/permissions/group/{group_name}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2592,8 +2593,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         user_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Gets the permissions granted to a user in a space
 
@@ -2601,7 +2602,7 @@ class ConfluenceServerAPI:
         Method: GET
         """
         path = f"/rest/api/space/{space_key}/permissions/user/{user_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2612,8 +2613,8 @@ class ConfluenceServerAPI:
     def confluence_server_grant_permissions_to_anonymous_users(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Grants space permissions to anonymous user
 
@@ -2621,7 +2622,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/permissions/anonymous/grant"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2633,8 +2634,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         group_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Grants space permissions to a group
 
@@ -2642,7 +2643,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/permissions/group/{group_name}/grant"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2654,8 +2655,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         user_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Grants space permissions to a user
 
@@ -2663,7 +2664,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/permissions/user/{user_key}/grant"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2674,8 +2675,8 @@ class ConfluenceServerAPI:
     def confluence_server_revoke_permissions_from_anonymous_user(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Revoke space permissions from anonymous user
 
@@ -2683,7 +2684,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/permissions/anonymous/revoke"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2695,8 +2696,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         group_name: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Revoke space permissions from a group
 
@@ -2704,7 +2705,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/permissions/group/{group_name}/revoke"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2716,8 +2717,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         user_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Revoke space permissions from a user
 
@@ -2725,7 +2726,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/permissions/user/{user_key}/revoke"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2736,11 +2737,11 @@ class ConfluenceServerAPI:
     def confluence_server_get_1(
         self,
         space_key: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space properties
 
@@ -2763,8 +2764,8 @@ class ConfluenceServerAPI:
     def confluence_server_create_3(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a space property
 
@@ -2772,7 +2773,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/space/{space_key}/property"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2784,11 +2785,11 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         key: str,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space property by key
 
@@ -2812,8 +2813,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update space property
 
@@ -2821,7 +2822,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/property/{key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2833,8 +2834,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a space property with a specific key
 
@@ -2842,7 +2843,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = f"/rest/api/space/{space_key}/property/{key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2854,8 +2855,8 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete space property
 
@@ -2863,7 +2864,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/space/{space_key}/property/{key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2874,8 +2875,8 @@ class ConfluenceServerAPI:
     def confluence_server_archive(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Archive space
 
@@ -2883,7 +2884,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/archive"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2894,12 +2895,12 @@ class ConfluenceServerAPI:
     def confluence_server_contents(
         self,
         space_key: str,
-        expand: Optional[str] = None,
-        depth: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        depth: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get contents in space
 
@@ -2924,12 +2925,12 @@ class ConfluenceServerAPI:
         self,
         space_key: str,
         type_: str,
-        expand: Optional[str] = None,
-        depth: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        depth: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get contents by type
 
@@ -2951,7 +2952,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_private_space(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create private space
 
@@ -2959,7 +2960,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/space/_private"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2969,22 +2970,22 @@ class ConfluenceServerAPI:
 
     def confluence_server_spaces(
         self,
-        space_key_single: Optional[str] = None,
-        start: Optional[str] = None,
-        label: Optional[str] = None,
-        favourite: Optional[str] = None,
-        type_: Optional[str] = None,
-        space_key: Optional[str] = None,
-        space_id: Optional[List[Any]] = None,
-        expand: Optional[str] = None,
-        has_retention_policy: Optional[str] = None,
-        limit: Optional[str] = None,
-        space_keys: Optional[str] = None,
-        content_label: Optional[str] = None,
-        space_ids: Optional[str] = None,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        space_key_single: str | None = None,
+        start: str | None = None,
+        label: str | None = None,
+        favourite: str | None = None,
+        type_: str | None = None,
+        space_key: str | None = None,
+        space_id: list[Any] | None = None,
+        expand: str | None = None,
+        has_retention_policy: str | None = None,
+        limit: str | None = None,
+        space_keys: str | None = None,
+        content_label: str | None = None,
+        space_ids: str | None = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get spaces by key
 
@@ -3016,7 +3017,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_create_space(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Creates a new Space.
 
@@ -3024,7 +3025,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/space"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3035,9 +3036,9 @@ class ConfluenceServerAPI:
     def confluence_server_space(
         self,
         space_key: str,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space
 
@@ -3058,8 +3059,8 @@ class ConfluenceServerAPI:
     def confluence_server_update_4(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update Space
 
@@ -3067,7 +3068,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3078,8 +3079,8 @@ class ConfluenceServerAPI:
     def confluence_server_delete_5(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete Space
 
@@ -3087,7 +3088,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/space/{space_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3098,8 +3099,8 @@ class ConfluenceServerAPI:
     def confluence_server_restore(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Restore space
 
@@ -3107,7 +3108,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/space/{space_key}/restore"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3118,8 +3119,8 @@ class ConfluenceServerAPI:
     def confluence_server_trash(
         self,
         space_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove all trash contents
 
@@ -3127,7 +3128,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/space/{space_key}/trash"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3138,10 +3139,10 @@ class ConfluenceServerAPI:
     def confluence_server_index_4(
         self,
         space_key: str,
-        limit: Optional[int] = None,
-        start: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        start: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Fetch users watching space
 
@@ -3164,8 +3165,8 @@ class ConfluenceServerAPI:
         self,
         group_name: str,
         username: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update user group
 
@@ -3173,7 +3174,7 @@ class ConfluenceServerAPI:
         Method: PUT
         """
         path = f"/rest/api/user/{username}/group/{group_name}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3185,8 +3186,8 @@ class ConfluenceServerAPI:
         self,
         group_name: str,
         username: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete user group
 
@@ -3194,7 +3195,7 @@ class ConfluenceServerAPI:
         Method: DELETE
         """
         path = f"/rest/api/user/{username}/group/{group_name}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3203,7 +3204,7 @@ class ConfluenceServerAPI:
         )
 
     def confluence_server_change_password_1(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Change password
 
@@ -3211,7 +3212,7 @@ class ConfluenceServerAPI:
         Method: POST
         """
         path = "/rest/api/user/current/password"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3221,9 +3222,9 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_anonymous(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get information about anonymous user type
 
@@ -3243,9 +3244,9 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_current(
         self,
-        expand: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get current user
 
@@ -3265,13 +3266,13 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_groups_1(
         self,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get groups
 
@@ -3295,11 +3296,11 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_user(
         self,
-        expand: Optional[str] = None,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get user
 
@@ -3321,11 +3322,11 @@ class ConfluenceServerAPI:
 
     def confluence_server_get_users(
         self,
-        expand: Optional[str] = None,
-        limit: Optional[str] = None,
-        start: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        expand: str | None = None,
+        limit: str | None = None,
+        start: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get registered users
 
@@ -3348,10 +3349,10 @@ class ConfluenceServerAPI:
     def confluence_server_is_watching_content(
         self,
         content_id: str,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get information about content watcher
 
@@ -3373,10 +3374,10 @@ class ConfluenceServerAPI:
     def confluence_server_add_content_watcher(
         self,
         content_id: str,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add content watcher
 
@@ -3398,10 +3399,10 @@ class ConfluenceServerAPI:
     def confluence_server_remove_content_watcher(
         self,
         content_id: str,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove content watcher
 
@@ -3423,11 +3424,11 @@ class ConfluenceServerAPI:
     def confluence_server_is_watching_space(
         self,
         space_key: str,
-        content_type: Optional[str] = None,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        content_type: str | None = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get information about space watcher
 
@@ -3450,11 +3451,11 @@ class ConfluenceServerAPI:
     def confluence_server_add_space_watch(
         self,
         space_key: str,
-        content_type: Optional[str] = None,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        content_type: str | None = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Add space watcher
 
@@ -3477,11 +3478,11 @@ class ConfluenceServerAPI:
     def confluence_server_remove_space_watch(
         self,
         space_key: str,
-        content_type: Optional[str] = None,
-        key: Optional[str] = None,
-        username: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        content_type: str | None = None,
+        key: str | None = None,
+        username: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Remove space watcher
 

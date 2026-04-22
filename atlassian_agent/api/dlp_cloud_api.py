@@ -1,7 +1,8 @@
 # Generated API Client for DLPCloud
-from typing import Any, Dict, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class DLPCloudAPI:
@@ -11,8 +12,8 @@ class DLPCloudAPI:
     def dlp_cloud_create_level(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create a new classification level
 
@@ -20,7 +21,7 @@ class DLPCloudAPI:
         Method: POST
         """
         path = f"/orgs/{org_id}/classification-levels"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -31,8 +32,8 @@ class DLPCloudAPI:
     def dlp_cloud_get_level_list(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all classification levels by org_id
 
@@ -40,7 +41,7 @@ class DLPCloudAPI:
         Method: GET
         """
         path = f"/orgs/{org_id}/classification-levels"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -52,8 +53,8 @@ class DLPCloudAPI:
         self,
         level_id: str,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get a classification level
 
@@ -61,7 +62,7 @@ class DLPCloudAPI:
         Method: GET
         """
         path = f"/orgs/{org_id}/classification-levels/{level_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -73,8 +74,8 @@ class DLPCloudAPI:
         self,
         level_id: str,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Edit a classification level
 
@@ -82,7 +83,7 @@ class DLPCloudAPI:
         Method: PUT
         """
         path = f"/orgs/{org_id}/classification-levels/{level_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -93,8 +94,8 @@ class DLPCloudAPI:
     def dlp_cloud_publish_level(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Publish classification level(s)
 
@@ -102,7 +103,7 @@ class DLPCloudAPI:
         Method: POST
         """
         path = f"/orgs/{org_id}/classification-levels/publish"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -113,8 +114,8 @@ class DLPCloudAPI:
     def dlp_cloud_archive_level(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Archive a data classification level
 
@@ -122,7 +123,7 @@ class DLPCloudAPI:
         Method: POST
         """
         path = f"/orgs/{org_id}/classification-levels/archive"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -133,8 +134,8 @@ class DLPCloudAPI:
     def dlp_cloud_restore_level(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Restore a classification level
 
@@ -142,7 +143,7 @@ class DLPCloudAPI:
         Method: POST
         """
         path = f"/orgs/{org_id}/classification-levels/restore"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -153,8 +154,8 @@ class DLPCloudAPI:
     def dlp_cloud_reorder(
         self,
         org_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reorder classification levels
 
@@ -162,7 +163,7 @@ class DLPCloudAPI:
         Method: POST
         """
         path = f"/orgs/{org_id}/classification-levels/reorder"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

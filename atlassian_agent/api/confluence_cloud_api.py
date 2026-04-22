@@ -1,7 +1,8 @@
 # Generated API Client for ConfluenceCloud
-from typing import Any, Dict, List, Optional
-from .base import BaseAtlassianClient
+from typing import Any
+
 from ..models import Response
+from .base import BaseAtlassianClient
 
 
 class ConfluenceCloudAPI:
@@ -9,7 +10,7 @@ class ConfluenceCloudAPI:
         self.base_api = base_api
 
     def confluence_cloud_get_admin_key(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get Admin Key
 
@@ -17,7 +18,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = "/admin-key"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -26,7 +27,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_enable_admin_key(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Enable Admin Key
 
@@ -34,7 +35,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/admin-key"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -43,7 +44,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_disable_admin_key(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Disable Admin Key
 
@@ -51,7 +52,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = "/admin-key"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -61,14 +62,14 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_attachments(
         self,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        media_type: Optional[str] = None,
-        filename: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        status: list[Any] | None = None,
+        media_type: str | None = None,
+        filename: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachments
 
@@ -94,15 +95,15 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_attachment_by_id(
         self,
         id_: str,
-        version: Optional[int] = None,
-        include_labels: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_versions: Optional[bool] = None,
-        include_version: Optional[bool] = None,
-        include_collaborators: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        version: int | None = None,
+        include_labels: bool | None = None,
+        include_properties: bool | None = None,
+        include_operations: bool | None = None,
+        include_versions: bool | None = None,
+        include_version: bool | None = None,
+        include_collaborators: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachment by id
 
@@ -129,9 +130,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_attachment(
         self,
         id_: int,
-        purge: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        purge: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete attachment
 
@@ -152,12 +153,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_attachment_labels(
         self,
         id_: int,
-        prefix: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        prefix: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels for attachment
 
@@ -181,8 +182,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_attachment_operations(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for attachment
 
@@ -190,7 +191,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/attachments/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -201,12 +202,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_attachment_content_properties(
         self,
         attachment_id: str,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for attachment
 
@@ -230,8 +231,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_attachment_property(
         self,
         attachment_id: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for attachment
 
@@ -239,7 +240,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/attachments/{attachment_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -251,8 +252,8 @@ class ConfluenceCloudAPI:
         self,
         attachment_id: str,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for attachment by id
 
@@ -260,7 +261,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/attachments/{attachment_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -272,8 +273,8 @@ class ConfluenceCloudAPI:
         self,
         attachment_id: str,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for attachment by id
 
@@ -281,7 +282,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/attachments/{attachment_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -293,8 +294,8 @@ class ConfluenceCloudAPI:
         self,
         attachment_id: str,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for attachment by id
 
@@ -302,7 +303,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/attachments/{attachment_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -313,11 +314,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_attachment_versions(
         self,
         id_: str,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachment versions
 
@@ -341,8 +342,8 @@ class ConfluenceCloudAPI:
         self,
         attachment_id: str,
         version_number: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version details for attachment version
 
@@ -350,7 +351,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/attachments/{attachment_id}/versions/{version_number}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -361,13 +362,13 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_attachment_comments(
         self,
         id_: str,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        version: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        version: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachment comments
 
@@ -391,16 +392,16 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_blog_posts(
         self,
-        id_: Optional[List[Any]] = None,
-        space_id: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        title: Optional[str] = None,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        id_: list[Any] | None = None,
+        space_id: list[Any] | None = None,
+        sort: str | None = None,
+        status: list[Any] | None = None,
+        title: str | None = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get blog posts
 
@@ -427,9 +428,9 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_create_blog_post(
         self,
-        private: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        private: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create blog post
 
@@ -450,21 +451,21 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_by_id(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        get_draft: Optional[bool] = None,
-        status: Optional[List[Any]] = None,
-        version: Optional[int] = None,
-        include_labels: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_likes: Optional[bool] = None,
-        include_versions: Optional[bool] = None,
-        include_version: Optional[bool] = None,
-        include_favorited_by_current_user_status: Optional[bool] = None,
-        include_webresources: Optional[bool] = None,
-        include_collaborators: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        get_draft: bool | None = None,
+        status: list[Any] | None = None,
+        version: int | None = None,
+        include_labels: bool | None = None,
+        include_properties: bool | None = None,
+        include_operations: bool | None = None,
+        include_likes: bool | None = None,
+        include_versions: bool | None = None,
+        include_version: bool | None = None,
+        include_favorited_by_current_user_status: bool | None = None,
+        include_webresources: bool | None = None,
+        include_collaborators: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get blog post by id
 
@@ -497,8 +498,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_blog_post(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update blog post
 
@@ -506,7 +507,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/blogposts/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -517,10 +518,10 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_blog_post(
         self,
         id_: int,
-        purge: Optional[bool] = None,
-        draft: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        purge: bool | None = None,
+        draft: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete blog post
 
@@ -542,14 +543,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blogpost_attachments(
         self,
         id_: int,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        media_type: Optional[str] = None,
-        filename: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        status: list[Any] | None = None,
+        media_type: str | None = None,
+        filename: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachments for blog post
 
@@ -576,12 +577,12 @@ class ConfluenceCloudAPI:
         self,
         id_: int,
         type_: str,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        body_format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        body_format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom content by type in blog post
 
@@ -606,12 +607,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_labels(
         self,
         id_: int,
-        prefix: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        prefix: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels for blog post
 
@@ -635,8 +636,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_like_count(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get like count for blog post
 
@@ -644,7 +645,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/blogposts/{id_}/likes/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -655,10 +656,10 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_like_users(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get account IDs of likes for blog post
 
@@ -680,12 +681,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blogpost_content_properties(
         self,
         blogpost_id: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for blog post
 
@@ -709,8 +710,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_blogpost_property(
         self,
         blogpost_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for blog post
 
@@ -718,7 +719,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/blogposts/{blogpost_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -730,8 +731,8 @@ class ConfluenceCloudAPI:
         self,
         blogpost_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for blog post by id
 
@@ -739,7 +740,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/blogposts/{blogpost_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -751,8 +752,8 @@ class ConfluenceCloudAPI:
         self,
         blogpost_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for blog post by id
 
@@ -760,7 +761,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/blogposts/{blogpost_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -772,8 +773,8 @@ class ConfluenceCloudAPI:
         self,
         blogpost_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for blogpost by id
 
@@ -781,7 +782,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/blogposts/{blogpost_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -792,8 +793,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for blog post
 
@@ -801,7 +802,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/blogposts/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -812,12 +813,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_versions(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get blog post versions
 
@@ -842,8 +843,8 @@ class ConfluenceCloudAPI:
         self,
         blogpost_id: int,
         version_number: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version details for blog post version
 
@@ -851,7 +852,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/blogposts/{blogpost_id}/versions/{version_number}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -860,7 +861,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_convert_content_ids_to_content_types(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Convert content ids to content types
 
@@ -868,7 +869,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/content/convert-ids-to-types"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -879,14 +880,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_by_type(
         self,
         type_: str,
-        id_: Optional[List[Any]] = None,
-        space_id: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        body_format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        id_: list[Any] | None = None,
+        space_id: list[Any] | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        body_format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom content by type
 
@@ -911,7 +912,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_custom_content(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create custom content
 
@@ -919,7 +920,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/custom-content"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -930,16 +931,16 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_by_id(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        version: Optional[int] = None,
-        include_labels: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_versions: Optional[bool] = None,
-        include_version: Optional[bool] = None,
-        include_collaborators: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        version: int | None = None,
+        include_labels: bool | None = None,
+        include_properties: bool | None = None,
+        include_operations: bool | None = None,
+        include_versions: bool | None = None,
+        include_version: bool | None = None,
+        include_collaborators: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom content by id
 
@@ -967,8 +968,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_custom_content(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update custom content
 
@@ -976,7 +977,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/custom-content/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -987,9 +988,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_custom_content(
         self,
         id_: int,
-        purge: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        purge: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete custom content
 
@@ -1010,14 +1011,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_attachments(
         self,
         id_: int,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        media_type: Optional[str] = None,
-        filename: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        status: list[Any] | None = None,
+        media_type: str | None = None,
+        filename: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachments for custom content
 
@@ -1043,12 +1044,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_comments(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom content comments
 
@@ -1072,12 +1073,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_labels(
         self,
         id_: int,
-        prefix: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        prefix: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels for custom content
 
@@ -1101,8 +1102,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for custom content
 
@@ -1110,7 +1111,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/custom-content/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1121,12 +1122,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_content_properties(
         self,
         custom_content_id: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for custom content
 
@@ -1150,8 +1151,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_custom_content_property(
         self,
         custom_content_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for custom content
 
@@ -1159,7 +1160,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/custom-content/{custom_content_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1171,8 +1172,8 @@ class ConfluenceCloudAPI:
         self,
         custom_content_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for custom content by id
 
@@ -1180,7 +1181,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/custom-content/{custom_content_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1192,8 +1193,8 @@ class ConfluenceCloudAPI:
         self,
         custom_content_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for custom content by id
 
@@ -1201,7 +1202,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/custom-content/{custom_content_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1213,8 +1214,8 @@ class ConfluenceCloudAPI:
         self,
         custom_content_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for custom content by id
 
@@ -1222,7 +1223,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/custom-content/{custom_content_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1232,13 +1233,13 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_labels(
         self,
-        label_id: Optional[List[Any]] = None,
-        prefix: Optional[List[Any]] = None,
-        cursor: Optional[str] = None,
-        sort: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        label_id: list[Any] | None = None,
+        prefix: list[Any] | None = None,
+        cursor: str | None = None,
+        sort: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels
 
@@ -1263,11 +1264,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_label_attachments(
         self,
         id_: int,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachments for label
 
@@ -1290,13 +1291,13 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_label_blog_posts(
         self,
         id_: int,
-        space_id: Optional[List[Any]] = None,
-        body_format: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        space_id: list[Any] | None = None,
+        body_format: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get blog posts for label
 
@@ -1321,13 +1322,13 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_label_pages(
         self,
         id_: int,
-        space_id: Optional[List[Any]] = None,
-        body_format: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        space_id: list[Any] | None = None,
+        body_format: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get pages for label
 
@@ -1351,17 +1352,17 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_pages(
         self,
-        id_: Optional[List[Any]] = None,
-        space_id: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        title: Optional[str] = None,
-        body_format: Optional[str] = None,
-        subtype: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        id_: list[Any] | None = None,
+        space_id: list[Any] | None = None,
+        sort: str | None = None,
+        status: list[Any] | None = None,
+        title: str | None = None,
+        body_format: str | None = None,
+        subtype: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get pages
 
@@ -1389,11 +1390,11 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_create_page(
         self,
-        embedded: Optional[bool] = None,
-        private: Optional[bool] = None,
-        root_level: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        embedded: bool | None = None,
+        private: bool | None = None,
+        root_level: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create page
 
@@ -1416,22 +1417,22 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_by_id(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        get_draft: Optional[bool] = None,
-        status: Optional[List[Any]] = None,
-        version: Optional[int] = None,
-        include_labels: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_likes: Optional[bool] = None,
-        include_versions: Optional[bool] = None,
-        include_version: Optional[bool] = None,
-        include_favorited_by_current_user_status: Optional[bool] = None,
-        include_webresources: Optional[bool] = None,
-        include_collaborators: Optional[bool] = None,
-        include_direct_children: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        get_draft: bool | None = None,
+        status: list[Any] | None = None,
+        version: int | None = None,
+        include_labels: bool | None = None,
+        include_properties: bool | None = None,
+        include_operations: bool | None = None,
+        include_likes: bool | None = None,
+        include_versions: bool | None = None,
+        include_version: bool | None = None,
+        include_favorited_by_current_user_status: bool | None = None,
+        include_webresources: bool | None = None,
+        include_collaborators: bool | None = None,
+        include_direct_children: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get page by id
 
@@ -1465,8 +1466,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_page(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update page
 
@@ -1474,7 +1475,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/pages/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1485,10 +1486,10 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_page(
         self,
         id_: int,
-        purge: Optional[bool] = None,
-        draft: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        purge: bool | None = None,
+        draft: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete page
 
@@ -1510,14 +1511,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_attachments(
         self,
         id_: int,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        media_type: Optional[str] = None,
-        filename: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        status: list[Any] | None = None,
+        media_type: str | None = None,
+        filename: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get attachments for page
 
@@ -1544,12 +1545,12 @@ class ConfluenceCloudAPI:
         self,
         id_: int,
         type_: str,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        body_format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        body_format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom content by type in page
 
@@ -1574,12 +1575,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_labels(
         self,
         id_: int,
-        prefix: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        prefix: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels for page
 
@@ -1603,8 +1604,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_like_count(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get like count for page
 
@@ -1612,7 +1613,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/pages/{id_}/likes/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1623,10 +1624,10 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_like_users(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get account IDs of likes for page
 
@@ -1648,8 +1649,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for page
 
@@ -1657,7 +1658,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/pages/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1668,12 +1669,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_content_properties(
         self,
         page_id: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for page
 
@@ -1697,8 +1698,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_page_property(
         self,
         page_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for page
 
@@ -1706,7 +1707,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/pages/{page_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1718,8 +1719,8 @@ class ConfluenceCloudAPI:
         self,
         page_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for page by id
 
@@ -1727,7 +1728,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/pages/{page_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1739,8 +1740,8 @@ class ConfluenceCloudAPI:
         self,
         page_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for page by id
 
@@ -1748,7 +1749,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/pages/{page_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1760,8 +1761,8 @@ class ConfluenceCloudAPI:
         self,
         page_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for page by id
 
@@ -1769,7 +1770,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/pages/{page_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1780,8 +1781,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_post_redact_page(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Redact Content in a Confluence Page
 
@@ -1789,7 +1790,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/pages/{id_}/redact"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1800,8 +1801,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_post_redact_blog(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Redact Content in a Confluence Blog Post
 
@@ -1809,7 +1810,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/blogposts/{id_}/redact"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1820,8 +1821,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_page_title(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update page title
 
@@ -1829,7 +1830,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/pages/{id_}/title"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1840,12 +1841,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_versions(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get page versions
 
@@ -1868,9 +1869,9 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_create_whiteboard(
         self,
-        private: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        private: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create whiteboard
 
@@ -1891,12 +1892,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_whiteboard_by_id(
         self,
         id_: int,
-        include_collaborators: Optional[bool] = None,
-        include_direct_children: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        include_collaborators: bool | None = None,
+        include_direct_children: bool | None = None,
+        include_operations: bool | None = None,
+        include_properties: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get whiteboard by id
 
@@ -1920,8 +1921,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_whiteboard(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete whiteboard
 
@@ -1929,7 +1930,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/whiteboards/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1940,12 +1941,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_whiteboard_content_properties(
         self,
         id_: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for whiteboard
 
@@ -1969,8 +1970,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_whiteboard_property(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for whiteboard
 
@@ -1978,7 +1979,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/whiteboards/{id_}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -1990,8 +1991,8 @@ class ConfluenceCloudAPI:
         self,
         whiteboard_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for whiteboard by id
 
@@ -1999,7 +2000,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/whiteboards/{whiteboard_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2011,8 +2012,8 @@ class ConfluenceCloudAPI:
         self,
         whiteboard_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for whiteboard by id
 
@@ -2020,7 +2021,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/whiteboards/{whiteboard_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2032,8 +2033,8 @@ class ConfluenceCloudAPI:
         self,
         whiteboard_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for whiteboard by id
 
@@ -2041,7 +2042,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/whiteboards/{whiteboard_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2052,8 +2053,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_whiteboard_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for a whiteboard
 
@@ -2061,7 +2062,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/whiteboards/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2072,11 +2073,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_whiteboard_direct_children(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get direct children of a whiteboard
 
@@ -2099,11 +2100,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_whiteboard_descendants(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        depth: Optional[int] = None,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        depth: int | None = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get descendants of a whiteboard
 
@@ -2126,9 +2127,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_whiteboard_ancestors(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all ancestors of whiteboard
 
@@ -2148,9 +2149,9 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_create_database(
         self,
-        private: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        private: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create database
 
@@ -2171,12 +2172,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_database_by_id(
         self,
         id_: int,
-        include_collaborators: Optional[bool] = None,
-        include_direct_children: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        include_collaborators: bool | None = None,
+        include_direct_children: bool | None = None,
+        include_operations: bool | None = None,
+        include_properties: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get database by id
 
@@ -2200,8 +2201,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_database(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete database
 
@@ -2209,7 +2210,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/databases/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2220,12 +2221,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_database_content_properties(
         self,
         id_: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for database
 
@@ -2249,8 +2250,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_database_property(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for database
 
@@ -2258,7 +2259,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/databases/{id_}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2270,8 +2271,8 @@ class ConfluenceCloudAPI:
         self,
         database_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for database by id
 
@@ -2279,7 +2280,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/databases/{database_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2291,8 +2292,8 @@ class ConfluenceCloudAPI:
         self,
         database_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for database by id
 
@@ -2300,7 +2301,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/databases/{database_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2312,8 +2313,8 @@ class ConfluenceCloudAPI:
         self,
         database_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for database by id
 
@@ -2321,7 +2322,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/databases/{database_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2332,8 +2333,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_database_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for a database
 
@@ -2341,7 +2342,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/databases/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2352,11 +2353,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_database_direct_children(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get direct children of a database
 
@@ -2379,11 +2380,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_database_descendants(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        depth: Optional[int] = None,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        depth: int | None = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get descendants of a database
 
@@ -2406,9 +2407,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_database_ancestors(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all ancestors of database
 
@@ -2427,7 +2428,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_smart_link(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create Smart Link in the content tree
 
@@ -2435,7 +2436,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/embeds"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2446,12 +2447,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_smart_link_by_id(
         self,
         id_: int,
-        include_collaborators: Optional[bool] = None,
-        include_direct_children: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        include_collaborators: bool | None = None,
+        include_direct_children: bool | None = None,
+        include_operations: bool | None = None,
+        include_properties: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get Smart Link in the content tree by id
 
@@ -2475,8 +2476,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_smart_link(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete Smart Link in the content tree
 
@@ -2484,7 +2485,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/embeds/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2495,12 +2496,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_smart_link_content_properties(
         self,
         id_: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for Smart Link in the content tree
 
@@ -2524,8 +2525,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_smart_link_property(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for Smart Link in the content tree
 
@@ -2533,7 +2534,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/embeds/{id_}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2545,8 +2546,8 @@ class ConfluenceCloudAPI:
         self,
         embed_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for Smart Link in the content tree by id
 
@@ -2554,7 +2555,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/embeds/{embed_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2566,8 +2567,8 @@ class ConfluenceCloudAPI:
         self,
         embed_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for Smart Link in the content tree by id
 
@@ -2575,7 +2576,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/embeds/{embed_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2587,8 +2588,8 @@ class ConfluenceCloudAPI:
         self,
         embed_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for Smart Link in the content tree by id
 
@@ -2596,7 +2597,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/embeds/{embed_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2607,8 +2608,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_smart_link_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for a Smart Link in the content tree
 
@@ -2616,7 +2617,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/embeds/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2627,11 +2628,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_smart_link_direct_children(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get direct children of a Smart Link
 
@@ -2654,11 +2655,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_smart_link_descendants(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        depth: Optional[int] = None,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        depth: int | None = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get descendants of a smart link
 
@@ -2681,9 +2682,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_smart_link_ancestors(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all ancestors of Smart Link in content tree
 
@@ -2702,7 +2703,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_folder(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create folder
 
@@ -2710,7 +2711,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/folders"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2721,12 +2722,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_folder_by_id(
         self,
         id_: int,
-        include_collaborators: Optional[bool] = None,
-        include_direct_children: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        include_collaborators: bool | None = None,
+        include_direct_children: bool | None = None,
+        include_operations: bool | None = None,
+        include_properties: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get folder by id
 
@@ -2750,8 +2751,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_folder(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete folder
 
@@ -2759,7 +2760,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/folders/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2770,12 +2771,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_folder_content_properties(
         self,
         id_: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for folder
 
@@ -2799,8 +2800,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_folder_property(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for folder
 
@@ -2808,7 +2809,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/folders/{id_}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2820,8 +2821,8 @@ class ConfluenceCloudAPI:
         self,
         folder_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for folder by id
 
@@ -2829,7 +2830,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/folders/{folder_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2841,8 +2842,8 @@ class ConfluenceCloudAPI:
         self,
         folder_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for folder by id
 
@@ -2850,7 +2851,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/folders/{folder_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2862,8 +2863,8 @@ class ConfluenceCloudAPI:
         self,
         folder_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for folder by id
 
@@ -2871,7 +2872,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/folders/{folder_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2882,8 +2883,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_folder_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for a folder
 
@@ -2891,7 +2892,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/folders/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -2902,11 +2903,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_folder_direct_children(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get direct children of a folder
 
@@ -2929,11 +2930,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_folder_descendants(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        depth: Optional[int] = None,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        depth: int | None = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get descendants of folder
 
@@ -2956,9 +2957,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_folder_ancestors(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all ancestors of folder
 
@@ -2980,8 +2981,8 @@ class ConfluenceCloudAPI:
         self,
         page_id: int,
         version_number: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version details for page version
 
@@ -2989,7 +2990,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/pages/{page_id}/versions/{version_number}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3000,12 +3001,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_custom_content_versions(
         self,
         custom_content_id: int,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom content versions
 
@@ -3030,8 +3031,8 @@ class ConfluenceCloudAPI:
         self,
         custom_content_id: int,
         version_number: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version details for custom content version
 
@@ -3039,7 +3040,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/custom-content/{custom_content_id}/versions/{version_number}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3049,20 +3050,20 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_spaces(
         self,
-        ids: Optional[List[Any]] = None,
-        keys: Optional[List[Any]] = None,
-        type_: Optional[str] = None,
-        status: Optional[str] = None,
-        labels: Optional[List[Any]] = None,
-        favorited_by: Optional[str] = None,
-        not_favorited_by: Optional[str] = None,
-        sort: Optional[str] = None,
-        description_format: Optional[str] = None,
-        include_icon: Optional[bool] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        ids: list[Any] | None = None,
+        keys: list[Any] | None = None,
+        type_: str | None = None,
+        status: str | None = None,
+        labels: list[Any] | None = None,
+        favorited_by: str | None = None,
+        not_favorited_by: str | None = None,
+        sort: str | None = None,
+        description_format: str | None = None,
+        include_icon: bool | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get spaces
 
@@ -3092,7 +3093,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_space(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create space
 
@@ -3100,7 +3101,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/spaces"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3111,15 +3112,15 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_by_id(
         self,
         id_: int,
-        description_format: Optional[str] = None,
-        include_icon: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_properties: Optional[bool] = None,
-        include_permissions: Optional[bool] = None,
-        include_role_assignments: Optional[bool] = None,
-        include_labels: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        description_format: str | None = None,
+        include_icon: bool | None = None,
+        include_operations: bool | None = None,
+        include_properties: bool | None = None,
+        include_permissions: bool | None = None,
+        include_role_assignments: bool | None = None,
+        include_labels: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space by id
 
@@ -3146,14 +3147,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_posts_in_space(
         self,
         id_: int,
-        sort: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        title: Optional[str] = None,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        sort: str | None = None,
+        status: list[Any] | None = None,
+        title: str | None = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get blog posts in space
 
@@ -3179,12 +3180,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_labels(
         self,
         id_: int,
-        prefix: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        prefix: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels for space
 
@@ -3208,12 +3209,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_content_labels(
         self,
         id_: int,
-        prefix: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        prefix: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get labels for space content
 
@@ -3238,11 +3239,11 @@ class ConfluenceCloudAPI:
         self,
         id_: int,
         type_: str,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        body_format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        body_format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get custom content by type in space
 
@@ -3266,8 +3267,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for space
 
@@ -3275,7 +3276,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/spaces/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3286,15 +3287,15 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_pages_in_space(
         self,
         id_: int,
-        depth: Optional[str] = None,
-        sort: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        title: Optional[str] = None,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        depth: str | None = None,
+        sort: str | None = None,
+        status: list[Any] | None = None,
+        title: str | None = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get pages in space
 
@@ -3321,11 +3322,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_properties(
         self,
         space_id: int,
-        key: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space properties in space
 
@@ -3348,8 +3349,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_space_property(
         self,
         space_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create space property in space
 
@@ -3357,7 +3358,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/spaces/{space_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3369,8 +3370,8 @@ class ConfluenceCloudAPI:
         self,
         space_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space property by id
 
@@ -3378,7 +3379,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/spaces/{space_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3390,8 +3391,8 @@ class ConfluenceCloudAPI:
         self,
         space_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update space property by id
 
@@ -3399,7 +3400,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/spaces/{space_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3411,8 +3412,8 @@ class ConfluenceCloudAPI:
         self,
         space_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete space property by id
 
@@ -3420,7 +3421,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/spaces/{space_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3431,10 +3432,10 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_permissions_assignments(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space permissions assignments
 
@@ -3455,10 +3456,10 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_available_space_permissions(
         self,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get available space permissions
 
@@ -3479,14 +3480,14 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_available_space_roles(
         self,
-        space_id: Optional[str] = None,
-        role_type: Optional[str] = None,
-        principal_id: Optional[str] = None,
-        principal_type: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        space_id: str | None = None,
+        role_type: str | None = None,
+        principal_id: str | None = None,
+        principal_type: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get available space roles
 
@@ -3510,7 +3511,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_space_role(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create a space role
 
@@ -3518,7 +3519,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/space-roles"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3529,8 +3530,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_roles_by_id(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space role by ID
 
@@ -3538,7 +3539,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/space-roles/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3549,8 +3550,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_space_role(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update a space role
 
@@ -3558,7 +3559,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/space-roles/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3569,8 +3570,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_space_role(
         self,
         id_: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete a space role
 
@@ -3578,7 +3579,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/space-roles/{id_}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3587,7 +3588,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_get_space_role_mode(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get space role mode
 
@@ -3595,7 +3596,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = "/space-role-mode"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3606,14 +3607,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_role_assignments(
         self,
         id_: int,
-        role_id: Optional[str] = None,
-        role_type: Optional[str] = None,
-        principal_id: Optional[str] = None,
-        principal_type: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        role_id: str | None = None,
+        role_type: str | None = None,
+        principal_id: str | None = None,
+        principal_type: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space role assignments
 
@@ -3639,8 +3640,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_set_space_role_assignments(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Set space role assignments
 
@@ -3648,7 +3649,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/spaces/{id_}/role-assignments"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3659,13 +3660,13 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_footer_comments(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        status: list[Any] | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get footer comments for page
 
@@ -3690,14 +3691,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_inline_comments(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        resolution_status: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        status: list[Any] | None = None,
+        resolution_status: list[Any] | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get inline comments for page
 
@@ -3723,13 +3724,13 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_footer_comments(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        status: list[Any] | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get footer comments for blog post
 
@@ -3754,14 +3755,14 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_inline_comments(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        status: Optional[List[Any]] = None,
-        resolution_status: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        status: list[Any] | None = None,
+        resolution_status: list[Any] | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get inline comments for blog post
 
@@ -3786,12 +3787,12 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_footer_comments(
         self,
-        body_format: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get footer comments
 
@@ -3813,7 +3814,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_footer_comment(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create footer comment
 
@@ -3821,7 +3822,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/footer-comments"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3832,15 +3833,15 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_footer_comment_by_id(
         self,
         comment_id: int,
-        body_format: Optional[str] = None,
-        version: Optional[int] = None,
-        include_properties: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_likes: Optional[bool] = None,
-        include_versions: Optional[bool] = None,
-        include_version: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        version: int | None = None,
+        include_properties: bool | None = None,
+        include_operations: bool | None = None,
+        include_likes: bool | None = None,
+        include_versions: bool | None = None,
+        include_version: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get footer comment by id
 
@@ -3867,8 +3868,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_footer_comment(
         self,
         comment_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update footer comment
 
@@ -3876,7 +3877,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/footer-comments/{comment_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3887,8 +3888,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_footer_comment(
         self,
         comment_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete footer comment
 
@@ -3896,7 +3897,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/footer-comments/{comment_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3907,12 +3908,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_footer_comment_children(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get children footer comments
 
@@ -3936,8 +3937,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_footer_like_count(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get like count for footer comment
 
@@ -3945,7 +3946,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/footer-comments/{id_}/likes/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -3956,10 +3957,10 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_footer_like_users(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get account IDs of likes for footer comment
 
@@ -3981,8 +3982,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_footer_comment_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for footer comment
 
@@ -3990,7 +3991,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/footer-comments/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4001,12 +4002,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_footer_comment_versions(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get footer comment versions
 
@@ -4031,8 +4032,8 @@ class ConfluenceCloudAPI:
         self,
         id_: int,
         version_number: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version details for footer comment version
 
@@ -4040,7 +4041,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/footer-comments/{id_}/versions/{version_number}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4050,12 +4051,12 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_inline_comments(
         self,
-        body_format: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get inline comments
 
@@ -4077,7 +4078,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_inline_comment(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create inline comment
 
@@ -4085,7 +4086,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/inline-comments"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4096,15 +4097,15 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_inline_comment_by_id(
         self,
         comment_id: int,
-        body_format: Optional[str] = None,
-        version: Optional[int] = None,
-        include_properties: Optional[bool] = None,
-        include_operations: Optional[bool] = None,
-        include_likes: Optional[bool] = None,
-        include_versions: Optional[bool] = None,
-        include_version: Optional[bool] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        version: int | None = None,
+        include_properties: bool | None = None,
+        include_operations: bool | None = None,
+        include_likes: bool | None = None,
+        include_versions: bool | None = None,
+        include_version: bool | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get inline comment by id
 
@@ -4131,8 +4132,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_inline_comment(
         self,
         comment_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update inline comment
 
@@ -4140,7 +4141,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/inline-comments/{comment_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4151,8 +4152,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_inline_comment(
         self,
         comment_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete inline comment
 
@@ -4160,7 +4161,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/inline-comments/{comment_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4171,12 +4172,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_inline_comment_children(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get children inline comments
 
@@ -4200,8 +4201,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_inline_like_count(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get like count for inline comment
 
@@ -4209,7 +4210,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/inline-comments/{id_}/likes/count"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4220,10 +4221,10 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_inline_like_users(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get account IDs of likes for inline comment
 
@@ -4245,8 +4246,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_inline_comment_operations(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get permitted operations for inline comment
 
@@ -4254,7 +4255,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/inline-comments/{id_}/operations"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4265,12 +4266,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_inline_comment_versions(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get inline comment versions
 
@@ -4295,8 +4296,8 @@ class ConfluenceCloudAPI:
         self,
         id_: int,
         version_number: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get version details for inline comment version
 
@@ -4304,7 +4305,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/inline-comments/{id_}/versions/{version_number}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4315,12 +4316,12 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_comment_content_properties(
         self,
         comment_id: int,
-        key: Optional[str] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        key: str | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content properties for comment
 
@@ -4344,8 +4345,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_create_comment_property(
         self,
         comment_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create content property for comment
 
@@ -4353,7 +4354,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/comments/{comment_id}/properties"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4365,8 +4366,8 @@ class ConfluenceCloudAPI:
         self,
         comment_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get content property for comment by id
 
@@ -4374,7 +4375,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/comments/{comment_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4386,8 +4387,8 @@ class ConfluenceCloudAPI:
         self,
         comment_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update content property for comment by id
 
@@ -4395,7 +4396,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/comments/{comment_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4407,8 +4408,8 @@ class ConfluenceCloudAPI:
         self,
         comment_id: int,
         property_id: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete content property for comment by id
 
@@ -4416,7 +4417,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/comments/{comment_id}/properties/{property_id}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4426,26 +4427,26 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_tasks(
         self,
-        body_format: Optional[str] = None,
-        include_blank_tasks: Optional[bool] = None,
-        status: Optional[str] = None,
-        task_id: Optional[List[Any]] = None,
-        space_id: Optional[List[Any]] = None,
-        page_id: Optional[List[Any]] = None,
-        blogpost_id: Optional[List[Any]] = None,
-        created_by: Optional[List[Any]] = None,
-        assigned_to: Optional[List[Any]] = None,
-        completed_by: Optional[List[Any]] = None,
-        created_at_from: Optional[int] = None,
-        created_at_to: Optional[int] = None,
-        due_at_from: Optional[int] = None,
-        due_at_to: Optional[int] = None,
-        completed_at_from: Optional[int] = None,
-        completed_at_to: Optional[int] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        include_blank_tasks: bool | None = None,
+        status: str | None = None,
+        task_id: list[Any] | None = None,
+        space_id: list[Any] | None = None,
+        page_id: list[Any] | None = None,
+        blogpost_id: list[Any] | None = None,
+        created_by: list[Any] | None = None,
+        assigned_to: list[Any] | None = None,
+        completed_by: list[Any] | None = None,
+        created_at_from: int | None = None,
+        created_at_to: int | None = None,
+        due_at_from: int | None = None,
+        due_at_to: int | None = None,
+        completed_at_from: int | None = None,
+        completed_at_to: int | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get tasks
 
@@ -4483,9 +4484,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_task_by_id(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get task by id
 
@@ -4506,9 +4507,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_update_task(
         self,
         id_: int,
-        body_format: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        body_format: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update task
 
@@ -4529,11 +4530,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_child_pages(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get child pages
 
@@ -4556,11 +4557,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_child_custom_content(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get child custom content
 
@@ -4583,11 +4584,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_direct_children(
         self,
         id_: int,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        sort: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get direct children of a page
 
@@ -4610,9 +4611,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_ancestors(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get all ancestors of page
 
@@ -4633,11 +4634,11 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_descendants(
         self,
         id_: int,
-        limit: Optional[int] = None,
-        depth: Optional[int] = None,
-        cursor: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        limit: int | None = None,
+        depth: int | None = None,
+        cursor: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get descendants of page
 
@@ -4658,7 +4659,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_create_bulk_user_lookup(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Create bulk user lookup using ids
 
@@ -4666,7 +4667,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/users-bulk"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4675,7 +4676,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_check_access_by_email(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Check site access for a list of emails
 
@@ -4683,7 +4684,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/user/access/check-access-by-email"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4692,7 +4693,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_invite_by_email(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Invite a list of emails to the site
 
@@ -4700,7 +4701,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = "/user/access/invite-by-email"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4709,7 +4710,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_get_data_policy_metadata(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get data policy metadata for the workspace
 
@@ -4717,7 +4718,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = "/data-policies/metadata"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4727,13 +4728,13 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_data_policy_spaces(
         self,
-        ids: Optional[List[Any]] = None,
-        keys: Optional[List[Any]] = None,
-        sort: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        ids: list[Any] | None = None,
+        keys: list[Any] | None = None,
+        sort: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get spaces with data policies
 
@@ -4756,7 +4757,7 @@ class ConfluenceCloudAPI:
         )
 
     def confluence_cloud_get_classification_levels(
-        self, payload: Optional[Dict[str, Any]] = None, _max_pages: Optional[int] = None
+        self, payload: dict[str, Any] | None = None, _max_pages: int | None = None
     ) -> Response:
         """Get list of classification levels
 
@@ -4764,7 +4765,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = "/classification-levels"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4775,8 +4776,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_space_default_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get space default classification level
 
@@ -4784,7 +4785,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/spaces/{id_}/classification-level/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4795,8 +4796,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_put_space_default_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update space default classification level
 
@@ -4804,7 +4805,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/spaces/{id_}/classification-level/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4815,8 +4816,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_space_default_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Delete space default classification level
 
@@ -4824,7 +4825,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/spaces/{id_}/classification-level/default"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4835,9 +4836,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_page_classification_level(
         self,
         id_: int,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get page classification level
 
@@ -4858,8 +4859,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_put_page_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update page classification level
 
@@ -4867,7 +4868,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/pages/{id_}/classification-level"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4878,8 +4879,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_post_page_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reset page classification level
 
@@ -4887,7 +4888,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/pages/{id_}/classification-level/reset"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4898,9 +4899,9 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_blog_post_classification_level(
         self,
         id_: int,
-        status: Optional[str] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        status: str | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get blog post classification level
 
@@ -4921,8 +4922,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_put_blog_post_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update blog post classification level
 
@@ -4930,7 +4931,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/blogposts/{id_}/classification-level"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4941,8 +4942,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_post_blog_post_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reset blog post classification level
 
@@ -4950,7 +4951,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/blogposts/{id_}/classification-level/reset"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4961,8 +4962,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_whiteboard_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get whiteboard classification level
 
@@ -4970,7 +4971,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/whiteboards/{id_}/classification-level"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -4981,8 +4982,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_put_whiteboard_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update whiteboard classification level
 
@@ -4990,7 +4991,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/whiteboards/{id_}/classification-level"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5001,8 +5002,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_post_whiteboard_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reset whiteboard classification level
 
@@ -5010,7 +5011,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/whiteboards/{id_}/classification-level/reset"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5021,8 +5022,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_database_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get database classification level
 
@@ -5030,7 +5031,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/databases/{id_}/classification-level"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5041,8 +5042,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_put_database_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Update database classification level
 
@@ -5050,7 +5051,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/databases/{id_}/classification-level"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5061,8 +5062,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_post_database_classification_level(
         self,
         id_: int,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Reset database classification level
 
@@ -5070,7 +5071,7 @@ class ConfluenceCloudAPI:
         Method: POST
         """
         path = f"/databases/{id_}/classification-level/reset"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5080,10 +5081,10 @@ class ConfluenceCloudAPI:
 
     def confluence_cloud_get_forge_app_properties(
         self,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        cursor: str | None = None,
+        limit: int | None = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get Forge app properties.
 
@@ -5105,8 +5106,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_get_forge_app_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Get a Forge app property by key.
 
@@ -5114,7 +5115,7 @@ class ConfluenceCloudAPI:
         Method: GET
         """
         path = f"/app/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5125,8 +5126,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_put_forge_app_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Create or update a Forge app property.
 
@@ -5134,7 +5135,7 @@ class ConfluenceCloudAPI:
         Method: PUT
         """
         path = f"/app/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 
@@ -5145,8 +5146,8 @@ class ConfluenceCloudAPI:
     def confluence_cloud_delete_forge_app_property(
         self,
         property_key: str,
-        payload: Optional[Dict[str, Any]] = None,
-        _max_pages: Optional[int] = None,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
     ) -> Response:
         """Deletes a Forge app property.
 
@@ -5154,7 +5155,7 @@ class ConfluenceCloudAPI:
         Method: DELETE
         """
         path = f"/app/properties/{property_key}"
-        params = {}
+        params: dict[str, Any] = {}
         # Filter None values from params
         params = {k: v for k, v in params.items() if v is not None}
 

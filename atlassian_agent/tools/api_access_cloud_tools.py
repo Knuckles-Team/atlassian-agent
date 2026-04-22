@@ -1,7 +1,9 @@
 # Generated MCP Tools for APIAccessCloud
-from typing import Any, Dict, Optional
+from typing import Any
+
+from fastmcp import Context, FastMCP
 from pydantic import Field
-from fastmcp import FastMCP, Context
+
 from ..api.api_access_cloud_api import APIAccessCloudAPI
 from ..auth import get_base_client
 
@@ -20,8 +22,8 @@ def register_api_access_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and organization API key simultaneously.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all API tokens in an org"""
         api = get_api()
         response = api.api_access_cloud_get_all_api_tokens_by_org_id(
@@ -34,8 +36,8 @@ def register_api_access_cloud_tools(mcp: FastMCP):
     )
     def api_access_cloud_bulk_revoke_api_tokens(
         org_id: str = Field(..., description="Id of organization revoking the token"),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Bulk revoke API tokens in an organization"""
         api = get_api()
         response = api.api_access_cloud_bulk_revoke_api_tokens(
@@ -52,8 +54,8 @@ def register_api_access_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and organization API key simultaneously.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get API token count in an org"""
         api = get_api()
         response = api.api_access_cloud_get_api_token_count_by_org_id(
@@ -70,11 +72,11 @@ def register_api_access_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and organization API key simultaneously.",
         ),
-        payload: Optional[Dict[str, Any]] = Field(
+        payload: dict[str, Any] | None = Field(
             None, description="JSON payload for the request"
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get service account API token count in an org"""
         api = get_api()
         response = api.api_access_cloud_count_service_account_api_tokens(
@@ -96,11 +98,11 @@ def register_api_access_cloud_tools(mcp: FastMCP):
             ...,
             description="ID for the service account whose API tokens you want to retrieve.",
         ),
-        token_label: Optional[str] = Field(
+        token_label: str | None = Field(
             None, description="Optional filter to search for tokens by label."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all service account API tokens in an org"""
         api = get_api()
         response = api.api_access_cloud_get_service_account_api_token(
@@ -120,8 +122,8 @@ def register_api_access_cloud_tools(mcp: FastMCP):
             ...,
             description="ID for the service account whose API tokens you want to revoke.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Revoke all API tokens for a service account"""
         api = get_api()
         response = api.api_access_cloud_revoke_api_tokens(
@@ -139,8 +141,8 @@ def register_api_access_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and organization API key simultaneously.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get API key count in an org"""
         api = get_api()
         response = api.api_access_cloud_get_api_key_count_by_org_id(
@@ -157,8 +159,8 @@ def register_api_access_cloud_tools(mcp: FastMCP):
             ...,
             description="Your organization is identified by a Unique ID. You get your organization ID and organization API key simultaneously.",
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Get all API keys in an org"""
         api = get_api()
         response = api.api_access_cloud_get_all_api_keys_by_org_id(
@@ -175,8 +177,8 @@ def register_api_access_cloud_tools(mcp: FastMCP):
         api_key_id: str = Field(
             ..., description="ID for the API key you want to revoke."
         ),
-        _ctx: Optional[Context] = None,
-    ) -> Dict[str, Any]:
+        _ctx: Context | None = None,
+    ) -> dict[str, Any]:
         """Revoke an API key for an org"""
         api = get_api()
         response = api.api_access_cloud_revoke_api_key(

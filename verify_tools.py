@@ -1,4 +1,5 @@
 import os
+
 from atlassian_agent.mcp_server import get_mcp_instance
 
 # Mock environment
