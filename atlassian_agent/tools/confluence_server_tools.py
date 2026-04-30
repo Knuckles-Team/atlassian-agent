@@ -5,11 +5,11 @@ from fastmcp import Context, FastMCP
 from pydantic import Field
 
 from ..api.confluence_server_api import ConfluenceServerAPI
-from ..auth import get_base_client
+from ..auth import get_suite_client
 
 
 def get_api() -> ConfluenceServerAPI:
-    return ConfluenceServerAPI(get_base_client())
+    return ConfluenceServerAPI(get_suite_client("CONFLUENCE_SERVER"))
 
 
 def register_confluence_server_tools(mcp: FastMCP):

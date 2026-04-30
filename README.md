@@ -21,7 +21,7 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/atlassian-agent)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/atlassian-agent)
 
-*Version: 0.1.8*
+*Version: 0.1.9*
 
 ## Overview
 
@@ -39,8 +39,21 @@ The MCP Server can be run in two modes: `stdio` (for local testing) or `http` (f
 
 #### Environment Variables
 
-*   `ATLASSIAN_AGENT_URL`: The URL of the target service.
-*   `ATLASSIAN_AGENT_TOKEN`: The API token or access token.
+Shared Cloud Variables:
+*   `ATLASSIAN_AGENT_URL`: The URL of the target service (e.g. https://your-company.atlassian.net).
+*   `ATLASSIAN_AGENT_TOKEN`: The API token or access token for Cloud.
+
+Jira Server Variables:
+*   `ATLASSIAN_JIRA_SERVER_URL`: The URL of the Jira Server.
+*   `ATLASSIAN_JIRA_SERVER_USER`: The username for Jira Server.
+*   `ATLASSIAN_JIRA_SERVER_TOKEN`: The token/password for Jira Server.
+*   `ATLASSIAN_JIRA_SERVER_VERIFY`: Boolean to verify SSL for Jira Server.
+
+Confluence Server Variables:
+*   `ATLASSIAN_CONFLUENCE_SERVER_URL`: The URL of the Confluence Server.
+*   `ATLASSIAN_CONFLUENCE_SERVER_USER`: The username for Confluence Server.
+*   `ATLASSIAN_CONFLUENCE_SERVER_TOKEN`: The token/password for Confluence Server.
+*   `ATLASSIAN_CONFLUENCE_SERVER_VERIFY`: Boolean to verify SSL for Confluence Server.
 
 #### Run in stdio mode (default):
 ```bash
@@ -116,7 +129,15 @@ services:
       ],
       "env": {
         "ATLASSIAN_AGENT_URL": "http://your-service:8080",
-        "ATLASSIAN_AGENT_TOKEN": "your_token"
+        "ATLASSIAN_AGENT_TOKEN": "your_token",
+        "ATLASSIAN_JIRA_SERVER_URL": "http://your-jira-server",
+        "ATLASSIAN_JIRA_SERVER_USER": "your-username",
+        "ATLASSIAN_JIRA_SERVER_TOKEN": "your-jira-token",
+        "ATLASSIAN_JIRA_SERVER_VERIFY": "true",
+        "ATLASSIAN_CONFLUENCE_SERVER_URL": "http://your-confluence-server",
+        "ATLASSIAN_CONFLUENCE_SERVER_USER": "your-username",
+        "ATLASSIAN_CONFLUENCE_SERVER_TOKEN": "your-confluence-token",
+        "ATLASSIAN_CONFLUENCE_SERVER_VERIFY": "true"
       }
     }
   }

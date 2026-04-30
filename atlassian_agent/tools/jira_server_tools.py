@@ -5,11 +5,11 @@ from fastmcp import Context, FastMCP
 from pydantic import Field
 
 from ..api.jira_server_api import JiraServerAPI
-from ..auth import get_base_client
+from ..auth import get_suite_client
 
 
 def get_api() -> JiraServerAPI:
-    return JiraServerAPI(get_base_client())
+    return JiraServerAPI(get_suite_client("JIRA_SERVER"))
 
 
 def register_jira_server_tools(mcp: FastMCP):
