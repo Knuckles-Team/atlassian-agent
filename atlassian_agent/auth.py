@@ -25,7 +25,8 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
     token = token or os.getenv("ATLASSIAN_AGENT_TOKEN")
 
     verify = (
-        verify_str.lower() in ("true", "1", "yes") if verify_str
+        verify_str.lower() in ("true", "1", "yes")
+        if verify_str
         else os.getenv("ATLASSIAN_AGENT_VERIFY", "True").lower() in ("true", "1", "yes")
     )
 
