@@ -21,7 +21,7 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/atlassian-agent)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/atlassian-agent)
 
-*Version: 0.1.6*
+*Version: 0.1.8*
 
 ## Overview
 
