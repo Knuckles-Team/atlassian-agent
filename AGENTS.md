@@ -338,3 +338,12 @@ Raises:
 - Examine existing tools in the `tools/` directory for implementation examples.
 - Check the `verify_tools.py` script for quick validation methods.
 - Run the MCP server in stdio mode to test tool registration and execution.
+
+
+## Testing with Timeout
+
+To run tests with a timeout to prevent hanging, use the `pytest-timeout` plugin. You can combine it with the `-k` flag to run specific tests:
+
+```bash
+uv run pytest --timeout=60 -k "test_name_pattern"
+```
