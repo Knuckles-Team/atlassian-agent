@@ -45,7 +45,7 @@ except ImportError:
     # This might happen during initial setup or if tools aren't generated yet
     pass
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 
 logger = get_logger(name="AtlassianMCP")
 
