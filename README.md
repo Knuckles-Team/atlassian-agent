@@ -21,7 +21,7 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/atlassian-agent)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/atlassian-agent)
 
-*Version: 0.4.0*
+*Version: 0.5.0*
 
 ## Overview
 
@@ -159,3 +159,62 @@ uv pip install atlassian-agent
 
 ![GitHub followers](https://img.shields.io/github/followers/Knucklessg1)
 ![GitHub User's stars](https://img.shields.io/github/stars/Knucklessg1)
+
+
+## MCP Configuration Examples
+
+### 1. Standard IO (stdio) Deployment
+
+```json
+{
+  "mcpServers": {
+    "atlassian-agent": {
+      "command": "uv",
+      "args": [
+        "run",
+        "atlassian-mcp"
+      ],
+      "env": {
+        "AGENT_DESCRIPTION": "<YOUR_AGENT_DESCRIPTION>",
+        "AGENT_SYSTEM_PROMPT": "<YOUR_AGENT_SYSTEM_PROMPT>",
+        "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
+        "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
+        "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
+        "ATLASSIAN_AGENT_VERIFY": "<YOUR_ATLASSIAN_AGENT_VERIFY>",
+        "DEFAULT_AGENT_NAME": "<YOUR_DEFAULT_AGENT_NAME>"
+      }
+    }
+  }
+}
+```
+
+### 2. Streamable HTTP (SSE) Deployment
+
+```json
+{
+  "mcpServers": {
+    "atlassian-agent": {
+      "command": "uv",
+      "args": [
+        "run",
+        "atlassian-mcp",
+        "--transport",
+        "http",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ],
+      "env": {
+        "AGENT_DESCRIPTION": "<YOUR_AGENT_DESCRIPTION>",
+        "AGENT_SYSTEM_PROMPT": "<YOUR_AGENT_SYSTEM_PROMPT>",
+        "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
+        "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
+        "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
+        "ATLASSIAN_AGENT_VERIFY": "<YOUR_ATLASSIAN_AGENT_VERIFY>",
+        "DEFAULT_AGENT_NAME": "<YOUR_DEFAULT_AGENT_NAME>"
+      }
+    }
+  }
+}
+```

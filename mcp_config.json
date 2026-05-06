@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "atlassian-agent": {
+      "command": "uv",
+      "args": [
+        "run",
+        "atlassian-mcp"
+      ],
+      "env": {
+        "ATLASSIAN_AGENT_IS_CLOUD": "<YOUR_ATLASSIAN_AGENT_IS_CLOUD>",
+        "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
+        "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
+        "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
+        "AGENT_DESCRIPTION": "<YOUR_AGENT_DESCRIPTION>",
+        "AGENT_SYSTEM_PROMPT": "<YOUR_AGENT_SYSTEM_PROMPT>",
+        "ATLASSIAN_AGENT_VERIFY": "<YOUR_ATLASSIAN_AGENT_VERIFY>",
+        "DEFAULT_AGENT_NAME": "<YOUR_DEFAULT_AGENT_NAME>"
+      }
+    }
+  }
+}
