@@ -1,0 +1,65 @@
+# Tasks: Code Enhancement: atlassian-agent
+
+Generated: 2026-05-12T14:14:40.976066+00:00
+Skipped informational: 5
+
+- [ ] [P] **T001** [Project Analysis] Detected 5 agent skill(s) — will grade in CE-026
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T002** [Codebase Optimization] 13 functions exceed 200 lines (actionable refactoring targets): register_jira_se
+  - Priority: P2-Medium | Effort: Large
+- [ ] [P] **T003** [Codebase Optimization] Needs attention: org_cloud_tools.py (1170L) — 1 functions with high complexity (
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T004** [Codebase Optimization] Needs attention: jira_server_tools.py (7424L) — 1 functions with high complexity
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T005** [Codebase Optimization] Needs attention: jira_user_tools.py (1276L) — 1 functions with high complexity (
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T006** [Codebase Optimization] 1 flat directories with >15 Python files: atlassian_agent/tools
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T007** [Test Coverage] Low test-to-source ratio: 0.05
+  - Priority: P1-High | Effort: Medium
+- [ ] [P] **T008** [Test Coverage] Test suite lacks intent diversity (only one type)
+  - Priority: P1-High | Effort: Medium
+- [ ] [P] **T009** [Test Coverage] 18 potential doc-test drift items
+  - Priority: P1-High | Effort: Medium
+- [ ] [P] **T010** [Documentation & Governance] README.md missing sections: installation, usage|quick start
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T011** [Documentation & Governance] README missing: MCP tools mapping table with descriptions
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T012** [Documentation & Governance] README missing: Has a Table of Contents
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T013** [Documentation & Governance] README missing: Has usage examples with code blocks
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T014** [Documentation & Governance] README missing: References /docs directory material
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T015** [Documentation & Governance] README missing: Has MCP tools mapping table with descriptions
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T016** [Architecture & Design Patterns] SRP: 18 modules exceed 500 lines (god modules)
+  - Priority: P2-Medium | Effort: Large
+- [ ] [P] **T017** [Architecture & Design Patterns] SRP: 8 classes have >15 methods
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T018** [Architecture & Design Patterns] No discernible layer architecture (no domain/service/adapter separation)
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T019** [Architecture & Design Patterns] Low dependency injection ratio: 8%
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T020** [Concept Traceability] Low traceability ratio: 0% concepts fully traced
+  - Priority: P4-Enhancement | Effort: Medium
+- [ ] [P] **T021** [Concept Traceability] 2 test functions missing concept markers
+  - Priority: P4-Enhancement | Effort: Small
+- [ ] [P] **T022** [Concept Traceability] 3135 significant functions (>10 lines) missing concept markers in docstrings
+  - Priority: P4-Enhancement | Effort: Small
+- [ ] [P] **T023** [Linting & Formatting] Total lint findings: 0 (high/error: 0, medium/warning: 0, low: 0)
+  - Priority: P4-Enhancement | Effort: Medium
+- [ ] [P] **T024** [Pre-Commit Compliance] 2 hook(s) may be outdated: ruff-pre-commit, uv-pre-commit
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T025** [Changelog Audit] CHANGELOG.md is missing — create one following Keep a Changelog format
+  - Priority: P3-Low | Effort: Small
+- [ ] [P] **T026** [Changelog Audit] CHANGELOG.md is missing
+  - Priority: P3-Low | Effort: Small
+- [ ] [P] **T027** [Pytest Quality] 1 tests have no assertions
+  - Priority: P4-Enhancement | Effort: Medium
+- [ ] [P] **T028** [Environment Variables] Partial env var documentation: 36% coverage
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T029** [Environment Variables] Undocumented env vars: ALLOWED_CLIENT_REDIRECT_URIS, ATLASSIAN_AGENT_IS_CLOUD, A
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T030** [Environment Variables] 3 Python env vars not in .env.example: ATLASSIAN_AGENT_IS_CLOUD, ATLASSIAN_AGENT
+  - Priority: P2-Medium | Effort: Medium

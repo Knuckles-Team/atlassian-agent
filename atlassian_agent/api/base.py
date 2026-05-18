@@ -9,13 +9,26 @@ logger = logging.getLogger(__name__)
 
 
 class BaseAtlassianClient:
-    def __init__(self, base_url: str, username: str, token: str, verify: bool = True):
+    def __init__(
+        self,
+        base_url: str,
+        username: str,
+        token: str,
+        verify: bool = True,
+        bearer_token: str | None = None,
+    ):
         self.base_url = base_url.rstrip("/")
         self.username = username
         self.token = token
         self.verify = verify
+        self.bearer_token = bearer_token
         self.session = requests.Session()
-        self.session.auth = (self.username, self.token)
+        if bearer_token:
+            # OIDC delegation or 3LO OAuth — use Bearer token
+            self.session.headers["Authorization"] = f"Bearer {bearer_token}"
+        else:
+            # Basic auth — email + API token
+            self.session.auth = (self.username, self.token)
         self.session.verify = self.verify
 
     def request(

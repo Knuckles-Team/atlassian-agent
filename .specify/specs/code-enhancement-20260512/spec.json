@@ -1,0 +1,217 @@
+{
+  "feature_id": "code-enhancement-20260512",
+  "title": "Code Enhancement: atlassian-agent",
+  "created": "2026-05-12T14:14:40.976066+00:00",
+  "overview": "Automated code enhancement review for atlassian-agent. Covers 17 analysis domains.",
+  "user_stories": [
+    {
+      "role": "developer",
+      "action": "address Project Analysis findings (grade: C, score: 74)",
+      "value": "improve project project analysis from C to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Codebase Optimization findings (grade: D, score: 67)",
+      "value": "improve project codebase optimization from D to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Test Coverage findings (grade: F, score: 55)",
+      "value": "improve project test coverage from F to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Documentation & Governance findings (grade: C, score: 79)",
+      "value": "improve project documentation & governance from C to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Architecture & Design Patterns findings (grade: D, score: 65)",
+      "value": "improve project architecture & design patterns from D to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Concept Traceability findings (grade: F, score: 46)",
+      "value": "improve project concept traceability from F to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Changelog Audit findings (grade: C, score: 75)",
+      "value": "improve project changelog audit from C to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Environment Variables findings (grade: C, score: 79)",
+      "value": "improve project environment variables from C to at least B (80+)"
+    }
+  ],
+  "functional_requirements": [
+    {
+      "id": "FR-001",
+      "description": "Detected 5 agent skill(s) \u2014 will grade in CE-026",
+      "testable": true
+    },
+    {
+      "id": "FR-002",
+      "description": "13 functions exceed 200 lines (actionable refactoring targets): register_jira_server_tools (7410L), register_confluence_cloud_tools (5769L), register_jira_issue_tools (3892L), register_jira_schema_tools (3298L), register_confluence_server_tools (3136L)",
+      "testable": true
+    },
+    {
+      "id": "FR-003",
+      "description": "Needs attention: org_cloud_tools.py (1170L) \u2014 1 functions with high complexity (worst: register_org_cloud_tools at 1156L, CC=1)",
+      "testable": true
+    },
+    {
+      "id": "FR-004",
+      "description": "Needs attention: jira_server_tools.py (7424L) \u2014 1 functions with high complexity (worst: register_jira_server_tools at 7410L, CC=1)",
+      "testable": true
+    },
+    {
+      "id": "FR-005",
+      "description": "Needs attention: jira_user_tools.py (1276L) \u2014 1 functions with high complexity (worst: register_jira_user_tools at 1262L, CC=1)",
+      "testable": true
+    },
+    {
+      "id": "FR-006",
+      "description": "1 flat directories with >15 Python files: atlassian_agent/tools",
+      "testable": true
+    },
+    {
+      "id": "FR-007",
+      "description": "Low test-to-source ratio: 0.05",
+      "testable": true
+    },
+    {
+      "id": "FR-008",
+      "description": "Test suite lacks intent diversity (only one type)",
+      "testable": true
+    },
+    {
+      "id": "FR-009",
+      "description": "18 potential doc-test drift items",
+      "testable": true
+    },
+    {
+      "id": "FR-010",
+      "description": "README.md missing sections: installation, usage|quick start",
+      "testable": true
+    },
+    {
+      "id": "FR-011",
+      "description": "README missing: MCP tools mapping table with descriptions",
+      "testable": true
+    },
+    {
+      "id": "FR-012",
+      "description": "README missing: Has a Table of Contents",
+      "testable": true
+    },
+    {
+      "id": "FR-013",
+      "description": "README missing: Has usage examples with code blocks",
+      "testable": true
+    },
+    {
+      "id": "FR-014",
+      "description": "README missing: References /docs directory material",
+      "testable": true
+    },
+    {
+      "id": "FR-015",
+      "description": "README missing: Has MCP tools mapping table with descriptions",
+      "testable": true
+    },
+    {
+      "id": "FR-016",
+      "description": "SRP: 18 modules exceed 500 lines (god modules)",
+      "testable": true
+    },
+    {
+      "id": "FR-017",
+      "description": "SRP: 8 classes have >15 methods",
+      "testable": true
+    },
+    {
+      "id": "FR-018",
+      "description": "No discernible layer architecture (no domain/service/adapter separation)",
+      "testable": true
+    },
+    {
+      "id": "FR-019",
+      "description": "Low dependency injection ratio: 8%",
+      "testable": true
+    },
+    {
+      "id": "FR-020",
+      "description": "Low traceability ratio: 0% concepts fully traced",
+      "testable": true
+    },
+    {
+      "id": "FR-021",
+      "description": "2 test functions missing concept markers",
+      "testable": true
+    },
+    {
+      "id": "FR-022",
+      "description": "3135 significant functions (>10 lines) missing concept markers in docstrings",
+      "testable": true
+    },
+    {
+      "id": "FR-023",
+      "description": "Total lint findings: 0 (high/error: 0, medium/warning: 0, low: 0)",
+      "testable": true
+    },
+    {
+      "id": "FR-024",
+      "description": "2 hook(s) may be outdated: ruff-pre-commit, uv-pre-commit",
+      "testable": true
+    },
+    {
+      "id": "FR-025",
+      "description": "CHANGELOG.md is missing \u2014 create one following Keep a Changelog format",
+      "testable": true
+    },
+    {
+      "id": "FR-026",
+      "description": "CHANGELOG.md is missing",
+      "testable": true
+    },
+    {
+      "id": "FR-027",
+      "description": "1 tests have no assertions",
+      "testable": true
+    },
+    {
+      "id": "FR-028",
+      "description": "Partial env var documentation: 36% coverage",
+      "testable": true
+    },
+    {
+      "id": "FR-029",
+      "description": "Undocumented env vars: ALLOWED_CLIENT_REDIRECT_URIS, ATLASSIAN_AGENT_IS_CLOUD, AUTH_TYPE, ENABLE_OTEL, EUNOMIA_POLICY_FILE, EUNOMIA_REMOTE_URL, EUNOMIA_TYPE, LLM_API_KEY, LLM_BASE_URL, OAUTH_BASE_URL",
+      "testable": true
+    },
+    {
+      "id": "FR-030",
+      "description": "3 Python env vars not in .env.example: ATLASSIAN_AGENT_IS_CLOUD, ATLASSIAN_AGENT_USER, ATLASSIAN_AGENT_VERIFY",
+      "testable": true
+    }
+  ],
+  "success_criteria": [
+    {
+      "metric": "Overall GPA",
+      "current": 2.65,
+      "target": 3.0
+    },
+    {
+      "metric": "Domains at B or above",
+      "current": 9,
+      "target": 17
+    },
+    {
+      "metric": "Actionable findings",
+      "current": 30,
+      "target": 0
+    }
+  ]
+}

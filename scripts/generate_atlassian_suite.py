@@ -1,8 +1,9 @@
 import json
-from typing import Any
 import os
 import re
 from pathlib import Path
+from typing import Any
+
 from jinja2 import Template
 
 # --- Templates ---
@@ -168,7 +169,7 @@ def clean_path(path):
 def generate_suite(
     openapi_path, api_output, tools_output, product_name, module_name, tags
 ):
-    with open(openapi_path, "r") as f:
+    with open(openapi_path) as f:
         spec = json.load(f)
 
     paths = spec.get("paths", {})
