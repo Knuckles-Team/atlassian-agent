@@ -21,7 +21,7 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/atlassian-agent)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/atlassian-agent)
 
-*Version: 0.10.0*
+*Version: 0.10.1*
 
 ## Overview
 
@@ -37,35 +37,70 @@ This repository is actively maintained - Contributions are welcome!
 
 The MCP Server can be run in two modes: `stdio` (for local testing) or `http` (for networked access).
 
+#### Authentication Methods
+
+| Method | Priority | Environment Variables | Description |
+|--------|----------|----------------------|-------------|
+| **OIDC Delegation** | 1 (highest) | `ENABLE_DELEGATION`, `AUDIENCE`, `DELEGATED_SCOPES` | RFC 8693 token exchange for enterprise SSO — the upstream A2A agent's bearer token is exchanged for a scoped Atlassian token |
+| **3-Legged OAuth (3LO)** | 2 | `ATLASSIAN_OAUTH_TOKEN` | Bearer token obtained from the Atlassian OAuth consent flow |
+| **Basic Auth** | 3 (fallback) | `ATLASSIAN_AGENT_URL`, `ATLASSIAN_AGENT_USER`, `ATLASSIAN_AGENT_TOKEN` | Email + API token — the most common method for personal use |
+
 #### Environment Variables
 
-Shared Cloud Variables:
-*   `ATLASSIAN_AGENT_URL`: The URL of the target service (e.g. https://your-company.atlassian.net).
-*   `ATLASSIAN_AGENT_TOKEN`: The API token or access token for Cloud.
+Shared Cloud Variables (Fallback):
+*   `ATLASSIAN_AGENT_URL`: The URL of the target service (e.g. `https://your-company.atlassian.net`).
+*   `ATLASSIAN_AGENT_USER`: Email address for Basic Auth.
+*   `ATLASSIAN_AGENT_TOKEN`: API token for Basic Auth, or OAuth bearer token.
+*   `ATLASSIAN_AGENT_VERIFY`: Boolean to verify SSL (default: `True`).
+
+3-Legged OAuth (3LO):
+*   `ATLASSIAN_OAUTH_TOKEN`: Bearer token from the OAuth consent flow.
+
+OIDC Delegation (enterprise SSO):
+*   `ENABLE_DELEGATION`: Set to `true` to enable RFC 8693 token exchange.
+*   `AUDIENCE`: The target audience (e.g. `https://your-domain.atlassian.net`).
+*   `DELEGATED_SCOPES`: Space-separated scopes (e.g. `read:jira-work write:jira-work`).
+
+**Simultaneous Instance Overrides**
+You can connect to Jira Cloud, Jira Server, Confluence Cloud, and Confluence Server simultaneously by using the following suite-specific overrides. If a suite-specific variable is not set, it falls back to the `Shared Cloud Variables` above.
+
+Jira Cloud Variables:
+*   `ATLASSIAN_JIRA_CLOUD_URL`: The URL of the Jira Cloud instance.
+*   `ATLASSIAN_JIRA_CLOUD_USER`: The username/email for Jira Cloud.
+*   `ATLASSIAN_JIRA_CLOUD_TOKEN`: The token/password for Jira Cloud.
+*   `ATLASSIAN_JIRA_CLOUD_VERIFY`: Boolean to verify SSL for Jira Cloud.
 
 Jira Server Variables:
-*   `ATLASSIAN_JIRA_SERVER_URL`: The URL of the Jira Server.
+*   `ATLASSIAN_JIRA_SERVER_URL`: The URL of the Jira Server instance.
 *   `ATLASSIAN_JIRA_SERVER_USER`: The username for Jira Server.
 *   `ATLASSIAN_JIRA_SERVER_TOKEN`: The token/password for Jira Server.
 *   `ATLASSIAN_JIRA_SERVER_VERIFY`: Boolean to verify SSL for Jira Server.
 
+Confluence Cloud Variables:
+*   `ATLASSIAN_CONFLUENCE_CLOUD_URL`: The URL of the Confluence Cloud instance.
+*   `ATLASSIAN_CONFLUENCE_CLOUD_USER`: The username/email for Confluence Cloud.
+*   `ATLASSIAN_CONFLUENCE_CLOUD_TOKEN`: The token/password for Confluence Cloud.
+*   `ATLASSIAN_CONFLUENCE_CLOUD_VERIFY`: Boolean to verify SSL for Confluence Cloud.
+
 Confluence Server Variables:
-*   `ATLASSIAN_CONFLUENCE_SERVER_URL`: The URL of the Confluence Server.
+*   `ATLASSIAN_CONFLUENCE_SERVER_URL`: The URL of the Confluence Server instance.
 *   `ATLASSIAN_CONFLUENCE_SERVER_USER`: The username for Confluence Server.
 *   `ATLASSIAN_CONFLUENCE_SERVER_TOKEN`: The token/password for Confluence Server.
 *   `ATLASSIAN_CONFLUENCE_SERVER_VERIFY`: Boolean to verify SSL for Confluence Server.
 
 #### Run in stdio mode (default):
 ```bash
-export ATLASSIAN_AGENT_URL="http://localhost:8080"
-export ATLASSIAN_AGENT_TOKEN="your_token"
+export ATLASSIAN_AGENT_URL="https://your-domain.atlassian.net"
+export ATLASSIAN_AGENT_USER="your-email@example.com"
+export ATLASSIAN_AGENT_TOKEN="your-api-token"
 atlassian-mcp --transport "stdio"
 ```
 
 #### Run in HTTP mode:
 ```bash
-export ATLASSIAN_AGENT_URL="http://localhost:8080"
-export ATLASSIAN_AGENT_TOKEN="your_token"
+export ATLASSIAN_AGENT_URL="https://your-domain.atlassian.net"
+export ATLASSIAN_AGENT_USER="your-email@example.com"
+export ATLASSIAN_AGENT_TOKEN="your-api-token"
 atlassian-mcp --transport "http" --host "0.0.0.0" --port "8000"
 ```
 
@@ -73,10 +108,47 @@ atlassian-mcp --transport "http" --host "0.0.0.0" --port "8000"
 
 ### Run A2A Server
 ```bash
-export ATLASSIAN_AGENT_URL="http://localhost:8080"
-export ATLASSIAN_AGENT_TOKEN="your_token"
+export ATLASSIAN_AGENT_URL="https://your-domain.atlassian.net"
+export ATLASSIAN_AGENT_USER="your-email@example.com"
+export ATLASSIAN_AGENT_TOKEN="your-api-token"
 atlassian-agent --provider openai --model-id gpt-4o --api-key sk-...
 ```
+
+## Security & Governance
+
+This project is built on [`agent-utilities`](https://github.com/Knuckles-Team/agent-utilities), inheriting enterprise-grade security and governance features.
+
+### Authentication & Authorization
+| Feature | Description |
+|---------|-------------|
+| **OIDC Token Delegation** | RFC 8693 token exchange for user-context propagation from A2A → MCP |
+| **Eunomia Policies** | Fine-grained, policy-driven tool authorization (`none`, `embedded`, `remote`) |
+| **Scoped Credentials** | Tools execute with the caller's scoped identity where possible |
+| **3LO / OAuth / API Token** | Multiple auth strategies with graceful fallback |
+
+### Eunomia Policy Enforcement
+Eunomia provides a policy enforcement point for all tool calls:
+- **Embedded mode**: Load local `mcp_policies.json` for role-based access, sensitivity gating, and audit logging
+- **Remote mode**: Forward authorization decisions to a central Eunomia policy server for multi-agent governance
+- Enable via CLI: `--eunomia-type embedded --eunomia-policy-file mcp_policies.json`
+
+### Runtime Protections
+| Protection | Description |
+|------------|-------------|
+| **Tool Guard** | Sensitivity detection with human-in-the-loop approval gating |
+| **Prompt Injection Defense** | Input scanning and repetition/loop guards |
+| **Content Filtering** | Output schema enforcement and cost budget controls |
+| **Stuck Loop Detection** | Automatic detection and recovery from agent loops |
+| **Context Limit Warnings** | Proactive alerts before context window exhaustion |
+
+### Graph Agent Architecture
+The A2A agent uses `pydantic-graph` orchestration with:
+- **RouterNode**: Lightweight classifier that routes queries to specialized domains
+- **DomainNode**: Focused executor with only relevant tools loaded, preventing tool hallucination
+- **Approval Gates**: Policy-driven approval workflows before sensitive operations
+- **Usage Guards**: Budget and rate limiting enforcement
+
+> **Production Recommendation**: Enable `--eunomia-type embedded` (or `remote`) + OIDC delegation + containerized deployment. See [`agent-utilities` documentation](https://github.com/Knuckles-Team/agent-utilities) for full policy configuration.
 
 ## Docker
 
@@ -163,62 +235,29 @@ uv pip install atlassian-agent
 
 ## MCP Configuration Examples
 
-### 1. Standard IO (stdio) Deployment
-
+### stdio (recommended for local development)
 ```json
 {
   "mcpServers": {
-    "atlassian-agent": {
-      "command": "uv",
-      "args": [
-        "run",
-        "atlassian-mcp"
-      ],
-      "env": {
-        "AGENT_DESCRIPTION": "<YOUR_AGENT_DESCRIPTION>",
-        "AGENT_SYSTEM_PROMPT": "<YOUR_AGENT_SYSTEM_PROMPT>",
-        "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
-        "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
-        "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
-        "ATLASSIAN_AGENT_VERIFY": "<YOUR_ATLASSIAN_AGENT_VERIFY>",
-        "DEFAULT_AGENT_NAME": "<YOUR_DEFAULT_AGENT_NAME>"
-      }
+    "atlassian": {
+      "command": ".venv/bin/atlassian-mcp",
+      "args": [],
+      "env": {}
     }
   }
 }
 ```
 
-### 2. Streamable HTTP (SSE) Deployment
-
+### Streamable HTTP (recommended for production)
 ```json
 {
   "mcpServers": {
-    "atlassian-agent": {
-      "command": "uv",
-      "args": [
-        "run",
-        "atlassian-mcp",
-        "--transport",
-        "http",
-        "--host",
-        "0.0.0.0",
-        "--port",
-        "8000"
-      ],
-      "env": {
-        "AGENT_DESCRIPTION": "<YOUR_AGENT_DESCRIPTION>",
-        "AGENT_SYSTEM_PROMPT": "<YOUR_AGENT_SYSTEM_PROMPT>",
-        "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
-        "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
-        "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
-        "ATLASSIAN_AGENT_VERIFY": "<YOUR_ATLASSIAN_AGENT_VERIFY>",
-        "DEFAULT_AGENT_NAME": "<YOUR_DEFAULT_AGENT_NAME>"
-      }
+    "atlassian": {
+      "url": "http://localhost:8080/atlassian-mcp/mcp"
     }
   }
 }
 ```
-
 ## Available MCP Tools
 This server implements an action-routed dynamic tool architecture, consolidating operations into categorized tools.
 | Tool Name | Action | Description |

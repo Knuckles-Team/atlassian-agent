@@ -3501,3 +3501,48 @@ class ConfluenceServerAPI:
         return self.base_api.request(
             "DELETE", path, params=params, json=payload if payload else None
         )
+
+    def confluence_server_get_calendars(
+        self,
+        sub_calendar_id: str,
+        time_zone_id: str = "US%2FPacific",
+        start: str = "2022-01-01T00%3A00%3A00Z",
+        end: str = "2025-06-22T00%3A00%3A00Z",
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
+    ) -> Response:
+        """Get calendar events
+
+        Path: /rest/calendar-services/1.0/calendar/events.json
+        Method: GET
+        """
+        path = "/rest/calendar-services/1.0/calendar/events.json"
+        params = {
+            "subCalendarId": sub_calendar_id,
+            "userTimeZoneId": time_zone_id,
+            "start": start,
+            "end": end,
+        }
+        # Filter None values from params
+        params = {k: v for k, v in params.items() if v is not None}
+
+        return self.base_api.request(
+            "GET", path, params=params, json=payload if payload else None
+        )
+
+    def confluence_server_add_calendar_event(
+        self,
+        payload: dict[str, Any] | None = None,
+        _max_pages: int | None = None,
+    ) -> Response:
+        """Add calendar event
+
+        Path: /rest/calendar-services/1.0/calendar/events.json
+        Method: PUT
+        """
+        path = "/rest/calendar-services/1.0/calendar/events.json"
+        params: dict[str, Any] = {}
+
+        return self.base_api.request(
+            "PUT", path, params=params, json=payload if payload else None
+        )
