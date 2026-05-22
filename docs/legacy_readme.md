@@ -106,35 +106,7 @@ Configure your IDE's `mcp.json` to launch the MCP server via `uvx`:
 ```
 
 #### Streamable-HTTP Transport (Recommended for production deployments)
-Configure your client's `mcp.json` to launch the Streamable-HTTP server via `uvx` with explicit host and port definition:
-
-```json
-{
-  "mcpServers": {
-    "atlassian-agent": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "atlassian-agent",
-        "atlassian-mcp"
-      ],
-      "env": {
-        "TRANSPORT": "streamable-http",
-        "HOST": "0.0.0.0",
-        "PORT": "8000",
-        "ATLASSIAN_AGENT_URL": "your_atlassian_agent_url_here",
-        "ATLASSIAN_AGENT_USER": "your_atlassian_agent_user_here",
-        "ATLASSIAN_AGENT_TOKEN": "your_atlassian_agent_token_here",
-        "ATLASSIAN_AGENT_VERIFY": "your_atlassian_agent_verify_here",
-        "DEBUG": "your_debug_here",
-        "PYTHONUNBUFFERED": "your_pythonunbuffered_here"
-      }
-    }
-  }
-}
-```
-
-Alternatively, connect to a pre-deployed remote or local Streamable-HTTP instance:
+To run the server as a long-running Streamable-HTTP service:
 
 ```json
 {
