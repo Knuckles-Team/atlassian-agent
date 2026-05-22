@@ -41,7 +41,7 @@ from atlassian_agent.auth import (  # type: ignore
     get_user_provisioning_cloud_client,
 )
 
-__version__ = "0.10.1"
+__version__ = "0.11.0"
 
 logger = get_logger(name="atlassian-agent")
 logger.setLevel(logging.INFO)

@@ -20,7 +20,7 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/atlassian-agent)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/atlassian-agent)
 
-*Version: 0.10.1*
+*Version: 0.11.0*
 
 ---
 
