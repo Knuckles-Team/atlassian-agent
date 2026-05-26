@@ -48,6 +48,7 @@ logger.setLevel(logging.INFO)
 
 _registered_tools = set()
 
+
 def execute_client_method(
     client,
     action: str,
@@ -92,6 +93,7 @@ def execute_client_method(
 
     raise ValueError(f"Unknown action: {action} on {host_type} deployment")
 
+
 def register_atlassian_control_tools(mcp: FastMCP):
     if "atlassian_control" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -133,6 +135,7 @@ def register_atlassian_control_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_atlassian_org_tools(mcp: FastMCP):
     if "atlassian_org" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -176,6 +179,7 @@ def register_atlassian_org_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_atlassian_dlp_tools(mcp: FastMCP):
     if "atlassian_dlp" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -217,6 +221,7 @@ def register_atlassian_dlp_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_atlassian_user_mgmt_tools(mcp: FastMCP):
     if "atlassian_user_mgmt" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -260,6 +265,7 @@ def register_atlassian_user_mgmt_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_atlassian_admin_tools(mcp: FastMCP):
     if "atlassian_admin" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -302,6 +308,7 @@ def register_atlassian_admin_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_atlassian_api_access_tools(mcp: FastMCP):
     if "atlassian_api_access" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -343,6 +350,7 @@ def register_atlassian_api_access_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_atlassian_user_provisioning_tools(mcp: FastMCP):
     if (
@@ -389,6 +397,7 @@ def register_atlassian_user_provisioning_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_atlassian_tools(mcp: FastMCP):
     if "atlassian" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -430,6 +439,7 @@ def register_atlassian_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_jira_project_tools(mcp: FastMCP):
     if "jira_project" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -478,6 +488,7 @@ def register_jira_project_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_jira_user_tools(mcp: FastMCP):
     if "jira_user" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -524,6 +535,7 @@ def register_jira_user_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_jira_issue_tools(mcp: FastMCP):
     if "jira_issue" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -572,6 +584,7 @@ def register_jira_issue_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_jira_comment_tools(mcp: FastMCP):
     if "jira_comment" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -618,6 +631,7 @@ def register_jira_comment_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_jira_field_tools(mcp: FastMCP):
     if "jira_field" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -666,6 +680,7 @@ def register_jira_field_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_jira_screen_tools(mcp: FastMCP):
     if "jira_screen" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -712,6 +727,7 @@ def register_jira_screen_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_jira_workflow_tools(mcp: FastMCP):
     if "jira_workflow" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -760,6 +776,7 @@ def register_jira_workflow_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_jira_other_tools(mcp: FastMCP):
     if "jira_other" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -806,6 +823,7 @@ def register_jira_other_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_confluence_page_tools(mcp: FastMCP):
     if "confluence_page" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -859,6 +877,7 @@ def register_confluence_page_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_confluence_space_tools(mcp: FastMCP):
     if "confluence_space" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -910,6 +929,7 @@ def register_confluence_space_tools(mcp: FastMCP):
             return res
         except Exception as e:
             return {"error": str(e)}
+
 
 def register_confluence_user_tools(mcp: FastMCP):
     if "confluence_user" in _registered_tools and not type(mcp).__name__ == "Mock":
@@ -963,6 +983,7 @@ def register_confluence_user_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def register_confluence_other_tools(mcp: FastMCP):
     if "confluence_other" in _registered_tools and not type(mcp).__name__ == "Mock":
         return
@@ -1015,6 +1036,7 @@ def register_confluence_other_tools(mcp: FastMCP):
         except Exception as e:
             return {"error": str(e)}
 
+
 def get_mcp_instance() -> tuple[Any, ...]:
     """Initialize and return the MCP instance."""
     load_dotenv(find_dotenv())
@@ -1060,6 +1082,7 @@ def get_mcp_instance() -> tuple[Any, ...]:
         mcp.add_middleware(mw)
     return mcp, args, middlewares
 
+
 def mcp_server() -> None:
     mcp, args, middlewares = get_mcp_instance()
     print(f"atlassian-agent MCP v{__version__}", file=sys.stderr)
@@ -1076,6 +1099,7 @@ def mcp_server() -> None:
     else:
         logger.error("Invalid transport", extra={"transport": args.transport})
         sys.exit(1)
+
 
 if __name__ == "__main__":
     mcp_server()
