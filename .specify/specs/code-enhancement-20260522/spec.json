@@ -1,0 +1,227 @@
+{
+  "feature_id": "code-enhancement-20260522",
+  "title": "Code Enhancement: atlassian-agent",
+  "created": "2026-05-22T22:16:51.142438+00:00",
+  "overview": "Automated code enhancement review for atlassian-agent. Covers 16 analysis domains.",
+  "user_stories": [
+    {
+      "role": "developer",
+      "action": "address Project Analysis findings (grade: C, score: 74)",
+      "value": "improve project project analysis from C to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Codebase Optimization findings (grade: D, score: 60)",
+      "value": "improve project codebase optimization from D to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Security Analysis findings (grade: D, score: 60)",
+      "value": "improve project security analysis from D to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Test Coverage findings (grade: C, score: 70)",
+      "value": "improve project test coverage from C to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Architecture & Design Patterns findings (grade: D, score: 65)",
+      "value": "improve project architecture & design patterns from D to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Concept Traceability findings (grade: F, score: 30)",
+      "value": "improve project concept traceability from F to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Changelog Audit findings (grade: C, score: 75)",
+      "value": "improve project changelog audit from C to at least B (80+)"
+    },
+    {
+      "role": "developer",
+      "action": "address Pytest Quality findings (grade: C, score: 74)",
+      "value": "improve project pytest quality from C to at least B (80+)"
+    }
+  ],
+  "functional_requirements": [
+    {
+      "id": "FR-001",
+      "description": "Detected 5 agent skill(s) \u2014 will grade in CE-026",
+      "testable": true
+    },
+    {
+      "id": "FR-002",
+      "description": "4 functions exceed 200 lines (actionable refactoring targets): register_atlassian_admin_tools (322L), register_atlassian_org_tools (320L), atlassian_atlassian_admin (320L), atlassian_atlassian_org (318L)",
+      "testable": true
+    },
+    {
+      "id": "FR-003",
+      "description": "Monolithic: mcp_server.py (1828L) \u2014 6 functions with high complexity (worst: register_atlassian_admin_tools at 322L, CC=115); Low cohesion: 25 distinct concepts in one file",
+      "testable": true
+    },
+    {
+      "id": "FR-004",
+      "description": "Needs attention: api_client_admin_cloud.py (1262L) \u2014 God class: AdminCloudAPI (58 methods) \u2014 consider mixins/composition",
+      "testable": true
+    },
+    {
+      "id": "FR-005",
+      "description": "Needs attention: api_client_confluence_server.py (3548L) \u2014 God class: ConfluenceServerAPI (155 methods) \u2014 consider mixins/composition",
+      "testable": true
+    },
+    {
+      "id": "FR-006",
+      "description": "Needs attention: api_client_user_provisioning_cloud.py (542L) \u2014 God class: UserProvisioningCloudAPI (25 methods) \u2014 consider mixins/composition",
+      "testable": true
+    },
+    {
+      "id": "FR-007",
+      "description": "2 HIGH severity vulnerabilities found",
+      "testable": true
+    },
+    {
+      "id": "FR-008",
+      "description": "eval/exec usage detected: 1 instances",
+      "testable": true
+    },
+    {
+      "id": "FR-009",
+      "description": "Test suite lacks intent diversity (only one type)",
+      "testable": true
+    },
+    {
+      "id": "FR-010",
+      "description": "14 potential doc-test drift items",
+      "testable": true
+    },
+    {
+      "id": "FR-011",
+      "description": "README.md missing sections: usage|quick start",
+      "testable": true
+    },
+    {
+      "id": "FR-012",
+      "description": "2 broken internal links in README.md",
+      "testable": true
+    },
+    {
+      "id": "FR-013",
+      "description": "README missing: Has a Table of Contents",
+      "testable": true
+    },
+    {
+      "id": "FR-014",
+      "description": "README missing: Has usage examples with code blocks",
+      "testable": true
+    },
+    {
+      "id": "FR-015",
+      "description": "SRP: 8 modules exceed 500 lines (god modules)",
+      "testable": true
+    },
+    {
+      "id": "FR-016",
+      "description": "SRP: 8 classes have >15 methods",
+      "testable": true
+    },
+    {
+      "id": "FR-017",
+      "description": "No discernible layer architecture (no domain/service/adapter separation)",
+      "testable": true
+    },
+    {
+      "id": "FR-018",
+      "description": "Low dependency injection ratio: 5%",
+      "testable": true
+    },
+    {
+      "id": "FR-019",
+      "description": "Low traceability ratio: 0% concepts fully traced",
+      "testable": true
+    },
+    {
+      "id": "FR-020",
+      "description": "25 test functions missing concept markers",
+      "testable": true
+    },
+    {
+      "id": "FR-021",
+      "description": "1672 significant functions (>10 lines) missing concept markers in docstrings",
+      "testable": true
+    },
+    {
+      "id": "FR-022",
+      "description": "Total lint findings: 3 (high/error: 0, medium/warning: 0, low: 3)",
+      "testable": true
+    },
+    {
+      "id": "FR-023",
+      "description": "2 hook(s) may be outdated: ruff-pre-commit, uv-pre-commit",
+      "testable": true
+    },
+    {
+      "id": "FR-024",
+      "description": "CHANGELOG.md is missing \u2014 create one following Keep a Changelog format",
+      "testable": true
+    },
+    {
+      "id": "FR-025",
+      "description": "CHANGELOG.md is missing",
+      "testable": true
+    },
+    {
+      "id": "FR-026",
+      "description": "Test directory lacks subdirectory organization (consider unit/, integration/, e2e/)",
+      "testable": true
+    },
+    {
+      "id": "FR-027",
+      "description": "No @pytest.mark.parametrize usage \u2014 consider data-driven tests",
+      "testable": true
+    },
+    {
+      "id": "FR-028",
+      "description": "No shared fixtures in conftest.py",
+      "testable": true
+    },
+    {
+      "id": "FR-029",
+      "description": "4 tests have no assertions",
+      "testable": true
+    },
+    {
+      "id": "FR-030",
+      "description": "1 tests exceed 100 lines \u2014 likely doing too much per test",
+      "testable": true
+    },
+    {
+      "id": "FR-031",
+      "description": "Undocumented env vars: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, AUTH_TYPE, DELEGATED_SCOPES, EUNOMIA_POLICY_FILE, EUNOMIA_TYPE, OTEL_EXPORTER_OTLP_ENDPOINT, OTEL_EXPORTER_OTLP_PROTOCOL, OTEL_EXPORTER_OTLP_PUBLIC_KEY, OTEL_EXPORTER_OTLP_SECRET_KEY",
+      "testable": true
+    },
+    {
+      "id": "FR-032",
+      "description": "3 Python env vars not in .env.example: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, DELEGATED_SCOPES",
+      "testable": true
+    }
+  ],
+  "success_criteria": [
+    {
+      "metric": "Overall GPA",
+      "current": 2.5,
+      "target": 3.0
+    },
+    {
+      "metric": "Domains at B or above",
+      "current": 8,
+      "target": 16
+    },
+    {
+      "metric": "Actionable findings",
+      "current": 32,
+      "target": 0
+    }
+  ]
+}

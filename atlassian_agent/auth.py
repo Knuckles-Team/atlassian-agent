@@ -2,7 +2,7 @@ import os
 import threading
 
 import urllib3
-from agent_utilities.base_utilities import get_logger
+from agent_utilities.base_utilities import get_logger, to_boolean
 
 from .api.base import BaseAtlassianClient
 
@@ -51,7 +51,11 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
     verify = (
         verify_str.lower() in ("true", "1", "yes")
         if verify_str
-        else os.getenv("ATLASSIAN_AGENT_VERIFY", "True").lower() in ("true", "1", "yes")
+        else to_boolean(
+            os.getenv(
+                "ATLASSIAN_SSL_VERIFY", os.getenv("ATLASSIAN_AGENT_VERIFY", "True")
+            )
+        )
     )
 
     # --- Path 1: OIDC Delegation (RFC 8693 Token Exchange) ---
@@ -115,58 +119,83 @@ def get_base_client(
     return _base_client
 
 
-from .api.api_client_admin_cloud import AdminCloudAPI
-from .api.api_client_api_access_cloud import APIAccessCloudAPI
-from .api.api_client_confluence_cloud import ConfluenceCloudAPI
-from .api.api_client_confluence_server import ConfluenceServerAPI
-from .api.api_client_control_cloud import ControlCloudAPI
-from .api.api_client_dlp_cloud import DLPCloudAPI
-from .api.api_client_jira_cloud import JiraCloudAPI
-from .api.api_client_jira_server import JiraServerAPI
-from .api.api_client_org_cloud import OrgCloudAPI
-from .api.api_client_user_mgmt_cloud import UserMgmtCloudAPI
-from .api.api_client_user_provisioning_cloud import UserProvisioningCloudAPI
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .api.api_client_admin_cloud import AdminCloudAPI
+    from .api.api_client_api_access_cloud import APIAccessCloudAPI
+    from .api.api_client_confluence_cloud import ConfluenceCloudAPI
+    from .api.api_client_confluence_server import ConfluenceServerAPI
+    from .api.api_client_control_cloud import ControlCloudAPI
+    from .api.api_client_dlp_cloud import DLPCloudAPI
+    from .api.api_client_jira_cloud import JiraCloudAPI
+    from .api.api_client_jira_server import JiraServerAPI
+    from .api.api_client_org_cloud import OrgCloudAPI
+    from .api.api_client_user_mgmt_cloud import UserMgmtCloudAPI
+    from .api.api_client_user_provisioning_cloud import UserProvisioningCloudAPI
 
 
-def get_admin_cloud_client() -> AdminCloudAPI:
+def get_admin_cloud_client() -> "AdminCloudAPI":
+    from .api.api_client_admin_cloud import AdminCloudAPI
+
     return AdminCloudAPI(get_suite_client("ADMIN_CLOUD"))
 
 
-def get_api_access_cloud_client() -> APIAccessCloudAPI:
+def get_api_access_cloud_client() -> "APIAccessCloudAPI":
+    from .api.api_client_api_access_cloud import APIAccessCloudAPI
+
     return APIAccessCloudAPI(get_suite_client("API_ACCESS_CLOUD"))
 
 
-def get_confluence_cloud_client() -> ConfluenceCloudAPI:
+def get_confluence_cloud_client() -> "ConfluenceCloudAPI":
+    from .api.api_client_confluence_cloud import ConfluenceCloudAPI
+
     return ConfluenceCloudAPI(get_suite_client("CONFLUENCE_CLOUD"))
 
 
-def get_confluence_server_client() -> ConfluenceServerAPI:
+def get_confluence_server_client() -> "ConfluenceServerAPI":
+    from .api.api_client_confluence_server import ConfluenceServerAPI
+
     return ConfluenceServerAPI(get_suite_client("CONFLUENCE_SERVER"))
 
 
-def get_control_cloud_client() -> ControlCloudAPI:
+def get_control_cloud_client() -> "ControlCloudAPI":
+    from .api.api_client_control_cloud import ControlCloudAPI
+
     return ControlCloudAPI(get_suite_client("CONTROL_CLOUD"))
 
 
-def get_dlp_cloud_client() -> DLPCloudAPI:
+def get_dlp_cloud_client() -> "DLPCloudAPI":
+    from .api.api_client_dlp_cloud import DLPCloudAPI
+
     return DLPCloudAPI(get_suite_client("DLP_CLOUD"))
 
 
-def get_jira_cloud_client() -> JiraCloudAPI:
+def get_jira_cloud_client() -> "JiraCloudAPI":
+    from .api.api_client_jira_cloud import JiraCloudAPI
+
     return JiraCloudAPI(get_suite_client("JIRA_CLOUD"))
 
 
-def get_jira_server_client() -> JiraServerAPI:
+def get_jira_server_client() -> "JiraServerAPI":
+    from .api.api_client_jira_server import JiraServerAPI
+
     return JiraServerAPI(get_suite_client("JIRA_SERVER"))
 
 
-def get_org_cloud_client() -> OrgCloudAPI:
+def get_org_cloud_client() -> "OrgCloudAPI":
+    from .api.api_client_org_cloud import OrgCloudAPI
+
     return OrgCloudAPI(get_suite_client("ORG_CLOUD"))
 
 
-def get_user_mgmt_cloud_client() -> UserMgmtCloudAPI:
+def get_user_mgmt_cloud_client() -> "UserMgmtCloudAPI":
+    from .api.api_client_user_mgmt_cloud import UserMgmtCloudAPI
+
     return UserMgmtCloudAPI(get_suite_client("USER_MGMT_CLOUD"))
 
 
-def get_user_provisioning_cloud_client() -> UserProvisioningCloudAPI:
+def get_user_provisioning_cloud_client() -> "UserProvisioningCloudAPI":
+    from .api.api_client_user_provisioning_cloud import UserProvisioningCloudAPI
+
     return UserProvisioningCloudAPI(get_suite_client("USER_PROVISIONING_CLOUD"))

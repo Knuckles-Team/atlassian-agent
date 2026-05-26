@@ -25,11 +25,15 @@ def _expose_members(module):
                 __all__.append(name)
 
 
-# Eagerly import core modules (keeps API wrappers fast & light)
-for module_name in CORE_MODULES:
-    if module_name:
-        module = importlib.import_module(module_name)
-        _expose_members(module)
+def _eager_import_modules(core_modules):
+    """Eagerly import core modules (keeps API wrappers fast & light)."""
+    for module_name in core_modules:
+        if module_name:
+            module = importlib.import_module(module_name)
+            _expose_members(module)
+
+
+_eager_import_modules(CORE_MODULES)
 
 # Dynamic/lazy loading of optional modules (agent_server, mcp_server)
 _loaded_optional_modules = {}

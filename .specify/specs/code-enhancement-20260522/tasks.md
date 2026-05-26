@@ -1,0 +1,69 @@
+# Tasks: Code Enhancement: atlassian-agent
+
+Generated: 2026-05-22T22:16:51.142438+00:00
+Skipped informational: 5
+
+- [ ] [P] **T001** [Project Analysis] Detected 5 agent skill(s) — will grade in CE-026
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T002** [Codebase Optimization] 4 functions exceed 200 lines (actionable refactoring targets): register_atlassia
+  - Priority: P2-Medium | Effort: Large
+- [ ] [P] **T003** [Codebase Optimization] Monolithic: mcp_server.py (1828L) — 6 functions with high complexity (worst: reg
+  - Priority: P1-High | Effort: Large
+- [ ] [P] **T004** [Codebase Optimization] Needs attention: api_client_admin_cloud.py (1262L) — God class: AdminCloudAPI (5
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T005** [Codebase Optimization] Needs attention: api_client_confluence_server.py (3548L) — God class: Confluence
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T006** [Codebase Optimization] Needs attention: api_client_user_provisioning_cloud.py (542L) — God class: UserP
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T007** [Security Analysis] 2 HIGH severity vulnerabilities found
+  - Priority: P1-High | Effort: Medium
+- [ ] [P] **T008** [Security Analysis] eval/exec usage detected: 1 instances
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T009** [Test Coverage] Test suite lacks intent diversity (only one type)
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T010** [Test Coverage] 14 potential doc-test drift items
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T011** [Documentation & Governance] README.md missing sections: usage|quick start
+  - Priority: P3-Low | Effort: Small
+- [ ] [P] **T012** [Documentation & Governance] 2 broken internal links in README.md
+  - Priority: P3-Low | Effort: Medium
+- [ ] [P] **T013** [Documentation & Governance] README missing: Has a Table of Contents
+  - Priority: P3-Low | Effort: Small
+- [ ] [P] **T014** [Documentation & Governance] README missing: Has usage examples with code blocks
+  - Priority: P3-Low | Effort: Small
+- [ ] [P] **T015** [Architecture & Design Patterns] SRP: 8 modules exceed 500 lines (god modules)
+  - Priority: P2-Medium | Effort: Large
+- [ ] [P] **T016** [Architecture & Design Patterns] SRP: 8 classes have >15 methods
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T017** [Architecture & Design Patterns] No discernible layer architecture (no domain/service/adapter separation)
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T018** [Architecture & Design Patterns] Low dependency injection ratio: 5%
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T019** [Concept Traceability] Low traceability ratio: 0% concepts fully traced
+  - Priority: P4-Enhancement | Effort: Medium
+- [ ] [P] **T020** [Concept Traceability] 25 test functions missing concept markers
+  - Priority: P4-Enhancement | Effort: Small
+- [ ] [P] **T021** [Concept Traceability] 1672 significant functions (>10 lines) missing concept markers in docstrings
+  - Priority: P4-Enhancement | Effort: Small
+- [ ] [P] **T022** [Linting & Formatting] Total lint findings: 3 (high/error: 0, medium/warning: 0, low: 3)
+  - Priority: P4-Enhancement | Effort: Medium
+- [ ] [P] **T023** [Pre-Commit Compliance] 2 hook(s) may be outdated: ruff-pre-commit, uv-pre-commit
+  - Priority: P2-Medium | Effort: Small
+- [ ] [P] **T024** [Changelog Audit] CHANGELOG.md is missing — create one following Keep a Changelog format
+  - Priority: P3-Low | Effort: Small
+- [ ] [P] **T025** [Changelog Audit] CHANGELOG.md is missing
+  - Priority: P3-Low | Effort: Small
+- [ ] [P] **T026** [Pytest Quality] Test directory lacks subdirectory organization (consider unit/, integration/, e2
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T027** [Pytest Quality] No @pytest.mark.parametrize usage — consider data-driven tests
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T028** [Pytest Quality] No shared fixtures in conftest.py
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T029** [Pytest Quality] 4 tests have no assertions
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T030** [Pytest Quality] 1 tests exceed 100 lines — likely doing too much per test
+  - Priority: P2-Medium | Effort: Medium
+- [ ] [P] **T031** [Environment Variables] Undocumented env vars: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, AUTH_TYPE, DELEGATED_SCO
+  - Priority: P3-Low | Effort: Medium
+- [ ] [P] **T032** [Environment Variables] 3 Python env vars not in .env.example: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, DELEGATE
+  - Priority: P3-Low | Effort: Medium

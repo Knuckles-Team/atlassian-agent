@@ -1,0 +1,2434 @@
+{
+  "project": "atlassian-agent",
+  "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent",
+  "domain_results": [
+    {
+      "domain": "Project Analysis",
+      "score": 74,
+      "grade": "C",
+      "findings": [
+        "Detected ecosystem marker: agent-utilities \u2192 Agent-Utilities Ecosystem",
+        "Protocol support: MCP",
+        "Detected 5 agent skill(s) \u2014 will grade in CE-026"
+      ],
+      "justifications": [
+        {
+          "criterion": "has_pyproject",
+          "points": 10,
+          "evidence": "pyproject.toml and requirements.txt",
+          "reasoning": "Both pyproject.toml and requirements.txt exist, fulfilling mandatory Python project requirements"
+        },
+        {
+          "criterion": "project_type_detected",
+          "points": 10,
+          "evidence": "Agent-Utilities Ecosystem",
+          "reasoning": "Identified 1 ecosystem marker(s) in dependencies"
+        },
+        {
+          "criterion": "externalized_prompts",
+          "points": 0,
+          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent",
+          "reasoning": "No prompts/ directory found. Prompts may be hardcoded in source."
+        },
+        {
+          "criterion": "observability",
+          "points": 0,
+          "evidence": "dependency list",
+          "reasoning": "No observability tools (logfire, sentry, opentelemetry) found"
+        },
+        {
+          "criterion": "testing_suite",
+          "points": 10,
+          "evidence": "tests dir: True, pytest dep: True",
+          "reasoning": "Tests directory exists, pytest in dependencies"
+        },
+        {
+          "criterion": "agents_md",
+          "points": 10,
+          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/AGENTS.md (11728 bytes)",
+          "reasoning": "AGENTS.md exists with comprehensive content"
+        },
+        {
+          "criterion": "pre_commit_hooks",
+          "points": 10,
+          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.pre-commit-config.yaml",
+          "reasoning": "Pre-commit configuration found for automated code quality checks"
+        },
+        {
+          "criterion": "gitignore",
+          "points": 10,
+          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.gitignore",
+          "reasoning": ".gitignore exists to prevent committing build artifacts and secrets"
+        },
+        {
+          "criterion": "env_template",
+          "points": 10,
+          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.env.example",
+          "reasoning": "Environment template exists for onboarding and secret management"
+        },
+        {
+          "criterion": "protocol_support",
+          "points": 4,
+          "evidence": "MCP",
+          "reasoning": "1 communication protocol(s) detected"
+        }
+      ],
+      "details": {
+        "has_pyproject": true,
+        "has_requirements": true,
+        "dep_count": 6,
+        "project_types": [
+          "Agent-Utilities Ecosystem"
+        ],
+        "has_agent_skills": true,
+        "skill_count": 5,
+        "skill_paths": [
+          "atlassian_agent/skills/spec-to-backlog/SKILL.md",
+          "atlassian_agent/skills/generate-status-report/SKILL.md",
+          "atlassian_agent/skills/triage-issue/SKILL.md",
+          "atlassian_agent/skills/capture-tasks-from-meeting-notes/SKILL.md",
+          "atlassian_agent/skills/search-company-knowledge/SKILL.md"
+        ]
+      }
+    },
+    {
+      "domain": "Dependency Audit",
+      "score": 100,
+      "grade": "A",
+      "findings": [],
+      "justifications": [
+        {
+          "criterion": "dependency_freshness",
+          "points": 100,
+          "evidence": "source=/home/apps/workspace/agent-packages/agents/atlassian-agent/pyproject.toml total=6 major=0 minor=0 patch=0 not_installed=0",
+          "reasoning": "Audited 6 deps (6 installed, 0 constraint-only). 0 major, 0 minor, 0 patch updates."
+        }
+      ],
+      "packages": {
+        "agent-utilities": {
+          "current": "0.16.0",
+          "constraint": "0.16.0",
+          "installed": "0.16.0",
+          "latest": "0.16.0",
+          "status": "up-to-date",
+          "version_source": "installed",
+          "summary": "Agent Utilities for Pydantic AI Agents"
+        },
+        "pytest-xdist": {
+          "current": "3.8.0",
+          "constraint": "3.6.0",
+          "installed": "3.8.0",
+          "latest": "3.8.0",
+          "status": "up-to-date",
+          "version_source": "installed",
+          "summary": "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
+        },
+        "atlassian-python-api": {
+          "current": "4.0.7",
+          "constraint": "Any",
+          "installed": "4.0.7",
+          "latest": "4.0.7",
+          "status": "up-to-date",
+          "version_source": "installed",
+          "summary": "Python Atlassian REST API Wrapper"
+        },
+        "pytest-cov": {
+          "current": "7.1.0",
+          "constraint": "Any",
+          "installed": "7.1.0",
+          "latest": "7.1.0",
+          "status": "up-to-date",
+          "version_source": "installed",
+          "summary": "Pytest plugin for measuring coverage."
+        },
+        "pytest-asyncio": {
+          "current": "1.3.0",
+          "constraint": "Any",
+          "installed": "1.3.0",
+          "latest": "1.3.0",
+          "status": "up-to-date",
+          "version_source": "installed",
+          "summary": "Pytest support for asyncio"
+        },
+        "pytest": {
+          "current": "9.0.3",
+          "constraint": "Any",
+          "installed": "9.0.3",
+          "latest": "9.0.3",
+          "status": "up-to-date",
+          "version_source": "installed",
+          "summary": "pytest: simple powerful testing with Python"
+        }
+      }
+    },
+    {
+      "domain": "Codebase Optimization",
+      "score": 60,
+      "grade": "D",
+      "findings": [
+        "4 functions exceed 200 lines (actionable refactoring targets): register_atlassian_admin_tools (322L), register_atlassian_org_tools (320L), atlassian_atlassian_admin (320L), atlassian_atlassian_org (318L)",
+        "Monolithic: mcp_server.py (1828L) \u2014 6 functions with high complexity (worst: register_atlassian_admin_tools at 322L, CC=115); Low cohesion: 25 distinct concepts in one file",
+        "Needs attention: api_client_admin_cloud.py (1262L) \u2014 God class: AdminCloudAPI (58 methods) \u2014 consider mixins/composition",
+        "Needs attention: api_client_confluence_server.py (3548L) \u2014 God class: ConfluenceServerAPI (155 methods) \u2014 consider mixins/composition",
+        "Needs attention: api_client_user_provisioning_cloud.py (542L) \u2014 God class: UserProvisioningCloudAPI (25 methods) \u2014 consider mixins/composition"
+      ],
+      "justifications": [
+        {
+          "criterion": "code_quality",
+          "points": 60,
+          "evidence": "{\"file_count\": 30, \"total_lines\": 39862, \"function_count\": 1746, \"avg_complexity\": 2.61, \"max_complexity\": 115, \"avg_function_length\": 22.3, \"max_function_length\": 322, \"max_nesting_depth\": 11, \"duplication_ratio\": 0.018, \"long_functions\": 23, \"complex_functions\": 34, \"deep_nesting_functions\": 4, \"parse_errors\": 0, \"structural_issues\": 8, \"truly_monolithic\": 1}",
+          "reasoning": "Analyzed 30 files, 1746 functions. Avg CC=2.6, max length=322, duplication=1.8%, 8 structural issues (1 monolithic)."
+        }
+      ],
+      "metrics": {
+        "file_count": 30,
+        "total_lines": 39862,
+        "function_count": 1746,
+        "avg_complexity": 2.61,
+        "max_complexity": 115,
+        "avg_function_length": 22.3,
+        "max_function_length": 322,
+        "max_nesting_depth": 11,
+        "duplication_ratio": 0.018,
+        "long_functions": 23,
+        "complex_functions": 34,
+        "deep_nesting_functions": 4,
+        "parse_errors": 0,
+        "structural_issues": 8,
+        "truly_monolithic": 1
+      },
+      "top_complex": [
+        {
+          "name": "register_atlassian_org_tools",
+          "line": 199,
+          "length": 320,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "register_atlassian_admin_tools",
+          "line": 621,
+          "length": 322,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "atlassian_atlassian_org",
+          "line": 201,
+          "length": 318,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "atlassian_atlassian_admin",
+          "line": 623,
+          "length": 320,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "register_atlassian_user_provisioning_tools",
+          "line": 994,
+          "length": 138,
+          "complexity": 49,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        }
+      ],
+      "top_long": [
+        {
+          "name": "register_atlassian_admin_tools",
+          "line": 621,
+          "length": 322,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "register_atlassian_org_tools",
+          "line": 199,
+          "length": 320,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "atlassian_atlassian_admin",
+          "line": 623,
+          "length": 320,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "atlassian_atlassian_org",
+          "line": 201,
+          "length": 318,
+          "complexity": 115,
+          "nesting_depth": 1,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+        },
+        {
+          "name": "test_mcp_server_tools_coverage",
+          "line": 191,
+          "length": 147,
+          "complexity": 42,
+          "nesting_depth": 11,
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py"
+        }
+      ],
+      "structural_issues": [
+        {
+          "file": "mcp_server.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "lines": 1828,
+          "issues": [
+            "6 functions with high complexity (worst: register_atlassian_admin_tools at 322L, CC=115)",
+            "Low cohesion: 25 distinct concepts in one file",
+            "23 public functions \u2014 consider grouping into modules"
+          ],
+          "func_issues": [
+            {
+              "name": "register_atlassian_control_tools",
+              "lines": 99,
+              "complexity": 45,
+              "nesting": 1
+            },
+            {
+              "name": "register_atlassian_org_tools",
+              "lines": 320,
+              "complexity": 115,
+              "nesting": 1
+            },
+            {
+              "name": "register_atlassian_dlp_tools",
+              "lines": 43,
+              "complexity": 17,
+              "nesting": 1
+            },
+            {
+              "name": "register_atlassian_admin_tools",
+              "lines": 322,
+              "complexity": 115,
+              "nesting": 1
+            },
+            {
+              "name": "register_atlassian_api_access_tools",
+              "lines": 47,
+              "complexity": 19,
+              "nesting": 1
+            }
+          ],
+          "classification": "monolithic"
+        },
+        {
+          "file": "api_client_admin_cloud.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
+          "lines": 1262,
+          "issues": [
+            "God class: AdminCloudAPI (58 methods) \u2014 consider mixins/composition"
+          ],
+          "func_issues": [],
+          "classification": "needs_attention"
+        },
+        {
+          "file": "api_client_confluence_server.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
+          "lines": 3548,
+          "issues": [
+            "God class: ConfluenceServerAPI (155 methods) \u2014 consider mixins/composition"
+          ],
+          "func_issues": [],
+          "classification": "needs_attention"
+        },
+        {
+          "file": "api_client_user_provisioning_cloud.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
+          "lines": 542,
+          "issues": [
+            "God class: UserProvisioningCloudAPI (25 methods) \u2014 consider mixins/composition"
+          ],
+          "func_issues": [],
+          "classification": "needs_attention"
+        },
+        {
+          "file": "api_client_jira_server.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
+          "lines": 9273,
+          "issues": [
+            "God class: JiraServerAPI (436 methods) \u2014 consider mixins/composition"
+          ],
+          "func_issues": [],
+          "classification": "needs_attention"
+        },
+        {
+          "file": "api_client_org_cloud.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_org_cloud.py",
+          "lines": 1262,
+          "issues": [
+            "God class: OrgCloudAPI (58 methods) \u2014 consider mixins/composition"
+          ],
+          "func_issues": [],
+          "classification": "needs_attention"
+        },
+        {
+          "file": "api_client_jira_cloud.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_cloud.py",
+          "lines": 13737,
+          "issues": [
+            "God class: JiraCloudAPI (622 methods) \u2014 consider mixins/composition"
+          ],
+          "func_issues": [],
+          "classification": "needs_attention"
+        },
+        {
+          "file": "api_client_confluence_cloud.py",
+          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_cloud.py",
+          "lines": 5209,
+          "issues": [
+            "God class: ConfluenceCloudAPI (215 methods) \u2014 consider mixins/composition"
+          ],
+          "func_issues": [],
+          "classification": "needs_attention"
+        }
+      ],
+      "flat_directories": []
+    },
+    {
+      "domain": "Security Analysis",
+      "score": 60,
+      "grade": "D",
+      "findings": [
+        "2 HIGH severity vulnerabilities found",
+        "eval/exec usage detected: 1 instances"
+      ],
+      "justifications": [
+        {
+          "criterion": "security_posture",
+          "points": 60,
+          "evidence": "high=2 med=0 low=0 attack_surface={\"subprocess_calls\": 0, \"file_io_calls\": 8, \"network_endpoints\": 0, \"eval_exec_usage\": 1, \"sql_usage\": 0}",
+          "reasoning": "Scanned 30 files. Found 2 security findings. High: -30pts, Med: -0pts, Low: -0pts."
+        }
+      ],
+      "vulnerabilities": [
+        {
+          "cwe": "CWE-94",
+          "name": "Code Injection",
+          "severity": "High",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "line": 67,
+          "detail": "Dangerous call: compile()"
+        },
+        {
+          "cwe": "CWE-94",
+          "name": "Code Injection",
+          "severity": "High",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "line": 83,
+          "detail": "Dangerous call: exec()"
+        }
+      ],
+      "attack_surface": {
+        "subprocess_calls": 0,
+        "file_io_calls": 8,
+        "network_endpoints": 0,
+        "eval_exec_usage": 1,
+        "sql_usage": 0
+      }
+    },
+    {
+      "domain": "Test Coverage",
+      "score": 70,
+      "grade": "C",
+      "findings": [
+        "Test suite lacks intent diversity (only one type)",
+        "14 potential doc-test drift items"
+      ],
+      "justifications": [
+        {
+          "criterion": "test_coverage_quality",
+          "points": 70,
+          "evidence": "{\"test_file_count\": 8, \"test_count\": 25, \"source_file_count\": 30, \"test_to_source_ratio\": 0.83, \"intent_distribution\": {\"unit\": 25}, \"tests_without_assertions\": 4, \"concept_traced_tests\": 0, \"drift_items\": 14}",
+          "reasoning": "25 tests across 8 files. Ratio: 0.83. Intent: {'unit': 25}. 4 without assertions, 14 drift items."
+        }
+      ],
+      "metrics": {
+        "test_file_count": 8,
+        "test_count": 25,
+        "source_file_count": 30,
+        "test_to_source_ratio": 0.83,
+        "intent_distribution": {
+          "unit": 25
+        },
+        "tests_without_assertions": 4,
+        "concept_traced_tests": 0,
+        "drift_items": 14
+      },
+      "tests": [
+        {
+          "name": "test_concept_parity",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_concept_parity.py",
+          "line": 58,
+          "length": 30,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_server_startup",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup.py",
+          "line": 1,
+          "length": 12,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": false
+        },
+        {
+          "name": "test_execute_client_method_branches",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 106,
+          "length": 35,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_mcp_server_tools_coverage",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 191,
+          "length": 147,
+          "intent": "unit",
+          "markers": [
+            "anyio"
+          ],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_mcp_server_entrypoint",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 340,
+          "length": 43,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_middlewares_addition",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 385,
+          "length": 6,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_confluence_page_tool_direct",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 394,
+          "length": 40,
+          "intent": "unit",
+          "markers": [
+            "anyio"
+          ],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_requests_dependency_warning_import_error",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 436,
+          "length": 10,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": false
+        },
+        {
+          "name": "test_mcp_server_direct_script_execution",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 448,
+          "length": 7,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_register_confluence_page_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_calendar_tools.py",
+          "line": 15,
+          "length": 3,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_get_suite_client_basic_auth",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 27,
+          "length": 17,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_get_suite_client_suite_prefix",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 46,
+          "length": 16,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_get_suite_client_oidc_delegation_success",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 64,
+          "length": 20,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_get_suite_client_oidc_delegation_failure_fallback",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 86,
+          "length": 15,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_get_suite_client_oauth_3lo",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 103,
+          "length": 12,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_get_base_client",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 117,
+          "length": 15,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_all_client_getters",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 134,
+          "length": 48,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_response_json_success",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "line": 5,
+          "length": 10,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_response_json_failure",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "line": 16,
+          "length": 12,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_api_clients_brute_force",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_atlassian_agent_api_brute_force.py",
+          "line": 41,
+          "length": 87,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_init_coverage",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "line": 11,
+          "length": 74,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_agent_server_debug_mode",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "line": 137,
+          "length": 10,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        },
+        {
+          "name": "test_agent_server_non_debug_and_fallback",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "line": 149,
+          "length": 20,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": false
+        },
+        {
+          "name": "test_agent_server_direct_script_execution",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "line": 171,
+          "length": 3,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": false
+        },
+        {
+          "name": "test_main_execution",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "line": 177,
+          "length": 5,
+          "intent": "unit",
+          "markers": [],
+          "concept_id": "",
+          "has_assertions": true
+        }
+      ],
+      "drift": [
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "overview",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "key features",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "cli or api",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "mcp",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "mcp configuration examples",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "stdio transport (recommended for local ides e.g., cursor, claude desktop)",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "streamable-http transport (recommended for production deployments)",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "docker compose orchestration",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "security & governance",
+          "detail": "Feature heading in README has no corresponding test"
+        },
+        {
+          "type": "untested_feature",
+          "source": "README.md",
+          "feature": "access control & policy enforcement",
+          "detail": "Feature heading in README has no corresponding test"
+        }
+      ]
+    },
+    {
+      "domain": "Documentation & Governance",
+      "score": 89,
+      "grade": "B",
+      "findings": [
+        "README.md missing sections: usage|quick start",
+        "2 broken internal links in README.md",
+        "README missing: Has a Table of Contents",
+        "README missing: Has usage examples with code blocks"
+      ],
+      "justifications": [
+        {
+          "criterion": "documentation_quality",
+          "points": 89,
+          "evidence": "{\"README.md\": {\"exists\": true, \"missing\": [\"usage|quick start\"]}, \"AGENTS.md\": {\"exists\": true, \"missing\": []}, \"STANDARDS.md\": {\"exists\": false, \"missing\": []}, \"CONTRIBUTING.md\": {\"exists\": false, \"missing\": []}, \"CHANGELOG.md\": {\"exists\": false, \"missing\": []}, \"LICENSE\": {\"exists\": true, \"missing\": []}, \"docs/\": {\"exists\": true, \"missing\": []}}",
+          "reasoning": "Audited 6 standard docs + docs/ directory. 1 broken references, 4 docs present. README industry grade: B (81.2%)."
+        }
+      ],
+      "doc_results": {
+        "README.md": {
+          "exists": true,
+          "size": 20675,
+          "headings": [
+            "Atlassian Agent",
+            "CLI or API | MCP | Agent",
+            "Overview",
+            "Key Features",
+            "CLI or API",
+            "MCP",
+            "Available MCP Tools",
+            "MCP Configuration Examples",
+            "stdio Transport (Recommended for local IDEs e.g., Cursor, Claude Desktop)",
+            "Streamable-HTTP Transport (Recommended for production deployments)",
+            "Agent",
+            "Running the Agent CLI",
+            "Set credentials",
+            "Run the agent server",
+            "Docker Compose Orchestration",
+            "Security & Governance",
+            "Access Control & Policy Enforcement",
+            "Runtime Security Grid",
+            "Installation",
+            "Using uv (highly recommended)"
+          ],
+          "missing_sections": [
+            "usage|quick start"
+          ],
+          "heading_count": 23,
+          "stale": false,
+          "last_modified": "2026-05-22 08:17:12 -0500",
+          "category": "project_overview"
+        },
+        "AGENTS.md": {
+          "exists": true,
+          "size": 11212,
+          "headings": [
+            "AGENTS.md",
+            "Tech Stack & Architecture",
+            "Architecture Diagram",
+            "Workflow Diagram",
+            "Commands",
+            "Installation",
+            "Basic installation",
+            "Installation with all optional dependencies",
+            "Development installation",
+            "Quality & Linting (run from project root)",
+            "Run all pre-commit hooks",
+            "Run specific hook",
+            "Run linters directly",
+            "Testing",
+            "Verify tools registration",
+            "Run the MCP server in stdio mode for testing",
+            "Run the agent server",
+            "Manual testing of specific tools",
+            "Example: Test Jira cloud tools",
+            "Example: Test Confluence cloud tools"
+          ],
+          "missing_sections": [],
+          "heading_count": 40,
+          "stale": false,
+          "last_modified": "2026-05-05 09:25:15 -0500",
+          "category": "agentic_metadata"
+        },
+        "STANDARDS.md": {
+          "exists": false,
+          "missing_sections": [],
+          "size": 0,
+          "headings": [],
+          "stale": true,
+          "last_modified": "unknown",
+          "category": "standards"
+        },
+        "CONTRIBUTING.md": {
+          "exists": false,
+          "missing_sections": [],
+          "size": 0,
+          "headings": [],
+          "stale": true,
+          "last_modified": "unknown",
+          "category": "contributing"
+        },
+        "CHANGELOG.md": {
+          "exists": false,
+          "missing_sections": [],
+          "size": 0,
+          "headings": [],
+          "stale": true,
+          "last_modified": "unknown",
+          "category": "changelog"
+        },
+        "LICENSE": {
+          "exists": true,
+          "size": 1068,
+          "headings": [],
+          "missing_sections": [],
+          "heading_count": 0,
+          "stale": false,
+          "last_modified": "2026-04-20 02:42:58 -0500",
+          "category": "license"
+        },
+        "docs/": {
+          "exists": true,
+          "file_count": 3,
+          "files": [
+            "docs/legacy_readme.md",
+            "docs/overview.md",
+            "docs/index.md"
+          ]
+        }
+      },
+      "drift": [
+        {
+          "type": "broken_reference",
+          "doc": "AGENTS.md",
+          "reference": "verify_tools.py",
+          "detail": "Referenced file 'verify_tools.py' not found in project"
+        },
+        {
+          "type": "info",
+          "doc": "README.md",
+          "reference": "atlassian-agent[all], atlassian-agent[all]",
+          "detail": "README references 2 install commands"
+        }
+      ],
+      "readme_grade": {
+        "score": 26,
+        "max_score": 32,
+        "percentage": 81.2,
+        "grade": "B",
+        "criteria": {
+          "has_title": true,
+          "has_badges": true,
+          "has_description": true,
+          "has_toc": false,
+          "has_installation": true,
+          "has_usage": false,
+          "has_api_docs": true,
+          "has_architecture": true,
+          "has_contributing": true,
+          "has_license": false,
+          "has_code_blocks": true,
+          "has_docs_refs": true,
+          "no_broken_links": false,
+          "reasonable_length": true,
+          "has_cli_api_details": true,
+          "has_mcp_configs": true,
+          "has_agent_configs": true,
+          "has_env_var_docs": true,
+          "has_mcp_tool_table": true,
+          "has_deployment_docs": true
+        },
+        "findings": [
+          "2 broken internal links in README.md",
+          "README missing: Has a Table of Contents",
+          "README missing: Has usage examples with code blocks"
+        ]
+      }
+    },
+    {
+      "domain": "Architecture & Design Patterns",
+      "score": 65,
+      "grade": "D",
+      "findings": [
+        "SRP: 8 modules exceed 500 lines (god modules)",
+        "SRP: 8 classes have >15 methods",
+        "No discernible layer architecture (no domain/service/adapter separation)",
+        "Low dependency injection ratio: 5%"
+      ],
+      "justifications": [
+        {
+          "criterion": "architecture_quality",
+          "points": 65,
+          "evidence": "{\"layers\": 0, \"di_ratio\": 0.05, \"solid_violations\": 2}",
+          "reasoning": "Analyzed 30 files. 0/5 architecture layers present, DI ratio: 5%, 2 SOLID violations."
+        }
+      ],
+      "analysis": {
+        "solid_findings": [
+          {
+            "principle": "SRP",
+            "status": "violation",
+            "detail": "8 modules exceed 500 lines (god modules)",
+            "items": [
+              {
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+                "lines": 1828
+              },
+              {
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
+                "lines": 1262
+              },
+              {
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
+                "lines": 3548
+              },
+              {
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
+                "lines": 542
+              },
+              {
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
+                "lines": 9273
+              }
+            ]
+          },
+          {
+            "principle": "SRP",
+            "status": "violation",
+            "detail": "8 classes have >15 methods",
+            "items": [
+              {
+                "class": "AdminCloudAPI",
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
+                "method_count": 58
+              },
+              {
+                "class": "ConfluenceServerAPI",
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
+                "method_count": 155
+              },
+              {
+                "class": "UserProvisioningCloudAPI",
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
+                "method_count": 25
+              },
+              {
+                "class": "JiraServerAPI",
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
+                "method_count": 436
+              },
+              {
+                "class": "OrgCloudAPI",
+                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_org_cloud.py",
+                "method_count": 58
+              }
+            ]
+          }
+        ],
+        "layer_architecture": {
+          "has_domain_layer": false,
+          "has_adapter_layer": false,
+          "has_port_interfaces": false,
+          "has_service_layer": false,
+          "has_model_layer": false
+        },
+        "dependency_injection": {
+          "total_classes": 19,
+          "di_classes": 1,
+          "di_ratio": 0.05
+        },
+        "event_driven": {
+          "event_classes": 0,
+          "callback_patterns": 0,
+          "observer_patterns": 0,
+          "signal_patterns": 0
+        },
+        "file_count": 30
+      }
+    },
+    {
+      "domain": "Concept Traceability",
+      "score": 30,
+      "grade": "F",
+      "findings": [
+        "Low traceability ratio: 0% concepts fully traced",
+        "25 test functions missing concept markers",
+        "1672 significant functions (>10 lines) missing concept markers in docstrings"
+      ],
+      "justifications": [
+        {
+          "criterion": "concept_traceability",
+          "points": 30,
+          "evidence": "{\"total_concepts\": 5, \"well_traced\": 0, \"orphans\": 5, \"drift\": 0, \"code_concepts\": 0, \"doc_concepts\": 7, \"test_concepts\": 0, \"decorator_concepts\": 0, \"tests_missing_markers\": 25, \"functions_missing_docstrings\": 1672, \"registry_concepts\": 0, \"unimplemented_concepts\": 0}",
+          "reasoning": "5 unique concepts found. 0 fully traced (code+docs+tests), 5 orphans, 0 drifted. 25 tests without concept markers. 1672 functions without concept docstrings."
+        }
+      ],
+      "metrics": {
+        "total_concepts": 5,
+        "well_traced": 0,
+        "orphans": 5,
+        "drift": 0,
+        "code_concepts": 0,
+        "doc_concepts": 7,
+        "test_concepts": 0,
+        "decorator_concepts": 0,
+        "tests_missing_markers": 25,
+        "functions_missing_docstrings": 1672,
+        "registry_concepts": 0,
+        "unimplemented_concepts": 0
+      },
+      "concept_map": {
+        "OS-5.4": {
+          "code": 0,
+          "docs": 2,
+          "test": 0,
+          "test_decorator": 0,
+          "test_docstring": 0
+        },
+        "OS-5.1": {
+          "code": 0,
+          "docs": 1,
+          "test": 0,
+          "test_decorator": 0,
+          "test_docstring": 0
+        },
+        "OS-5.3": {
+          "code": 0,
+          "docs": 2,
+          "test": 0,
+          "test_decorator": 0,
+          "test_docstring": 0
+        },
+        "ORCH-1.4": {
+          "code": 0,
+          "docs": 1,
+          "test": 0,
+          "test_decorator": 0,
+          "test_docstring": 0
+        },
+        "OS-5.2": {
+          "code": 0,
+          "docs": 1,
+          "test": 0,
+          "test_decorator": 0,
+          "test_docstring": 0
+        }
+      },
+      "orphans": [
+        {
+          "concept_id": "OS-5.4",
+          "present_in": [
+            "docs"
+          ],
+          "missing_from": [
+            "code",
+            "test"
+          ]
+        },
+        {
+          "concept_id": "OS-5.1",
+          "present_in": [
+            "docs"
+          ],
+          "missing_from": [
+            "code",
+            "test"
+          ]
+        },
+        {
+          "concept_id": "OS-5.3",
+          "present_in": [
+            "docs"
+          ],
+          "missing_from": [
+            "code",
+            "test"
+          ]
+        },
+        {
+          "concept_id": "ORCH-1.4",
+          "present_in": [
+            "docs"
+          ],
+          "missing_from": [
+            "code",
+            "test"
+          ]
+        },
+        {
+          "concept_id": "OS-5.2",
+          "present_in": [
+            "docs"
+          ],
+          "missing_from": [
+            "code",
+            "test"
+          ]
+        }
+      ],
+      "drift": [],
+      "tests_missing_markers": [
+        {
+          "test_name": "test_concept_parity",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_concept_parity.py",
+          "line": 58
+        },
+        {
+          "test_name": "test_server_startup",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup.py",
+          "line": 1
+        },
+        {
+          "test_name": "test_execute_client_method_branches",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 106
+        },
+        {
+          "test_name": "test_mcp_server_tools_coverage",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 191
+        },
+        {
+          "test_name": "test_mcp_server_entrypoint",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 340
+        },
+        {
+          "test_name": "test_middlewares_addition",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 385
+        },
+        {
+          "test_name": "test_confluence_page_tool_direct",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 394
+        },
+        {
+          "test_name": "test_requests_dependency_warning_import_error",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 436
+        },
+        {
+          "test_name": "test_mcp_server_direct_script_execution",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "line": 448
+        },
+        {
+          "test_name": "test_register_confluence_page_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_calendar_tools.py",
+          "line": 15
+        },
+        {
+          "test_name": "test_get_suite_client_basic_auth",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 27
+        },
+        {
+          "test_name": "test_get_suite_client_suite_prefix",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 46
+        },
+        {
+          "test_name": "test_get_suite_client_oidc_delegation_success",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 64
+        },
+        {
+          "test_name": "test_get_suite_client_oidc_delegation_failure_fallback",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 86
+        },
+        {
+          "test_name": "test_get_suite_client_oauth_3lo",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 103
+        },
+        {
+          "test_name": "test_get_base_client",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 117
+        },
+        {
+          "test_name": "test_all_client_getters",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "line": 134
+        },
+        {
+          "test_name": "test_response_json_success",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "line": 5
+        },
+        {
+          "test_name": "test_response_json_failure",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "line": 16
+        },
+        {
+          "test_name": "test_api_clients_brute_force",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_atlassian_agent_api_brute_force.py",
+          "line": 41
+        }
+      ],
+      "functions_missing_docstrings": [
+        {
+          "function": "clean_identifier",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
+          "line": 85,
+          "length": 57
+        },
+        {
+          "function": "map_type",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
+          "line": 144,
+          "length": 10
+        },
+        {
+          "function": "generate_suite",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
+          "line": 169,
+          "length": 111
+        },
+        {
+          "function": "execute_client_method",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 53,
+          "length": 43
+        },
+        {
+          "function": "register_atlassian_control_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 98,
+          "length": 99
+        },
+        {
+          "function": "register_atlassian_org_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 199,
+          "length": 320
+        },
+        {
+          "function": "register_atlassian_dlp_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 521,
+          "length": 43
+        },
+        {
+          "function": "register_atlassian_user_mgmt_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 566,
+          "length": 53
+        },
+        {
+          "function": "register_atlassian_admin_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 621,
+          "length": 322
+        },
+        {
+          "function": "register_atlassian_api_access_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 945,
+          "length": 47
+        },
+        {
+          "function": "register_atlassian_user_provisioning_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 994,
+          "length": 138
+        },
+        {
+          "function": "register_atlassian_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1134,
+          "length": 31
+        },
+        {
+          "function": "register_jira_project_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1167,
+          "length": 46
+        },
+        {
+          "function": "register_jira_user_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1215,
+          "length": 46
+        },
+        {
+          "function": "register_jira_issue_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1263,
+          "length": 46
+        },
+        {
+          "function": "register_jira_comment_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1311,
+          "length": 46
+        },
+        {
+          "function": "register_jira_field_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1359,
+          "length": 46
+        },
+        {
+          "function": "register_jira_screen_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1407,
+          "length": 46
+        },
+        {
+          "function": "register_jira_workflow_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1455,
+          "length": 46
+        },
+        {
+          "function": "register_jira_other_tools",
+          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "line": 1503,
+          "length": 46
+        }
+      ],
+      "unimplemented_concepts": []
+    },
+    {
+      "domain": "Linting & Formatting",
+      "score": 97,
+      "grade": "A",
+      "findings": [
+        "Total lint findings: 3 (high/error: 0, medium/warning: 0, low: 3)"
+      ],
+      "justifications": [
+        {
+          "criterion": "lint_compliance",
+          "points": 97,
+          "evidence": "ruff=3, bandit=0, mypy=0",
+          "reasoning": "3 total findings across 3 tools. High/error: -0pts, Med/warning: -0pts, Low: -3pt."
+        }
+      ],
+      "tool_results": {
+        "ruff": {
+          "available": true,
+          "finding_count": 3,
+          "returncode": 1
+        },
+        "bandit": {
+          "available": true,
+          "finding_count": 0,
+          "returncode": 1
+        },
+        "mypy": {
+          "available": true,
+          "finding_count": 0,
+          "returncode": 1
+        }
+      },
+      "all_findings": [
+        {
+          "file": "",
+          "line": "",
+          "col": "",
+          "message": "tests/test_mcp_server_coverage.py:1:8",
+          "tool": "ruff"
+        },
+        {
+          "file": "",
+          "line": "",
+          "col": "",
+          "message": "tests/test_mcp_server_coverage.py:1:8",
+          "tool": "ruff"
+        },
+        {
+          "file": "",
+          "line": "",
+          "col": "",
+          "message": "tests/test_mcp_server_coverage.py:1:8",
+          "tool": "ruff"
+        }
+      ]
+    },
+    {
+      "domain": "Pre-Commit Compliance",
+      "score": 84,
+      "grade": "B",
+      "findings": [
+        "2/25 pre-commit hooks failed: don't commit to branch, mypy",
+        "2 hook(s) may be outdated: ruff-pre-commit, uv-pre-commit",
+        "Pytest hooks skipped (handled by CE-016 Test Execution): local-pytest, pytest"
+      ],
+      "justifications": [
+        {
+          "criterion": "precommit_compliance",
+          "points": 84,
+          "evidence": "{\"total_hooks\": 25, \"passed\": 22, \"failed\": 2, \"skipped\": 1, \"outdated_hooks\": 2, \"pytest_hooks_skipped\": 2, \"exit_code\": 1}",
+          "reasoning": "Ran pre-commit with 25 hooks: 22 passed, 2 failed, 1 skipped. 2 potentially outdated. 2 pytest hooks deferred to CE-016."
+        }
+      ],
+      "hook_results": [
+        {
+          "hook": "check for added large files",
+          "status": "passed"
+        },
+        {
+          "hook": "check python ast",
+          "status": "passed"
+        },
+        {
+          "hook": "check yaml",
+          "status": "passed"
+        },
+        {
+          "hook": "check toml",
+          "status": "passed"
+        },
+        {
+          "hook": "check json",
+          "status": "passed"
+        },
+        {
+          "hook": "fix utf-8 byte order marker",
+          "status": "passed"
+        },
+        {
+          "hook": "check for merge conflicts",
+          "status": "passed"
+        },
+        {
+          "hook": "detect private key",
+          "status": "passed"
+        },
+        {
+          "hook": "trim trailing whitespace",
+          "status": "passed"
+        },
+        {
+          "hook": "fix end of files",
+          "status": "passed"
+        },
+        {
+          "hook": "don't commit to branch",
+          "status": "failed"
+        },
+        {
+          "hook": "ruff check",
+          "status": "passed"
+        },
+        {
+          "hook": "ruff format",
+          "status": "passed"
+        },
+        {
+          "hook": "mypy",
+          "status": "failed"
+        },
+        {
+          "hook": "vulture",
+          "status": "passed"
+        },
+        {
+          "hook": "codespell",
+          "status": "passed"
+        },
+        {
+          "hook": "nbqa-ruff",
+          "status": "passed"
+        },
+        {
+          "hook": "uv-lock",
+          "status": "passed"
+        },
+        {
+          "hook": "mermaid-validate",
+          "status": "passed"
+        },
+        {
+          "hook": "check agent standards",
+          "status": "passed"
+        },
+        {
+          "hook": "check cli help",
+          "status": "passed"
+        },
+        {
+          "hook": "validate bumpversion config",
+          "status": "passed"
+        },
+        {
+          "hook": "pytest",
+          "status": "skipped"
+        },
+        {
+          "hook": "Hadolint",
+          "status": "passed"
+        },
+        {
+          "hook": "Validate docker compose files",
+          "status": "passed"
+        }
+      ],
+      "pytest_hooks_skipped": [
+        "local-pytest",
+        "pytest"
+      ],
+      "outdated_hooks": [
+        {
+          "repo": "https://github.com/astral-sh/ruff-pre-commit",
+          "current_rev": "v0.15.11",
+          "issue": "Pre-1.0 version \u2014 check for updates"
+        },
+        {
+          "repo": "https://github.com/astral-sh/uv-pre-commit",
+          "current_rev": "0.11.7",
+          "issue": "Pre-1.0 version \u2014 check for updates"
+        }
+      ],
+      "metrics": {
+        "total_hooks": 25,
+        "passed": 22,
+        "failed": 2,
+        "skipped": 1,
+        "outdated_hooks": 2,
+        "pytest_hooks_skipped": 2,
+        "exit_code": 1
+      }
+    },
+    {
+      "domain": "Test Execution",
+      "score": 100,
+      "grade": "A",
+      "findings": [],
+      "justifications": [
+        {
+          "criterion": "test_execution",
+          "points": 100,
+          "evidence": "{\"frameworks_detected\": 1, \"total_passed\": 25, \"total_failed\": 0, \"total_errors\": 0, \"pass_rate\": 1.0, \"timeout\": 300}",
+          "reasoning": "Executed 1 framework(s). 25 passed, 0 failed, 0 errors. Pass rate: 100%."
+        }
+      ],
+      "framework_results": [
+        {
+          "language": "python",
+          "framework": "pytest",
+          "command": [
+            "/home/apps/workspace/.venv/bin/python3",
+            "-m",
+            "pytest",
+            "--tb=line",
+            "-q",
+            "--timeout=300",
+            "--no-header"
+          ],
+          "status": "passed",
+          "exit_code": 0,
+          "parsed": {
+            "passed": 25,
+            "failed": 0,
+            "errors": 0,
+            "warnings": 5,
+            "skipped": 0,
+            "failures": []
+          }
+        }
+      ],
+      "metrics": {
+        "frameworks_detected": 1,
+        "total_passed": 25,
+        "total_failed": 0,
+        "total_errors": 0,
+        "pass_rate": 1.0,
+        "timeout": 300
+      }
+    },
+    {
+      "domain": "Directory Organization",
+      "score": 100,
+      "grade": "A",
+      "findings": [],
+      "justifications": [
+        {
+          "criterion": "directory_organization",
+          "points": 100,
+          "evidence": "{\"total_source_files\": 74, \"total_directories\": 20, \"max_depth\": 4, \"avg_depth\": 1.9, \"crowded_dirs_20plus\": 0, \"severely_crowded_40plus\": 0, \"monolithic_dirs\": 0, \"empty_dirs\": 1, \"avg_files_per_dir\": 3.7, \"rogue_scripts\": 0}",
+          "reasoning": "74 files across 20 directories. Max depth: 4, avg files/dir: 3.7. 0 crowded, 0 severely crowded, 0 monolithic, 0 rogue scripts."
+        }
+      ],
+      "metrics": {
+        "total_source_files": 74,
+        "total_directories": 20,
+        "max_depth": 4,
+        "avg_depth": 1.9,
+        "crowded_dirs_20plus": 0,
+        "severely_crowded_40plus": 0,
+        "monolithic_dirs": 0,
+        "empty_dirs": 1,
+        "avg_files_per_dir": 3.7,
+        "rogue_scripts": 0
+      },
+      "crowded_dirs": [],
+      "monolithic_dirs": [],
+      "suggestions": [],
+      "rogue_scripts": []
+    },
+    {
+      "domain": "Version Sync Analysis",
+      "score": 100,
+      "grade": "A",
+      "findings": [
+        "All version '0.13.0' declarations appear to be tracked correctly."
+      ],
+      "justifications": [
+        {
+          "criterion": "bumpversion_exists",
+          "points": 20,
+          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.bumpversion.cfg",
+          "reasoning": ".bumpversion.cfg found"
+        },
+        {
+          "criterion": "current_version_defined",
+          "points": 20,
+          "evidence": "0.13.0",
+          "reasoning": "Current version tracked is 0.13.0"
+        },
+        {
+          "criterion": "files_tracked",
+          "points": 20,
+          "evidence": "5 files tracked",
+          "reasoning": "Found 5 files tracked in .bumpversion.cfg"
+        },
+        {
+          "criterion": "version_drift_check",
+          "points": 40,
+          "evidence": "0 drifted files",
+          "reasoning": "No version drift detected in codebase files"
+        }
+      ],
+      "details": {
+        "tracked_files": [
+          "pyproject.toml",
+          "README.md",
+          "docker/Dockerfile",
+          "atlassian_agent/agent_server.py",
+          "atlassian_agent/mcp_server.py"
+        ],
+        "drifted_files": []
+      }
+    },
+    {
+      "domain": "Changelog Audit",
+      "score": 75,
+      "grade": "C",
+      "findings": [
+        "CHANGELOG.md is missing \u2014 create one following Keep a Changelog format",
+        "CHANGELOG.md is missing"
+      ],
+      "justifications": [
+        {
+          "criterion": "changelog_quality",
+          "points": 75,
+          "evidence": "{\"exists\": false, \"parseable\": false, \"version_count\": 0, \"has_drift\": false, \"dep_deltas_found\": 0}",
+          "reasoning": "CHANGELOG.md missing. 0 versions tracked. 0 dependency changelogs analyzed."
+        }
+      ],
+      "format_validation": {
+        "exists": false,
+        "parseable": false,
+        "has_unreleased": false,
+        "version_count": 0,
+        "uses_semver": true,
+        "valid_categories": true,
+        "has_dates": true,
+        "has_header": false,
+        "issues": [
+          "CHANGELOG.md is missing"
+        ]
+      },
+      "version_drift": {
+        "has_drift": false,
+        "changelog_version": null,
+        "pyproject_version": "0.13.0"
+      },
+      "dependency_deltas": {}
+    },
+    {
+      "domain": "Pytest Quality",
+      "score": 74,
+      "grade": "C",
+      "findings": [
+        "Test directory lacks subdirectory organization (consider unit/, integration/, e2e/)",
+        "No @pytest.mark.parametrize usage \u2014 consider data-driven tests",
+        "No shared fixtures in conftest.py",
+        "4 tests have no assertions",
+        "1 tests exceed 100 lines \u2014 likely doing too much per test"
+      ],
+      "justifications": [
+        {
+          "criterion": "pytest_quality",
+          "points": 74,
+          "evidence": "{\"test_files\": 8, \"total_tests\": 25, \"descriptive_name_ratio\": 1.0, \"generic_names\": 0, \"fixture_usage_ratio\": 0.2, \"parametrize_users\": 0, \"conftest_fixtures\": 0, \"no_assertion_tests\": 4, \"weak_assertion_tests\": 0, \"duplicate_groups\": 0, \"large_files\": 0, \"over_mocked_tests\": 1, \"very_long_tests\": 1, \"subscores\": {\"naming\": 20, \"structure\": 17, \"fixtures\": 7, \"assertions\": 12, \"ai_slop\": 18}}",
+          "reasoning": "25 tests across 8 files. Naming: 20/20, Structure: 17/20, Fixtures: 7/20, Assertions: 12/20, AI Slop: 18/20."
+        }
+      ],
+      "metrics": {
+        "test_files": 8,
+        "total_tests": 25,
+        "descriptive_name_ratio": 1.0,
+        "generic_names": 0,
+        "fixture_usage_ratio": 0.2,
+        "parametrize_users": 0,
+        "conftest_fixtures": 0,
+        "no_assertion_tests": 4,
+        "weak_assertion_tests": 0,
+        "duplicate_groups": 0,
+        "large_files": 0,
+        "over_mocked_tests": 1,
+        "very_long_tests": 1,
+        "subscores": {
+          "naming": 20,
+          "structure": 17,
+          "fixtures": 7,
+          "assertions": 12,
+          "ai_slop": 18
+        }
+      },
+      "conftest": {
+        "conftest_count": 1,
+        "total_shared_fixtures": 0,
+        "has_root_conftest": true
+      },
+      "duplicates": [],
+      "large_files": []
+    },
+    {
+      "domain": "Environment Variables",
+      "score": 89,
+      "grade": "B",
+      "findings": [
+        "Undocumented env vars: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, AUTH_TYPE, DELEGATED_SCOPES, EUNOMIA_POLICY_FILE, EUNOMIA_TYPE, OTEL_EXPORTER_OTLP_ENDPOINT, OTEL_EXPORTER_OTLP_PROTOCOL, OTEL_EXPORTER_OTLP_PUBLIC_KEY, OTEL_EXPORTER_OTLP_SECRET_KEY",
+        "3 Python env vars not in .env.example: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, DELEGATED_SCOPES"
+      ],
+      "justifications": [
+        {
+          "criterion": "env_var_documentation",
+          "points": 89,
+          "evidence": "{\"total_vars\": 39, \"python_vars\": 7, \"dockerfile_vars\": 4, \"compose_vars\": 0, \"dotenv_vars\": 35, \"readme_documented\": 29, \"readme_undocumented\": 10, \"documentation_coverage\": 0.74}",
+          "reasoning": "Found 39 unique env vars across 85 occurrences. README documents 29/39. Has .env.example."
+        }
+      ],
+      "metrics": {
+        "total_vars": 39,
+        "python_vars": 7,
+        "dockerfile_vars": 4,
+        "compose_vars": 0,
+        "dotenv_vars": 35,
+        "readme_documented": 29,
+        "readme_undocumented": 10,
+        "documentation_coverage": 0.74
+      },
+      "variables": {
+        "ATLASSIAN_AGENT_URL": {
+          "name": "ATLASSIAN_AGENT_URL",
+          "sources": [
+            "atlassian_agent/auth.py:47",
+            ".env:23",
+            ".env.example:23"
+          ],
+          "defaults": [
+            "http://localhost:8080"
+          ],
+          "source_types": [
+            "dotenv",
+            "python"
+          ]
+        },
+        "ATLASSIAN_AGENT_USER": {
+          "name": "ATLASSIAN_AGENT_USER",
+          "sources": [
+            "atlassian_agent/auth.py:48",
+            ".env:24",
+            ".env.example:24"
+          ],
+          "defaults": [
+            "your-email@example.com"
+          ],
+          "source_types": [
+            "dotenv",
+            "python"
+          ]
+        },
+        "ATLASSIAN_AGENT_TOKEN": {
+          "name": "ATLASSIAN_AGENT_TOKEN",
+          "sources": [
+            "atlassian_agent/auth.py:49",
+            ".env:25",
+            ".env.example:25"
+          ],
+          "defaults": [
+            "your_token_here"
+          ],
+          "source_types": [
+            "dotenv",
+            "python"
+          ]
+        },
+        "ATLASSIAN_AGENT_VERIFY": {
+          "name": "ATLASSIAN_AGENT_VERIFY",
+          "sources": [
+            "atlassian_agent/auth.py:54",
+            ".env:26",
+            ".env.example:26"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv",
+            "python"
+          ]
+        },
+        "AUDIENCE": {
+          "name": "AUDIENCE",
+          "sources": [
+            "atlassian_agent/auth.py:61"
+          ],
+          "defaults": [
+            "url"
+          ],
+          "source_types": [
+            "python"
+          ]
+        },
+        "DELEGATED_SCOPES": {
+          "name": "DELEGATED_SCOPES",
+          "sources": [
+            "atlassian_agent/auth.py:62"
+          ],
+          "defaults": [
+            "read:jira-work"
+          ],
+          "source_types": [
+            "python"
+          ]
+        },
+        "ATLASSIAN_OAUTH_TOKEN": {
+          "name": "ATLASSIAN_OAUTH_TOKEN",
+          "sources": [
+            "atlassian_agent/auth.py:84"
+          ],
+          "defaults": [],
+          "source_types": [
+            "python"
+          ]
+        },
+        "HOST": {
+          "name": "HOST",
+          "sources": [
+            "docker/Dockerfile:8",
+            "docker/Dockerfile:3",
+            "docker/debug.Dockerfile:8",
+            "docker/debug.Dockerfile:3",
+            ".env:6"
+          ],
+          "defaults": [
+            "0.0.0.0"
+          ],
+          "source_types": [
+            "dockerfile",
+            "dotenv"
+          ]
+        },
+        "PORT": {
+          "name": "PORT",
+          "sources": [
+            "docker/Dockerfile:4",
+            "docker/debug.Dockerfile:4",
+            ".env:7",
+            ".env.example:7"
+          ],
+          "defaults": [
+            "8000"
+          ],
+          "source_types": [
+            "dockerfile",
+            "dotenv"
+          ]
+        },
+        "TRANSPORT": {
+          "name": "TRANSPORT",
+          "sources": [
+            "docker/Dockerfile:5",
+            "docker/debug.Dockerfile:5",
+            ".env:8",
+            ".env.example:8"
+          ],
+          "defaults": [
+            "stdio # options: stdio, streamable-http, sse",
+            "stdio"
+          ],
+          "source_types": [
+            "dockerfile",
+            "dotenv"
+          ]
+        },
+        "AUTH_TYPE": {
+          "name": "AUTH_TYPE",
+          "sources": [
+            "docker/Dockerfile:6",
+            "docker/debug.Dockerfile:6"
+          ],
+          "defaults": [],
+          "source_types": [
+            "dockerfile"
+          ]
+        },
+        "ENABLE_OTEL": {
+          "name": "ENABLE_OTEL",
+          "sources": [
+            ".env:11",
+            ".env.example:11"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "OTEL_EXPORTER_OTLP_ENDPOINT": {
+          "name": "OTEL_EXPORTER_OTLP_ENDPOINT",
+          "sources": [
+            ".env:12"
+          ],
+          "defaults": [
+            "http://langfuse.arpa/api/public/otel"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "OTEL_EXPORTER_OTLP_PUBLIC_KEY": {
+          "name": "OTEL_EXPORTER_OTLP_PUBLIC_KEY",
+          "sources": [
+            ".env:13"
+          ],
+          "defaults": [],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "OTEL_EXPORTER_OTLP_SECRET_KEY": {
+          "name": "OTEL_EXPORTER_OTLP_SECRET_KEY",
+          "sources": [
+            ".env:14"
+          ],
+          "defaults": [],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "OTEL_EXPORTER_OTLP_PROTOCOL": {
+          "name": "OTEL_EXPORTER_OTLP_PROTOCOL",
+          "sources": [
+            ".env:15"
+          ],
+          "defaults": [
+            "http/protobuf"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "EUNOMIA_TYPE": {
+          "name": "EUNOMIA_TYPE",
+          "sources": [
+            ".env:18",
+            ".env.example:18"
+          ],
+          "defaults": [
+            "none # options: none, embedded, remote",
+            "none"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "EUNOMIA_POLICY_FILE": {
+          "name": "EUNOMIA_POLICY_FILE",
+          "sources": [
+            ".env:19",
+            ".env.example:19"
+          ],
+          "defaults": [
+            "mcp_policies.json"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "DEBUG": {
+          "name": "DEBUG",
+          "sources": [
+            ".env:27",
+            ".env.example:27"
+          ],
+          "defaults": [
+            "False"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "PYTHONUNBUFFERED": {
+          "name": "PYTHONUNBUFFERED",
+          "sources": [
+            ".env:28",
+            ".env.example:28"
+          ],
+          "defaults": [
+            "1"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "ATLASSIAN_CONTROL_TOOL": {
+          "name": "ATLASSIAN_CONTROL_TOOL",
+          "sources": [
+            ".env:31",
+            ".env:38",
+            ".env.example:31",
+            ".env.example:38"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "ATLASSIAN_ORG_TOOL": {
+          "name": "ATLASSIAN_ORG_TOOL",
+          "sources": [
+            ".env:32",
+            ".env.example:32"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "ATLASSIAN_DLP_TOOL": {
+          "name": "ATLASSIAN_DLP_TOOL",
+          "sources": [
+            ".env:33",
+            ".env.example:33"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "ATLASSIAN_USER_MGMT_TOOL": {
+          "name": "ATLASSIAN_USER_MGMT_TOOL",
+          "sources": [
+            ".env:34",
+            ".env.example:34"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "ATLASSIAN_ADMIN_TOOL": {
+          "name": "ATLASSIAN_ADMIN_TOOL",
+          "sources": [
+            ".env:35",
+            ".env.example:35"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "ATLASSIAN_API_ACCESS_TOOL": {
+          "name": "ATLASSIAN_API_ACCESS_TOOL",
+          "sources": [
+            ".env:36",
+            ".env.example:36"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "ATLASSIAN_USER_PROVISIONING_TOOL": {
+          "name": "ATLASSIAN_USER_PROVISIONING_TOOL",
+          "sources": [
+            ".env:37",
+            ".env.example:37"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_PROJECT_TOOL": {
+          "name": "JIRA_PROJECT_TOOL",
+          "sources": [
+            ".env:39",
+            ".env.example:39"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_USER_TOOL": {
+          "name": "JIRA_USER_TOOL",
+          "sources": [
+            ".env:40",
+            ".env.example:40"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_ISSUE_TOOL": {
+          "name": "JIRA_ISSUE_TOOL",
+          "sources": [
+            ".env:41",
+            ".env.example:41"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_COMMENT_TOOL": {
+          "name": "JIRA_COMMENT_TOOL",
+          "sources": [
+            ".env:42",
+            ".env.example:42"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_FIELD_TOOL": {
+          "name": "JIRA_FIELD_TOOL",
+          "sources": [
+            ".env:43",
+            ".env.example:43"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_SCREEN_TOOL": {
+          "name": "JIRA_SCREEN_TOOL",
+          "sources": [
+            ".env:44",
+            ".env.example:44"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_WORKFLOW_TOOL": {
+          "name": "JIRA_WORKFLOW_TOOL",
+          "sources": [
+            ".env:45",
+            ".env.example:45"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "JIRA_OTHER_TOOL": {
+          "name": "JIRA_OTHER_TOOL",
+          "sources": [
+            ".env:46",
+            ".env.example:46"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "CONFLUENCE_PAGE_TOOL": {
+          "name": "CONFLUENCE_PAGE_TOOL",
+          "sources": [
+            ".env:47",
+            ".env.example:47"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "CONFLUENCE_SPACE_TOOL": {
+          "name": "CONFLUENCE_SPACE_TOOL",
+          "sources": [
+            ".env:48",
+            ".env.example:48"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "CONFLUENCE_USER_TOOL": {
+          "name": "CONFLUENCE_USER_TOOL",
+          "sources": [
+            ".env:49",
+            ".env.example:49"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        },
+        "CONFLUENCE_OTHER_TOOL": {
+          "name": "CONFLUENCE_OTHER_TOOL",
+          "sources": [
+            ".env:50",
+            ".env.example:50"
+          ],
+          "defaults": [
+            "True"
+          ],
+          "source_types": [
+            "dotenv"
+          ]
+        }
+      },
+      "readme_coverage": {
+        "documented": [
+          "ATLASSIAN_ADMIN_TOOL",
+          "ATLASSIAN_AGENT_TOKEN",
+          "ATLASSIAN_AGENT_URL",
+          "ATLASSIAN_AGENT_USER",
+          "ATLASSIAN_AGENT_VERIFY",
+          "ATLASSIAN_API_ACCESS_TOOL",
+          "ATLASSIAN_CONTROL_TOOL",
+          "ATLASSIAN_DLP_TOOL",
+          "ATLASSIAN_ORG_TOOL",
+          "ATLASSIAN_USER_MGMT_TOOL",
+          "ATLASSIAN_USER_PROVISIONING_TOOL",
+          "CONFLUENCE_OTHER_TOOL",
+          "CONFLUENCE_PAGE_TOOL",
+          "CONFLUENCE_SPACE_TOOL",
+          "CONFLUENCE_USER_TOOL",
+          "DEBUG",
+          "ENABLE_OTEL",
+          "HOST",
+          "JIRA_COMMENT_TOOL",
+          "JIRA_FIELD_TOOL",
+          "JIRA_ISSUE_TOOL",
+          "JIRA_OTHER_TOOL",
+          "JIRA_PROJECT_TOOL",
+          "JIRA_SCREEN_TOOL",
+          "JIRA_USER_TOOL",
+          "JIRA_WORKFLOW_TOOL",
+          "PORT",
+          "PYTHONUNBUFFERED",
+          "TRANSPORT"
+        ],
+        "undocumented": [
+          "ATLASSIAN_OAUTH_TOKEN",
+          "AUDIENCE",
+          "AUTH_TYPE",
+          "DELEGATED_SCOPES",
+          "EUNOMIA_POLICY_FILE",
+          "EUNOMIA_TYPE",
+          "OTEL_EXPORTER_OTLP_ENDPOINT",
+          "OTEL_EXPORTER_OTLP_PROTOCOL",
+          "OTEL_EXPORTER_OTLP_PUBLIC_KEY",
+          "OTEL_EXPORTER_OTLP_SECRET_KEY"
+        ],
+        "coverage": 0.7435897435897436
+      }
+    }
+  ],
+  "gpa": 2.5,
+  "domain_count": 16,
+  "timing": {
+    "analyze_project": 0.43,
+    "audit_dependencies": 0.31,
+    "analyze_codebase": 5.63,
+    "analyze_security": 1.27,
+    "analyze_tests": 0.31,
+    "audit_documentation": 1.34,
+    "analyze_architecture": 2.78,
+    "trace_concepts": 2.72,
+    "run_linters": 0.35,
+    "run_precommit": 25.81,
+    "run_tests": 17.39,
+    "analyze_directory_density": 0.83,
+    "analyze_ui": 0.84,
+    "analyze_version_sync": 0.6,
+    "audit_changelog": 0.0,
+    "grade_pytest": 0.16,
+    "scan_env_vars": 1.03
+  }
+}

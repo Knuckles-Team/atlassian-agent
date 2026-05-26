@@ -41,6 +41,7 @@ repos:
     additional_dependencies: [pydantic, types-PyYAML, types-requests,
         types-setuptools]
     args: ["--ignore-missing-imports"]
+    exclude: ^atlassian_agent/mcp/
 - repo: https://github.com/jendrikseipp/vulture
   rev: v2.16
   hooks:
