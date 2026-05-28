@@ -161,6 +161,7 @@ def test_get_base_client():
 
 def test_all_client_getters():
     from typing import Any
+
     # Test all specific sub-client factory functions
     mock_client = MagicMock()
     with patch(

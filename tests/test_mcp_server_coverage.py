@@ -74,20 +74,13 @@ def mock_create_mcp_server(*args, **kwargs):
 agent_utilities.mcp_utilities.create_mcp_server = mock_create_mcp_server
 
 # Clear the global mcp instance and registered tools to force clean re-registration with mocked dependencies
-try:
-    import atlassian_agent.mcp_server
-
-    if hasattr(atlassian_agent.mcp_server, "_mcp"):
-        setattr(atlassian_agent.mcp_server, "_mcp", None)
-    if hasattr(atlassian_agent.mcp_server, "_registered_tools"):
-        setattr(atlassian_agent.mcp_server, "_registered_tools", set())
-except ImportError:
-    pass
+# We pop any existing entries containing 'atlassian_agent.mcp_server' from sys.modules to force a complete re-execution
+for key in list(sys.modules.keys()):
+    if "atlassian_agent.mcp_server" in key:
+        sys.modules.pop(key, None)
 
 # Now import mcp_server so default arguments evaluate to the mocked functions
 import atlassian_agent.mcp_server
-
-importlib.reload(atlassian_agent.mcp_server)
 
 import ast
 import inspect
