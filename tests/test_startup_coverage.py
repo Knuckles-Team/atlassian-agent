@@ -35,20 +35,21 @@ def test_init_coverage():
     assert atlassian_agent.DEFAULT_AGENT_NAME is None
 
     # Test _expose_members with dummy classes and functions
-    class DummyClass:
-        pass
+    class MockExposedClass:
+        def __init__(self):
+            self.value = 1
 
-    def dummy_func():
-        pass
+    def mock_exposed_func():
+        return True
 
     dummy_module = MagicMock()
-    dummy_module.DummyClass = DummyClass
-    dummy_module.dummy_func = dummy_func
+    dummy_module.MockExposedClass = MockExposedClass
+    dummy_module.mock_exposed_func = mock_exposed_func
     dummy_module._private_item = lambda: None
 
     atlassian_agent._expose_members(dummy_module)
-    assert hasattr(atlassian_agent, "DummyClass")
-    assert hasattr(atlassian_agent, "dummy_func")
+    assert hasattr(atlassian_agent, "MockExposedClass")
+    assert hasattr(atlassian_agent, "mock_exposed_func")
     assert not hasattr(atlassian_agent, "_private_item")
 
     # Test _eager_import_modules helper function directly to cover eager core imports

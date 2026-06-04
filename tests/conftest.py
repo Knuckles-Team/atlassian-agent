@@ -5,7 +5,7 @@ import fastmcp
 
 
 async def dummy_async(*args, **kwargs):
-    pass
+    return None
 
 
 fastmcp.Context.info = dummy_async  # type: ignore[method-assign]
