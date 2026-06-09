@@ -1,214 +1,61 @@
-# Atlassian Agent - A2A | AG-UI | MCP
+# atlassian-agent
 
-![PyPI - Version](https://img.shields.io/pypi/v/atlassian-agent)
+Comprehensive **MCP server + A2A agent** for Jira and Confluence management across
+Atlassian Cloud and Server.
+
+!!! info "Official documentation"
+    This site is the canonical reference for `atlassian-agent`, maintained alongside
+    every release.
+
+[![PyPI](https://img.shields.io/pypi/v/atlassian-agent)](https://pypi.org/project/atlassian-agent/)
 ![MCP Server](https://badge.mcpx.dev?type=server 'MCP Server')
-![PyPI - Downloads](https://img.shields.io/pypi/dd/atlassian-agent)
-![GitHub Repo stars](https://img.shields.io/github/stars/Knuckles-Team/atlassian-agent)
-![GitHub forks](https://img.shields.io/github/forks/Knuckles-Team/atlassian-agent)
-![GitHub contributors](https://img.shields.io/github/contributors/Knuckles-Team/atlassian-agent)
-![PyPI - License](https://img.shields.io/pypi/l/atlassian-agent)
-![GitHub](https://img.shields.io/github/license/Knuckles-Team/atlassian-agent)
-
-![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Knuckles-Team/atlassian-agent)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Knuckles-Team/atlassian-agent)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Knuckles-Team/atlassian-agent)
-![GitHub issues](https://img.shields.io/github/issues/Knuckles-Team/atlassian-agent)
-
-![GitHub top language](https://img.shields.io/github/languages/top/Knuckles-Team/atlassian-agent)
-![GitHub language count](https://img.shields.io/github/languages/count/Knuckles-Team/atlassian-agent)
-![GitHub repo size](https://img.shields.io/github/repo-size/Knuckles-Team/atlassian-agent)
-![GitHub repo file count (file type)](https://img.shields.io/github/directory-file-count/Knuckles-Team/atlassian-agent)
-![PyPI - Wheel](https://img.shields.io/pypi/wheel/atlassian-agent)
-![PyPI - Implementation](https://img.shields.io/pypi/implementation/atlassian-agent)
-
-*Version: 0.7.0*
+[![License](https://img.shields.io/pypi/l/atlassian-agent)](https://github.com/Knuckles-Team/atlassian-agent/blob/main/LICENSE)
+[![GitHub](https://img.shields.io/badge/source-GitHub-181717?logo=github)](https://github.com/Knuckles-Team/atlassian-agent)
 
 ## Overview
 
-**Atlassian Agent MCP Server + A2A Agent**
+`atlassian-agent` wraps the Atlassian REST surface — Jira and Confluence, for both
+Cloud and Server / Data Center — with typed, deterministic MCP tools, and ships a
+Pydantic-AI A2A agent that drives those tools conversationally. It provides:
 
-Comprehensive AI agent for Jira and Confluence management.
+- **A broad Atlassian tool surface** — Jira projects, issues, comments, fields,
+  screens, workflows, and users, alongside Confluence pages, spaces, and users, plus
+  Cloud organization administration (org, admin, API access, DLP, user management,
+  user provisioning, control).
+- **Two console scripts** — `atlassian-mcp` (the MCP server) and `atlassian-agent`
+  (the A2A agent server with an optional web UI).
+- **Tolerant REST clients** — every call returns a structured `Response` rather than
+  raising, so the surface remains usable without a reachable instance and **remains
+  inactive when credentials are absent**.
 
-This repository is actively maintained - Contributions are welcome!
+## Explore the documentation
 
-## MCP
+<div class="grid cards" markdown>
 
-### Using as an MCP Server
+- :material-rocket-launch: **[Installation](installation.md)** — pip, source, extras, and the prebuilt Docker image.
+- :material-server-network: **[Deployment](deployment.md)** — run the MCP server, the agent server, Docker Compose, Caddy + Technitium.
+- :material-console: **[Usage](usage.md)** — the MCP tools, the Atlassian Python clients, and the CLI.
+- :material-sitemap: **[Architecture](overview.md)** — the layered tool / API / agent design.
+- :material-tag-multiple: **[Concepts](concepts.md)** — the `CONCEPT:ATL-*` registry.
 
-The MCP Server can be run in two modes: `stdio` (for local testing) or `http` (for networked access).
+</div>
 
-#### Environment Variables
-
-Shared Cloud Variables:
-*   `ATLASSIAN_AGENT_URL`: The URL of the target service (e.g. https://your-company.atlassian.net).
-*   `ATLASSIAN_AGENT_TOKEN`: The API token or access token for Cloud.
-
-Jira Server Variables:
-*   `ATLASSIAN_JIRA_SERVER_URL`: The URL of the Jira Server.
-*   `ATLASSIAN_JIRA_SERVER_USER`: The username for Jira Server.
-*   `ATLASSIAN_JIRA_SERVER_TOKEN`: The token/password for Jira Server.
-*   `ATLASSIAN_JIRA_SERVER_VERIFY`: Boolean to verify SSL for Jira Server.
-
-Confluence Server Variables:
-*   `ATLASSIAN_CONFLUENCE_SERVER_URL`: The URL of the Confluence Server.
-*   `ATLASSIAN_CONFLUENCE_SERVER_USER`: The username for Confluence Server.
-*   `ATLASSIAN_CONFLUENCE_SERVER_TOKEN`: The token/password for Confluence Server.
-*   `ATLASSIAN_CONFLUENCE_SERVER_VERIFY`: Boolean to verify SSL for Confluence Server.
-
-#### Run in stdio mode (default):
-```bash
-export ATLASSIAN_AGENT_URL="http://localhost:8080"
-export ATLASSIAN_AGENT_TOKEN="your_token"
-atlassian-mcp --transport "stdio"
-```
-
-#### Run in HTTP mode:
-```bash
-export ATLASSIAN_AGENT_URL="http://localhost:8080"
-export ATLASSIAN_AGENT_TOKEN="your_token"
-atlassian-mcp --transport "http" --host "0.0.0.0" --port "8000"
-```
-
-## A2A Agent
-
-### Run A2A Server
-```bash
-export ATLASSIAN_AGENT_URL="http://localhost:8080"
-export ATLASSIAN_AGENT_TOKEN="your_token"
-atlassian-agent --provider openai --model-id gpt-4o --api-key sk-...
-```
-
-## Docker
-
-### Build
+## Quick start
 
 ```bash
-docker build -t atlassian-agent .
+pip install "atlassian-agent[mcp]"
+atlassian-mcp                       # stdio MCP server (default transport)
 ```
 
-### Run MCP Server
+Connect it to an Atlassian instance:
 
 ```bash
-docker run -d \
-  --name atlassian-agent \
-  -p 8000:8000 \
-  -e TRANSPORT=http \
-  -e ATLASSIAN_AGENT_URL="http://your-service:8080" \
-  -e ATLASSIAN_AGENT_TOKEN="your_token" \
-  knucklessg1/atlassian-agent:latest
+export ATLASSIAN_AGENT_URL=https://your-company.atlassian.net
+export ATLASSIAN_AGENT_USER=your-email@example.com
+export ATLASSIAN_AGENT_TOKEN=your_api_token
+atlassian-mcp --transport streamable-http --host 0.0.0.0 --port 8000
 ```
 
-### Deploy with Docker Compose
-
-```yaml
-services:
-  atlassian-agent:
-    image: knucklessg1/atlassian-agent:latest
-    environment:
-      - HOST=0.0.0.0
-      - PORT=8000
-      - TRANSPORT=http
-      - ATLASSIAN_AGENT_URL=http://your-service:8080
-      - ATLASSIAN_AGENT_TOKEN=your_token
-    ports:
-      - 8000:8000
-```
-
-#### Configure `mcp.json` for AI Integration (e.g. Claude Desktop)
-
-```json
-{
-  "mcpServers": {
-    "atlassian": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--with",
-        "atlassian-agent",
-        "atlassian-mcp"
-      ],
-      "env": {
-        "ATLASSIAN_AGENT_URL": "http://your-service:8080",
-        "ATLASSIAN_AGENT_TOKEN": "your_token",
-        "ATLASSIAN_JIRA_SERVER_URL": "http://your-jira-server",
-        "ATLASSIAN_JIRA_SERVER_USER": "your-username",
-        "ATLASSIAN_JIRA_SERVER_TOKEN": "your-jira-token",
-        "ATLASSIAN_JIRA_SERVER_VERIFY": "true",
-        "ATLASSIAN_CONFLUENCE_SERVER_URL": "http://your-confluence-server",
-        "ATLASSIAN_CONFLUENCE_SERVER_USER": "your-username",
-        "ATLASSIAN_CONFLUENCE_SERVER_TOKEN": "your-confluence-token",
-        "ATLASSIAN_CONFLUENCE_SERVER_VERIFY": "true"
-      }
-    }
-  }
-}
-```
-
-## Install Python Package
-
-```bash
-python -m pip install atlassian-agent
-```
-```bash
-uv pip install atlassian-agent
-```
-
-## Repository Owners
-
-<img width="100%" height="180em" src="https://github-readme-stats.vercel.app/api?username=Knucklessg1&show_icons=true&hide_border=true&&count_private=true&include_all_commits=true" />
-
-![GitHub followers](https://img.shields.io/github/followers/Knucklessg1)
-![GitHub User's stars](https://img.shields.io/github/stars/Knucklessg1)
-
-
-## MCP Configuration Examples
-
-### 1. Standard IO (stdio) Deployment
-
-```json
-{
-  "mcpServers": {
-    "atlassian-agent": {
-      "command": "uv",
-      "args": [
-        "run",
-        "atlassian-mcp"
-      ],
-      "env": {
-        "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
-        "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
-        "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
-        "ATLASSIAN_AGENT_VERIFY": "<YOUR_ATLASSIAN_AGENT_VERIFY>",
-      }
-    }
-  }
-}
-```
-
-### 2. Streamable HTTP (SSE) Deployment
-
-```json
-{
-  "mcpServers": {
-    "atlassian-agent": {
-      "command": "uv",
-      "args": [
-        "run",
-        "atlassian-mcp",
-        "--transport",
-        "http",
-        "--host",
-        "0.0.0.0",
-        "--port",
-        "8000"
-      ],
-      "env": {
-        "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
-        "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
-        "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
-        "ATLASSIAN_AGENT_VERIFY": "<YOUR_ATLASSIAN_AGENT_VERIFY>",
-      }
-    }
-  }
-}
-```
+See **[Installation](installation.md)** and **[Deployment](deployment.md)** for the
+full matrix (PyPI extras, Docker image, all transports, the agent server, reverse
+proxy, DNS).

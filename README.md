@@ -22,6 +22,10 @@
 
 *Version: 0.27.0*
 
+> **Documentation** — Installation, deployment, and usage across the MCP, Python API,
+> and CLI interfaces, along with guidance for connecting to Atlassian Cloud and
+> Server instances, are maintained in the [official documentation](https://knuckles-team.github.io/atlassian-agent/).
+
 ---
 
 ## Overview
@@ -307,6 +311,22 @@ uv pip install atlassian-agent[all]
 # Using standard pip
 python -m pip install atlassian-agent[all]
 ```
+
+---
+
+## Documentation
+
+The complete documentation is published as the
+[official documentation site](https://knuckles-team.github.io/atlassian-agent/) and is
+the recommended reference for installation, deployment, and day-to-day operation.
+
+| Page | Contents |
+|---|---|
+| [Installation](https://knuckles-team.github.io/atlassian-agent/installation/) | pip, source, extras, prebuilt Docker image |
+| [Deployment](https://knuckles-team.github.io/atlassian-agent/deployment/) | run the MCP server, the agent server, Compose, Caddy + Technitium, env config |
+| [Usage](https://knuckles-team.github.io/atlassian-agent/usage/) | the MCP tools, the Atlassian Python clients, the CLI |
+| [Overview](https://knuckles-team.github.io/atlassian-agent/overview/) | architecture, enterprise readiness, MCP configuration |
+| [Concepts](https://knuckles-team.github.io/atlassian-agent/concepts/) | concept registry (`CONCEPT:ATL-*`) |
 
 ---
 
