@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://knuckles-team.github.io/atlassian-agent/concepts/">
+        <link rel="canonical" href="https://knuckles-team.github.io/atlassian-agent/usage/">
       
       
-        <link rel="prev" href="../usage/">
+        <link rel="prev" href="../deployment/">
       
+      
+        <link rel="next" href="../concepts/">
       
       
         
@@ -25,7 +27,7 @@
     
     
       
-        <title>Concepts - atlassian-agent</title>
+        <title>Usage (MCP / API / CLI) - atlassian-agent</title>
       
     
     
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#concept-registry-atlassian-agent" class="md-skip">
+        <a href="#usage-mcp-python-api-cli" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Concepts
+              Usage (MCP / API / CLI)
             
           </span>
         </div>
@@ -308,9 +310,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../usage/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -327,11 +331,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../concepts/" class="md-tabs__link">
         
   
   
@@ -507,33 +509,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../usage/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Usage (MCP / API / CLI)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -553,7 +528,7 @@
   <span class="md-ellipsis">
     
   
-    Concepts
+    Usage (MCP / API / CLI)
   
 
     
@@ -571,7 +546,7 @@
   <span class="md-ellipsis">
     
   
-    Concepts
+    Usage (MCP / API / CLI)
   
 
     
@@ -597,10 +572,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#project-specific-concepts" class="md-nav__link">
+  <a href="#as-an-mcp-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project-Specific Concepts
+        As an MCP server
       
     </span>
   </a>
@@ -608,10 +583,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cross-project-references-from-agent-utilities" class="md-nav__link">
+  <a href="#as-a-python-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cross-Project References (from agent-utilities)
+        As a Python API
       
     </span>
   </a>
@@ -619,10 +594,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#synergy-with-agent-utilities" class="md-nav__link">
+  <a href="#as-a-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Synergy with agent-utilities
+        As a CLI
       
     </span>
   </a>
@@ -633,6 +608,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -664,10 +666,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#project-specific-concepts" class="md-nav__link">
+  <a href="#as-an-mcp-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project-Specific Concepts
+        As an MCP server
       
     </span>
   </a>
@@ -675,10 +677,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cross-project-references-from-agent-utilities" class="md-nav__link">
+  <a href="#as-a-python-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cross-Project References (from agent-utilities)
+        As a Python API
       
     </span>
   </a>
@@ -686,10 +688,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#synergy-with-agent-utilities" class="md-nav__link">
+  <a href="#as-a-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Synergy with agent-utilities
+        As a CLI
       
     </span>
   </a>
@@ -716,174 +718,90 @@
   
 
 
-<h1 id="concept-registry-atlassian-agent">Concept Registry — atlassian-agent<a class="headerlink" href="#concept-registry-atlassian-agent" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p><strong>Prefix</strong>: <code>CONCEPT:ATL-*</code>
-<strong>Version</strong>: 0.13.0
-<strong>Bridge</strong>: <a href="https://github.com/Knuckles-Team/agent-utilities/blob/main/docs/concepts.md"><code>CONCEPT:ECO-4.0</code></a> (Unified Toolkit Ingestion)</p>
-</blockquote>
-<hr />
-<h2 id="project-specific-concepts">Project-Specific Concepts<a class="headerlink" href="#project-specific-concepts" title="Permanent link">&para;</a></h2>
+<h1 id="usage-mcp-python-api-cli">Usage — MCP / Python API / CLI<a class="headerlink" href="#usage-mcp-python-api-cli" title="Permanent link">&para;</a></h1>
+<p><code>atlassian-agent</code> exposes the same Atlassian capability three ways: as <strong>MCP tools</strong> an
+agent calls, as <strong>Python clients</strong> you import, and as a <strong>CLI</strong> that runs the MCP
+server or the A2A agent. The tool domains and concept registry are in
+<a href="../overview/">Overview</a> and <a href="../concepts/">Concepts</a>.</p>
+<h2 id="as-an-mcp-server">As an MCP server<a class="headerlink" href="#as-an-mcp-server" title="Permanent link">&para;</a></h2>
+<p>Once <a href="../deployment/">deployed</a>, the server registers Atlassian tool groups, each
+gated by a <code>*_TOOL</code> environment toggle. The groups span Jira, Confluence, and Cloud
+organization administration:</p>
 <table>
 <thead>
 <tr>
-<th>Concept ID</th>
-<th>Name</th>
-<th>Description</th>
+<th>Domain</th>
+<th>Tool groups</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>CONCEPT:ATL-001</code></td>
-<td>Atlassian Operations</td>
-<td>MCP tool domain <code>atlassian</code> — Action-routed dynamic tool registration</td>
+<td>Jira</td>
+<td>projects, issues, comments, fields, screens, workflows, users</td>
 </tr>
 <tr>
-<td><code>CONCEPT:ATL-002</code></td>
-<td>Atlassian Admin Operations</td>
-<td>MCP tool domain <code>atlassian_admin</code> — Action-routed dynamic tool registration</td>
+<td>Confluence</td>
+<td>pages, spaces, users</td>
 </tr>
 <tr>
-<td><code>CONCEPT:ATL-003</code></td>
-<td>Atlassian Api Access Operations</td>
-<td>MCP tool domain <code>atlassian_api_access</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-004</code></td>
-<td>Atlassian Control Operations</td>
-<td>MCP tool domain <code>atlassian_control</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-005</code></td>
-<td>Atlassian Dlp Operations</td>
-<td>MCP tool domain <code>atlassian_dlp</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-006</code></td>
-<td>Atlassian Org Operations</td>
-<td>MCP tool domain <code>atlassian_org</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-007</code></td>
-<td>Atlassian User Mgmt Operations</td>
-<td>MCP tool domain <code>atlassian_user_mgmt</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-008</code></td>
-<td>Atlassian User Provisioning Operations</td>
-<td>MCP tool domain <code>atlassian_user_provisioning</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-009</code></td>
-<td>Confluence Other Operations</td>
-<td>MCP tool domain <code>confluence_other</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-010</code></td>
-<td>Confluence Page Operations</td>
-<td>MCP tool domain <code>confluence_page</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-011</code></td>
-<td>Confluence Space Operations</td>
-<td>MCP tool domain <code>confluence_space</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-012</code></td>
-<td>Confluence User Operations</td>
-<td>MCP tool domain <code>confluence_user</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-013</code></td>
-<td>Jira Comment Operations</td>
-<td>MCP tool domain <code>jira_comment</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-014</code></td>
-<td>Jira Field Operations</td>
-<td>MCP tool domain <code>jira_field</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-015</code></td>
-<td>Jira Issue Operations</td>
-<td>MCP tool domain <code>jira_issue</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-016</code></td>
-<td>Jira Other Operations</td>
-<td>MCP tool domain <code>jira_other</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-017</code></td>
-<td>Jira Project Operations</td>
-<td>MCP tool domain <code>jira_project</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-018</code></td>
-<td>Jira Screen Operations</td>
-<td>MCP tool domain <code>jira_screen</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-019</code></td>
-<td>Jira User Operations</td>
-<td>MCP tool domain <code>jira_user</code> — Action-routed dynamic tool registration</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ATL-020</code></td>
-<td>Jira Workflow Operations</td>
-<td>MCP tool domain <code>jira_workflow</code> — Action-routed dynamic tool registration</td>
+<td>Cloud administration</td>
+<td>organization, admin, API access, DLP, user management, user provisioning, control</td>
 </tr>
 </tbody>
 </table>
-<h2 id="cross-project-references-from-agent-utilities">Cross-Project References (from agent-utilities)<a class="headerlink" href="#cross-project-references-from-agent-utilities" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Concept ID</th>
-<th>Name</th>
-<th>Origin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CONCEPT:ECO-4.0</code></td>
-<td>Unified Toolkit Ingestion</td>
-<td>agent-utilities</td>
-</tr>
-<tr>
-<td><code>CONCEPT:ORCH-1.2</code></td>
-<td>Confidence-Gated Router</td>
-<td>agent-utilities</td>
-</tr>
-<tr>
-<td><code>CONCEPT:OS-5.1</code></td>
-<td>Prompt Injection Defense</td>
-<td>agent-utilities</td>
-</tr>
-<tr>
-<td><code>CONCEPT:OS-5.2</code></td>
-<td>Cognitive Scheduler</td>
-<td>agent-utilities</td>
-</tr>
-<tr>
-<td><code>CONCEPT:OS-5.3</code></td>
-<td>Guardrail Engine</td>
-<td>agent-utilities</td>
-</tr>
-<tr>
-<td><code>CONCEPT:OS-5.4</code></td>
-<td>Audit Logging</td>
-<td>agent-utilities</td>
-</tr>
-<tr>
-<td><code>CONCEPT:KG-2.0</code></td>
-<td>Knowledge Graph Core</td>
-<td>agent-utilities</td>
-</tr>
-</tbody>
-</table>
-<h2 id="synergy-with-agent-utilities">Synergy with agent-utilities<a class="headerlink" href="#synergy-with-agent-utilities" title="Permanent link">&para;</a></h2>
-<p>This project integrates with <code>agent-utilities</code> via <code>CONCEPT:ECO-4.0</code> (Unified Toolkit Ingestion). The <code>atlassian_agent</code> MCP server registers its tools with the agent-utilities FastMCP middleware, enabling automatic discovery, telemetry, and Knowledge Graph ingestion of all ATL-* concepts.</p>
+<p>Example agent prompts that map onto these tools:</p>
+<ul>
+<li><em>"List the open issues in project <code>PROJ</code>"</em> → Jira issue tools</li>
+<li><em>"Create a Confluence page titled 'Release Notes' in the <code>ENG</code> space"</em> → Confluence page tools</li>
+<li><em>"Show the members of the Atlassian organization"</em> → organization / user management tools</li>
+</ul>
+<h2 id="as-a-python-api">As a Python API<a class="headerlink" href="#as-a-python-api" title="Permanent link">&para;</a></h2>
+<p>The clients wrap the Atlassian REST surface through a shared <code>BaseAtlassianClient</code>,
+which carries the base URL, credentials, and TLS verification. Each call returns a
+structured <code>Response</code> rather than raising, so the surface is safe to use without a
+reachable instance.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">atlassian_agent.api.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseAtlassianClient</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">atlassian_agent.api.api_client_jira_cloud</span><span class="w"> </span><span class="kn">import</span> <span class="n">JiraCloudAPI</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">atlassian_agent.api.api_client_confluence_cloud</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfluenceCloudAPI</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">base</span> <span class="o">=</span> <span class="n">BaseAtlassianClient</span><span class="p">(</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://your-company.atlassian.net&quot;</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">username</span><span class="o">=</span><span class="s2">&quot;your-email@example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">token</span><span class="o">=</span><span class="s2">&quot;your_api_token&quot;</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">jira</span> <span class="o">=</span> <span class="n">JiraCloudAPI</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">confluence</span> <span class="o">=</span> <span class="n">ConfluenceCloudAPI</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># Reads</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">projects</span> <span class="o">=</span> <span class="n">jira</span><span class="o">.</span><span class="n">jira_cloud_get_projects_with_field_schemes</span><span class="p">()</span>   <span class="c1"># structured Response</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">spaces</span> <span class="o">=</span> <span class="n">confluence</span><span class="o">.</span><span class="n">confluence_cloud_get_spaces</span><span class="p">()</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">pages</span> <span class="o">=</span> <span class="n">confluence</span><span class="o">.</span><span class="n">confluence_cloud_get_pages</span><span class="p">()</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nb">print</span><span class="p">(</span><span class="n">spaces</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">spaces</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Build a client straight from the environment — <code>get_suite_client()</code> reads the
+<code>ATLASSIAN_*</code> variables (and supports OIDC delegation / 3LO OAuth before falling back
+to basic auth):</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">atlassian_agent.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_suite_client</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">base</span> <span class="o">=</span> <span class="n">get_suite_client</span><span class="p">()</span>        <span class="c1"># reads ATLASSIAN_* from the environment / .env</span>
+</span></code></pre></div>
+<h2 id="as-a-cli">As a CLI<a class="headerlink" href="#as-a-cli" title="Permanent link">&para;</a></h2>
+<p><code>atlassian-agent</code> installs two console scripts.</p>
+<p>Run the <strong>MCP server</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ATLASSIAN_AGENT_URL</span><span class="o">=</span>https://your-company.atlassian.net
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ATLASSIAN_AGENT_USER</span><span class="o">=</span>your-email@example.com
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ATLASSIAN_AGENT_TOKEN</span><span class="o">=</span>your_api_token
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>atlassian-mcp<span class="w">                                                   </span><span class="c1"># stdio (default)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>atlassian-mcp<span class="w"> </span>--transport<span class="w"> </span>streamable-http<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</span></code></pre></div>
+<p>Run the <strong>A2A agent server</strong> against a running MCP server:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MCP_URL</span><span class="o">=</span>http://localhost:8000/mcp
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>atlassian-agent<span class="w"> </span>--provider<span class="w"> </span>openai<span class="w"> </span>--model-id<span class="w"> </span>gpt-4o<span class="w"> </span>--api-key<span class="w"> </span>sk-...
+</span></code></pre></div>
+<p>Both scripts accept <code>--help</code> for the full flag set.</p>
 
 
 
@@ -921,7 +839,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../usage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Usage (MCP / API / CLI)">
+          <a href="../deployment/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Deployment">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -931,11 +849,27 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Usage (MCP / API / CLI)
+                Deployment
               </div>
             </div>
           </a>
         
+        
+          
+          <a href="../concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: Concepts">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Concepts
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
