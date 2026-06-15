@@ -36,7 +36,7 @@ def _eager_import_modules(core_modules):
 _eager_import_modules(CORE_MODULES)
 
 # Dynamic/lazy loading of optional modules (agent_server, mcp_server)
-_loaded_optional_modules = {}
+_loaded_optional_modules: dict[str, Any] = {}
 
 
 def _import_module_safely(module_name: str):
