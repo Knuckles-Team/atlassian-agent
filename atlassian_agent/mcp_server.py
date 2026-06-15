@@ -46,7 +46,7 @@ __version__ = "0.30.0"
 logger = get_logger(name="atlassian-agent")
 logger.setLevel(logging.INFO)
 
-_registered_tools = set()
+_registered_tools: set[str] = set()
 
 
 def execute_client_method(
