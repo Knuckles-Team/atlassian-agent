@@ -23,6 +23,7 @@ from agent_utilities.mcp_utilities import (
     create_mcp_server,
     dispatch,
     public_actions,
+    run_blocking,
 )
 from dotenv import find_dotenv, load_dotenv
 from fastmcp import Context, FastMCP
@@ -153,8 +154,14 @@ def register_atlassian_control_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "control_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "control_cloud_",
+                "",
+                "cloud",
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -196,8 +203,8 @@ def register_atlassian_org_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "org_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method, client, action, "org_cloud_", "", "cloud", kwargs
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -239,8 +246,8 @@ def register_atlassian_dlp_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "dlp_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method, client, action, "dlp_cloud_", "", "cloud", kwargs
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -282,8 +289,14 @@ def register_atlassian_user_mgmt_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "user_mgmt_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "user_mgmt_cloud_",
+                "",
+                "cloud",
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -325,8 +338,14 @@ def register_atlassian_admin_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "admin_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "admin_cloud_",
+                "",
+                "cloud",
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -368,8 +387,14 @@ def register_atlassian_api_access_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "api_access_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "api_access_cloud_",
+                "",
+                "cloud",
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -414,8 +439,14 @@ def register_atlassian_user_provisioning_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "user_provisioning_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "user_provisioning_cloud_",
+                "",
+                "cloud",
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -457,8 +488,14 @@ def register_atlassian_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "user_mgmt_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "user_mgmt_cloud_",
+                "",
+                "cloud",
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -505,8 +542,14 @@ def register_jira_project_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -553,8 +596,14 @@ def register_jira_user_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -601,8 +650,14 @@ def register_jira_issue_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -649,8 +704,14 @@ def register_jira_comment_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -697,8 +758,14 @@ def register_jira_field_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -745,8 +812,14 @@ def register_jira_screen_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -793,8 +866,14 @@ def register_jira_workflow_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -841,8 +920,14 @@ def register_jira_other_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
@@ -889,7 +974,8 @@ def register_confluence_page_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
+            res = await run_blocking(
+                execute_client_method,
                 client,
                 action,
                 "confluence_cloud_",
@@ -942,7 +1028,8 @@ def register_confluence_space_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
+            res = await run_blocking(
+                execute_client_method,
                 client,
                 action,
                 "confluence_cloud_",
@@ -995,7 +1082,8 @@ def register_confluence_user_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
+            res = await run_blocking(
+                execute_client_method,
                 client,
                 action,
                 "confluence_cloud_",
@@ -1048,7 +1136,8 @@ def register_confluence_other_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
+            res = await run_blocking(
+                execute_client_method,
                 client,
                 action,
                 "confluence_cloud_",

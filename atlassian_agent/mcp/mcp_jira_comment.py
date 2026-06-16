@@ -9,6 +9,8 @@ from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
 from pydantic import Field
 
+from agent_utilities.mcp_utilities import run_blocking
+
 from atlassian_agent.mcp_server import (
     _registered_tools,
     execute_client_method,
@@ -55,8 +57,14 @@ def register_jira_comment_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
-                client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
