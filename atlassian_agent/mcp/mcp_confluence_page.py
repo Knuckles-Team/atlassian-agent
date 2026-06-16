@@ -9,6 +9,8 @@ from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
 from pydantic import Field
 
+from agent_utilities.mcp_utilities import run_blocking
+
 from atlassian_agent.mcp_server import (
     _registered_tools,
     execute_client_method,
@@ -55,7 +57,8 @@ def register_confluence_page_tools(mcp: FastMCP):
         client = client_server if deployment == "server" else client_cloud
 
         try:
-            res = execute_client_method(
+            res = await run_blocking(
+                execute_client_method,
                 client,
                 action,
                 "confluence_cloud_",

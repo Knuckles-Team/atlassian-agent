@@ -9,6 +9,8 @@ from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
 from pydantic import Field
 
+from agent_utilities.mcp_utilities import run_blocking
+
 from atlassian_agent.mcp_server import (
     _registered_tools,
     execute_client_method,
@@ -52,8 +54,14 @@ def register_atlassian_user_provisioning_tools(mcp: FastMCP):
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
         try:
-            res = execute_client_method(
-                client, action, "user_provisioning_cloud_", "", "cloud", kwargs
+            res = await run_blocking(
+                execute_client_method,
+                client,
+                action,
+                "user_provisioning_cloud_",
+                "",
+                "cloud",
+                kwargs,
             )
             if hasattr(res, "dict") and callable(res.dict):
                 return res.dict()
