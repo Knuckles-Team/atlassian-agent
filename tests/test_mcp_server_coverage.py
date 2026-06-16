@@ -80,14 +80,13 @@ for key in list(sys.modules.keys()):
         sys.modules.pop(key, None)
 
 # Now import mcp_server so default arguments evaluate to the mocked functions
-import atlassian_agent.mcp_server
-
 import ast
 import inspect
 
 import pytest
 from starlette.requests import Request
 
+import atlassian_agent.mcp_server
 from atlassian_agent.mcp_server import (
     execute_client_method,
     get_mcp_instance,
@@ -168,11 +167,22 @@ def test_execute_client_method_branches():
     )
     assert res == "stripped_res"
 
-    # 5. Unknown action matching raising ValueError
-    with pytest.raises(ValueError, match="Unknown action: invalid_action"):
+    # 5. Unknown action matching raising ValueError (rich shared-helper error)
+    with pytest.raises(ValueError, match="Unknown action 'invalid_action'"):
         execute_client_method(
             client, "invalid_action", "jira_cloud_", "jira_server_", "cloud", {}
         )
+    with pytest.raises(ValueError, match="list_actions"):
+        execute_client_method(
+            client, "invalid_action", "jira_cloud_", "jira_server_", "cloud", {}
+        )
+
+    # 6. Discovery: list_actions returns the bounded action set
+    disc = execute_client_method(
+        client, "list_actions", "jira_cloud_", "jira_server_", "cloud", {}
+    )
+    assert isinstance(disc, dict)
+    assert "jira_cloud_test_action" in disc["actions"]
 
 
 def map_tools_to_actions():

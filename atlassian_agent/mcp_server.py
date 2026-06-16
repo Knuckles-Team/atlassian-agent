@@ -18,7 +18,12 @@ import logging
 import sys
 from typing import Any
 
-from agent_utilities.mcp_utilities import create_mcp_server
+from agent_utilities.mcp_utilities import (
+    DISCOVERY_ACTIONS,
+    create_mcp_server,
+    dispatch,
+    public_actions,
+)
 from dotenv import find_dotenv, load_dotenv
 from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
@@ -49,6 +54,21 @@ logger.setLevel(logging.INFO)
 _registered_tools: set[str] = set()
 
 
+_STRIP_PREFIXES = (
+    "control_cloud_",
+    "org_cloud_",
+    "dlp_cloud_",
+    "user_mgmt_cloud_",
+    "admin_cloud_",
+    "api_access_cloud_",
+    "user_provisioning_cloud_",
+    "jira_cloud_",
+    "jira_server_",
+    "confluence_cloud_",
+    "confluence_server_",
+)
+
+
 def execute_client_method(
     client,
     action: str,
@@ -57,41 +77,49 @@ def execute_client_method(
     host_type: str,
     kwargs: dict,
 ) -> Any:
-    """Helper to dynamically lookup and invoke methods on cloud or server clients."""
-    prefix = prefix_server if host_type == "server" else prefix_cloud
+    """Dispatch ``action`` to a cloud or server client via the shared helper.
 
-    # Try direct name
-    method = getattr(client, action, None)
-    if method is not None:
-        return method(**kwargs)
+    Action discovery (``list_actions``/``help``/``actions``), plural->singular
+    aliasing, and rich did-you-mean errors come from
+    ``agent_utilities.mcp_utilities.dispatch``. The client's methods are
+    deployment-prefixed (e.g. ``jira_cloud_add_comment``); we build an alias map
+    so callers may pass the unprefixed name (``add_comment``) too.
+    """
+    # Build an alias map so discovery stays bounded to the client's real actions
+    # while preserving this repo's prefix conveniences:
+    #  - unprefixed name -> real prefixed method (e.g. add_comment ->
+    #    jira_cloud_add_comment), preferring the active deployment's prefix
+    #  - a prefixed form -> a real unprefixed method (e.g. jira_cloud_foo -> foo)
+    active_prefix = prefix_server if host_type == "server" else prefix_cloud
+    names = public_actions(client)
+    aliases: dict[str, str] = {}
+    for name in names:
+        for p in _STRIP_PREFIXES:
+            if name.startswith(p):
+                bare = name[len(p) :]
+                if bare not in aliases or (active_prefix and p == active_prefix):
+                    aliases[bare] = name
+                break
+        else:
+            # Unprefixed real method: accept prefixed guesses pointing at it.
+            for p in _STRIP_PREFIXES:
+                aliases.setdefault(f"{p}{name}", name)
 
-    # Try with prefix
-    action_name = action if action.startswith(prefix) else f"{prefix}{action}"
-    method = getattr(client, action_name, None)
-    if method is not None:
-        return method(**kwargs)
+    def _coerce(res: Any) -> Any:
+        if hasattr(res, "dict") and callable(res.dict):
+            return res.dict()
+        if hasattr(res, "model_dump") and callable(res.model_dump):
+            return res.model_dump()
+        return res
 
-    # Try stripped action name
-    stripped = action
-    for p in (
-        prefix_cloud,
-        prefix_server,
-        "jira_cloud_",
-        "jira_server_",
-        "confluence_cloud_",
-        "confluence_server_",
-    ):
-        if stripped.startswith(p):
-            stripped = stripped[len(p) :]
-            break
-
-    method = getattr(client, f"{prefix}{stripped}", None) or getattr(
-        client, stripped, None
+    return dispatch(
+        client,
+        action,
+        kwargs,
+        aliases=aliases,
+        service=f"atlassian-agent ({host_type})",
+        result_coercer=_coerce if action not in DISCOVERY_ACTIONS else None,
     )
-    if method is not None:
-        return method(**kwargs)
-
-    raise ValueError(f"Unknown action: {action} on {host_type} deployment")
 
 
 def register_atlassian_control_tools(mcp: FastMCP):
