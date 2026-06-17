@@ -20,7 +20,7 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/atlassian-agent)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/atlassian-agent)
 
-*Version: 0.31.0*
+*Version: 0.32.0*
 
 > **Documentation** — Installation, deployment, and usage across the MCP, Python API,
 > and CLI interfaces, along with guidance for connecting to Atlassian Cloud and
