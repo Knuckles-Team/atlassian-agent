@@ -22,10 +22,10 @@ from agent_utilities.mcp_utilities import (
     DISCOVERY_ACTIONS,
     create_mcp_server,
     dispatch,
+    load_config,
     public_actions,
     run_blocking,
 )
-from dotenv import find_dotenv, load_dotenv
 from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
 from fastmcp.utilities.logging import get_logger
@@ -1156,7 +1156,7 @@ def register_confluence_other_tools(mcp: FastMCP):
 
 def get_mcp_instance() -> tuple[Any, ...]:
     """Initialize and return the MCP instance."""
-    load_dotenv(find_dotenv())
+    load_config()
     args, mcp, middlewares = create_mcp_server(
         name="atlassian-agent MCP",
         version=__version__,
