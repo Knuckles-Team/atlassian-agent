@@ -24,6 +24,7 @@ from agent_utilities.mcp_utilities import (
     dispatch,
     load_config,
     public_actions,
+    register_tool_surface,
     run_blocking,
 )
 from fastmcp import Context, FastMCP
@@ -33,9 +34,11 @@ from pydantic import Field
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
+from atlassian_agent.api.base import BaseAtlassianClient
 from atlassian_agent.auth import (
     get_admin_cloud_client,
     get_api_access_cloud_client,
+    get_base_client,
     get_confluence_cloud_client,
     get_confluence_server_client,
     get_control_cloud_client,
@@ -1167,33 +1170,14 @@ def get_mcp_instance() -> tuple[Any, ...]:
     async def health_check(request: Request) -> JSONResponse:
         return JSONResponse({"status": "OK"})
 
-    # Register consolidated Atlassian tools
-    register_atlassian_control_tools(mcp)
-    register_atlassian_org_tools(mcp)
-
-    # Register consolidated Jira tools
-    register_jira_project_tools(mcp)
-    register_jira_user_tools(mcp)
-    register_jira_issue_tools(mcp)
-    register_jira_comment_tools(mcp)
-    register_jira_field_tools(mcp)
-    register_jira_screen_tools(mcp)
-    register_jira_workflow_tools(mcp)
-    register_jira_other_tools(mcp)
-
-    # Register consolidated Confluence tools
-    register_confluence_page_tools(mcp)
-    register_confluence_space_tools(mcp)
-    register_confluence_user_tools(mcp)
-    register_confluence_other_tools(mcp)
-
-    # Register other Atlassian tools
-    register_atlassian_dlp_tools(mcp)
-    register_atlassian_user_mgmt_tools(mcp)
-    register_atlassian_tools(mcp)
-    register_atlassian_admin_tools(mcp)
-    register_atlassian_api_access_tools(mcp)
-    register_atlassian_user_provisioning_tools(mcp)
+    registered_tags = register_tool_surface(
+        mcp,
+        client_cls=BaseAtlassianClient,
+        get_client=get_base_client,
+        service="atlassian-agent",
+        tools_module=sys.modules[__name__],
+    )
+    logger.debug("Registered condensed tool tags: %s", registered_tags)
 
     for mw in middlewares:
         mcp.add_middleware(mw)

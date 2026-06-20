@@ -1,8 +1,8 @@
-import os
 import threading
 
 import urllib3
 from agent_utilities.base_utilities import get_logger, to_boolean
+from agent_utilities.core.config import setting
 
 from .api.base import BaseAtlassianClient
 
@@ -36,25 +36,23 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
     )
 
     if suite_prefix:
-        url = os.getenv(f"ATLASSIAN_{suite_prefix}_URL")
-        user = os.getenv(f"ATLASSIAN_{suite_prefix}_USER")
-        token = os.getenv(f"ATLASSIAN_{suite_prefix}_TOKEN")
-        verify_str = os.getenv(f"ATLASSIAN_{suite_prefix}_VERIFY")
+        url = setting(f"ATLASSIAN_{suite_prefix}_URL")
+        user = setting(f"ATLASSIAN_{suite_prefix}_USER")
+        token = setting(f"ATLASSIAN_{suite_prefix}_TOKEN")
+        verify_str = setting(f"ATLASSIAN_{suite_prefix}_VERIFY")
     else:
         url = user = token = verify_str = None
 
     # fallback to shared
-    url = url or os.getenv("ATLASSIAN_AGENT_URL")
-    user = user or os.getenv("ATLASSIAN_AGENT_USER")
-    token = token or os.getenv("ATLASSIAN_AGENT_TOKEN")
+    url = url or setting("ATLASSIAN_AGENT_URL")
+    user = user or setting("ATLASSIAN_AGENT_USER")
+    token = token or setting("ATLASSIAN_AGENT_TOKEN")
 
     verify = (
         verify_str.lower() in ("true", "1", "yes")
         if verify_str
         else to_boolean(
-            os.getenv(
-                "ATLASSIAN_SSL_VERIFY", os.getenv("ATLASSIAN_AGENT_VERIFY", "True")
-            )
+            setting("ATLASSIAN_SSL_VERIFY", setting("ATLASSIAN_AGENT_VERIFY", "True"))
         )
     )
 
@@ -62,8 +60,8 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
     if is_delegation_enabled():
         try:
             delegated_token = get_delegated_token(
-                audience=os.getenv("AUDIENCE", url),
-                scopes=os.getenv("DELEGATED_SCOPES", "read:jira-work write:jira-work"),
+                audience=setting("AUDIENCE", url),
+                scopes=setting("DELEGATED_SCOPES", "read:jira-work write:jira-work"),
                 verify=verify,
             )
             identity = get_user_identity()
@@ -85,7 +83,7 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
             logger.warning(f"OIDC delegation failed, falling back to credentials: {e}")
 
     # --- Path 2: 3-Legged OAuth (3LO) Bearer Token ---
-    oauth_token = os.getenv("ATLASSIAN_OAUTH_TOKEN")
+    oauth_token = setting("ATLASSIAN_OAUTH_TOKEN")
     if oauth_token:
         logger.info("Using 3LO OAuth Bearer token for Atlassian API")
         return BaseAtlassianClient(
