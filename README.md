@@ -64,25 +64,25 @@ The table below is auto-generated from the live server — do not edit by hand.
 | MCP Tool | Toggle Env Var | Description |
 |----------|----------------|-------------|
 | `atlassian_atlassian` | `ATLASSIANTOOL` | Manage atlassian operations. |
-| `atlassian_atlassian_admin` | `ATLASSIAN-ADMINTOOL` | Manage atlassian admin operations. |
-| `atlassian_atlassian_api_access` | `ATLASSIAN-API-ACCESSTOOL` | Manage atlassian api access operations. |
-| `atlassian_atlassian_control` | `ATLASSIAN-CONTROLTOOL` | Manage atlassian control operations. |
-| `atlassian_atlassian_dlp` | `ATLASSIAN-DLPTOOL` | Manage atlassian dlp operations. |
-| `atlassian_atlassian_org` | `ATLASSIAN-ORGTOOL` | Manage atlassian org operations. |
-| `atlassian_atlassian_user_mgmt` | `ATLASSIAN-USER-MGMTTOOL` | Manage atlassian user mgmt operations. |
-| `atlassian_atlassian_user_provisioning` | `ATLASSIAN-USER-PROVISIONINGTOOL` | Manage atlassian user provisioning operations. |
-| `atlassian_confluence_other` | `CONFLUENCE-OTHERTOOL` | Manage Confluence other operations. |
-| `atlassian_confluence_page` | `CONFLUENCE-PAGETOOL` | Manage Confluence page operations. |
-| `atlassian_confluence_space` | `CONFLUENCE-SPACETOOL` | Manage Confluence space operations. |
-| `atlassian_confluence_user` | `CONFLUENCE-USERTOOL` | Manage Confluence user operations. |
-| `atlassian_jira_comment` | `JIRA-COMMENTTOOL` | Manage Jira comment operations. |
-| `atlassian_jira_field` | `JIRA-FIELDTOOL` | Manage Jira field operations. |
-| `atlassian_jira_issue` | `JIRA-ISSUETOOL` | Manage Jira issue operations. |
-| `atlassian_jira_other` | `JIRA-OTHERTOOL` | Manage Jira other operations. |
-| `atlassian_jira_project` | `JIRA-PROJECTTOOL` | Manage Jira project operations. |
-| `atlassian_jira_screen` | `JIRA-SCREENTOOL` | Manage Jira screen operations. |
-| `atlassian_jira_user` | `JIRA-USERTOOL` | Manage Jira user operations. |
-| `atlassian_jira_workflow` | `JIRA-WORKFLOWTOOL` | Manage Jira workflow operations. |
+| `atlassian_atlassian_admin` | `ATLASSIAN_ADMINTOOL` | Manage atlassian admin operations. |
+| `atlassian_atlassian_api_access` | `ATLASSIAN_API_ACCESSTOOL` | Manage atlassian api access operations. |
+| `atlassian_atlassian_control` | `ATLASSIAN_CONTROLTOOL` | Manage atlassian control operations. |
+| `atlassian_atlassian_dlp` | `ATLASSIAN_DLPTOOL` | Manage atlassian dlp operations. |
+| `atlassian_atlassian_org` | `ATLASSIAN_ORGTOOL` | Manage atlassian org operations. |
+| `atlassian_atlassian_user_mgmt` | `ATLASSIAN_USER_MGMTTOOL` | Manage atlassian user mgmt operations. |
+| `atlassian_atlassian_user_provisioning` | `ATLASSIAN_USER_PROVISIONINGTOOL` | Manage atlassian user provisioning operations. |
+| `atlassian_confluence_other` | `CONFLUENCE_OTHERTOOL` | Manage Confluence other operations. |
+| `atlassian_confluence_page` | `CONFLUENCE_PAGETOOL` | Manage Confluence page operations. |
+| `atlassian_confluence_space` | `CONFLUENCE_SPACETOOL` | Manage Confluence space operations. |
+| `atlassian_confluence_user` | `CONFLUENCE_USERTOOL` | Manage Confluence user operations. |
+| `atlassian_jira_comment` | `JIRA_COMMENTTOOL` | Manage Jira comment operations. |
+| `atlassian_jira_field` | `JIRA_FIELDTOOL` | Manage Jira field operations. |
+| `atlassian_jira_issue` | `JIRA_ISSUETOOL` | Manage Jira issue operations. |
+| `atlassian_jira_other` | `JIRA_OTHERTOOL` | Manage Jira other operations. |
+| `atlassian_jira_project` | `JIRA_PROJECTTOOL` | Manage Jira project operations. |
+| `atlassian_jira_screen` | `JIRA_SCREENTOOL` | Manage Jira screen operations. |
+| `atlassian_jira_user` | `JIRA_USERTOOL` | Manage Jira user operations. |
+| `atlassian_jira_workflow` | `JIRA_WORKFLOWTOOL` | Manage Jira workflow operations. |
 
 _20 action-routed tools (default `MCP_TOOL_MODE=condensed`). Each is enabled unless its toggle is set false; set `MCP_TOOL_MODE=verbose` (or `both`) for the 1:1 per-operation surface. Auto-generated — do not edit._
 <!-- MCP-TOOLS-TABLE:END -->
