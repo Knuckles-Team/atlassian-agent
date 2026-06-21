@@ -27,6 +27,12 @@ test = [
 atlassian-mcp = "atlassian_agent.mcp_server:mcp_server"
 atlassian-agent = "atlassian_agent.agent_server:agent_server"
 
+[project.entry-points."agent_utilities.skill_providers"]
+atlassian-agent = "atlassian_agent.skills"
+
+[project.entry-points."agent_utilities.prompt_providers"]
+atlassian-agent = "atlassian_agent.prompts"
+
 [tool.setuptools]
 include-package-data = true
 
@@ -42,7 +48,7 @@ check_untyped_defs = true
 exclude = "atlassian_agent/mcp/"
 
 [tool.setuptools.package-data]
-atlassian_agent = [ "mcp_config.json", "agent/**", "skills/**",]
+atlassian_agent = [ "mcp_config.json", "agent/**", "skills/**", "prompts/**",]
 
 [tool.ruff.lint]
 select = [ "E", "F", "I", "UP", "B",]
