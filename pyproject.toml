@@ -48,7 +48,7 @@ check_untyped_defs = true
 exclude = "atlassian_agent/mcp/"
 
 [tool.setuptools.package-data]
-atlassian_agent = [ "mcp_config.json", "agent/**", "skills/**", "prompts/**",]
+atlassian_agent = [ "mcp_config.json", "skills/**", "prompts/**",]
 
 [tool.ruff.lint]
 select = [ "E", "F", "I", "UP", "B",]

@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   atlassian-agent-mcp:
-    image: knucklessg1/atlassian-agent:latest
+    image: knucklessg1/atlassian-agent:mcp
     container_name: atlassian-agent-mcp
     hostname: atlassian-agent-mcp
     restart: always
