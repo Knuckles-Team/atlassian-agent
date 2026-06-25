@@ -142,6 +142,44 @@ def test_get_suite_client_oauth_3lo():
         assert client.base_url == "https://test.atlassian.net"
 
 
+def test_get_suite_client_bearer_token_global():
+    # Test path 3: global bearer token / PAT
+    env_mock = {
+        "ATLASSIAN_AGENT_URL": "https://dc.example.com",
+        "ATLASSIAN_BEARER_TOKEN": "pat-global-123",
+    }
+    with (
+        patch.dict(os.environ, env_mock, clear=True),
+        patch(
+            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
+            return_value=False,
+        ),
+    ):
+        client = auth_mod.get_suite_client(None)
+        assert client.bearer_token == "pat-global-123"
+        assert client.token == ""
+        assert client.session.headers["Authorization"] == "Bearer pat-global-123"
+
+
+def test_get_suite_client_bearer_token_suite_overrides_global():
+    # Test path 3: per-suite bearer token takes precedence over the global one
+    env_mock = {
+        "ATLASSIAN_AGENT_URL": "https://dc.example.com",
+        "ATLASSIAN_BEARER_TOKEN": "pat-global-123",
+        "ATLASSIAN_JIRA_SERVER_BEARER_TOKEN": "pat-jira-server-456",
+    }
+    with (
+        patch.dict(os.environ, env_mock, clear=True),
+        patch(
+            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
+            return_value=False,
+        ),
+    ):
+        client = auth_mod.get_suite_client("JIRA_SERVER")
+        assert client.bearer_token == "pat-jira-server-456"
+        assert client.session.headers["Authorization"] == "Bearer pat-jira-server-456"
+
+
 def test_get_base_client():
     # Test singleton client retrieval
     auth_mod._base_client = None
