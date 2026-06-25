@@ -232,6 +232,88 @@ consumed from a **remote deployment**. The
 
 ## Environment Variables
 
+<!-- ENV-VARS-TABLE:START -->
+
+#### Package environment variables
+
+| Variable | Example | Description |
+|----------|---------|-------------|
+| `HOST` | `0.0.0.0` |  |
+| `PORT` | `8000` |  |
+| `TRANSPORT` | `stdio` | options: stdio, streamable-http, sse |
+| `ENABLE_OTEL` | `True` |  |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | `http://localhost:8080/api/public/otel` |  |
+| `OTEL_EXPORTER_OTLP_PUBLIC_KEY` | `pk-...` |  |
+| `OTEL_EXPORTER_OTLP_SECRET_KEY` | `sk-...` |  |
+| `OTEL_EXPORTER_OTLP_PROTOCOL` | `http/protobuf` |  |
+| `EUNOMIA_TYPE` | `none` | options: none, embedded, remote |
+| `EUNOMIA_POLICY_FILE` | `mcp_policies.json` |  |
+| `EUNOMIA_REMOTE_URL` | `http://eunomia-server:8000` |  |
+| `ATLASSIAN_AGENT_URL` | `http://localhost:8080` | (ATLASSIAN_{SUITE}_*) override is set. |
+| `ATLASSIAN_AGENT_USER` | `your-email@example.com` |  |
+| `ATLASSIAN_AGENT_TOKEN` | `your_token_here` |  |
+| `ATLASSIAN_AGENT_VERIFY` | `True` |  |
+| `ATLASSIAN_SSL_VERIFY` | `True` | takes precedence over ATLASSIAN_AGENT_VERIFY |
+| `DEBUG` | `False` |  |
+| `PYTHONUNBUFFERED` | `1` |  |
+| `ENABLE_DELEGATION` | `True` | 1. OIDC delegation (RFC 8693) — flow the caller's IdP token to Atlassian |
+| `OIDC_CONFIG_URL` | `https://idp.example.com/.well-known/openid-configuration` |  |
+| `OIDC_CLIENT_ID` | `your_client_id` |  |
+| `OIDC_CLIENT_SECRET` | `your_client_secret` |  |
+| `AUDIENCE` | `https://your-instance.atlassian.net` |  |
+| `DELEGATED_SCOPES` | `read:jira-work write:jira-work` |  |
+| `ATLASSIAN_OAUTH_TOKEN` | `your_3lo_access_token` | 2. 3-Legged OAuth (3LO) bearer token |
+| `ATLASSIAN_BEARER_TOKEN` | `your_personal_access_token` | 3. Bearer token / Personal Access Token (Server / Data Center) — global |
+| `ATLASSIAN_JIRA_CLOUD_URL` | `https://your-instance.atlassian.net` | back to the shared ATLASSIAN_AGENT_* values when unset. |
+| `ATLASSIAN_JIRA_CLOUD_USER` | `your-email@example.com` |  |
+| `ATLASSIAN_JIRA_CLOUD_TOKEN` | `your_api_token` |  |
+| `ATLASSIAN_JIRA_SERVER_URL` | `https://jira.your-company.com` |  |
+| `ATLASSIAN_JIRA_SERVER_BEARER_TOKEN` | `your_jira_pat` |  |
+| `ATLASSIAN_CONFLUENCE_CLOUD_URL` | `https://your-instance.atlassian.net/wiki` |  |
+| `ATLASSIAN_CONFLUENCE_CLOUD_USER` | `your-email@example.com` |  |
+| `ATLASSIAN_CONFLUENCE_CLOUD_TOKEN` | `your_api_token` |  |
+| `ATLASSIAN_CONFLUENCE_SERVER_URL` | `https://confluence.your-company.com` |  |
+| `ATLASSIAN_CONFLUENCE_SERVER_BEARER_TOKEN` | `your_confluence_pat` |  |
+| `ATLASSIANTOOL` | `True` | MCP tools table (condensed action-routed surface). |
+| `ATLASSIAN_ADMINTOOL` | `True` |  |
+| `ATLASSIAN_API_ACCESSTOOL` | `True` |  |
+| `ATLASSIAN_CONTROLTOOL` | `True` |  |
+| `ATLASSIAN_DLPTOOL` | `True` |  |
+| `ATLASSIAN_ORGTOOL` | `True` |  |
+| `ATLASSIAN_USER_MGMTTOOL` | `True` |  |
+| `ATLASSIAN_USER_PROVISIONINGTOOL` | `True` |  |
+| `JIRA_PROJECTTOOL` | `True` |  |
+| `JIRA_USERTOOL` | `True` |  |
+| `JIRA_ISSUETOOL` | `True` |  |
+| `JIRA_COMMENTTOOL` | `True` |  |
+| `JIRA_FIELDTOOL` | `True` |  |
+| `JIRA_SCREENTOOL` | `True` |  |
+| `JIRA_WORKFLOWTOOL` | `True` |  |
+| `JIRA_OTHERTOOL` | `True` |  |
+| `CONFLUENCE_PAGETOOL` | `True` |  |
+| `CONFLUENCE_SPACETOOL` | `True` |  |
+| `CONFLUENCE_USERTOOL` | `True` |  |
+| `CONFLUENCE_OTHERTOOL` | `True` |  |
+
+#### Inherited agent-utilities variables (apply to every connector)
+
+| Variable | Example | Description |
+|----------|---------|-------------|
+| `MCP_TOOL_MODE` | `condensed` | Tool surface: `condensed` | `verbose` | `both` |
+| `MCP_ENABLED_TOOLS` | — | Comma-separated tool allow-list |
+| `MCP_DISABLED_TOOLS` | — | Comma-separated tool deny-list |
+| `MCP_ENABLED_TAGS` | — | Comma-separated tag allow-list |
+| `MCP_DISABLED_TAGS` | — | Comma-separated tag deny-list |
+| `MCP_CLIENT_AUTH` | — | Outbound MCP auth (`oidc-client-credentials` for fleet calls) |
+| `MCP_URL` | `http://localhost:8000/mcp` | URL of the MCP server the agent connects to |
+| `PROVIDER` | `openai` | LLM provider for the agent |
+| `MODEL_ID` | `gpt-4o` | Model id for the agent |
+| `ENABLE_WEB_UI` | `True` | Serve the AG-UI web interface |
+
+_56 package + 10 inherited variable(s). Auto-generated from `.env.example` + the shared agent-utilities set — do not edit._
+<!-- ENV-VARS-TABLE:END -->
+
+
 Every variable the server reads. Suite-specific credential variables follow the pattern
 `ATLASSIAN_{SUITE}_{URL|USER|TOKEN|VERIFY|BEARER_TOKEN}` and **fall back** to the shared
 `ATLASSIAN_AGENT_*` values when unset — so you can run everything off one credential, or split
