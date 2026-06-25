@@ -24,7 +24,11 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
        token against the Atlassian API.
     2. **3-Legged OAuth (3LO)** — If ``ATLASSIAN_OAUTH_TOKEN`` is set,
        uses it as a Bearer token (obtained via the 3LO consent flow).
-    3. **Environment Variables** — Falls back to ``ATLASSIAN_AGENT_TOKEN``
+    3. **Bearer Token / PAT** — If ``ATLASSIAN_{SUITE}_BEARER_TOKEN`` or the
+       shared ``ATLASSIAN_BEARER_TOKEN`` is set, uses it directly as a Bearer
+       token.  Intended for Atlassian Server / Data Center Personal Access
+       Tokens (sent as ``Authorization: Bearer <PAT>``).
+    4. **Environment Variables** — Falls back to ``ATLASSIAN_AGENT_TOKEN``
        with basic auth (email + API token).
 
     See ``docs/guides/oauth_sso.md`` in agent-utilities for full details.
@@ -94,7 +98,21 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
             bearer_token=oauth_token,
         )
 
-    # --- Path 3: Basic Auth (email + API token) ---
+    # --- Path 3: Bearer Token / PAT (Server / Data Center) ---
+    bearer_token = (
+        setting(f"ATLASSIAN_{suite_prefix}_BEARER_TOKEN") if suite_prefix else None
+    ) or setting("ATLASSIAN_BEARER_TOKEN")
+    if bearer_token:
+        logger.info("Using bearer token (PAT) for Atlassian API")
+        return BaseAtlassianClient(
+            base_url=url or "https://dummy.atlassian.net",
+            username=user or "",
+            token="",
+            verify=verify,
+            bearer_token=bearer_token,
+        )
+
+    # --- Path 4: Basic Auth (email + API token) ---
     logger.info("Using basic auth credentials for Atlassian API")
     return BaseAtlassianClient(
         base_url=url or "https://dummy.atlassian.net",

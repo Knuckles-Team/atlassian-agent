@@ -11,7 +11,6 @@
     - `mcp_server.py`: Main MCP server entry point and tool registration.
     - `agent_server.py`: Pydantic AI agent definition and logic.
     - `skills/`: Directory containing modular agent skills (if applicable).
-    - `agent/`: Internal agent logic and prompt templates.
     - `api/`: Atlassian API clients for Jira and Confluence (Cloud and Server)
     - `tools/`: Tool implementations for various Atlassian products
 
@@ -126,7 +125,6 @@ atlassian-agent
 - Source Code → atlassian_agent/
 - API Clients → atlassian_agent/api/
 - Tool Implementations → atlassian_agent/tools/
-- Internal Agent Logic → atlassian_agent/agent/
 - Skills → `skills/` (if exists)
 
 ### File Tree
@@ -164,29 +162,19 @@ atlassian-agent
 │   │   ├── confluence_cloud_api.py
 │   │   ├── jira_server_api.py
 │   │   └── jira_cloud_api.py
-│   ├── tools
-│   │   ├── __init__.py
-│   │   ├── user_provisioning_cloud_tools.py
-│   │   ├── dlp_cloud_tools.py
-│   │   ├── control_cloud_tools.py
-│   │   ├── user_mgmt_cloud_tools.py
-│   │   ├── org_cloud_tools.py
-│   │   ├── api_access_cloud_tools.py
-│   │   ├── admin_cloud_tools.py
-│   │   ├── confluence_server_tools.py
-│   │   ├── confluence_cloud_tools.py
-│   │   ├── jira_server_tools.py
-│   │   └── jira_cloud_tools.py
-│   └── agent
+│   └── tools
 │       ├── __init__.py
-│       ├── IDENTITY.md
-│       ├── A2A_AGENTS.md
-│       ├── AGENTS.md
-│       ├── USER.md
-│       ├── CRON_LOG.md
-│       ├── HEARTBEAT.md
-│       ├── CRON.md
-│       └── MEMORY.md
+│       ├── user_provisioning_cloud_tools.py
+│       ├── dlp_cloud_tools.py
+│       ├── control_cloud_tools.py
+│       ├── user_mgmt_cloud_tools.py
+│       ├── org_cloud_tools.py
+│       ├── api_access_cloud_tools.py
+│       ├── admin_cloud_tools.py
+│       ├── confluence_server_tools.py
+│       ├── confluence_cloud_tools.py
+│       ├── jira_server_tools.py
+│       └── jira_cloud_tools.py
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
