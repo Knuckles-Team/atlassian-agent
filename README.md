@@ -61,6 +61,8 @@ The table below is auto-generated from the live server — do not edit by hand.
 
 <!-- MCP-TOOLS-TABLE:START -->
 
+#### Condensed action-routed tools (default — `MCP_TOOL_MODE=condensed`)
+
 | MCP Tool | Toggle Env Var | Description |
 |----------|----------------|-------------|
 | `atlassian_atlassian` | `ATLASSIANTOOL` | Manage atlassian operations. |
@@ -84,7 +86,18 @@ The table below is auto-generated from the live server — do not edit by hand.
 | `atlassian_jira_user` | `JIRA_USERTOOL` | Manage Jira user operations. |
 | `atlassian_jira_workflow` | `JIRA_WORKFLOWTOOL` | Manage Jira workflow operations. |
 
-_20 action-routed tools (default `MCP_TOOL_MODE=condensed`). Each is enabled unless its toggle is set false; set `MCP_TOOL_MODE=verbose` (or `both`) for the 1:1 per-operation surface. Auto-generated — do not edit._
+#### Verbose 1:1 API-mapped tools (`MCP_TOOL_MODE=verbose` or `both`)
+
+<details>
+<summary>1 per-operation tools — one per public API method (click to expand)</summary>
+
+| MCP Tool | Toggle Env Var | Description |
+|----------|----------------|-------------|
+| `atlassian_request` | `BASE_ATLASSIAN_CLIENTTOOL` | Invoke the request operation. |
+
+</details>
+
+_20 action-routed tool(s) (default) · 1 verbose 1:1 tool(s). Each is enabled unless its `<DOMAIN>TOOL` toggle is set false; `MCP_TOOL_MODE` selects the surface (`condensed` default · `verbose` 1:1 · `both`). Auto-generated — do not edit._
 <!-- MCP-TOOLS-TABLE:END -->
 
 Detailed tool schemas, parameter shapes, and validation constraints are preserved in [docs/mcp.md](docs/mcp.md).
@@ -264,16 +277,6 @@ consumed from a **remote deployment**. The
 | `DELEGATED_SCOPES` | `read:jira-work write:jira-work` |  |
 | `ATLASSIAN_OAUTH_TOKEN` | `your_3lo_access_token` | 2. 3-Legged OAuth (3LO) bearer token |
 | `ATLASSIAN_BEARER_TOKEN` | `your_personal_access_token` | 3. Bearer token / Personal Access Token (Server / Data Center) — global |
-| `ATLASSIAN_JIRA_CLOUD_URL` | `https://your-instance.atlassian.net` | back to the shared ATLASSIAN_AGENT_* values when unset. |
-| `ATLASSIAN_JIRA_CLOUD_USER` | `your-email@example.com` |  |
-| `ATLASSIAN_JIRA_CLOUD_TOKEN` | `your_api_token` |  |
-| `ATLASSIAN_JIRA_SERVER_URL` | `https://jira.your-company.com` |  |
-| `ATLASSIAN_JIRA_SERVER_BEARER_TOKEN` | `your_jira_pat` |  |
-| `ATLASSIAN_CONFLUENCE_CLOUD_URL` | `https://your-instance.atlassian.net/wiki` |  |
-| `ATLASSIAN_CONFLUENCE_CLOUD_USER` | `your-email@example.com` |  |
-| `ATLASSIAN_CONFLUENCE_CLOUD_TOKEN` | `your_api_token` |  |
-| `ATLASSIAN_CONFLUENCE_SERVER_URL` | `https://confluence.your-company.com` |  |
-| `ATLASSIAN_CONFLUENCE_SERVER_BEARER_TOKEN` | `your_confluence_pat` |  |
 | `ATLASSIANTOOL` | `True` | MCP tools table (condensed action-routed surface). |
 | `ATLASSIAN_ADMINTOOL` | `True` |  |
 | `ATLASSIAN_API_ACCESSTOOL` | `True` |  |
@@ -310,7 +313,7 @@ consumed from a **remote deployment**. The
 | `MODEL_ID` | `gpt-4o` | Model id for the agent |
 | `ENABLE_WEB_UI` | `True` | Serve the AG-UI web interface |
 
-_56 package + 10 inherited variable(s). Auto-generated from `.env.example` + the shared agent-utilities set — do not edit._
+_46 package + 10 inherited variable(s). Auto-generated from `.env.example` + the shared agent-utilities set — do not edit._
 <!-- ENV-VARS-TABLE:END -->
 
 

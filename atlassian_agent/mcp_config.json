@@ -7,7 +7,7 @@
         "atlassian-mcp"
       ],
       "env": {
-        "ATLASSIAN_AGENT_IS_CLOUD": "<YOUR_ATLASSIAN_AGENT_IS_CLOUD>",
+        "MCP_TOOL_MODE": "condensed",
         "ATLASSIAN_AGENT_TOKEN": "<YOUR_ATLASSIAN_AGENT_TOKEN>",
         "ATLASSIAN_AGENT_URL": "<YOUR_ATLASSIAN_AGENT_URL>",
         "ATLASSIAN_AGENT_USER": "<YOUR_ATLASSIAN_AGENT_USER>",
