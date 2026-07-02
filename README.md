@@ -125,21 +125,20 @@ When query strings or parameters are supplied, an LLM-free **Knowledge Graph res
 
 ### MCP Configuration Examples
 
-> **Install the slim `[mcp]` extra.** All examples below install
-> `atlassian-agent[mcp]` — the MCP-server extra that pulls only the FastMCP /
-> FastAPI tooling (`agent-utilities[mcp]`). It deliberately **excludes** the heavy
-> agent runtime (the epistemic-graph engine, `pydantic-ai`, `dspy`, `llama-index`,
-> `tree-sitter`), so `uvx`/container installs are dramatically smaller and faster.
-> Use the full `[agent]` extra only when you need the integrated Pydantic AI agent
-> (see [Installation](#installation)).
+<!-- MCP-CONFIG-EXAMPLES:START -->
 
-#### stdio Transport (Recommended for local IDEs e.g., Cursor, Claude Desktop)
-Configure your IDE's `mcp.json` to launch the MCP server via `uvx`:
+> **Install the slim `[mcp]` extra.** All examples install `atlassian-agent[mcp]` — the
+> MCP-server extra that pulls only the FastMCP / FastAPI tooling (`agent-utilities[mcp]`).
+> It deliberately **excludes** the heavy agent runtime (`pydantic-ai`, the epistemic-graph
+> engine, `dspy`, `llama-index`), so `uvx` / container installs are far smaller. Use the
+> full `[agent]` extra only when you need the integrated Pydantic AI agent.
+
+#### stdio Transport (local IDEs — Cursor, Claude Desktop, VS Code)
 
 ```json
 {
   "mcpServers": {
-    "atlassian-agent": {
+    "atlassian-mcp": {
       "command": "uvx",
       "args": [
         "--from",
@@ -147,54 +146,103 @@ Configure your IDE's `mcp.json` to launch the MCP server via `uvx`:
         "atlassian-mcp"
       ],
       "env": {
-        "ATLASSIAN_AGENT_URL": "your_atlassian_agent_url_here",
-        "ATLASSIAN_AGENT_USER": "your_atlassian_agent_user_here",
-        "ATLASSIAN_AGENT_TOKEN": "your_atlassian_agent_token_here",
-        "ATLASSIAN_AGENT_VERIFY": "your_atlassian_agent_verify_here",
-        "DEBUG": "your_debug_here",
-        "PYTHONUNBUFFERED": "your_pythonunbuffered_here"
+        "MCP_TOOL_MODE": "condensed",
+        "ATLASSIANTOOL": "True",
+        "ATLASSIAN_ADMINTOOL": "True",
+        "ATLASSIAN_AGENT_TOKEN": "your_token_here",
+        "ATLASSIAN_AGENT_URL": "http://localhost:8080",
+        "ATLASSIAN_AGENT_USER": "your-email@example.com",
+        "ATLASSIAN_AGENT_VERIFY": "True",
+        "ATLASSIAN_API_ACCESSTOOL": "True",
+        "ATLASSIAN_BEARER_TOKEN": "your_personal_access_token",
+        "ATLASSIAN_CONTROLTOOL": "True",
+        "ATLASSIAN_DLPTOOL": "True",
+        "ATLASSIAN_OAUTH_TOKEN": "your_3lo_access_token",
+        "ATLASSIAN_ORGTOOL": "True",
+        "ATLASSIAN_USER_MGMTTOOL": "True",
+        "ATLASSIAN_USER_PROVISIONINGTOOL": "True",
+        "AUDIENCE": "https://your-instance.atlassian.net",
+        "CONFLUENCE_OTHERTOOL": "True",
+        "CONFLUENCE_PAGETOOL": "True",
+        "CONFLUENCE_SPACETOOL": "True",
+        "CONFLUENCE_USERTOOL": "True",
+        "DELEGATED_SCOPES": "read:jira-work write:jira-work",
+        "JIRA_COMMENTTOOL": "True",
+        "JIRA_FIELDTOOL": "True",
+        "JIRA_ISSUETOOL": "True",
+        "JIRA_OTHERTOOL": "True",
+        "JIRA_PROJECTTOOL": "True",
+        "JIRA_SCREENTOOL": "True",
+        "JIRA_USERTOOL": "True",
+        "JIRA_WORKFLOWTOOL": "True"
       }
     }
   }
 }
 ```
 
-#### Streamable-HTTP Transport (Recommended for production deployments)
-Configure your client's `mcp.json` to launch the Streamable-HTTP server via `uvx` with explicit host and port definition:
+#### Streamable-HTTP Transport (networked / production)
 
 ```json
 {
   "mcpServers": {
-    "atlassian-agent": {
+    "atlassian-mcp": {
       "command": "uvx",
       "args": [
         "--from",
         "atlassian-agent[mcp]",
-        "atlassian-mcp"
+        "atlassian-mcp",
+        "--transport",
+        "streamable-http",
+        "--port",
+        "8000"
       ],
       "env": {
         "TRANSPORT": "streamable-http",
         "HOST": "0.0.0.0",
         "PORT": "8000",
-        "ATLASSIAN_AGENT_URL": "your_atlassian_agent_url_here",
-        "ATLASSIAN_AGENT_USER": "your_atlassian_agent_user_here",
-        "ATLASSIAN_AGENT_TOKEN": "your_atlassian_agent_token_here",
-        "ATLASSIAN_AGENT_VERIFY": "your_atlassian_agent_verify_here",
-        "DEBUG": "your_debug_here",
-        "PYTHONUNBUFFERED": "your_pythonunbuffered_here"
+        "MCP_TOOL_MODE": "condensed",
+        "ATLASSIANTOOL": "True",
+        "ATLASSIAN_ADMINTOOL": "True",
+        "ATLASSIAN_AGENT_TOKEN": "your_token_here",
+        "ATLASSIAN_AGENT_URL": "http://localhost:8080",
+        "ATLASSIAN_AGENT_USER": "your-email@example.com",
+        "ATLASSIAN_AGENT_VERIFY": "True",
+        "ATLASSIAN_API_ACCESSTOOL": "True",
+        "ATLASSIAN_BEARER_TOKEN": "your_personal_access_token",
+        "ATLASSIAN_CONTROLTOOL": "True",
+        "ATLASSIAN_DLPTOOL": "True",
+        "ATLASSIAN_OAUTH_TOKEN": "your_3lo_access_token",
+        "ATLASSIAN_ORGTOOL": "True",
+        "ATLASSIAN_USER_MGMTTOOL": "True",
+        "ATLASSIAN_USER_PROVISIONINGTOOL": "True",
+        "AUDIENCE": "https://your-instance.atlassian.net",
+        "CONFLUENCE_OTHERTOOL": "True",
+        "CONFLUENCE_PAGETOOL": "True",
+        "CONFLUENCE_SPACETOOL": "True",
+        "CONFLUENCE_USERTOOL": "True",
+        "DELEGATED_SCOPES": "read:jira-work write:jira-work",
+        "JIRA_COMMENTTOOL": "True",
+        "JIRA_FIELDTOOL": "True",
+        "JIRA_ISSUETOOL": "True",
+        "JIRA_OTHERTOOL": "True",
+        "JIRA_PROJECTTOOL": "True",
+        "JIRA_SCREENTOOL": "True",
+        "JIRA_USERTOOL": "True",
+        "JIRA_WORKFLOWTOOL": "True"
       }
     }
   }
 }
 ```
 
-Alternatively, connect to a pre-deployed remote or local Streamable-HTTP instance:
+Alternatively, connect to a pre-deployed Streamable-HTTP instance by `url`:
 
 ```json
 {
   "mcpServers": {
-    "atlassian-agent": {
-      "url": "http://localhost:8000/atlassian-agent/mcp"
+    "atlassian-mcp": {
+      "url": "http://localhost:8000/atlassian-mcp/mcp"
     }
   }
 }
@@ -204,27 +252,45 @@ Deploying the Streamable-HTTP server via Docker:
 
 ```bash
 docker run -d \
-  --name atlassian-agent-mcp \
+  --name atlassian-mcp-mcp \
   -p 8000:8000 \
   -e TRANSPORT=streamable-http \
+  -e HOST=0.0.0.0 \
   -e PORT=8000 \
-  -e ATLASSIAN_AGENT_URL="your_value" \
-  -e ATLASSIAN_AGENT_USER="your_value" \
-  -e ATLASSIAN_AGENT_TOKEN="your_value" \
-  -e ATLASSIAN_AGENT_VERIFY="your_value" \
-  -e DEBUG="your_value" \
-  -e PYTHONUNBUFFERED="your_value" \
+  -e MCP_TOOL_MODE=condensed \
+  -e ATLASSIANTOOL=True \
+  -e ATLASSIAN_ADMINTOOL=True \
+  -e ATLASSIAN_AGENT_TOKEN=your_token_here \
+  -e ATLASSIAN_AGENT_URL=http://localhost:8080 \
+  -e ATLASSIAN_AGENT_USER=your-email@example.com \
+  -e ATLASSIAN_AGENT_VERIFY=True \
+  -e ATLASSIAN_API_ACCESSTOOL=True \
+  -e ATLASSIAN_BEARER_TOKEN=your_personal_access_token \
+  -e ATLASSIAN_CONTROLTOOL=True \
+  -e ATLASSIAN_DLPTOOL=True \
+  -e ATLASSIAN_OAUTH_TOKEN=your_3lo_access_token \
+  -e ATLASSIAN_ORGTOOL=True \
+  -e ATLASSIAN_USER_MGMTTOOL=True \
+  -e ATLASSIAN_USER_PROVISIONINGTOOL=True \
+  -e AUDIENCE=https://your-instance.atlassian.net \
+  -e CONFLUENCE_OTHERTOOL=True \
+  -e CONFLUENCE_PAGETOOL=True \
+  -e CONFLUENCE_SPACETOOL=True \
+  -e CONFLUENCE_USERTOOL=True \
+  -e DELEGATED_SCOPES="read:jira-work write:jira-work" \
+  -e JIRA_COMMENTTOOL=True \
+  -e JIRA_FIELDTOOL=True \
+  -e JIRA_ISSUETOOL=True \
+  -e JIRA_OTHERTOOL=True \
+  -e JIRA_PROJECTTOOL=True \
+  -e JIRA_SCREENTOOL=True \
+  -e JIRA_USERTOOL=True \
+  -e JIRA_WORKFLOWTOOL=True \
   knucklessg1/atlassian-agent:mcp
 ```
 
-> The `:mcp` tag is the **slim MCP-server image** (built from
-> `docker/Dockerfile --target mcp`, installing `atlassian-agent[mcp]`). The default
-> `:latest` tag is the **full agent image** (`--target agent`, `atlassian-agent[agent]`)
-> which also bundles the Pydantic AI agent and the epistemic-graph engine — use it
-> when you run `atlassian-agent` (the agent), not just the MCP server. See
-> [Container images](#container-images-mcp-vs-agent).
-
----
+_Auto-generated from the code-read env surface (`MCP_TOOL_MODE` + package vars) — do not edit._
+<!-- MCP-CONFIG-EXAMPLES:END -->
 
 <!-- BEGIN GENERATED: additional-deployment-options -->
 ### Additional Deployment Options
