@@ -1,0 +1,96 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix : <http://knuckles.team/kg#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Atlassian ontology — Jira work tracking + Confluence knowledge. All classes and
+# properties live in the shared `:` (kg#) namespace; only the owl:Ontology node gets the
+# per-package IRI. Backs the atlassian-agent MCP tool surface (atlassian_jira_issue /
+# atlassian_confluence_page / …) and the native ingestion (atlassian_ingest_issues /
+# atlassian_ingest_confluence). `:Document` and `:Person` are reused from the base hub —
+# only referenced here, never redefined.
+
+:Issue a owl:Class ;
+    rdfs:label "Jira Issue" ;
+    rdfs:comment "A tracked Jira work item — story, task, bug, or sub-task (atlassian_jira_issue)." .
+
+:Epic a owl:Class ;
+    rdfs:label "Jira Epic" ;
+    rdfs:comment "A large body of work that aggregates related Jira issues (the epic link)." .
+
+:Sprint a owl:Class ;
+    rdfs:label "Jira Sprint" ;
+    rdfs:comment "A time-boxed iteration on an agile board that groups issues for delivery." .
+
+:ConfluencePage a owl:Class ;
+    rdfs:subClassOf :Document ;
+    rdfs:label "Confluence Page" ;
+    rdfs:comment "A Confluence page — a :Document carrying the page body text and its source_uri (atlassian_confluence_page)." .
+
+# --- links (owl:ObjectProperty) ---
+
+:assignedTo a owl:ObjectProperty ;
+    rdfs:label "assigned to" ;
+    rdfs:comment "Links an Issue to the Person it is currently assigned to." ;
+    rdfs:domain :Issue ;
+    rdfs:range :Person .
+
+:inEpic a owl:ObjectProperty ;
+    rdfs:label "in epic" ;
+    rdfs:comment "Links an Issue to the Epic that contains it (the epic link)." ;
+    rdfs:domain :Issue ;
+    rdfs:range :Epic .
+
+:inSprint a owl:ObjectProperty ;
+    rdfs:label "in sprint" ;
+    rdfs:comment "Links an Issue to the Sprint it is scheduled in." ;
+    rdfs:domain :Issue ;
+    rdfs:range :Sprint .
+
+:reportedBy a owl:ObjectProperty ;
+    rdfs:label "reported by" ;
+    rdfs:comment "Links an Issue to the Person who reported/created it." ;
+    rdfs:domain :Issue ;
+    rdfs:range :Person .
+
+# --- fields (owl:DatatypeProperty) ---
+
+:issueKey a owl:DatatypeProperty ;
+    rdfs:label "issue key" ;
+    rdfs:comment "Human-readable Jira issue key (e.g. PROJ-123)." ;
+    rdfs:domain :Issue ;
+    rdfs:range xsd:string .
+
+:status a owl:DatatypeProperty ;
+    rdfs:label "status" ;
+    rdfs:comment "Workflow status of an Issue (To Do, In Progress, Done, …)." ;
+    rdfs:domain :Issue ;
+    rdfs:range xsd:string .
+
+:priority a owl:DatatypeProperty ;
+    rdfs:label "priority" ;
+    rdfs:comment "Priority of an Issue (Highest, High, Medium, Low, Lowest)." ;
+    rdfs:domain :Issue ;
+    rdfs:range xsd:string .
+
+:issueType a owl:DatatypeProperty ;
+    rdfs:label "issue type" ;
+    rdfs:comment "Type of a Jira Issue (Story, Task, Bug, Sub-task, …)." ;
+    rdfs:domain :Issue ;
+    rdfs:range xsd:string .
+
+:summary a owl:DatatypeProperty ;
+    rdfs:label "summary" ;
+    rdfs:comment "Short one-line summary/title of a Jira Issue or Epic." ;
+    rdfs:range xsd:string .
+
+<http://knuckles.team/kg/atlassian> a owl:Ontology ;
+    rdfs:label "Atlassian Ontology" ;
+    rdfs:comment """Atlassian work-tracking and knowledge model — Jira issues, epics and
+    sprints with their assignment/epic/sprint relationships, plus Confluence pages as
+    documents — federated into the agent-utilities knowledge-graph hub. Reuses the base
+    :Document and :Person classes.""" ;
+    owl:imports <http://knuckles.team/kg/enterprise> .

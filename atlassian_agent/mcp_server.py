@@ -1157,6 +1157,115 @@ def register_confluence_other_tools(mcp: FastMCP):
             return {"error": str(e)}
 
 
+def register_kg_tools(mcp: FastMCP):
+    """Native epistemic-graph ingestion tools (CONCEPT:AU-KG.ingest.enterprise-source-extractor).
+
+    Adds Wire-First tools that list via the existing Jira/Confluence clients and push the
+    records into the knowledge graph as typed nodes / documents. Gated by ``KGTOOL``.
+    """
+    if "kg" in _registered_tools and not type(mcp).__name__ == "Mock":
+        return
+    _registered_tools.add("kg")
+
+    @mcp.tool(tags={"kg", "jira-issue"})
+    async def atlassian_ingest_issues(
+        jql: str = Field(
+            default="ORDER BY updated DESC",
+            description="JQL selecting the issues to ingest (e.g. 'project = PROJ').",
+        ),
+        max_results: int = Field(
+            default=50, description="Maximum number of issues to fetch and ingest."
+        ),
+        deployment: str = Field(
+            default="cloud", description="Specify 'cloud' or 'server' deployment type."
+        ),
+        client_cloud=Depends(get_jira_cloud_client),
+        client_server=Depends(get_jira_server_client),
+        ctx: Context | None = Field(
+            default=None, description="MCP context for progress reporting"
+        ),
+    ) -> Any:
+        """Natively ingest Jira issues into epistemic-graph as typed :Issue/:Epic/:Person nodes.
+
+        Searches Jira with ``jql`` and pushes each issue (with its assignee/reporter
+        :Person nodes and :inEpic / :assignedTo / :reportedBy links) into the knowledge
+        graph via the fast engine client. Best-effort: ``{"ingested": None}`` when no
+        engine is reachable. CONCEPT:AU-KG.ingest.enterprise-source-extractor.
+        """
+        if ctx:
+            await ctx.info("Ingesting Jira issues into the knowledge graph...")
+        from atlassian_agent.kg_ingest import ingest_issues
+
+        client = client_server if deployment == "server" else client_cloud
+        try:
+            resp = await run_blocking(
+                execute_client_method,
+                client,
+                "search_for_issues_using_jql",
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                {"jql": jql, "max_results": max_results},
+            )
+        except Exception as e:
+            return {"error": str(e)}
+
+        data = resp.get("data") if isinstance(resp, dict) else resp
+        issues = data.get("issues", []) if isinstance(data, dict) else []
+        result = ingest_issues(issues)
+        return {"listed": len(issues), "ingested": result}
+
+    @mcp.tool(tags={"kg", "confluence-page"})
+    async def atlassian_ingest_confluence(
+        space_id: str = Field(
+            default="", description="Optional Confluence space id to scope the pages."
+        ),
+        limit: int = Field(
+            default=25, description="Maximum number of pages to fetch and ingest."
+        ),
+        deployment: str = Field(
+            default="cloud", description="Specify 'cloud' or 'server' deployment type."
+        ),
+        client_cloud=Depends(get_confluence_cloud_client),
+        client_server=Depends(get_confluence_server_client),
+        ctx: Context | None = Field(
+            default=None, description="MCP context for progress reporting"
+        ),
+    ) -> Any:
+        """Natively ingest Confluence pages into epistemic-graph as :Document nodes.
+
+        Lists pages (body_format=storage) and pushes each as a :ConfluencePage :Document
+        carrying the page body text + source_uri for semantic search. Best-effort:
+        ``{"ingested": None}`` when no engine is reachable.
+        CONCEPT:AU-KG.ingest.enterprise-source-extractor.
+        """
+        if ctx:
+            await ctx.info("Ingesting Confluence pages into the knowledge graph...")
+        from atlassian_agent.kg_ingest import ingest_confluence_pages
+
+        client = client_server if deployment == "server" else client_cloud
+        kwargs: dict[str, Any] = {"limit": limit, "body_format": "storage"}
+        if space_id:
+            kwargs["space_id"] = [space_id]
+        try:
+            resp = await run_blocking(
+                execute_client_method,
+                client,
+                "get_pages",
+                "confluence_cloud_",
+                "confluence_server_",
+                deployment,
+                kwargs,
+            )
+        except Exception as e:
+            return {"error": str(e)}
+
+        data = resp.get("data") if isinstance(resp, dict) else resp
+        pages = data.get("results", []) if isinstance(data, dict) else []
+        result = ingest_confluence_pages(pages)
+        return {"listed": len(pages), "ingested": result}
+
+
 def get_mcp_instance() -> tuple[Any, ...]:
     """Initialize and return the MCP instance."""
     load_config()

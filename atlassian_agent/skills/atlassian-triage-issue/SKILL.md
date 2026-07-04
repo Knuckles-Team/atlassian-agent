@@ -1,5 +1,5 @@
 ---
-name: triage-issue
+name: atlassian-triage-issue
 description: "Intelligently triage bug reports and error messages by searching for duplicates in Jira and offering to create new issues or add comments to existing ones. When an agent needs to: (1) Triage a bug report or error message, (2) Check if an issue is a duplicate, (3) Find similar past issues, (4) Create a new bug ticket with proper context, or (5) Add information to an existing ticket. Searches Jira for similar issues, identifies duplicates, checks fix history, and helps create well-structured bug reports."
 ---
 
@@ -667,10 +667,10 @@ Issue includes reference to original fix for investigation.
 
 This skill is for **triaging bugs and errors only**. Do NOT use for:
 
-❌ Feature requests (use spec-to-backlog)
-❌ General task creation (use capture-tasks-from-meeting-notes)
-❌ Searching for information (use search-company-knowledge)
-❌ Generating status reports (use generate-status-report)
+❌ Feature requests (use atlassian-spec-to-backlog)
+❌ General task creation (use atlassian-capture-tasks-from-meeting-notes)
+❌ Searching for information (use atlassian-search-company-knowledge)
+❌ Generating status reports (use atlassian-generate-status-report)
 
 **Use this skill specifically for:**
 ✅ "Is this a duplicate bug?"
