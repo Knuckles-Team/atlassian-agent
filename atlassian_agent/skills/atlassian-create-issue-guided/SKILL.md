@@ -1,5 +1,6 @@
 ---
 name: atlassian-create-issue-guided
+skill_type: skill
 description: >-
   Create a Jira issue after discovering, from the live instance, exactly which
   fields the chosen project + issue type support — including which are required and

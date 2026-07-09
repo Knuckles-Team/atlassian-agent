@@ -1,5 +1,6 @@
 ---
 name: atlassian-jira-filters
+skill_type: skill
 description: >-
   Manage Jira saved filters (saved JQL searches) end to end — create, get, search,
   update, delete, run/use them, star them as favourites, manage their columns, change

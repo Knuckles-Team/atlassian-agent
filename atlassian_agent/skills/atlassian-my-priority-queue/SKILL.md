@@ -1,5 +1,6 @@
 ---
 name: atlassian-my-priority-queue
+skill_type: skill
 description: >-
   Surface the Jira issues assigned to the current user, rank them by a combined
   priority + staleness score (highest priority at the top, items untouched for
