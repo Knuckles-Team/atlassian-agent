@@ -14,6 +14,18 @@ logger = get_logger(__name__)
 _base_client = None
 
 
+def _entitled(namespace: str, names) -> list[str]:
+    """Filter ``names`` to the subset the calling identity's Okta/Keycloak groups
+    entitle (CONCEPT:AU-OS.identity.identity-scoped-resource-autoload). Degrades
+    to the full list if agent-utilities predates the resolver.
+    """
+    try:
+        from agent_utilities.security.entitlements import identity_scoped_resources
+    except Exception:
+        return list(names)
+    return list(identity_scoped_resources(namespace, names))
+
+
 def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
     """Get client using suite-specific env vars or fall back to shared.
 
@@ -31,8 +43,16 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
     4. **Environment Variables** — Falls back to ``ATLASSIAN_AGENT_TOKEN``
        with basic auth (email + API token).
 
+    A named ``suite_prefix`` the caller's identity is not entitled to is
+    denied before any credential resolution happens.
+
     See ``docs/guides/oauth_sso.md`` in agent-utilities for full details.
     """
+    if suite_prefix and suite_prefix not in _entitled("atlassian", [suite_prefix]):
+        raise PermissionError(
+            f"Your identity is not entitled to the Atlassian suite '{suite_prefix}'."
+        )
+
     from agent_utilities.mcp.delegated_auth import (
         get_delegated_token,
         get_user_identity,
