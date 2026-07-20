@@ -130,4 +130,4 @@ def test_api_clients_brute_force(mock_session):
             try:
                 method(**kwargs)
             except Exception as e:
-                print(f"Failed calling {client_class.__name__}.{name}: {e}")
+                print(f"Operation failed: {type(e).__name__}")

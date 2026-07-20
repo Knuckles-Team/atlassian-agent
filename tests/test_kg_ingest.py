@@ -3,13 +3,16 @@
 Exercises the ``ingest_issues`` / ``ingest_confluence_pages`` / ``ingest_attachment``
 mappers with a fake native-ingestion primitive (no engine required), asserting the
 Jira issue → :Issue/:Epic/:Person mapping, the Confluence page → :Document mapping, the
-attachment → blob path, and the clean no-op when no KG engine is present.
+attachment → blob path, and strict propagation of native-ingestion failures.
 CONCEPT:AU-KG.ingest.enterprise-source-extractor.
 """
 
 from __future__ import annotations
 
 from typing import Any
+
+import pytest
+from agent_utilities.knowledge_graph.memory.native_ingest import NativeIngestError
 
 import atlassian_agent.kg_ingest as kg
 
@@ -27,21 +30,25 @@ class _Capture:
 def _install_fakes(monkeypatch) -> _Capture:
     cap = _Capture()
 
-    def fake_ingest_entities(entities, relationships=None, *, source, domain):
+    def fake_ingest_entities(
+        entities, relationships=None, *, source, domain, client=None, graph=None
+    ):
         cap.entities = entities
         cap.relationships = relationships or []
         cap.source = source
         cap.domain = domain
-        if not entities:  # mirror the real primitive's empty no-op
-            return None
+        if not entities:
+            raise NativeIngestError("native ingest requires at least one entity")
         return {"nodes": len(entities), "edges": len(relationships or [])}
 
-    def fake_ingest_documents(documents, *, source, domain):
+    def fake_ingest_documents(
+        documents, *, source, domain, client=None, graph=None
+    ):
         cap.documents = documents
         cap.source = source
         cap.domain = domain
-        if not documents:  # mirror the real primitive's empty no-op
-            return None
+        if not documents:
+            raise NativeIngestError("native ingest requires at least one document")
         return {"nodes": len(documents), "edges": 0}
 
     class _FakeStore:
@@ -52,11 +59,9 @@ def _install_fakes(monkeypatch) -> _Capture:
     def fake_media_store():
         return _FakeStore()
 
-    monkeypatch.setattr(
-        kg,
-        "_primitives",
-        lambda: (fake_ingest_entities, fake_ingest_documents, fake_media_store),
-    )
+    monkeypatch.setattr(kg, "_native_ingest_entities", fake_ingest_entities)
+    monkeypatch.setattr(kg, "_native_ingest_documents", fake_ingest_documents)
+    monkeypatch.setattr(kg, "_native_media_store", fake_media_store)
     return cap
 
 
@@ -87,13 +92,13 @@ def test_ingest_issues_maps_issue_epic_person(monkeypatch):
     assert cap.domain == "atlassian"
     by_id = {e["id"]: e for e in cap.entities}
     issue = by_id["atlassian:issue:PROJ-1"]
-    assert issue["type"] == "Issue"
+    assert issue["node_type"] == "Issue"
     assert issue["issueKey"] == "PROJ-1"
     assert issue["status"] == "In Progress"
     assert issue["priority"] == "High"
-    assert by_id["atlassian:person:acc-1"]["type"] == "Person"
-    assert by_id["atlassian:epic:PROJ-100"]["type"] == "Epic"
-    rel_types = {r["type"] for r in cap.relationships}
+    assert by_id["atlassian:person:acc-1"]["node_type"] == "Person"
+    assert by_id["atlassian:epic:PROJ-100"]["node_type"] == "Epic"
+    rel_types = {r["relationship"] for r in cap.relationships}
     assert rel_types == {"assignedTo", "reportedBy", "inEpic"}
 
 
@@ -103,7 +108,7 @@ def test_ingest_issues_epic_becomes_epic_node(monkeypatch):
         [{"key": "PROJ-100", "fields": {"issuetype": {"name": "Epic"}, "summary": "E"}}]
     )
     assert cap.entities[0]["id"] == "atlassian:epic:PROJ-100"
-    assert cap.entities[0]["type"] == "Epic"
+    assert cap.entities[0]["node_type"] == "Epic"
     assert cap.relationships == []
 
 
@@ -124,7 +129,7 @@ def test_ingest_confluence_maps_document(monkeypatch):
     assert res == {"nodes": 1, "edges": 0}
     doc = cap.documents[0]
     assert doc["id"] == "atlassian:page:555"
-    assert doc["type"] == "ConfluencePage"
+    assert doc["document_type"] == "ConfluencePage"
     assert doc["text"] == "<p>How to deploy</p>"
     assert doc["source_uri"] == "/wiki/pages/555"
     assert cap.domain == "atlassian"
@@ -141,15 +146,19 @@ def test_ingest_attachment_stores_blob(monkeypatch):
     assert cap.stored[0]["source"] == "atlassian-agent"
 
 
-def test_ingest_noops_without_engine(monkeypatch):
-    monkeypatch.setattr(kg, "_primitives", lambda: None)
-    assert kg.ingest_issues([{"key": "PROJ-1", "fields": {}}]) is None
-    assert kg.ingest_confluence_pages([{"id": "1", "body": "x"}]) is None
-    assert kg.ingest_attachment(b"x", name="a") is None
+def test_ingest_propagates_native_failure(monkeypatch):
+    def fail(*args, **kwargs):
+        raise NativeIngestError("engine unavailable")
+
+    monkeypatch.setattr(kg, "_native_ingest_entities", fail)
+    with pytest.raises(NativeIngestError, match="engine unavailable"):
+        kg.ingest_issues([{"key": "PROJ-1", "fields": {}}])
 
 
-def test_ingest_empty_is_noop(monkeypatch):
+def test_ingest_empty_is_rejected(monkeypatch):
     _install_fakes(monkeypatch)
-    assert kg.ingest_issues([]) is None
-    assert kg.ingest_confluence_pages([]) is None
+    with pytest.raises(NativeIngestError, match="at least one entity"):
+        kg.ingest_issues([])
+    with pytest.raises(NativeIngestError, match="at least one document"):
+        kg.ingest_confluence_pages([])
     assert kg.ingest_attachment(b"") is None

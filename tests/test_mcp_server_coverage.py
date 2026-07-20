@@ -61,9 +61,9 @@ for name in list(dir(atlassian_agent.auth)):
         setattr(atlassian_agent.auth, name, MagicMock(return_value=mock_client_inst))
 
 # Mock create_mcp_server to return empty middlewares to avoid rate limiting
-import agent_utilities.mcp_utilities
+from agent_utilities.mcp import server_factory
 
-original_create_mcp_server = agent_utilities.mcp_utilities.create_mcp_server
+original_create_mcp_server = server_factory.create_mcp_server
 
 
 def mock_create_mcp_server(*args, **kwargs):
@@ -71,7 +71,7 @@ def mock_create_mcp_server(*args, **kwargs):
     return s_args, s_mcp, []
 
 
-agent_utilities.mcp_utilities.create_mcp_server = mock_create_mcp_server
+server_factory.create_mcp_server = mock_create_mcp_server
 
 # Clear the global mcp instance and registered tools to force clean re-registration with mocked dependencies
 # We pop any existing entries containing 'atlassian_agent.mcp_server' from sys.modules to force a complete re-execution
@@ -212,7 +212,7 @@ def map_tools_to_actions():
                                 actions.add(val)
                 tool_to_actions[tool_name] = list(actions)
     except Exception as e:
-        print(f"Error parsing actions: {e}")
+        print(f"Operation failed: {type(e).__name__}")
 
     # Representative dynamic actions for tools with dynamic routing (avoids dynamic method explosion)
     dynamic_mappings = {

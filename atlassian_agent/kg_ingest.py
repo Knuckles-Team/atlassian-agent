@@ -10,42 +10,29 @@ applies (the "maximum ingestion" bar):
   text + ``source_uri`` for semantic search via :func:`ingest_confluence_pages`.
 * **Attachments** → raw ``:Blob`` / ``:MediaAsset`` bytes via :func:`ingest_attachment`.
 
-All three ride the shared native-ingestion primitive
-(``agent_utilities.knowledge_graph.memory.native_ingest``) — the ONE txn write path — so
-this module ships only thin record→dict mappers. Everything is dependency-/engine-guarded:
-with no agent-utilities KG stack or no reachable engine every entry point **no-ops**
-(returns ``None``), so the connector keeps working with zero KG infrastructure. Node ids
-follow ``atlassian:<class>:<externalId>`` and ``type`` matches a class the package's
+All three ride the required native-ingestion authority
+(``agent_utilities.knowledge_graph.memory.native_ingest``), so this module ships only
+thin record→dict mappers. Node ids follow ``atlassian:<class>:<externalId>`` and
+``node_type`` matches a class the package's
 ``ontology_providers`` ``atlassian.ttl`` federates.
 """
 
 from __future__ import annotations
 
-import logging
 from typing import Any
 
-logger = logging.getLogger("atlassian_agent.kg")
+from agent_utilities.knowledge_graph.memory.native_ingest import (
+    ingest_documents as _native_ingest_documents,
+)
+from agent_utilities.knowledge_graph.memory.native_ingest import (
+    ingest_entities as _native_ingest_entities,
+)
+from agent_utilities.knowledge_graph.memory.native_ingest import (
+    media_store as _native_media_store,
+)
 
 _SOURCE = "atlassian-agent"
 _DOMAIN = "atlassian"
-
-
-def _primitives() -> tuple[Any, Any, Any] | None:
-    """Return ``(ingest_entities, ingest_documents, media_store)`` or ``None``.
-
-    Guarded import of the shared native-ingestion primitive; when the KG stack is
-    absent this returns ``None`` and every caller cleanly no-ops.
-    """
-    try:
-        from agent_utilities.knowledge_graph.memory.native_ingest import (
-            ingest_documents,
-            ingest_entities,
-            media_store,
-        )
-    except Exception as e:  # noqa: BLE001 — KG stack absent
-        logger.debug("KG ingest unavailable (import): %s", e)
-        return None
-    return ingest_entities, ingest_documents, media_store
 
 
 def _fields(issue: dict[str, Any]) -> dict[str, Any]:
@@ -70,7 +57,7 @@ def _person_entity(actor: Any) -> dict[str, Any] | None:
         return None
     return {
         "id": f"atlassian:person:{account_id}",
-        "type": "Person",
+        "node_type": "Person",
         "name": actor.get("displayName") or actor.get("name"),
         "email": actor.get("emailAddress"),
         "externalToolId": str(account_id),
@@ -82,22 +69,18 @@ def ingest_issues(
     *,
     client: Any | None = None,
     graph: str | None = None,
-) -> dict[str, int] | None:
+) -> dict[str, int]:
     """Map Jira issue records → ``:Issue`` / ``:Epic`` / ``:Person`` nodes and ingest.
 
     ``issues``: raw Jira issue dicts (as returned by
     ``jira_cloud_search_for_issues_using_jql`` / ``jira_cloud_get_issue``), each with a
     ``key`` and a ``fields`` sub-dict. Epics (issuetype == "Epic") become ``:Epic`` nodes;
     everything else becomes an ``:Issue`` linked to its assignee/reporter (``:Person``) and
-    its parent epic (``:inEpic``). Returns ``{"nodes":n, "edges":m}`` or ``None``.
+    its parent epic (``:inEpic``). Returns committed node/edge counts; native
+    validation and engine failures propagate.
     ``client``/``graph`` are accepted for parity/injection but the shared primitive resolves
     the engine on demand.
     """
-    prims = _primitives()
-    if prims is None:
-        return None
-    ingest_entities, _ingest_documents, _media_store = prims
-
     entities: list[dict[str, Any]] = []
     relationships: list[dict[str, Any]] = []
     for issue in issues or []:
@@ -111,7 +94,7 @@ def ingest_issues(
         entities.append(
             {
                 "id": node_id,
-                "type": "Epic" if is_epic else "Issue",
+                "node_type": "Epic" if is_epic else "Issue",
                 "issueKey": key,
                 "summary": fields.get("summary"),
                 "status": _name_of(fields.get("status")),
@@ -131,13 +114,21 @@ def ingest_issues(
         if assignee:
             entities.append(assignee)
             relationships.append(
-                {"source": node_id, "target": assignee["id"], "type": "assignedTo"}
+                {
+                    "source": node_id,
+                    "target": assignee["id"],
+                    "relationship": "assignedTo",
+                }
             )
         reporter = _person_entity(fields.get("reporter"))
         if reporter:
             entities.append(reporter)
             relationships.append(
-                {"source": node_id, "target": reporter["id"], "type": "reportedBy"}
+                {
+                    "source": node_id,
+                    "target": reporter["id"],
+                    "relationship": "reportedBy",
+                }
             )
 
         # Epic link: team-managed projects use `parent`; classic projects an epic field.
@@ -153,14 +144,19 @@ def ingest_issues(
         if epic_key:
             epic_id = f"atlassian:epic:{epic_key}"
             entities.append(
-                {"id": epic_id, "type": "Epic", "issueKey": epic_key}
+                {"id": epic_id, "node_type": "Epic", "issueKey": epic_key}
             )
             relationships.append(
-                {"source": node_id, "target": epic_id, "type": "inEpic"}
+                {"source": node_id, "target": epic_id, "relationship": "inEpic"}
             )
 
-    return ingest_entities(
-        entities, relationships, source=_SOURCE, domain=_DOMAIN
+    return _native_ingest_entities(
+        entities,
+        relationships,
+        source=_SOURCE,
+        domain=_DOMAIN,
+        client=client,
+        graph=graph,
     )
 
 
@@ -184,20 +180,15 @@ def ingest_confluence_pages(
     *,
     client: Any | None = None,
     graph: str | None = None,
-) -> dict[str, int] | None:
+) -> dict[str, int]:
     """Map Confluence page records → ``:Document`` (``:ConfluencePage``) nodes and ingest.
 
     ``pages``: raw Confluence page dicts (as returned by ``confluence_cloud_get_pages`` /
     ``confluence_cloud_get_page_by_id``) — each with an ``id``, ``title`` and a ``body``
     (request ``body_format=storage``). Each becomes a ``:Document`` carrying the page body
-    text + ``source_uri`` so hub-side enrichment chunks/embeds it. Returns
-    ``{"nodes":n, "edges":0}`` or ``None``.
+    text + ``source_uri`` so hub-side enrichment chunks/embeds it. Returns committed
+    counts; native validation and engine failures propagate.
     """
-    prims = _primitives()
-    if prims is None:
-        return None
-    _ingest_entities, ingest_documents, _media_store = prims
-
     documents: list[dict[str, Any]] = []
     for page in pages or []:
         pid = page.get("id")
@@ -209,7 +200,7 @@ def ingest_confluence_pages(
         documents.append(
             {
                 "id": f"atlassian:page:{pid}",
-                "type": "ConfluencePage",
+                "document_type": "ConfluencePage",
                 "title": page.get("title"),
                 "text": text,
                 "source_uri": source_uri,
@@ -218,7 +209,13 @@ def ingest_confluence_pages(
                 "externalToolId": str(pid),
             }
         )
-    return ingest_documents(documents, source=_SOURCE, domain=_DOMAIN)
+    return _native_ingest_documents(
+        documents,
+        source=_SOURCE,
+        domain=_DOMAIN,
+        client=client,
+        graph=graph,
+    )
 
 
 def ingest_attachment(
@@ -229,31 +226,18 @@ def ingest_attachment(
     issue_key: str | None = None,
     store: Any | None = None,
 ) -> Any | None:
-    """Store an Atlassian attachment's raw bytes as a ``:Blob`` / ``:MediaAsset``.
-
-    Best-effort: returns the :class:`StoredMedia` (or ``None`` with no engine / on
-    failure; never raises). ``store`` may be injected (tests); otherwise a
-    :class:`MediaStore` is built on demand via the shared primitive.
-    """
+    """Store an Atlassian attachment's raw bytes as a ``:Blob`` / ``:MediaAsset``."""
     if not data:
         return None
     if store is None:
-        prims = _primitives()
-        if prims is None:
-            return None
-        _ingest_entities, _ingest_documents, media_store = prims
-        store = media_store()
-    if store is None:
-        return None
-    try:
-        return store.store_media(
-            data,
-            media_type="attachment",
-            mime_type=mime_type,
-            source=_SOURCE,
-            name=name,
-            extra={"domain": _DOMAIN, "issue_key": issue_key} if issue_key else {"domain": _DOMAIN},
-        )
-    except Exception as e:  # noqa: BLE001 — store failure is non-fatal
-        logger.warning("KG ingest: attachment store failed: %s", e)
-        return None
+        store = _native_media_store()
+    return store.store_media(
+        data,
+        media_type="attachment",
+        mime_type=mime_type,
+        source=_SOURCE,
+        name=name,
+        extra={"domain": _DOMAIN, "issue_key": issue_key}
+        if issue_key
+        else {"domain": _DOMAIN},
+    )

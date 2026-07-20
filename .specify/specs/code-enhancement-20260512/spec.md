@@ -44,7 +44,7 @@
 - **FR-027**: 1 tests have no assertions
 - **FR-028**: Partial env var documentation: 36% coverage
 - **FR-029**: Undocumented env vars: ALLOWED_CLIENT_REDIRECT_URIS, ATLASSIAN_AGENT_IS_CLOUD, AUTH_TYPE, ENABLE_OTEL, EUNOMIA_POLICY_FILE, EUNOMIA_REMOTE_URL, EUNOMIA_TYPE, LLM_API_KEY, LLM_BASE_URL, OAUTH_BASE_URL
-- **FR-030**: 3 Python env vars not in .env.example: ATLASSIAN_AGENT_IS_CLOUD, ATLASSIAN_AGENT_USER, ATLASSIAN_AGENT_VERIFY
+- **FR-030**: 3 Python env vars not in .env.example: ATLASSIAN_AGENT_IS_CLOUD, ATLASSIAN_AGENT_USER, ATLASSIAN_TLS_PROFILE
 
 ## Success Criteria
 

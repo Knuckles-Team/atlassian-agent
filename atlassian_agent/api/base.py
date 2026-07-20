@@ -2,6 +2,10 @@ import logging
 from typing import Any
 
 import requests
+from agent_utilities.core.transport_security import (
+    ResolvedTLSProfile,
+    resolve_tls_profile,
+)
 
 from ..models import Response
 
@@ -14,22 +18,22 @@ class BaseAtlassianClient:
         base_url: str,
         username: str,
         token: str,
-        verify: bool = True,
+        tls_profile: ResolvedTLSProfile | None = None,
         bearer_token: str | None = None,
     ):
         self.base_url = base_url.rstrip("/")
         self.username = username
         self.token = token
-        self.verify = verify
+        self.tls_profile = tls_profile or resolve_tls_profile("ATLASSIAN")
         self.bearer_token = bearer_token
         self.session = requests.Session()
+        self.tls_profile.configure_requests_session(self.session)
         if bearer_token:
             # OIDC delegation or 3LO OAuth — use Bearer token
             self.session.headers["Authorization"] = f"Bearer {bearer_token}"
         else:
             # Basic auth — email + API token
             self.session.auth = (self.username, self.token)
-        self.session.verify = self.verify
 
     def request(
         self,
@@ -44,5 +48,5 @@ class BaseAtlassianClient:
             # We don't call raise_for_status() immediately to handle error responses gracefully in the Response model
             return Response.from_requests_response(response)
         except Exception as e:
-            logger.error(f"Request failed: {str(e)}")
-            return Response(status_code=500, data=None, message=str(e))
+            logger.error("Atlassian request failed: error_type=%s", type(e).__name__)
+            return Response(status_code=500, data=None, message="Operation failed")

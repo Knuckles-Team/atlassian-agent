@@ -193,7 +193,7 @@
     },
     {
       "id": "FR-030",
-      "description": "3 Python env vars not in .env.example: ATLASSIAN_AGENT_IS_CLOUD, ATLASSIAN_AGENT_USER, ATLASSIAN_AGENT_VERIFY",
+      "description": "3 Python env vars not in .env.example: ATLASSIAN_AGENT_IS_CLOUD, ATLASSIAN_AGENT_USER, ATLASSIAN_TLS_PROFILE",
       "testable": true
     }
   ],

@@ -1,0 +1,37 @@
+{
+  "connector": "atlassian-agent",
+  "fixtures": [
+    {
+      "expected": {
+        "acl_state": "quarantine",
+        "id": "fixture-record",
+        "title": "Synthetic certification record"
+      },
+      "preset": "atlassian-confluence-pages",
+      "record": {
+        "acl_public": false,
+        "body": "Synthetic content used only for contract validation.",
+        "id": "fixture-record",
+        "title": "Synthetic certification record",
+        "version": "2000-01-01T00:00:00Z"
+      }
+    },
+    {
+      "expected": {
+        "acl_state": "quarantine",
+        "id": "fixture-record",
+        "title": "Synthetic certification record"
+      },
+      "preset": "atlassian-jira-issues",
+      "record": {
+        "acl_public": false,
+        "fields": {
+          "summary": "Synthetic content used only for contract validation.",
+          "updated": "2000-01-01T00:00:00Z"
+        },
+        "key": "Synthetic certification record"
+      }
+    }
+  ],
+  "schema_version": "1"
+}
