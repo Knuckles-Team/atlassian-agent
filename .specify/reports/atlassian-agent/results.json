@@ -1,6 +1,6 @@
 {
   "project": "atlassian-agent",
-  "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent",
+  "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent",
   "domain_results": [
     {
       "domain": "Project Analysis",
@@ -27,7 +27,7 @@
         {
           "criterion": "externalized_prompts",
           "points": 0,
-          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent",
+          "evidence": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent",
           "reasoning": "No prompts/ directory found. Prompts may be hardcoded in source."
         },
         {
@@ -45,25 +45,25 @@
         {
           "criterion": "agents_md",
           "points": 10,
-          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/AGENTS.md (11728 bytes)",
+          "evidence": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/AGENTS.md (11728 bytes)",
           "reasoning": "AGENTS.md exists with comprehensive content"
         },
         {
           "criterion": "pre_commit_hooks",
           "points": 10,
-          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.pre-commit-config.yaml",
+          "evidence": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/.pre-commit-config.yaml",
           "reasoning": "Pre-commit configuration found for automated code quality checks"
         },
         {
           "criterion": "gitignore",
           "points": 10,
-          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.gitignore",
+          "evidence": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/.gitignore",
           "reasoning": ".gitignore exists to prevent committing build artifacts and secrets"
         },
         {
           "criterion": "env_template",
           "points": 10,
-          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.env.example",
+          "evidence": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/.env.example",
           "reasoning": "Environment template exists for onboarding and secret management"
         },
         {
@@ -100,7 +100,7 @@
         {
           "criterion": "dependency_freshness",
           "points": 100,
-          "evidence": "source=/home/apps/workspace/agent-packages/agents/atlassian-agent/pyproject.toml total=6 major=0 minor=0 patch=0 not_installed=0",
+          "evidence": "source=${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/pyproject.toml total=6 major=0 minor=0 patch=0 not_installed=0",
           "reasoning": "Audited 6 deps (6 installed, 0 constraint-only). 0 major, 0 minor, 0 patch updates."
         }
       ],
@@ -204,7 +204,7 @@
           "length": 320,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "register_atlassian_admin_tools",
@@ -212,7 +212,7 @@
           "length": 322,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "atlassian_atlassian_org",
@@ -220,7 +220,7 @@
           "length": 318,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "atlassian_atlassian_admin",
@@ -228,7 +228,7 @@
           "length": 320,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "register_atlassian_user_provisioning_tools",
@@ -236,7 +236,7 @@
           "length": 138,
           "complexity": 49,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         }
       ],
       "top_long": [
@@ -246,7 +246,7 @@
           "length": 322,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "register_atlassian_org_tools",
@@ -254,7 +254,7 @@
           "length": 320,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "atlassian_atlassian_admin",
@@ -262,7 +262,7 @@
           "length": 320,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "atlassian_atlassian_org",
@@ -270,7 +270,7 @@
           "length": 318,
           "complexity": 115,
           "nesting_depth": 1,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py"
         },
         {
           "name": "test_mcp_server_tools_coverage",
@@ -278,13 +278,13 @@
           "length": 147,
           "complexity": 42,
           "nesting_depth": 11,
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py"
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py"
         }
       ],
       "structural_issues": [
         {
           "file": "mcp_server.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "lines": 1828,
           "issues": [
             "6 functions with high complexity (worst: register_atlassian_admin_tools at 322L, CC=115)",
@@ -327,7 +327,7 @@
         },
         {
           "file": "api_client_admin_cloud.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
           "lines": 1262,
           "issues": [
             "God class: AdminCloudAPI (58 methods) \u2014 consider mixins/composition"
@@ -337,7 +337,7 @@
         },
         {
           "file": "api_client_confluence_server.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
           "lines": 3548,
           "issues": [
             "God class: ConfluenceServerAPI (155 methods) \u2014 consider mixins/composition"
@@ -347,7 +347,7 @@
         },
         {
           "file": "api_client_user_provisioning_cloud.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
           "lines": 542,
           "issues": [
             "God class: UserProvisioningCloudAPI (25 methods) \u2014 consider mixins/composition"
@@ -357,7 +357,7 @@
         },
         {
           "file": "api_client_jira_server.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
           "lines": 9273,
           "issues": [
             "God class: JiraServerAPI (436 methods) \u2014 consider mixins/composition"
@@ -367,7 +367,7 @@
         },
         {
           "file": "api_client_org_cloud.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_org_cloud.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_org_cloud.py",
           "lines": 1262,
           "issues": [
             "God class: OrgCloudAPI (58 methods) \u2014 consider mixins/composition"
@@ -377,7 +377,7 @@
         },
         {
           "file": "api_client_jira_cloud.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_cloud.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_cloud.py",
           "lines": 13737,
           "issues": [
             "God class: JiraCloudAPI (622 methods) \u2014 consider mixins/composition"
@@ -387,7 +387,7 @@
         },
         {
           "file": "api_client_confluence_cloud.py",
-          "path": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_cloud.py",
+          "path": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_cloud.py",
           "lines": 5209,
           "issues": [
             "God class: ConfluenceCloudAPI (215 methods) \u2014 consider mixins/composition"
@@ -419,7 +419,7 @@
           "cwe": "CWE-94",
           "name": "Code Injection",
           "severity": "High",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
           "line": 67,
           "detail": "Dangerous call: compile()"
         },
@@ -427,7 +427,7 @@
           "cwe": "CWE-94",
           "name": "Code Injection",
           "severity": "High",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
           "line": 83,
           "detail": "Dangerous call: exec()"
         }
@@ -471,7 +471,7 @@
       "tests": [
         {
           "name": "test_concept_parity",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_concept_parity.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_concept_parity.py",
           "line": 58,
           "length": 30,
           "intent": "unit",
@@ -481,7 +481,7 @@
         },
         {
           "name": "test_server_startup",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup.py",
           "line": 1,
           "length": 12,
           "intent": "unit",
@@ -491,7 +491,7 @@
         },
         {
           "name": "test_execute_client_method_branches",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 106,
           "length": 35,
           "intent": "unit",
@@ -501,7 +501,7 @@
         },
         {
           "name": "test_mcp_server_tools_coverage",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 191,
           "length": 147,
           "intent": "unit",
@@ -513,7 +513,7 @@
         },
         {
           "name": "test_mcp_server_entrypoint",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 340,
           "length": 43,
           "intent": "unit",
@@ -523,7 +523,7 @@
         },
         {
           "name": "test_middlewares_addition",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 385,
           "length": 6,
           "intent": "unit",
@@ -533,7 +533,7 @@
         },
         {
           "name": "test_confluence_page_tool_direct",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 394,
           "length": 40,
           "intent": "unit",
@@ -545,7 +545,7 @@
         },
         {
           "name": "test_requests_dependency_warning_import_error",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 436,
           "length": 10,
           "intent": "unit",
@@ -555,7 +555,7 @@
         },
         {
           "name": "test_mcp_server_direct_script_execution",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 448,
           "length": 7,
           "intent": "unit",
@@ -565,7 +565,7 @@
         },
         {
           "name": "test_register_confluence_page_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_calendar_tools.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_calendar_tools.py",
           "line": 15,
           "length": 3,
           "intent": "unit",
@@ -575,7 +575,7 @@
         },
         {
           "name": "test_get_suite_client_basic_auth",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 27,
           "length": 17,
           "intent": "unit",
@@ -585,7 +585,7 @@
         },
         {
           "name": "test_get_suite_client_suite_prefix",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 46,
           "length": 16,
           "intent": "unit",
@@ -595,7 +595,7 @@
         },
         {
           "name": "test_get_suite_client_oidc_delegation_success",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 64,
           "length": 20,
           "intent": "unit",
@@ -605,7 +605,7 @@
         },
         {
           "name": "test_get_suite_client_oidc_delegation_failure_fallback",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 86,
           "length": 15,
           "intent": "unit",
@@ -615,7 +615,7 @@
         },
         {
           "name": "test_get_suite_client_oauth_3lo",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 103,
           "length": 12,
           "intent": "unit",
@@ -625,7 +625,7 @@
         },
         {
           "name": "test_get_base_client",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 117,
           "length": 15,
           "intent": "unit",
@@ -635,7 +635,7 @@
         },
         {
           "name": "test_all_client_getters",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 134,
           "length": 48,
           "intent": "unit",
@@ -645,7 +645,7 @@
         },
         {
           "name": "test_response_json_success",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_models.py",
           "line": 5,
           "length": 10,
           "intent": "unit",
@@ -655,7 +655,7 @@
         },
         {
           "name": "test_response_json_failure",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_models.py",
           "line": 16,
           "length": 12,
           "intent": "unit",
@@ -665,7 +665,7 @@
         },
         {
           "name": "test_api_clients_brute_force",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_atlassian_agent_api_brute_force.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_atlassian_agent_api_brute_force.py",
           "line": 41,
           "length": 87,
           "intent": "unit",
@@ -675,7 +675,7 @@
         },
         {
           "name": "test_init_coverage",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
           "line": 11,
           "length": 74,
           "intent": "unit",
@@ -685,7 +685,7 @@
         },
         {
           "name": "test_agent_server_debug_mode",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
           "line": 137,
           "length": 10,
           "intent": "unit",
@@ -695,7 +695,7 @@
         },
         {
           "name": "test_agent_server_non_debug_and_fallback",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
           "line": 149,
           "length": 20,
           "intent": "unit",
@@ -705,7 +705,7 @@
         },
         {
           "name": "test_agent_server_direct_script_execution",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
           "line": 171,
           "length": 3,
           "intent": "unit",
@@ -715,7 +715,7 @@
         },
         {
           "name": "test_main_execution",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup_coverage.py",
           "line": 177,
           "length": 5,
           "intent": "unit",
@@ -991,23 +991,23 @@
             "detail": "8 modules exceed 500 lines (god modules)",
             "items": [
               {
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
                 "lines": 1828
               },
               {
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
                 "lines": 1262
               },
               {
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
                 "lines": 3548
               },
               {
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
                 "lines": 542
               },
               {
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
                 "lines": 9273
               }
             ]
@@ -1019,27 +1019,27 @@
             "items": [
               {
                 "class": "AdminCloudAPI",
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_admin_cloud.py",
                 "method_count": 58
               },
               {
                 "class": "ConfluenceServerAPI",
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_confluence_server.py",
                 "method_count": 155
               },
               {
                 "class": "UserProvisioningCloudAPI",
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_user_provisioning_cloud.py",
                 "method_count": 25
               },
               {
                 "class": "JiraServerAPI",
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_jira_server.py",
                 "method_count": 436
               },
               {
                 "class": "OrgCloudAPI",
-                "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_org_cloud.py",
+                "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/api/api_client_org_cloud.py",
                 "method_count": 58
               }
             ]
@@ -1190,223 +1190,223 @@
       "tests_missing_markers": [
         {
           "test_name": "test_concept_parity",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_concept_parity.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_concept_parity.py",
           "line": 58
         },
         {
           "test_name": "test_server_startup",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_startup.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_startup.py",
           "line": 1
         },
         {
           "test_name": "test_execute_client_method_branches",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 106
         },
         {
           "test_name": "test_mcp_server_tools_coverage",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 191
         },
         {
           "test_name": "test_mcp_server_entrypoint",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 340
         },
         {
           "test_name": "test_middlewares_addition",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 385
         },
         {
           "test_name": "test_confluence_page_tool_direct",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 394
         },
         {
           "test_name": "test_requests_dependency_warning_import_error",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 436
         },
         {
           "test_name": "test_mcp_server_direct_script_execution",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_mcp_server_coverage.py",
           "line": 448
         },
         {
           "test_name": "test_register_confluence_page_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_calendar_tools.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_calendar_tools.py",
           "line": 15
         },
         {
           "test_name": "test_get_suite_client_basic_auth",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 27
         },
         {
           "test_name": "test_get_suite_client_suite_prefix",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 46
         },
         {
           "test_name": "test_get_suite_client_oidc_delegation_success",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 64
         },
         {
           "test_name": "test_get_suite_client_oidc_delegation_failure_fallback",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 86
         },
         {
           "test_name": "test_get_suite_client_oauth_3lo",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 103
         },
         {
           "test_name": "test_get_base_client",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 117
         },
         {
           "test_name": "test_all_client_getters",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_auth.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_auth.py",
           "line": 134
         },
         {
           "test_name": "test_response_json_success",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_models.py",
           "line": 5
         },
         {
           "test_name": "test_response_json_failure",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_models.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_models.py",
           "line": 16
         },
         {
           "test_name": "test_api_clients_brute_force",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/tests/test_atlassian_agent_api_brute_force.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/tests/test_atlassian_agent_api_brute_force.py",
           "line": 41
         }
       ],
       "functions_missing_docstrings": [
         {
           "function": "clean_identifier",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
           "line": 85,
           "length": 57
         },
         {
           "function": "map_type",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
           "line": 144,
           "length": 10
         },
         {
           "function": "generate_suite",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/scripts/generate_atlassian_suite.py",
           "line": 169,
           "length": 111
         },
         {
           "function": "execute_client_method",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 53,
           "length": 43
         },
         {
           "function": "register_atlassian_control_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 98,
           "length": 99
         },
         {
           "function": "register_atlassian_org_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 199,
           "length": 320
         },
         {
           "function": "register_atlassian_dlp_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 521,
           "length": 43
         },
         {
           "function": "register_atlassian_user_mgmt_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 566,
           "length": 53
         },
         {
           "function": "register_atlassian_admin_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 621,
           "length": 322
         },
         {
           "function": "register_atlassian_api_access_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 945,
           "length": 47
         },
         {
           "function": "register_atlassian_user_provisioning_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 994,
           "length": 138
         },
         {
           "function": "register_atlassian_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1134,
           "length": 31
         },
         {
           "function": "register_jira_project_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1167,
           "length": 46
         },
         {
           "function": "register_jira_user_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1215,
           "length": 46
         },
         {
           "function": "register_jira_issue_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1263,
           "length": 46
         },
         {
           "function": "register_jira_comment_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1311,
           "length": 46
         },
         {
           "function": "register_jira_field_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1359,
           "length": 46
         },
         {
           "function": "register_jira_screen_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1407,
           "length": 46
         },
         {
           "function": "register_jira_workflow_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1455,
           "length": 46
         },
         {
           "function": "register_jira_other_tools",
-          "file": "/home/apps/workspace/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
+          "file": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/atlassian_agent/mcp_server.py",
           "line": 1503,
           "length": 46
         }
@@ -1632,7 +1632,7 @@
           "language": "python",
           "framework": "pytest",
           "command": [
-            "/home/apps/workspace/.venv/bin/python3",
+            "${WORKSPACE_ROOT}/.venv/bin/python3",
             "-m",
             "pytest",
             "--tb=line",
@@ -1702,7 +1702,7 @@
         {
           "criterion": "bumpversion_exists",
           "points": 20,
-          "evidence": "/home/apps/workspace/agent-packages/agents/atlassian-agent/.bumpversion.cfg",
+          "evidence": "${WORKSPACE_ROOT}/agent-packages/agents/atlassian-agent/.bumpversion.cfg",
           "reasoning": ".bumpversion.cfg found"
         },
         {
