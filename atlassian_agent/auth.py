@@ -1,12 +1,10 @@
 import threading
 
-import urllib3
-from agent_utilities.base_utilities import get_logger, to_boolean
+from agent_utilities.base_utilities import get_logger
 from agent_utilities.core.config import setting
+from agent_utilities.core.transport_security import resolve_configured_tls_profile
 
 from .api.base import BaseAtlassianClient
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 local = threading.local()
 logger = get_logger(__name__)
@@ -17,13 +15,16 @@ _base_client = None
 def _entitled(namespace: str, names) -> list[str]:
     """Filter ``names`` to the subset the calling identity's Okta/Keycloak groups
     entitle (CONCEPT:AU-OS.identity.identity-scoped-resource-autoload). Degrades
-    to the full list if agent-utilities predates the resolver.
+    to the full list if agent-utilities predates the resolver, or if the current
+    context has no verified, tenant-bound actor to resolve against (e.g. an
+    unauthenticated/local SYSTEM_ACTOR context) — sees all, unchanged from today.
     """
     try:
         from agent_utilities.security.entitlements import identity_scoped_resources
+
+        return list(identity_scoped_resources(namespace, names))
     except Exception:
         return list(names)
-    return list(identity_scoped_resources(namespace, names))
 
 
 def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
@@ -55,7 +56,6 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
 
     from agent_utilities.mcp.delegated_auth import (
         get_delegated_token,
-        get_user_identity,
         is_delegation_enabled,
     )
 
@@ -63,21 +63,18 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
         url = setting(f"ATLASSIAN_{suite_prefix}_URL")
         user = setting(f"ATLASSIAN_{suite_prefix}_USER")
         token = setting(f"ATLASSIAN_{suite_prefix}_TOKEN")
-        verify_str = setting(f"ATLASSIAN_{suite_prefix}_VERIFY")
+        tls_profile_name = setting(f"ATLASSIAN_{suite_prefix}_TLS_PROFILE")
     else:
-        url = user = token = verify_str = None
+        url = user = token = tls_profile_name = None
 
     # fallback to shared
     url = url or setting("ATLASSIAN_AGENT_URL")
     user = user or setting("ATLASSIAN_AGENT_USER")
     token = token or setting("ATLASSIAN_AGENT_TOKEN")
 
-    verify = (
-        verify_str.lower() in ("true", "1", "yes")
-        if verify_str
-        else to_boolean(
-            setting("ATLASSIAN_SSL_VERIFY", setting("ATLASSIAN_AGENT_VERIFY", "True"))
-        )
+    tls_profile = resolve_configured_tls_profile(
+        "ATLASSIAN",
+        profile_name=tls_profile_name or setting("ATLASSIAN_TLS_PROFILE"),
     )
 
     # --- Path 1: OIDC Delegation (RFC 8693 Token Exchange) ---
@@ -86,25 +83,19 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
             delegated_token = get_delegated_token(
                 audience=setting("AUDIENCE", url),
                 scopes=setting("DELEGATED_SCOPES", "read:jira-work write:jira-work"),
-                verify=verify,
             )
-            identity = get_user_identity()
             logger.info(
                 "Using OIDC delegated token for Atlassian API",
-                extra={
-                    "user_email": identity.get("email"),
-                    "base_url": url,
-                },
             )
             return BaseAtlassianClient(
                 base_url=url or "https://dummy.atlassian.net",
                 username=user or "",
                 token="",
-                verify=verify,
+                tls_profile=tls_profile,
                 bearer_token=delegated_token,
             )
         except Exception as e:
-            logger.warning(f"OIDC delegation failed, falling back to credentials: {e}")
+            logger.warning("Operation failed: error_type=%s", type(e).__name__)
 
     # --- Path 2: 3-Legged OAuth (3LO) Bearer Token ---
     oauth_token = setting("ATLASSIAN_OAUTH_TOKEN")
@@ -114,7 +105,7 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
             base_url=url or "https://dummy.atlassian.net",
             username=user or "",
             token="",
-            verify=verify,
+            tls_profile=tls_profile,
             bearer_token=oauth_token,
         )
 
@@ -128,7 +119,7 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
             base_url=url or "https://dummy.atlassian.net",
             username=user or "",
             token="",
-            verify=verify,
+            tls_profile=tls_profile,
             bearer_token=bearer_token,
         )
 
@@ -138,16 +129,11 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
         base_url=url or "https://dummy.atlassian.net",
         username=user or "",
         token=token or "",
-        verify=verify,
+        tls_profile=tls_profile,
     )
 
 
-def get_base_client(
-    url: str | None = None,
-    user: str | None = None,
-    token: str | None = None,
-    verify: bool | None = None,
-) -> BaseAtlassianClient:
+def get_base_client() -> BaseAtlassianClient:
     """Get or create a singleton base API client instance."""
     global _base_client
     if _base_client is None:

@@ -23,7 +23,7 @@ The base install is intentionally minimal. Install the extra for what you need:
 | Extra | Install | Pulls in |
 |---|---|---|
 | `mcp` | `pip install "atlassian-agent[mcp]"` | FastMCP MCP-server runtime (`agent-utilities[mcp]`) |
-| `agent` | `pip install "atlassian-agent[agent]"` | Pydantic-AI agent + Logfire tracing (`agent-utilities[agent,logfire]`) |
+| `agent` | `pip install "atlassian-agent[agent]"` | Pydantic-AI agent + Logfire tracing (`agent-utilities[agent-runtime,logfire]`) |
 | `all` | `pip install "atlassian-agent[all]"` | MCP server **and** the A2A agent (everything above) |
 | `test` | `pip install "atlassian-agent[test]"` | `pytest`, `pytest-asyncio`, `pytest-cov`, `pytest-xdist` |
 
@@ -52,16 +52,16 @@ uv run atlassian-mcp
 
 ## Prebuilt Docker image
 
-A multi-stage, slim image is published on every release (entrypoint `atlassian-mcp`):
+A multi-stage runtime image is published on every release (entrypoint `atlassian-mcp`):
 
 ```bash
-docker pull knucklessg1/atlassian-agent:latest
+docker pull example/atlassian-agent@sha256:<digest>
 
 docker run --rm -i \
   -e ATLASSIAN_AGENT_URL=https://your-company.atlassian.net \
   -e ATLASSIAN_AGENT_USER=your-email@example.com \
   -e ATLASSIAN_AGENT_TOKEN=your_api_token \
-  knucklessg1/atlassian-agent:latest        # stdio transport (default)
+  example/atlassian-agent@sha256:<digest>        # stdio transport (default)
 ```
 
 For an HTTP server with a published port and the agent server, see

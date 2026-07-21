@@ -1,0 +1,31 @@
+schema_version: '1'
+connector: atlassian-agent
+ontology_source: atlassian
+sync:
+- preset: atlassian-confluence-pages
+  server: atlassian-agent
+  tool: atlassian_confluence_page
+  action: get_pages
+  records_path: data.results
+  id_field: id
+  title_field: title
+  text_field: body
+  updated_field: version
+  doc_type: confluence_page
+  tool_schema_sha256: 8c4bda7733728fb8a8ce53211edf69e5931212c088bb7c93ab342e19fdd3e173
+- preset: atlassian-jira-issues
+  server: atlassian-agent
+  tool: atlassian_jira_issue
+  action: search_for_issues_using_jql
+  records_path: data.issues
+  id_field: key
+  title_field: key
+  text_field: fields.summary
+  updated_field: fields.updated
+  doc_type: jira_issue
+  tool_schema_sha256: e23246d14d338cc81acbb5920ea81c9ed743e87689e1303229fb0e02a81f93aa
+governance:
+  default_acl: quarantine
+  identity: opaque-reference
+  tenant: required-at-materialization
+  provenance: required-at-materialization

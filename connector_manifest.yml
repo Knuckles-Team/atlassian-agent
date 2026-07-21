@@ -104,6 +104,7 @@ sync:
   updated_field: version
   pagination: null
   doc_type: confluence_page
+  tool_schema_sha256: 8c4bda7733728fb8a8ce53211edf69e5931212c088bb7c93ab342e19fdd3e173
   raw:
     server: atlassian-agent
     tool: atlassian_confluence_page
@@ -125,6 +126,7 @@ sync:
   updated_field: fields.updated
   pagination: null
   doc_type: jira_issue
+  tool_schema_sha256: e23246d14d338cc81acbb5920ea81c9ed743e87689e1303229fb0e02a81f93aa
   raw:
     server: atlassian-agent
     tool: atlassian_jira_issue
@@ -137,16 +139,19 @@ sync:
     doc_type: jira_issue
 provenance:
   generated_by: scripts/generate_connector_manifests.py
-  generated_at: '2026-07-11T00:00:00Z'
+  generated_at: '2026-07-18T00:00:00Z'
   source_artifacts:
   - atlassian_agent/connectors/mcp_source_presets.json
+  - atlassian_agent/connectors/tool_schema_fingerprints.json
   - atlassian_agent/ontology/atlassian.ttl
   integrity:
     algorithm: urdna2015-sha256
     hash: 4c34d353d8b83828904232ccae436a4bd874e4a9e95fbfddf05b60dac1cc0e23
     triple_count: 49
   signer: ontology-manifest-generator
-  signature: 63f352e41725af402c82a81856bbc0e5ac83c5f130ec2d5dbbc68cc77bb8f650
+  signature_algorithm: ed25519
+  signing_public_key: q0Cp7bmQMqJhbofGKKw8xXC6KbFzukBDDke0UYVi8y4
+  signature: _L-LSzs7ahhpnMpxGw4SFGVkGZeX3dQKGcKo8UGtGCzW4jWwHRoPEv_51eyAk5ZxZbxjnn-vsG1rB_7tuHd7Cg
 policy:
   pii_fields: {}
   tenant_boundary: null

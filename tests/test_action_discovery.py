@@ -1,6 +1,6 @@
 """Action-discovery behavior for the atlassian-agent action-routed tools.
 
-Verifies the shared ``agent_utilities.mcp_utilities`` dispatch wiring:
+Verifies the shared ``agent_utilities.mcp.action_dispatch`` dispatch wiring:
 ``list_actions`` discovery, plural->singular aliasing, and a rich
 did-you-mean error pointing back at ``list_actions``.
 """

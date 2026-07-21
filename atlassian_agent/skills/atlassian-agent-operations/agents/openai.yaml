@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atlassian Agent Operations"
+  short_description: "Help with Atlassian Agent Operations tasks"
+  default_prompt: "Use $atlassian-agent-operations to complete a governed provider workflow."

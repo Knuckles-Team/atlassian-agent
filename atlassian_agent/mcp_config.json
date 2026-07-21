@@ -13,7 +13,6 @@
         "ATLASSIAN_AGENT_TOKEN": "your_token_here",
         "ATLASSIAN_AGENT_URL": "http://localhost:8080",
         "ATLASSIAN_AGENT_USER": "your-email@example.com",
-        "ATLASSIAN_AGENT_VERIFY": "True",
         "ATLASSIAN_API_ACCESSTOOL": "True",
         "ATLASSIAN_BEARER_TOKEN": "your_personal_access_token",
         "ATLASSIAN_CONTROLTOOL": "True",

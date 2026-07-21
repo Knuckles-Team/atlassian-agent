@@ -62,7 +62,9 @@ def test_api_clients_brute_force(mock_session):
     ):
         res = base_client.request("GET", "/test")
         assert res.status_code == 500
-        assert res.message and "Connection reset" in res.message
+        # Exception details are sanitized out of the response (security hardening);
+        # the raw message is logged server-side instead of returned to the caller.
+        assert res.message == "Operation failed"
 
     clients = [
         AdminCloudAPI,
@@ -130,4 +132,4 @@ def test_api_clients_brute_force(mock_session):
             try:
                 method(**kwargs)
             except Exception as e:
-                print(f"Failed calling {client_class.__name__}.{name}: {e}")
+                print(f"Operation failed: {type(e).__name__}")
