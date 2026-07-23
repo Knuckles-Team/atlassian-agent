@@ -18,15 +18,15 @@ import logging
 import sys
 from typing import Any
 
-from agent_utilities.mcp_utilities import (
+from agent_utilities.core.config import load_config, setting
+from agent_utilities.mcp.action_dispatch import (
     DISCOVERY_ACTIONS,
-    create_mcp_server,
     dispatch,
-    load_config,
     public_actions,
-    register_tool_surface,
-    run_blocking,
 )
+from agent_utilities.mcp.concurrency import run_blocking
+from agent_utilities.mcp.server_factory import create_mcp_server
+from agent_utilities.mcp.verbose_tools import register_tool_surface
 from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
 from fastmcp.utilities.logging import get_logger
@@ -50,7 +50,7 @@ from atlassian_agent.auth import (
     get_user_provisioning_cloud_client,
 )
 
-__version__ = "0.32.0"
+__version__ = "1.1.0"
 
 logger = get_logger(name="atlassian-agent")
 logger.setLevel(logging.INFO)
@@ -85,7 +85,7 @@ def execute_client_method(
 
     Action discovery (``list_actions``/``help``/``actions``), plural->singular
     aliasing, and rich did-you-mean errors come from
-    ``agent_utilities.mcp_utilities.dispatch``. The client's methods are
+    ``agent_utilities.mcp.action_dispatch.dispatch``. The client's methods are
     deployment-prefixed (e.g. ``jira_cloud_add_comment``); we build an alias map
     so callers may pass the unprefixed name (``add_comment``) too.
     """
@@ -151,8 +151,8 @@ def register_atlassian_control_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -171,8 +171,8 @@ def register_atlassian_control_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_atlassian_org_tools(mcp: FastMCP):
@@ -200,8 +200,8 @@ def register_atlassian_org_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -214,8 +214,8 @@ def register_atlassian_org_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_atlassian_dlp_tools(mcp: FastMCP):
@@ -243,8 +243,8 @@ def register_atlassian_dlp_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -257,8 +257,8 @@ def register_atlassian_dlp_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_atlassian_user_mgmt_tools(mcp: FastMCP):
@@ -286,8 +286,8 @@ def register_atlassian_user_mgmt_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -306,8 +306,8 @@ def register_atlassian_user_mgmt_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_atlassian_admin_tools(mcp: FastMCP):
@@ -335,8 +335,8 @@ def register_atlassian_admin_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -355,8 +355,8 @@ def register_atlassian_admin_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_atlassian_api_access_tools(mcp: FastMCP):
@@ -384,8 +384,8 @@ def register_atlassian_api_access_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -404,8 +404,8 @@ def register_atlassian_api_access_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_atlassian_user_provisioning_tools(mcp: FastMCP):
@@ -436,8 +436,8 @@ def register_atlassian_user_provisioning_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -456,8 +456,8 @@ def register_atlassian_user_provisioning_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_atlassian_tools(mcp: FastMCP):
@@ -485,8 +485,8 @@ def register_atlassian_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
@@ -505,8 +505,8 @@ def register_atlassian_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_project_tools(mcp: FastMCP):
@@ -523,7 +523,8 @@ def register_jira_project_tools(mcp: FastMCP):
             default="{}", description="JSON string of parameters to pass to the action."
         ),
         deployment: str = Field(
-            default="cloud", description="Specify 'cloud' or 'server' deployment type."
+            default=setting("ATLASSIAN_JIRA_DEPLOYMENT", "cloud"),
+            description="Specify 'cloud' or 'server' deployment type.",
         ),
         client_cloud=Depends(get_jira_cloud_client),
         client_server=Depends(get_jira_server_client),
@@ -538,11 +539,24 @@ def register_jira_project_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
+        # Preserve the shared Jira preset across Cloud and Server/DC.  The
+        # generated Server client calls its JQL endpoint ``search_1`` while the
+        # Cloud client exposes the descriptive action name.  Older presets also
+        # carry the historical "reconsile" spelling.
+        if deployment == "server" and action in {
+            "search_for_issues_using_jql",
+            "search_and_reconsile_issues_using_jql",
+        }:
+            action = "jira_server_search_1"
+        elif (
+            deployment != "server" and action == "search_and_reconsile_issues_using_jql"
+        ):
+            action = "jira_cloud_search_for_issues_using_jql"
 
         try:
             res = await run_blocking(
@@ -559,8 +573,8 @@ def register_jira_project_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_user_tools(mcp: FastMCP):
@@ -592,8 +606,8 @@ def register_jira_user_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -613,8 +627,8 @@ def register_jira_user_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_issue_tools(mcp: FastMCP):
@@ -646,8 +660,8 @@ def register_jira_issue_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -667,8 +681,8 @@ def register_jira_issue_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_comment_tools(mcp: FastMCP):
@@ -700,8 +714,8 @@ def register_jira_comment_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -721,8 +735,8 @@ def register_jira_comment_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_field_tools(mcp: FastMCP):
@@ -754,8 +768,8 @@ def register_jira_field_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -775,8 +789,8 @@ def register_jira_field_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_screen_tools(mcp: FastMCP):
@@ -808,8 +822,8 @@ def register_jira_screen_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -829,8 +843,8 @@ def register_jira_screen_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_workflow_tools(mcp: FastMCP):
@@ -862,8 +876,8 @@ def register_jira_workflow_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -883,8 +897,8 @@ def register_jira_workflow_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_jira_other_tools(mcp: FastMCP):
@@ -916,8 +930,8 @@ def register_jira_other_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -937,8 +951,8 @@ def register_jira_other_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_confluence_page_tools(mcp: FastMCP):
@@ -970,8 +984,8 @@ def register_confluence_page_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -991,8 +1005,8 @@ def register_confluence_page_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_confluence_space_tools(mcp: FastMCP):
@@ -1024,8 +1038,8 @@ def register_confluence_space_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -1045,8 +1059,8 @@ def register_confluence_space_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_confluence_user_tools(mcp: FastMCP):
@@ -1078,8 +1092,8 @@ def register_confluence_user_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -1099,8 +1113,8 @@ def register_confluence_user_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
 
 
 def register_confluence_other_tools(mcp: FastMCP):
@@ -1132,8 +1146,8 @@ def register_confluence_other_tools(mcp: FastMCP):
 
         try:
             kwargs = json.loads(params_json)
-        except Exception as e:
-            return {"error": f"Invalid params_json: {e}"}
+        except Exception:
+            return {"error": "Operation failed"}
 
         kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
@@ -1153,8 +1167,122 @@ def register_confluence_other_tools(mcp: FastMCP):
             elif hasattr(res, "model_dump") and callable(res.model_dump):
                 return res.model_dump()
             return res
-        except Exception as e:
-            return {"error": str(e)}
+        except Exception:
+            return {"error": "Operation failed"}
+
+
+def register_kg_tools(mcp: FastMCP):
+    """Native epistemic-graph ingestion tools (CONCEPT:AU-KG.ingest.enterprise-source-extractor).
+
+    Adds Wire-First tools that list via the existing Jira/Confluence clients and push the
+    records into the knowledge graph as typed nodes / documents. Gated by ``KGTOOL``.
+    """
+    if "kg" in _registered_tools and not type(mcp).__name__ == "Mock":
+        return
+    _registered_tools.add("kg")
+
+    @mcp.tool(tags={"kg", "jira-issue"})
+    async def atlassian_ingest_issues(
+        jql: str = Field(
+            default="ORDER BY updated DESC",
+            description="JQL selecting the issues to ingest (e.g. 'project = PROJ').",
+        ),
+        max_results: int = Field(
+            default=50, description="Maximum number of issues to fetch and ingest."
+        ),
+        deployment: str = Field(
+            default="cloud", description="Specify 'cloud' or 'server' deployment type."
+        ),
+        client_cloud=Depends(get_jira_cloud_client),
+        client_server=Depends(get_jira_server_client),
+        ctx: Context | None = Field(
+            default=None, description="MCP context for progress reporting"
+        ),
+    ) -> Any:
+        """Natively ingest Jira issues into epistemic-graph as typed :Issue/:Epic/:Person nodes.
+
+        Searches Jira with ``jql`` and pushes each issue (with its assignee/reporter
+        :Person nodes and :inEpic / :assignedTo / :reportedBy links) into the knowledge
+        graph via the fast engine client. Best-effort: ``{"ingested": None}`` when no
+        engine is reachable. CONCEPT:AU-KG.ingest.enterprise-source-extractor.
+        """
+        if ctx:
+            await ctx.info("Ingesting Jira issues into the knowledge graph...")
+        from atlassian_agent.kg_ingest import ingest_issues
+
+        client = client_server if deployment == "server" else client_cloud
+        search_action = (
+            "jira_server_search_1"
+            if deployment == "server"
+            else "jira_cloud_search_for_issues_using_jql"
+        )
+        try:
+            resp = await run_blocking(
+                execute_client_method,
+                client,
+                search_action,
+                "jira_cloud_",
+                "jira_server_",
+                deployment,
+                {"jql": jql, "max_results": max_results},
+            )
+        except Exception:
+            return {"error": "Operation failed"}
+
+        data = resp.get("data") if isinstance(resp, dict) else resp
+        issues = data.get("issues", []) if isinstance(data, dict) else []
+        result = ingest_issues(issues)
+        return {"listed": len(issues), "ingested": result}
+
+    @mcp.tool(tags={"kg", "confluence-page"})
+    async def atlassian_ingest_confluence(
+        space_id: str = Field(
+            default="", description="Optional Confluence space id to scope the pages."
+        ),
+        limit: int = Field(
+            default=25, description="Maximum number of pages to fetch and ingest."
+        ),
+        deployment: str = Field(
+            default="cloud", description="Specify 'cloud' or 'server' deployment type."
+        ),
+        client_cloud=Depends(get_confluence_cloud_client),
+        client_server=Depends(get_confluence_server_client),
+        ctx: Context | None = Field(
+            default=None, description="MCP context for progress reporting"
+        ),
+    ) -> Any:
+        """Natively ingest Confluence pages into epistemic-graph as :Document nodes.
+
+        Lists pages (body_format=storage) and pushes each as a :ConfluencePage :Document
+        carrying the page body text + source_uri for semantic search. Best-effort:
+        ``{"ingested": None}`` when no engine is reachable.
+        CONCEPT:AU-KG.ingest.enterprise-source-extractor.
+        """
+        if ctx:
+            await ctx.info("Ingesting Confluence pages into the knowledge graph...")
+        from atlassian_agent.kg_ingest import ingest_confluence_pages
+
+        client = client_server if deployment == "server" else client_cloud
+        kwargs: dict[str, Any] = {"limit": limit, "body_format": "storage"}
+        if space_id:
+            kwargs["space_id"] = [space_id]
+        try:
+            resp = await run_blocking(
+                execute_client_method,
+                client,
+                "get_pages",
+                "confluence_cloud_",
+                "confluence_server_",
+                deployment,
+                kwargs,
+            )
+        except Exception:
+            return {"error": "Operation failed"}
+
+        data = resp.get("data") if isinstance(resp, dict) else resp
+        pages = data.get("results", []) if isinstance(data, dict) else []
+        result = ingest_confluence_pages(pages)
+        return {"listed": len(pages), "ingested": result}
 
 
 def _condensed_action_providers() -> dict[str, type]:

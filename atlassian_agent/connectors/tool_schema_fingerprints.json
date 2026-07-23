@@ -1,0 +1,9 @@
+{
+  "algorithm": "agent-utilities:mcp-tool-schema-compat:v1",
+  "connector": "atlassian-agent",
+  "schema_version": "1",
+  "tools": {
+    "atlassian_confluence_page": "8c4bda7733728fb8a8ce53211edf69e5931212c088bb7c93ab342e19fdd3e173",
+    "atlassian_jira_issue": "e23246d14d338cc81acbb5920ea81c9ed743e87689e1303229fb0e02a81f93aa"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "_comment": "Tier-1 mcp_tool source presets for atlassian-agent (AU-KG.ingest.mcp-tool-connector). Syncs Confluence pages (documents) and Jira issues into the KG via the atlassian-agent MCP server. Contributed presets win over the central MCP_TOOL_PRESETS. Native typed-node ingestion is also available via the atlassian_ingest_issues / atlassian_ingest_confluence tools.",
+  "atlassian-confluence-pages": {
+    "server": "atlassian-agent",
+    "tool": "atlassian_confluence_page",
+    "action": "get_pages",
+    "records_path": "data.results",
+    "id_field": "id",
+    "title_field": "title",
+    "text_field": "body",
+    "updated_field": "version",
+    "doc_type": "confluence_page"
+  },
+  "atlassian-jira-issues": {
+    "server": "atlassian-agent",
+    "tool": "atlassian_jira_issue",
+    "action": "search_for_issues_using_jql",
+    "records_path": "data.issues",
+    "id_field": "key",
+    "title_field": "key",
+    "text_field": "fields.summary",
+    "updated_field": "fields.updated",
+    "doc_type": "jira_issue"
+  }
+}

@@ -11,7 +11,6 @@
     - `mcp_server.py`: Main MCP server entry point and tool registration.
     - `agent_server.py`: Pydantic AI agent definition and logic.
     - `skills/`: Directory containing modular agent skills (if applicable).
-    - `agent/`: Internal agent logic and prompt templates.
     - `api/`: Atlassian API clients for Jira and Confluence (Cloud and Server)
     - `tools/`: Tool implementations for various Atlassian products
 
@@ -126,7 +125,6 @@ atlassian-agent
 - Source Code → atlassian_agent/
 - API Clients → atlassian_agent/api/
 - Tool Implementations → atlassian_agent/tools/
-- Internal Agent Logic → atlassian_agent/agent/
 - Skills → `skills/` (if exists)
 
 ### File Tree
@@ -164,29 +162,19 @@ atlassian-agent
 │   │   ├── confluence_cloud_api.py
 │   │   ├── jira_server_api.py
 │   │   └── jira_cloud_api.py
-│   ├── tools
-│   │   ├── __init__.py
-│   │   ├── user_provisioning_cloud_tools.py
-│   │   ├── dlp_cloud_tools.py
-│   │   ├── control_cloud_tools.py
-│   │   ├── user_mgmt_cloud_tools.py
-│   │   ├── org_cloud_tools.py
-│   │   ├── api_access_cloud_tools.py
-│   │   ├── admin_cloud_tools.py
-│   │   ├── confluence_server_tools.py
-│   │   ├── confluence_cloud_tools.py
-│   │   ├── jira_server_tools.py
-│   │   └── jira_cloud_tools.py
-│   └── agent
+│   └── tools
 │       ├── __init__.py
-│       ├── IDENTITY.md
-│       ├── A2A_AGENTS.md
-│       ├── AGENTS.md
-│       ├── USER.md
-│       ├── CRON_LOG.md
-│       ├── HEARTBEAT.md
-│       ├── CRON.md
-│       └── MEMORY.md
+│       ├── user_provisioning_cloud_tools.py
+│       ├── dlp_cloud_tools.py
+│       ├── control_cloud_tools.py
+│       ├── user_mgmt_cloud_tools.py
+│       ├── org_cloud_tools.py
+│       ├── api_access_cloud_tools.py
+│       ├── admin_cloud_tools.py
+│       ├── confluence_server_tools.py
+│       ├── confluence_cloud_tools.py
+│       ├── jira_server_tools.py
+│       └── jira_cloud_tools.py
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
@@ -438,23 +426,23 @@ why rather than bypassing it.
 ## Working with Git Worktrees (multi-session)
 
 Multiple agents/sessions work the `agent-packages/*` repos concurrently. **Do not
-edit the canonical checkout** (`/home/apps/workspace/agent-packages/<repo>`) — a
+edit the canonical checkout** (`${WORKSPACE_ROOT}/agent-packages/<repo>`) — a
 background `repository-manager` sync can reset its working tree and discard
 uncommitted edits. Take your own git worktree on your own branch instead:
 
 ```bash
 # preferred — repository-manager MCP:
-rm_worktree add <repo> <your-branch>      # -> /home/apps/worktrees/<repo>/<your-branch>
+rm_worktree add <repo> <your-branch>      # -> ${WORKTREE_ROOT}/<repo>/<your-branch>
 
 # raw-git fallback:
 git -C agent-packages/<repo> checkout main
-git -C agent-packages/<repo> worktree add /home/apps/worktrees/<repo>/<branch> -b <branch>
+git -C agent-packages/<repo> worktree add ${WORKTREE_ROOT}/<repo>/<branch> -b <branch>
 ```
 
 Work in the worktree and **commit often** (commits survive a working-tree reset).
 Each session must use a **distinct branch** — git allows a branch in only one
 worktree, which is what keeps concurrent sessions from colliding. Worktrees live
-under `/home/apps/worktrees/` (outside the workspace scan, so the sync leaves them
+under `${WORKTREE_ROOT}/` (outside the workspace scan, so the sync leaves them
 alone).
 
 **Finishing work in a worktree** — run this sequence before calling it done:
@@ -473,8 +461,30 @@ alone).
 Working in parallel with other sessions/worktrees? **Reserve a concept id before you write its `CONCEPT:` marker** so two sessions never collide:
 
 ```bash
-agent-utilities --json concept reserve --ns KG-2   # or a package prefix, e.g. KEY
+agent-utilities --json concept reserve --ns EG-KG.compute.backend   # or a package prefix, e.g. KEY
 ```
 
 Full protocol (ledger, merge=union, reconcile, MCP/REST): <https://knuckles-team.github.io/agent-utilities/concept_coordination/>
 <!-- END concept-coordination (generated) -->
+
+## Version & lockfile drift edict (keep the version mirrors AND the lock in sync)
+
+The two most common release-breakers in this fleet are **version drift** (the version in
+`pyproject.toml`/`.bumpversion.cfg` advancing while `README.md`, `docker/Dockerfile`, and the
+module `__version__`s lag) and a **stale `uv.lock`** (shipping known-vulnerable transitive deps).
+A version mismatch makes the next `bump-my-version` throw `VersionNotFoundException`; a stale lock
+is what Dependabot flags. Rules:
+
+1. **Never hand-edit a version string.** Change the version ONLY via
+   `bump-my-version bump {patch|minor|major}` (a.k.a. `bump2version`), which rewrites every file
+   registered in `.bumpversion.cfg` in one atomic, tagged commit. If you edited the version in
+   `pyproject.toml` by hand, you created drift — revert and use the bumper.
+2. **Every version-bearing file must be registered in `.bumpversion.cfg`** — at minimum
+   `pyproject.toml` AND `README.md`, plus `docker/Dockerfile` and any module `__version__`. Never
+   add a file that embeds the version without a `[bumpversion:file:...]` entry for it.
+3. **Re-lock on every dependency change.** After editing `pyproject.toml` deps/extras, run
+   `uv lock` and commit `uv.lock` in the SAME change. The `uv-lock` pre-commit hook runs with
+   `--locked` and fails on drift — never bypass it. The committed `uv.lock` is the
+   Dependabot/security surface.
+4. **Patch CVEs with a version floor at the source, then re-lock.** `uv` resolves one version
+   graph-wide, so a lower-bound in the extra that pulls a dependency raises it for the whole lock.

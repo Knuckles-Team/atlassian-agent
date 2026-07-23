@@ -31,7 +31,6 @@ def test_get_suite_client_basic_auth():
         "ATLASSIAN_AGENT_URL": "https://test.atlassian.net",
         "ATLASSIAN_AGENT_USER": "test-user@domain.com",
         "ATLASSIAN_AGENT_TOKEN": "test-token",
-        "ATLASSIAN_AGENT_VERIFY": "True",
     }
     with (
         patch.dict(os.environ, env_mock, clear=True),
@@ -44,7 +43,7 @@ def test_get_suite_client_basic_auth():
         assert client.base_url == "https://test.atlassian.net"
         assert client.username == "test-user@domain.com"
         assert client.token == "test-token"
-        assert client.verify is True
+        assert client.tls_profile.verify_enabled is True
         assert client.bearer_token is None
 
 
@@ -54,7 +53,6 @@ def test_get_suite_client_suite_prefix():
         "ATLASSIAN_JIRA_URL": "https://jira.domain.net",
         "ATLASSIAN_JIRA_USER": "jira-user",
         "ATLASSIAN_JIRA_TOKEN": "jira-token",
-        "ATLASSIAN_JIRA_VERIFY": "false",
     }
     with (
         patch.dict(os.environ, env_mock, clear=True),
@@ -67,7 +65,7 @@ def test_get_suite_client_suite_prefix():
         assert client.base_url == "https://jira.domain.net"
         assert client.username == "jira-user"
         assert client.token == "jira-token"
-        assert client.verify is False
+        assert client.tls_profile.verify_enabled is True
 
 
 def test_get_suite_client_oidc_delegation_success():
@@ -87,16 +85,12 @@ def test_get_suite_client_oidc_delegation_success():
             "agent_utilities.mcp.delegated_auth.get_delegated_token",
             return_value="delegated-token-xyz",
         ) as mock_get_token,
-        patch(
-            "agent_utilities.mcp.delegated_auth.get_user_identity",
-            return_value={"email": "user@example.com"},
-        ),
     ):
         client = auth_mod.get_suite_client(None)
         assert client.bearer_token == "delegated-token-xyz"
         assert client.base_url == "https://test.atlassian.net"
         mock_get_token.assert_called_once_with(
-            audience="test-audience", scopes="read:jira write:jira", verify=True
+            audience="test-audience", scopes="read:jira write:jira"
         )
 
 
@@ -140,6 +134,44 @@ def test_get_suite_client_oauth_3lo():
         client = auth_mod.get_suite_client(None)
         assert client.bearer_token == "oauth-3lo-token"
         assert client.base_url == "https://test.atlassian.net"
+
+
+def test_get_suite_client_bearer_token_global():
+    # Test path 3: global bearer token / PAT
+    env_mock = {
+        "ATLASSIAN_AGENT_URL": "https://dc.example.com",
+        "ATLASSIAN_BEARER_TOKEN": "pat-global-123",
+    }
+    with (
+        patch.dict(os.environ, env_mock, clear=True),
+        patch(
+            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
+            return_value=False,
+        ),
+    ):
+        client = auth_mod.get_suite_client(None)
+        assert client.bearer_token == "pat-global-123"
+        assert client.token == ""
+        assert client.session.headers["Authorization"] == "Bearer pat-global-123"
+
+
+def test_get_suite_client_bearer_token_suite_overrides_global():
+    # Test path 3: per-suite bearer token takes precedence over the global one
+    env_mock = {
+        "ATLASSIAN_AGENT_URL": "https://dc.example.com",
+        "ATLASSIAN_BEARER_TOKEN": "pat-global-123",
+        "ATLASSIAN_JIRA_SERVER_BEARER_TOKEN": "pat-jira-server-456",
+    }
+    with (
+        patch.dict(os.environ, env_mock, clear=True),
+        patch(
+            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
+            return_value=False,
+        ),
+    ):
+        client = auth_mod.get_suite_client("JIRA_SERVER")
+        assert client.bearer_token == "pat-jira-server-456"
+        assert client.session.headers["Authorization"] == "Bearer pat-jira-server-456"
 
 
 def test_get_base_client():

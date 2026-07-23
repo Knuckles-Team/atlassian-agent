@@ -1,0 +1,6 @@
+{
+  "connector": "atlassian-agent",
+  "current_ontology_source": "atlassian",
+  "migrations": [],
+  "schema_version": "1"
+}

@@ -372,4 +372,4 @@ if __name__ == "__main__":
                 tags,
             )
         else:
-            print(f"Warning: {filename} not found in {openapi_dir}")
+            print("Warning: configured OpenAPI input was not found")
