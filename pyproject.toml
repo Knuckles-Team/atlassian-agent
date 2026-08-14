@@ -40,6 +40,9 @@ atlassian-agent = "atlassian_agent.connectors"
 [project.entry-points."agent_utilities.prompt_providers"]
 atlassian-agent = "atlassian_agent.prompts"
 
+[tool.uv.workspace]
+members = ["."]
+
 [tool.setuptools]
 include-package-data = true
 
