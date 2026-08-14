@@ -25,6 +25,8 @@ class _Capture:
         self.relationships: list[dict[str, Any]] = []
         self.documents: list[dict[str, Any]] = []
         self.stored: list[dict[str, Any]] = []
+        self.source: str | None = None
+        self.domain: str | None = None
 
 
 def _install_fakes(monkeypatch) -> _Capture:

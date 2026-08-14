@@ -19,6 +19,7 @@ _SCRIPT = (
 )
 
 _spec = importlib.util.spec_from_file_location("jira_rank_items", _SCRIPT)
+assert _spec is not None and _spec.loader is not None
 rank_items = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(rank_items)
 
