@@ -7,7 +7,7 @@
         "atlassian-mcp"
       ],
       "env": {
-        "MCP_TOOL_MODE": "condensed",
+        "MCP_TOOL_MODE": "intent",
         "ATLASSIANTOOL": "True",
         "ATLASSIAN_ADMINTOOL": "True",
         "ATLASSIAN_AGENT_TOKEN": "your_token_here",
@@ -34,7 +34,8 @@
         "JIRA_PROJECTTOOL": "True",
         "JIRA_SCREENTOOL": "True",
         "JIRA_USERTOOL": "True",
-        "JIRA_WORKFLOWTOOL": "True"
+        "JIRA_WORKFLOWTOOL": "True",
+        "KGTOOL": "True"
       }
     }
   }
