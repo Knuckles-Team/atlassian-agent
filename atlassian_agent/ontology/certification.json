@@ -8,7 +8,7 @@
     "atlassian_agent/ontology/mappings/source.yaml": "20bd47e31d631028320efdde91805c5370fd24368f71c8f31a31ddd677b5bf71",
     "atlassian_agent/ontology/migrations/manifest.json": "6484fe0543d173177bdf93f3dde7de1e6e875ae23b7e81924f9937e50b1bda95",
     "atlassian_agent/ontology/shapes/connector.shacl.ttl": "055b4471d4a31e50c0496cd8dd39eb504d434261ee48ba37f692e33cd7d0983c",
-    "connector_manifest.yml": "fda9630835d6db42fdadd5682f5542bd86ae8b084b28bda9bb1fe0b13da0b9c2"
+    "connector_manifest.yml": "a7515b06c290140d3f63d75d8bd67e0c9ccc7c5f3ccc073ec649d8639c5f1984"
   },
   "checks": {
     "declared_tool_schema": "passed",
@@ -18,9 +18,9 @@
     "synthetic_fixture_contract": "passed"
   },
   "compatibility": {
-    "agent_utilities": ">=2.4.0,<3",
+    "agent_utilities": ">=2.5.0,<3",
     "bundle_schema": "2",
-    "epistemic_graph": ">=2.26.0,<3"
+    "epistemic_graph": ">=2.27.0,<3"
   },
   "connector": "atlassian-agent",
   "kind": "ConnectorSourceAttestation",
@@ -32,5 +32,5 @@
   "signer": "UNSIGNED-PREVIEW",
   "signing_public_key": "",
   "status": "source-validated",
-  "validated_at": "2026-08-21T04:30:39Z"
+  "validated_at": "2026-08-26T13:42:55Z"
 }
