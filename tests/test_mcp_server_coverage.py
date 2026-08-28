@@ -537,7 +537,15 @@ def test_requests_dependency_warning_import_error():
     # Force ImportError in the early warnings handling block
     import runpy
 
-    with patch.dict(sys.modules, {"requests.exceptions": None}):
+    # runpy.run_module("__main__") re-executes the module's own argparse
+    # against the LIVE sys.argv, so any pytest flag (e.g. `-p no:randomly`)
+    # leaks in and is rejected by the module's CLI parser. Pin argv to a
+    # clean single-element list for the duration of the run so the module
+    # under test sees the same argv regardless of how pytest was invoked.
+    with (
+        patch.dict(sys.modules, {"requests.exceptions": None}),
+        patch("sys.argv", ["atlassian-agent-mcp"]),
+    ):
         # Setting requests.exceptions to None raises ImportError upon import
         try:
             runpy.run_module("atlassian_agent.mcp_server", run_name="temp_name")
@@ -551,6 +559,11 @@ def test_mcp_server_direct_script_execution():
 
     import fastmcp
 
-    with patch.object(fastmcp.FastMCP, "run") as mock_run:
+    # See argv-isolation note above: pin sys.argv before invoking runpy so
+    # the module's own argparse never sees pytest's argv/flags.
+    with (
+        patch.object(fastmcp.FastMCP, "run") as mock_run,
+        patch("sys.argv", ["atlassian-agent-mcp"]),
+    ):
         runpy.run_module("atlassian_agent.mcp_server", run_name="__main__")
         mock_run.assert_called_once()
