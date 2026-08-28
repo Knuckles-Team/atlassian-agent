@@ -14,6 +14,7 @@ with warnings.catch_warnings():
 warnings.filterwarnings("ignore", message=".*urllib3.*or chardet.*")
 warnings.filterwarnings("ignore", message=".*urllib3.*or charset_normalizer.*")
 
+import json
 import logging
 import sys
 from typing import Any
@@ -73,6 +74,37 @@ _STRIP_PREFIXES = (
 )
 
 
+def _build_alias_map(names: list[str], active_prefix: str) -> dict[str, str]:
+    """Build the unprefixed<->prefixed alias map bounded to a client's real actions.
+
+    - unprefixed name -> real prefixed method (e.g. add_comment ->
+      jira_cloud_add_comment), preferring the active deployment's prefix
+    - a prefixed form -> a real unprefixed method (e.g. jira_cloud_foo -> foo)
+    """
+    aliases: dict[str, str] = {}
+    for name in names:
+        for p in _STRIP_PREFIXES:
+            if name.startswith(p):
+                bare = name[len(p) :]
+                if bare not in aliases or (active_prefix and p == active_prefix):
+                    aliases[bare] = name
+                break
+        else:
+            # Unprefixed real method: accept prefixed guesses pointing at it.
+            for p in _STRIP_PREFIXES:
+                aliases.setdefault(f"{p}{name}", name)
+    return aliases
+
+
+def _coerce_result(res: Any) -> Any:
+    """Coerce a client return value to a plain dict when it supports one."""
+    if hasattr(res, "dict") and callable(res.dict):
+        return res.dict()
+    if hasattr(res, "model_dump") and callable(res.model_dump):
+        return res.model_dump()
+    return res
+
+
 def execute_client_method(
     client,
     action: str,
@@ -90,31 +122,9 @@ def execute_client_method(
     so callers may pass the unprefixed name (``add_comment``) too.
     """
     # Build an alias map so discovery stays bounded to the client's real actions
-    # while preserving this repo's prefix conveniences:
-    #  - unprefixed name -> real prefixed method (e.g. add_comment ->
-    #    jira_cloud_add_comment), preferring the active deployment's prefix
-    #  - a prefixed form -> a real unprefixed method (e.g. jira_cloud_foo -> foo)
+    # while preserving this repo's prefix conveniences.
     active_prefix = prefix_server if host_type == "server" else prefix_cloud
-    names = public_actions(client)
-    aliases: dict[str, str] = {}
-    for name in names:
-        for p in _STRIP_PREFIXES:
-            if name.startswith(p):
-                bare = name[len(p) :]
-                if bare not in aliases or (active_prefix and p == active_prefix):
-                    aliases[bare] = name
-                break
-        else:
-            # Unprefixed real method: accept prefixed guesses pointing at it.
-            for p in _STRIP_PREFIXES:
-                aliases.setdefault(f"{p}{name}", name)
-
-    def _coerce(res: Any) -> Any:
-        if hasattr(res, "dict") and callable(res.dict):
-            return res.dict()
-        if hasattr(res, "model_dump") and callable(res.model_dump):
-            return res.model_dump()
-        return res
+    aliases = _build_alias_map(public_actions(client), active_prefix)
 
     return dispatch(
         client,
@@ -122,8 +132,58 @@ def execute_client_method(
         kwargs,
         aliases=aliases,
         service=f"atlassian-agent ({host_type})",
-        result_coercer=_coerce if action not in DISCOVERY_ACTIONS else None,
+        result_coercer=_coerce_result if action not in DISCOVERY_ACTIONS else None,
     )
+
+
+def _parse_kwargs(params_json: str) -> dict[str, Any] | None:
+    """Parse ``params_json`` and drop ``None`` values; ``None`` on invalid JSON."""
+    try:
+        raw = json.loads(params_json)
+    except Exception:
+        return None
+    return {k: v for k, v in raw.items() if v is not None}
+
+
+async def _run_dispatch(
+    client,
+    action: str,
+    prefix_cloud: str,
+    prefix_server: str,
+    host_type: str,
+    kwargs: dict,
+) -> Any:
+    """Run ``execute_client_method`` off-thread, coercing the result or the error."""
+    try:
+        res = await run_blocking(
+            execute_client_method,
+            client,
+            action,
+            prefix_cloud,
+            prefix_server,
+            host_type,
+            kwargs,
+        )
+        return _coerce_result(res)
+    except Exception:
+        return {"error": "Operation failed"}
+
+
+def _resolve_jira_project_action(deployment: str, action: str) -> str:
+    """Preserve the shared Jira preset across Cloud and Server/DC.
+
+    The generated Server client calls its JQL endpoint ``search_1`` while the
+    Cloud client exposes the descriptive action name. Older presets also carry
+    the historical "reconsile" spelling.
+    """
+    if deployment == "server" and action in {
+        "search_for_issues_using_jql",
+        "search_and_reconsile_issues_using_jql",
+    }:
+        return "jira_server_search_1"
+    if deployment != "server" and action == "search_and_reconsile_issues_using_jql":
+        return "jira_cloud_search_for_issues_using_jql"
+    return action
 
 
 def register_atlassian_control_tools(mcp: FastMCP):
@@ -535,46 +595,15 @@ def register_jira_project_tools(mcp: FastMCP):
         """Manage Jira project operations."""
         if ctx:
             await ctx.info("Executing jira_project operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-        # Preserve the shared Jira preset across Cloud and Server/DC.  The
-        # generated Server client calls its JQL endpoint ``search_1`` while the
-        # Cloud client exposes the descriptive action name.  Older presets also
-        # carry the historical "reconsile" spelling.
-        if deployment == "server" and action in {
-            "search_for_issues_using_jql",
-            "search_and_reconsile_issues_using_jql",
-        }:
-            action = "jira_server_search_1"
-        elif (
-            deployment != "server" and action == "search_and_reconsile_issues_using_jql"
-        ):
-            action = "jira_cloud_search_for_issues_using_jql"
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        action = _resolve_jira_project_action(deployment, action)
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_jira_user_tools(mcp: FastMCP):
@@ -602,33 +631,14 @@ def register_jira_user_tools(mcp: FastMCP):
         """Manage Jira user operations."""
         if ctx:
             await ctx.info("Executing jira_user operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_jira_issue_tools(mcp: FastMCP):
@@ -656,33 +666,14 @@ def register_jira_issue_tools(mcp: FastMCP):
         """Manage Jira issue operations."""
         if ctx:
             await ctx.info("Executing jira_issue operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_jira_comment_tools(mcp: FastMCP):
@@ -710,33 +701,14 @@ def register_jira_comment_tools(mcp: FastMCP):
         """Manage Jira comment operations."""
         if ctx:
             await ctx.info("Executing jira_comment operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_jira_field_tools(mcp: FastMCP):
@@ -764,33 +736,14 @@ def register_jira_field_tools(mcp: FastMCP):
         """Manage Jira field operations."""
         if ctx:
             await ctx.info("Executing jira_field operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_jira_screen_tools(mcp: FastMCP):
@@ -818,33 +771,14 @@ def register_jira_screen_tools(mcp: FastMCP):
         """Manage Jira screen operations."""
         if ctx:
             await ctx.info("Executing jira_screen operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_jira_workflow_tools(mcp: FastMCP):
@@ -872,33 +806,14 @@ def register_jira_workflow_tools(mcp: FastMCP):
         """Manage Jira workflow operations."""
         if ctx:
             await ctx.info("Executing jira_workflow operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_jira_other_tools(mcp: FastMCP):
@@ -926,33 +841,14 @@ def register_jira_other_tools(mcp: FastMCP):
         """Manage Jira other operations."""
         if ctx:
             await ctx.info("Executing jira_other operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "jira_cloud_",
-                "jira_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client, action, "jira_cloud_", "jira_server_", deployment, kwargs
+        )
 
 
 def register_confluence_page_tools(mcp: FastMCP):
@@ -980,33 +876,19 @@ def register_confluence_page_tools(mcp: FastMCP):
         """Manage Confluence page operations."""
         if ctx:
             await ctx.info("Executing confluence_page operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "confluence_cloud_",
-                "confluence_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client,
+            action,
+            "confluence_cloud_",
+            "confluence_server_",
+            deployment,
+            kwargs,
+        )
 
 
 def register_confluence_space_tools(mcp: FastMCP):
@@ -1034,33 +916,19 @@ def register_confluence_space_tools(mcp: FastMCP):
         """Manage Confluence space operations."""
         if ctx:
             await ctx.info("Executing confluence_space operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "confluence_cloud_",
-                "confluence_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client,
+            action,
+            "confluence_cloud_",
+            "confluence_server_",
+            deployment,
+            kwargs,
+        )
 
 
 def register_confluence_user_tools(mcp: FastMCP):
@@ -1088,33 +956,19 @@ def register_confluence_user_tools(mcp: FastMCP):
         """Manage Confluence user operations."""
         if ctx:
             await ctx.info("Executing confluence_user operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "confluence_cloud_",
-                "confluence_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client,
+            action,
+            "confluence_cloud_",
+            "confluence_server_",
+            deployment,
+            kwargs,
+        )
 
 
 def register_confluence_other_tools(mcp: FastMCP):
@@ -1142,33 +996,19 @@ def register_confluence_other_tools(mcp: FastMCP):
         """Manage Confluence other operations."""
         if ctx:
             await ctx.info("Executing confluence_other operations...")
-        import json
-
-        try:
-            kwargs = json.loads(params_json)
-        except Exception:
+        kwargs = _parse_kwargs(params_json)
+        if kwargs is None:
             return {"error": "Operation failed"}
 
-        kwargs = {k: v for k, v in kwargs.items() if v is not None}
         client = client_server if deployment == "server" else client_cloud
-
-        try:
-            res = await run_blocking(
-                execute_client_method,
-                client,
-                action,
-                "confluence_cloud_",
-                "confluence_server_",
-                deployment,
-                kwargs,
-            )
-            if hasattr(res, "dict") and callable(res.dict):
-                return res.dict()
-            elif hasattr(res, "model_dump") and callable(res.model_dump):
-                return res.model_dump()
-            return res
-        except Exception:
-            return {"error": "Operation failed"}
+        return await _run_dispatch(
+            client,
+            action,
+            "confluence_cloud_",
+            "confluence_server_",
+            deployment,
+            kwargs,
+        )
 
 
 def register_kg_tools(mcp: FastMCP):
