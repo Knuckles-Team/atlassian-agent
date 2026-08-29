@@ -185,84 +185,91 @@ def test_execute_client_method_branches():
     assert "jira_cloud_test_action" in disc["actions"]
 
 
-def map_tools_to_actions():
-    tool_to_actions = {}
-    try:
-        with open("atlassian_agent/mcp_server.py") as f:
-            tree = ast.parse(f.read())
+# Representative dynamic actions for tools with dynamic routing (avoids dynamic method explosion)
+_DYNAMIC_TOOL_ACTION_MAPPINGS = {
+    "atlassian_jira_project": ["jira_cloud_get_project", "jira_server_get_project"],
+    "atlassian_jira_user": ["jira_cloud_get_user", "jira_server_get_user"],
+    "atlassian_jira_issue": ["jira_cloud_get_issue", "jira_server_get_issue"],
+    "atlassian_jira_comment": ["jira_cloud_get_comment", "jira_server_get_comment"],
+    "atlassian_jira_field": ["jira_cloud_get_field", "jira_server_get_field"],
+    "atlassian_jira_screen": ["jira_cloud_get_screen", "jira_server_get_screen"],
+    "atlassian_jira_workflow": [
+        "jira_cloud_get_workflow",
+        "jira_server_get_workflow",
+    ],
+    "atlassian_jira_other": ["jira_cloud_get_info", "jira_server_get_info"],
+    "atlassian_confluence_page": [
+        "confluence_cloud_get_page",
+        "confluence_server_get_page",
+    ],
+    "atlassian_confluence_space": [
+        "confluence_cloud_get_space",
+        "confluence_server_get_space",
+    ],
+    "atlassian_confluence_user": [
+        "confluence_cloud_get_user",
+        "confluence_server_get_user",
+    ],
+    "atlassian_confluence_other": [
+        "confluence_cloud_get_info",
+        "confluence_server_get_info",
+    ],
+}
 
+
+def _action_equality_literal(subnode: ast.AST) -> str | None:
+    """If `subnode` is the AST for `action == "some_literal"`, return that literal."""
+    if not isinstance(subnode, ast.Compare):
+        return None
+    if not (
+        isinstance(subnode.left, ast.Name)
+        and subnode.left.id == "action"
+        and len(subnode.ops) == 1
+        and isinstance(subnode.ops[0], ast.Eq)
+        and len(subnode.comparators) == 1
+        and isinstance(subnode.comparators[0], ast.Constant)
+    ):
+        return None
+    val = subnode.comparators[0].value
+    return val if isinstance(val, str) else None
+
+
+def _tool_action_literals(node: ast.AsyncFunctionDef) -> list[str]:
+    """Collect every literal `action == "..."` string compared inside a tool function."""
+    actions: set[str] = set()
+    for subnode in ast.walk(node):
+        val = _action_equality_literal(subnode)
+        if val is not None:
+            actions.add(val)
+    return list(actions)
+
+
+def _discover_tool_actions(source_path: str) -> dict[str, list[str]]:
+    """AST-walk the mcp_server source, mapping each atlassian_* tool to its actions."""
+    tool_to_actions: dict[str, list[str]] = {}
+    try:
+        with open(source_path) as f:
+            tree = ast.parse(f.read())
         for node in ast.walk(tree):
             if isinstance(node, ast.AsyncFunctionDef) and node.name.startswith(
                 "atlassian_"
             ):
                 tool_name = node.name.replace("-", "_")
-                actions: set[str] = set()
-                for subnode in ast.walk(node):
-                    if isinstance(subnode, ast.Compare):
-                        if (
-                            isinstance(subnode.left, ast.Name)
-                            and subnode.left.id == "action"
-                            and len(subnode.ops) == 1
-                            and isinstance(subnode.ops[0], ast.Eq)
-                            and len(subnode.comparators) == 1
-                            and isinstance(subnode.comparators[0], ast.Constant)
-                        ):
-                            val = subnode.comparators[0].value
-                            if isinstance(val, str):
-                                actions.add(val)
-                tool_to_actions[tool_name] = list(actions)
+                tool_to_actions[tool_name] = _tool_action_literals(node)
     except Exception as e:
         print(f"Operation failed: {type(e).__name__}")
-
-    # Representative dynamic actions for tools with dynamic routing (avoids dynamic method explosion)
-    dynamic_mappings = {
-        "atlassian_jira_project": ["jira_cloud_get_project", "jira_server_get_project"],
-        "atlassian_jira_user": ["jira_cloud_get_user", "jira_server_get_user"],
-        "atlassian_jira_issue": ["jira_cloud_get_issue", "jira_server_get_issue"],
-        "atlassian_jira_comment": ["jira_cloud_get_comment", "jira_server_get_comment"],
-        "atlassian_jira_field": ["jira_cloud_get_field", "jira_server_get_field"],
-        "atlassian_jira_screen": ["jira_cloud_get_screen", "jira_server_get_screen"],
-        "atlassian_jira_workflow": [
-            "jira_cloud_get_workflow",
-            "jira_server_get_workflow",
-        ],
-        "atlassian_jira_other": ["jira_cloud_get_info", "jira_server_get_info"],
-        "atlassian_confluence_page": [
-            "confluence_cloud_get_page",
-            "confluence_server_get_page",
-        ],
-        "atlassian_confluence_space": [
-            "confluence_cloud_get_space",
-            "confluence_server_get_space",
-        ],
-        "atlassian_confluence_user": [
-            "confluence_cloud_get_user",
-            "confluence_server_get_user",
-        ],
-        "atlassian_confluence_other": [
-            "confluence_cloud_get_info",
-            "confluence_server_get_info",
-        ],
-    }
-
-    for tool_name, mapped_actions in dynamic_mappings.items():
-        tool_to_actions[tool_name.replace("-", "_")] = mapped_actions
-
     return tool_to_actions
 
 
-@pytest.mark.anyio
-async def test_mcp_server_tools_coverage():
-    sys.modules["atlassian_agent.mcp_server"]._registered_tools.clear()
+def map_tools_to_actions():
+    tool_to_actions = _discover_tool_actions("atlassian_agent/mcp_server.py")
+    for tool_name, mapped_actions in _DYNAMIC_TOOL_ACTION_MAPPINGS.items():
+        tool_to_actions[tool_name.replace("-", "_")] = mapped_actions
+    return tool_to_actions
 
-    tool_to_actions = map_tools_to_actions()
 
-    mcp_data = get_mcp_instance()
-    mcp = mcp_data[0]
-
-    # Trigger duplicate registration guards
-    mock_mcp = MagicMock()
-    type(mock_mcp).__name__ = "Mock"
+def _register_all_atlassian_tools(mcp) -> None:
+    """Register every tool group -- also triggers each group's duplicate-registration guard."""
     register_atlassian_control_tools(mcp)
     register_atlassian_org_tools(mcp)
     register_jira_project_tools(mcp)
@@ -284,7 +291,8 @@ async def test_mcp_server_tools_coverage():
     register_atlassian_api_access_tools(mcp)
     register_atlassian_user_provisioning_tools(mcp)
 
-    # Test health check route directly
+
+async def _assert_health_route_ok(mcp) -> None:
     mock_req = MagicMock(spec=Request)
     health_route = None
     for route in getattr(mcp, "_additional_http_routes", []):
@@ -295,115 +303,144 @@ async def test_mcp_server_tools_coverage():
         res = await health_route(mock_req)
         assert res.status_code == 200
 
-    tools = await mcp.list_tools()
 
-    for tool in tools:
-        # Normalize tool names
-        normalized_tool_name = tool.name.replace("-", "_")
-        func_name = (
-            (tool.fn.__name__.replace("-", "_"))
-            if hasattr(tool, "fn")
-            else normalized_tool_name
-        )
+def _resolve_tool_actions(
+    func_name: str, normalized_tool_name: str, tool_to_actions: dict
+) -> list[str]:
+    """Look up a tool's known actions by exact func/tool name, else by substring match."""
+    actions = tool_to_actions.get(func_name, [])
+    if actions:
+        return actions
+    actions = tool_to_actions.get(normalized_tool_name, [])
+    if actions:
+        return actions
+    for name, acts in tool_to_actions.items():
+        if normalized_tool_name in name or name in normalized_tool_name:
+            return acts
+    return []
 
-        actions = tool_to_actions.get(func_name, [])
-        if not actions:
-            actions = tool_to_actions.get(normalized_tool_name, [])
-        if not actions:
-            for name, acts in tool_to_actions.items():
-                if normalized_tool_name in name or name in normalized_tool_name:
-                    actions = acts
-                    break
 
-        print(
-            f"Tool: {tool.name} (normalized: {normalized_tool_name}) -> mapped actions: {actions}"
-        )
-        if not actions:
-            actions = ["dummy_action"]
+def _deployments_for_action(action: str) -> list[str]:
+    if "server" in action:
+        return ["server"]
+    if "cloud" in action:
+        return ["cloud"]
+    return ["cloud", "server"]
 
-        sig = inspect.signature(tool.fn) if hasattr(tool, "fn") else None
 
-        # Test normal execution of all valid actions
-        for i, action in enumerate(actions):
-            # Only cycle all 4 response formatting modes for the FIRST action to save time and prevent timeout
-            modes = [0, 1, 2, 3] if i == 0 else [0]
+def _build_args_from_signature(sig, action: str, deployment: str, params_json: str) -> dict:
+    """Build call args from a tool's signature: explicit values for
+    action/deployment/params_json, 'test-value' for any other required param, `ctx` omitted."""
+    args = {}
+    for param_name, param in sig.parameters.items():
+        if param_name == "action":
+            args["action"] = action
+        elif param_name == "deployment":
+            args["deployment"] = deployment
+        elif param_name == "params_json":
+            args["params_json"] = params_json
+        elif param_name == "ctx":
+            pass
+        elif param.default == inspect.Parameter.empty:
+            args[param_name] = "test-value"
+    return args
 
-            for mode in modes:
-                mock_client_inst.mode = mode
 
-                if "server" in action:
-                    deployments = ["server"]
-                elif "cloud" in action:
-                    deployments = ["cloud"]
-                else:
-                    deployments = ["cloud", "server"]
+async def _exercise_tool_action(mcp, tool, sig, action: str, cycle_all_modes: bool) -> None:
+    """Call `tool` once per (mode x deployment) for one action.
 
-                for deployment in deployments:
-                    args = {}
-                    if sig:
-                        for param_name, param in sig.parameters.items():
-                            if param_name == "action":
-                                args["action"] = action
-                            elif param_name == "deployment":
-                                args["deployment"] = deployment
-                            elif param_name == "params_json":
-                                args["params_json"] = '{"id": "1"}'
-                            elif param_name == "ctx":
-                                pass
-                            elif param.default == inspect.Parameter.empty:
-                                args[param_name] = "test-value"
-                    else:
-                        args = {
-                            "action": action,
-                            "deployment": deployment,
-                            "params_json": '{"id": "1"}',
-                        }
-
-                    try:
-                        await mcp.call_tool(tool.name, args)
-                    except Exception:
-                        pass
-
-        # 2. Test invalid JSON parsing error coverage
-        if sig and "params_json" in sig.parameters:
-            args = {}
-            for param_name, param in sig.parameters.items():
-                if param_name == "action":
-                    args["action"] = actions[0]
-                elif param_name == "deployment":
-                    args["deployment"] = "cloud"
-                elif param_name == "params_json":
-                    args["params_json"] = "{invalid_json}"
-                elif param_name == "ctx":
-                    pass
-                elif param.default == inspect.Parameter.empty:
-                    args[param_name] = "test-value"
+    Cycles all 4 response-formatting modes only when `cycle_all_modes` (the first
+    action for this tool, to save time and avoid timeouts) -- other actions use mode 0.
+    """
+    modes = [0, 1, 2, 3] if cycle_all_modes else [0]
+    for mode in modes:
+        mock_client_inst.mode = mode
+        for deployment in _deployments_for_action(action):
+            if sig:
+                args = _build_args_from_signature(sig, action, deployment, '{"id": "1"}')
+            else:
+                args = {
+                    "action": action,
+                    "deployment": deployment,
+                    "params_json": '{"id": "1"}',
+                }
             try:
                 await mcp.call_tool(tool.name, args)
             except Exception:
                 pass
 
-        # 3. Test unknown action ValueError coverage
-        args = {}
-        if sig:
-            for param_name, param in sig.parameters.items():
-                if param_name == "action":
-                    args["action"] = "invalid_action"
-                elif param_name == "deployment":
-                    args["deployment"] = "cloud"
-                elif param_name == "params_json":
-                    args["params_json"] = "{}"
-                elif param_name == "ctx":
-                    pass
-                elif param.default == inspect.Parameter.empty:
-                    args[param_name] = "test-value"
-        else:
-            args = {"action": "invalid_action"}
 
-        try:
-            await mcp.call_tool(tool.name, args)
-        except Exception:
-            pass
+async def _exercise_valid_actions(mcp, tool, sig, actions: list[str]) -> None:
+    """1. Normal execution across every action (mode-cycled on the first only)."""
+    for i, action in enumerate(actions):
+        await _exercise_tool_action(mcp, tool, sig, action, cycle_all_modes=(i == 0))
+
+
+async def _exercise_invalid_json(mcp, tool, sig, first_action: str) -> None:
+    """2. Invalid params_json parsing-error coverage."""
+    if not (sig and "params_json" in sig.parameters):
+        return
+    args = _build_args_from_signature(sig, first_action, "cloud", "{invalid_json}")
+    try:
+        await mcp.call_tool(tool.name, args)
+    except Exception:
+        pass
+
+
+async def _exercise_unknown_action(mcp, tool, sig) -> None:
+    """3. Unknown-action ValueError coverage."""
+    if sig:
+        args = _build_args_from_signature(sig, "invalid_action", "cloud", "{}")
+    else:
+        args = {"action": "invalid_action"}
+    try:
+        await mcp.call_tool(tool.name, args)
+    except Exception:
+        pass
+
+
+async def _exercise_tool(mcp, tool, tool_to_actions: dict) -> None:
+    """Run all three brute-force coverage cases for one registered tool."""
+    normalized_tool_name = tool.name.replace("-", "_")
+    func_name = (
+        (tool.fn.__name__.replace("-", "_"))
+        if hasattr(tool, "fn")
+        else normalized_tool_name
+    )
+
+    actions = _resolve_tool_actions(func_name, normalized_tool_name, tool_to_actions)
+    print(
+        f"Tool: {tool.name} (normalized: {normalized_tool_name}) -> mapped actions: {actions}"
+    )
+    if not actions:
+        actions = ["dummy_action"]
+
+    sig = inspect.signature(tool.fn) if hasattr(tool, "fn") else None
+
+    await _exercise_valid_actions(mcp, tool, sig, actions)
+    await _exercise_invalid_json(mcp, tool, sig, actions[0])
+    await _exercise_unknown_action(mcp, tool, sig)
+
+
+@pytest.mark.anyio
+async def test_mcp_server_tools_coverage():
+    sys.modules["atlassian_agent.mcp_server"]._registered_tools.clear()
+
+    tool_to_actions = map_tools_to_actions()
+
+    mcp_data = get_mcp_instance()
+    mcp = mcp_data[0]
+
+    # Trigger duplicate registration guards
+    mock_mcp = MagicMock()
+    type(mock_mcp).__name__ = "Mock"
+    _register_all_atlassian_tools(mcp)
+
+    await _assert_health_route_ok(mcp)
+
+    tools = await mcp.list_tools()
+    for tool in tools:
+        await _exercise_tool(mcp, tool, tool_to_actions)
 
 
 def test_mcp_server_entrypoint():
