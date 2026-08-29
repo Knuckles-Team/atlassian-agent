@@ -166,103 +166,123 @@ def clean_path(path):
     return path.replace('"', "").replace("'", "")
 
 
-def generate_suite(
-    openapi_path, api_output, tools_output, product_name, module_name, tags
-):
-    with open(openapi_path) as f:
-        spec = json.load(f)
+def _unique_operation_id(
+    path: str, method_type: str, op_spec: dict, operation_ids: dict[str, Any]
+) -> str:
+    """Resolve this operation's raw id (synthesizing one from the path if absent) and
+    disambiguate duplicates; `operation_ids` is the running per-suite counter, mutated
+    in place so it stays shared across every operation in the suite."""
+    op_id = op_spec.get("operationId")
+    if not op_id:
+        clean_p = path.replace("{", "").replace("}", "").strip("/").replace("/", "_")
+        op_id = f"{method_type}_{clean_p}"
 
-    paths = spec.get("paths", {})
-    methods = []
+    if op_id in operation_ids:
+        operation_ids[op_id] += 1
+        op_id = f"{op_id}_{operation_ids[op_id]}"
+    else:
+        operation_ids[op_id] = 1
+    return op_id
 
-    product_prefix = module_name
 
-    operation_ids: dict[str, Any] = {}
+def _operation_name(op_id: str, product_prefix: str) -> str:
+    """Build the final python-safe tool/method name for one operation id."""
+    clean_op_id = clean_identifier(op_id)
+    if clean_op_id.startswith(product_prefix):
+        op_name = clean_op_id
+    else:
+        op_name = f"{product_prefix}_{clean_op_id}"
+    return op_name.replace("__", "_").strip("_")
 
+
+def _operation_params(
+    all_params_raw: list, path_fmt: str
+) -> tuple[list[dict[str, Any]], str]:
+    """Build the deduped params list, renaming path placeholders to their py_name
+    as each path param is resolved."""
+    seen_param_names = set()
+    params = []
+    for p in all_params_raw:
+        if "$ref" in p:
+            continue
+
+        p_name = p.get("name", "param")
+        p_py_name = clean_identifier(p_name)
+
+        if p_py_name in seen_param_names:
+            continue
+        seen_param_names.add(p_py_name)
+
+        p_type = map_type(p.get("schema", {}).get("type", "string"))
+        p_in = p.get("in", "query")
+        p_required = p.get("required", False) or p_in == "path"
+        p_description = clean_desc(p.get("description", f"Parameter {p_name}"))
+
+        params.append(
+            {
+                "name": p_name,
+                "py_name": p_py_name,
+                "type": p_type,
+                "in": p_in,
+                "required": p_required,
+                "description": p_description,
+            }
+        )
+        if p_in == "path":
+            path_fmt = path_fmt.replace(f"{{{p_name}}}", f"{{{p_py_name}}}")
+    return params, path_fmt
+
+
+def _iter_openapi_operations(paths: dict):
+    """Yield (path, method_type, op_spec, path_params_global) for every HTTP operation."""
     for path, path_item in paths.items():
         path_params_global = path_item.get("parameters", [])
-
         for method_type, op_spec in path_item.items():
             if method_type not in ["get", "post", "put", "delete", "patch"]:
                 continue
+            yield path, method_type, op_spec, path_params_global
 
-            op_id = op_spec.get("operationId")
-            if not op_id:
-                clean_p = (
-                    path.replace("{", "").replace("}", "").strip("/").replace("/", "_")
-                )
-                op_id = f"{method_type}_{clean_p}"
 
-            if op_id in operation_ids:
-                operation_ids[op_id] += 1
-                op_id = f"{op_id}_{operation_ids[op_id]}"
-            else:
-                operation_ids[op_id] = 1
+def _build_method_entry(
+    path: str,
+    method_type: str,
+    op_spec: dict,
+    path_params_global: list,
+    product_prefix: str,
+    operation_ids: dict[str, Any],
+) -> dict[str, Any]:
+    """Build one method dict entry (as the templates expect it) for one OpenAPI operation."""
+    op_id = _unique_operation_id(path, method_type, op_spec, operation_ids)
+    op_name = _operation_name(op_id, product_prefix)
 
-            clean_op_id = clean_identifier(op_id)
-            if clean_op_id.startswith(product_prefix):
-                op_name = clean_op_id
-            else:
-                op_name = f"{product_prefix}_{clean_op_id}"
+    summary = op_spec.get(
+        "summary", op_spec.get("description", "No description provided.")
+    )
+    summary = clean_desc(summary)
 
-            op_name = op_name.replace("__", "_").strip("_")
+    all_params_raw = path_params_global + op_spec.get("parameters", [])
+    path_fmt = clean_path(path)
+    params, path_fmt = _operation_params(all_params_raw, path_fmt)
 
-            summary = op_spec.get(
-                "summary", op_spec.get("description", "No description provided.")
-            )
-            summary = clean_desc(summary)
+    body = "requestBody" in op_spec or any(
+        p.get("in") == "body" for p in all_params_raw
+    )
 
-            all_params_raw = path_params_global + op_spec.get("parameters", [])
-            seen_param_names = set()
-            params = []
+    return {
+        "name": op_name,
+        "path": path,
+        "path_formatted": path_fmt,
+        "method": method_type.upper(),
+        "summary": summary,
+        "params": params,
+        "body": body,
+    }
 
-            path_fmt = clean_path(path)
 
-            for p in all_params_raw:
-                if "$ref" in p:
-                    continue
-
-                p_name = p.get("name", "param")
-                p_py_name = clean_identifier(p_name)
-
-                if p_py_name in seen_param_names:
-                    continue
-                seen_param_names.add(p_py_name)
-
-                p_type = map_type(p.get("schema", {}).get("type", "string"))
-                p_in = p.get("in", "query")
-                p_required = p.get("required", False) or p_in == "path"
-                p_description = clean_desc(p.get("description", f"Parameter {p_name}"))
-
-                params.append(
-                    {
-                        "name": p_name,
-                        "py_name": p_py_name,
-                        "type": p_type,
-                        "in": p_in,
-                        "required": p_required,
-                        "description": p_description,
-                    }
-                )
-                if p_in == "path":
-                    path_fmt = path_fmt.replace(f"{{{p_name}}}", f"{{{p_py_name}}}")
-
-            body = "requestBody" in op_spec or any(
-                p.get("in") == "body" for p in all_params_raw
-            )
-
-            methods.append(
-                {
-                    "name": op_name,
-                    "path": path,
-                    "path_formatted": path_fmt,
-                    "method": method_type.upper(),
-                    "summary": summary,
-                    "params": params,
-                    "body": body,
-                }
-            )
-
+def _write_generated_suite(
+    api_output, tools_output, product_name: str, module_name: str, methods: list
+) -> None:
+    """Render both templates and write the generated API client + MCP tools files."""
     api_template = Template(API_TEMPLATE)
     api_content = api_template.render(product_name=product_name, methods=methods)
     with open(api_output, "w") as f:
@@ -277,6 +297,27 @@ def generate_suite(
     )
     with open(tools_output, "w") as f:
         f.write(tools_content)
+
+
+def generate_suite(
+    openapi_path, api_output, tools_output, product_name, module_name, tags
+):
+    with open(openapi_path) as f:
+        spec = json.load(f)
+
+    paths = spec.get("paths", {})
+    operation_ids: dict[str, Any] = {}
+
+    methods = [
+        _build_method_entry(
+            path, method_type, op_spec, path_params_global, module_name, operation_ids
+        )
+        for path, method_type, op_spec, path_params_global in _iter_openapi_operations(
+            paths
+        )
+    ]
+
+    _write_generated_suite(api_output, tools_output, product_name, module_name, methods)
 
 
 if __name__ == "__main__":
