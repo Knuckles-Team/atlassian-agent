@@ -64,6 +64,105 @@ def _person_entity(actor: Any) -> dict[str, Any] | None:
     }
 
 
+def _issue_node(
+    key: str,
+    issue: dict[str, Any],
+    fields: dict[str, Any],
+    node_id: str,
+    is_epic: bool,
+    issue_type: str,
+) -> dict[str, Any]:
+    """Build the :Issue/:Epic node payload for one issue."""
+    return {
+        "id": node_id,
+        "node_type": "Epic" if is_epic else "Issue",
+        "issueKey": key,
+        "summary": fields.get("summary"),
+        "status": _name_of(fields.get("status")),
+        "priority": _name_of(fields.get("priority")),
+        "issueType": issue_type or None,
+        "project": (fields.get("project") or {}).get("key")
+        if isinstance(fields.get("project"), dict)
+        else None,
+        "externalToolId": str(issue.get("id") or key),
+    }
+
+
+def _issue_people(
+    node_id: str, fields: dict[str, Any]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Build :Person nodes + assignedTo/reportedBy links for one issue."""
+    entities: list[dict[str, Any]] = []
+    relationships: list[dict[str, Any]] = []
+    assignee = _person_entity(fields.get("assignee"))
+    if assignee:
+        entities.append(assignee)
+        relationships.append(
+            {"source": node_id, "target": assignee["id"], "relationship": "assignedTo"}
+        )
+    reporter = _person_entity(fields.get("reporter"))
+    if reporter:
+        entities.append(reporter)
+        relationships.append(
+            {"source": node_id, "target": reporter["id"], "relationship": "reportedBy"}
+        )
+    return entities, relationships
+
+
+def _resolve_epic_key(fields: dict[str, Any]) -> str | None:
+    """Team-managed projects use `parent`; classic projects an epic field."""
+    parent = fields.get("parent")
+    if isinstance(parent, dict):
+        p_type = _name_of((parent.get("fields") or {}).get("issuetype"))
+        if (p_type or "").lower() == "epic":
+            return parent.get("key")
+    epic = fields.get("epic")
+    return epic.get("key") if isinstance(epic, dict) else None
+
+
+def _epic_link(
+    node_id: str, fields: dict[str, Any]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Build the :Epic stub node + :inEpic link for one issue's parent epic, if any."""
+    epic_key = _resolve_epic_key(fields)
+    if not epic_key:
+        return [], []
+    epic_id = f"atlassian:epic:{epic_key}"
+    return (
+        [{"id": epic_id, "node_type": "Epic", "issueKey": epic_key}],
+        [{"source": node_id, "target": epic_id, "relationship": "inEpic"}],
+    )
+
+
+def _map_one_issue(
+    issue: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Map one Jira issue record → (entities, relationships); ([], []) to skip it."""
+    key = issue.get("key")
+    if not key:
+        return [], []
+    fields = _fields(issue)
+    issue_type = _name_of(fields.get("issuetype")) or ""
+    is_epic = issue_type.lower() == "epic"
+    node_id = f"atlassian:{'epic' if is_epic else 'issue'}:{key}"
+
+    entities = [_issue_node(key, issue, fields, node_id, is_epic, issue_type)]
+    relationships: list[dict[str, Any]] = []
+
+    if is_epic:
+        return entities, relationships
+
+    people_entities, people_relationships = _issue_people(node_id, fields)
+    entities.extend(people_entities)
+    relationships.extend(people_relationships)
+
+    epic_entities, epic_relationships = _epic_link(node_id, fields)
+    entities.extend(epic_entities)
+    relationships.extend(epic_relationships)
+
+    return entities, relationships
+
+
 def ingest_issues(
     issues: list[dict[str, Any]],
     *,
@@ -84,69 +183,9 @@ def ingest_issues(
     entities: list[dict[str, Any]] = []
     relationships: list[dict[str, Any]] = []
     for issue in issues or []:
-        key = issue.get("key")
-        if not key:
-            continue
-        fields = _fields(issue)
-        issue_type = _name_of(fields.get("issuetype")) or ""
-        is_epic = issue_type.lower() == "epic"
-        node_id = f"atlassian:{'epic' if is_epic else 'issue'}:{key}"
-        entities.append(
-            {
-                "id": node_id,
-                "node_type": "Epic" if is_epic else "Issue",
-                "issueKey": key,
-                "summary": fields.get("summary"),
-                "status": _name_of(fields.get("status")),
-                "priority": _name_of(fields.get("priority")),
-                "issueType": issue_type or None,
-                "project": (fields.get("project") or {}).get("key")
-                if isinstance(fields.get("project"), dict)
-                else None,
-                "externalToolId": str(issue.get("id") or key),
-            }
-        )
-
-        if is_epic:
-            continue
-
-        assignee = _person_entity(fields.get("assignee"))
-        if assignee:
-            entities.append(assignee)
-            relationships.append(
-                {
-                    "source": node_id,
-                    "target": assignee["id"],
-                    "relationship": "assignedTo",
-                }
-            )
-        reporter = _person_entity(fields.get("reporter"))
-        if reporter:
-            entities.append(reporter)
-            relationships.append(
-                {
-                    "source": node_id,
-                    "target": reporter["id"],
-                    "relationship": "reportedBy",
-                }
-            )
-
-        # Epic link: team-managed projects use `parent`; classic projects an epic field.
-        parent = fields.get("parent")
-        epic_key = None
-        if isinstance(parent, dict):
-            p_type = _name_of((parent.get("fields") or {}).get("issuetype"))
-            if (p_type or "").lower() == "epic":
-                epic_key = parent.get("key")
-        if not epic_key:
-            epic = fields.get("epic")
-            epic_key = epic.get("key") if isinstance(epic, dict) else None
-        if epic_key:
-            epic_id = f"atlassian:epic:{epic_key}"
-            entities.append({"id": epic_id, "node_type": "Epic", "issueKey": epic_key})
-            relationships.append(
-                {"source": node_id, "target": epic_id, "relationship": "inEpic"}
-            )
+        issue_entities, issue_relationships = _map_one_issue(issue)
+        entities.extend(issue_entities)
+        relationships.extend(issue_relationships)
 
     return _native_ingest_entities(
         entities,
