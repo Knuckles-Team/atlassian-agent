@@ -40,6 +40,50 @@ def mock_session():
         yield session
 
 
+def _guess_kwarg_value(param_name: str, annotation, common_args: dict) -> object:
+    """Best-effort guess of a plausible value for one brute-forced parameter."""
+    if param_name in common_args:
+        return common_args[param_name]
+    if annotation is int:
+        return 1
+    if annotation is bool:
+        return True
+    if annotation is dict:
+        return {}
+    if annotation is list:
+        return []
+    return "test-value"
+
+
+def _guessed_kwargs(sig: inspect.Signature, common_args: dict) -> dict:
+    """Guess a kwargs dict covering every required (default-less) parameter of ``sig``."""
+    return {
+        param_name: _guess_kwarg_value(param_name, param.annotation, common_args)
+        for param_name, param in sig.parameters.items()
+        if param.default == inspect.Parameter.empty
+    }
+
+
+def _call_client_method_best_effort(method, common_args: dict) -> None:
+    """Call one client method with guessed args; any failure is expected/logged."""
+    kwargs = _guessed_kwargs(inspect.signature(method), common_args)
+    try:
+        method(**kwargs)
+    except Exception as e:
+        print(f"Operation failed: {type(e).__name__}")
+
+
+def _brute_force_client(client_class, base_client, common_args: dict) -> None:
+    """Instantiate one API client class and best-effort call every public method."""
+    client_instance = client_class(base_client)
+    for name, method in inspect.getmembers(
+        client_instance, predicate=inspect.ismethod
+    ):
+        if name.startswith("_") or name == "__init__":
+            continue
+        _call_client_method_best_effort(method, common_args)
+
+
 def test_api_clients_brute_force(mock_session):
     base_client = BaseAtlassianClient(
         base_url="https://test.atlassian.net",
@@ -104,32 +148,4 @@ def test_api_clients_brute_force(mock_session):
     }
 
     for client_class in clients:
-        client_instance = client_class(base_client)
-
-        for name, method in inspect.getmembers(
-            client_instance, predicate=inspect.ismethod
-        ):
-            if name.startswith("_") or name == "__init__":
-                continue
-
-            sig = inspect.signature(method)
-            kwargs = {}
-            for param_name, param in sig.parameters.items():
-                if param.default == inspect.Parameter.empty:
-                    if param_name in common_args:
-                        kwargs[param_name] = common_args[param_name]
-                    elif param.annotation is int:
-                        kwargs[param_name] = 1
-                    elif param.annotation is bool:
-                        kwargs[param_name] = True
-                    elif param.annotation is dict:
-                        kwargs[param_name] = {}
-                    elif param.annotation is list:
-                        kwargs[param_name] = []
-                    else:
-                        kwargs[param_name] = "test-value"
-
-            try:
-                method(**kwargs)
-            except Exception as e:
-                print(f"Operation failed: {type(e).__name__}")
+        _brute_force_client(client_class, base_client, common_args)
