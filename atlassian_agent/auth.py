@@ -27,6 +27,97 @@ def _entitled(namespace: str, names) -> list[str]:
         return list(names)
 
 
+def _resolve_suite_settings(
+    suite_prefix: str | None,
+) -> tuple[str | None, str | None, str | None, str | None]:
+    """Resolve url/user/token/tls_profile_name for one suite, falling back to shared env vars."""
+    if suite_prefix:
+        url = setting(f"ATLASSIAN_{suite_prefix}_URL")
+        user = setting(f"ATLASSIAN_{suite_prefix}_USER")
+        token = setting(f"ATLASSIAN_{suite_prefix}_TOKEN")
+        tls_profile_name = setting(f"ATLASSIAN_{suite_prefix}_TLS_PROFILE")
+    else:
+        url = user = token = tls_profile_name = None
+
+    # fallback to shared
+    url = url or setting("ATLASSIAN_AGENT_URL")
+    user = user or setting("ATLASSIAN_AGENT_USER")
+    token = token or setting("ATLASSIAN_AGENT_TOKEN")
+    return url, user, token, tls_profile_name
+
+
+def _delegated_client(url, user, tls_profile) -> BaseAtlassianClient | None:
+    """Path 1: OIDC Delegation (RFC 8693 Token Exchange). None if disabled or it fails."""
+    from agent_utilities.mcp.delegated_auth import (
+        get_delegated_token,
+        is_delegation_enabled,
+    )
+
+    if not is_delegation_enabled():
+        return None
+    try:
+        delegated_token = get_delegated_token(
+            audience=setting("AUDIENCE", url),
+            scopes=setting("DELEGATED_SCOPES", "read:jira-work write:jira-work"),
+        )
+        logger.info("Using OIDC delegated token for Atlassian API")
+        return BaseAtlassianClient(
+            base_url=url or "https://dummy.atlassian.net",
+            username=user or "",
+            token="",
+            tls_profile=tls_profile,
+            bearer_token=delegated_token,
+        )
+    except Exception as e:
+        logger.warning("Operation failed: error_type=%s", type(e).__name__)
+        return None
+
+
+def _oauth_3lo_client(url, user, tls_profile) -> BaseAtlassianClient | None:
+    """Path 2: 3-Legged OAuth (3LO) Bearer Token. None if not configured."""
+    oauth_token = setting("ATLASSIAN_OAUTH_TOKEN")
+    if not oauth_token:
+        return None
+    logger.info("Using 3LO OAuth Bearer token for Atlassian API")
+    return BaseAtlassianClient(
+        base_url=url or "https://dummy.atlassian.net",
+        username=user or "",
+        token="",
+        tls_profile=tls_profile,
+        bearer_token=oauth_token,
+    )
+
+
+def _pat_bearer_client(
+    suite_prefix, url, user, tls_profile
+) -> BaseAtlassianClient | None:
+    """Path 3: Bearer Token / PAT (Server / Data Center). None if not configured."""
+    bearer_token = (
+        setting(f"ATLASSIAN_{suite_prefix}_BEARER_TOKEN") if suite_prefix else None
+    ) or setting("ATLASSIAN_BEARER_TOKEN")
+    if not bearer_token:
+        return None
+    logger.info("Using bearer token (PAT) for Atlassian API")
+    return BaseAtlassianClient(
+        base_url=url or "https://dummy.atlassian.net",
+        username=user or "",
+        token="",
+        tls_profile=tls_profile,
+        bearer_token=bearer_token,
+    )
+
+
+def _basic_auth_client(url, user, token, tls_profile) -> BaseAtlassianClient:
+    """Path 4: Basic Auth (email + API token) -- the unconditional fallback."""
+    logger.info("Using basic auth credentials for Atlassian API")
+    return BaseAtlassianClient(
+        base_url=url or "https://dummy.atlassian.net",
+        username=user or "",
+        token=token or "",
+        tls_profile=tls_profile,
+    )
+
+
 def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
     """Get client using suite-specific env vars or fall back to shared.
 
@@ -54,83 +145,26 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
             f"Your identity is not entitled to the Atlassian suite '{suite_prefix}'."
         )
 
-    from agent_utilities.mcp.delegated_auth import (
-        get_delegated_token,
-        is_delegation_enabled,
-    )
-
-    if suite_prefix:
-        url = setting(f"ATLASSIAN_{suite_prefix}_URL")
-        user = setting(f"ATLASSIAN_{suite_prefix}_USER")
-        token = setting(f"ATLASSIAN_{suite_prefix}_TOKEN")
-        tls_profile_name = setting(f"ATLASSIAN_{suite_prefix}_TLS_PROFILE")
-    else:
-        url = user = token = tls_profile_name = None
-
-    # fallback to shared
-    url = url or setting("ATLASSIAN_AGENT_URL")
-    user = user or setting("ATLASSIAN_AGENT_USER")
-    token = token or setting("ATLASSIAN_AGENT_TOKEN")
+    url, user, token, tls_profile_name = _resolve_suite_settings(suite_prefix)
 
     tls_profile = resolve_configured_tls_profile(
         "ATLASSIAN",
         profile_name=tls_profile_name or setting("ATLASSIAN_TLS_PROFILE"),
     )
 
-    # --- Path 1: OIDC Delegation (RFC 8693 Token Exchange) ---
-    if is_delegation_enabled():
-        try:
-            delegated_token = get_delegated_token(
-                audience=setting("AUDIENCE", url),
-                scopes=setting("DELEGATED_SCOPES", "read:jira-work write:jira-work"),
-            )
-            logger.info(
-                "Using OIDC delegated token for Atlassian API",
-            )
-            return BaseAtlassianClient(
-                base_url=url or "https://dummy.atlassian.net",
-                username=user or "",
-                token="",
-                tls_profile=tls_profile,
-                bearer_token=delegated_token,
-            )
-        except Exception as e:
-            logger.warning("Operation failed: error_type=%s", type(e).__name__)
+    client = _delegated_client(url, user, tls_profile)
+    if client is not None:
+        return client
 
-    # --- Path 2: 3-Legged OAuth (3LO) Bearer Token ---
-    oauth_token = setting("ATLASSIAN_OAUTH_TOKEN")
-    if oauth_token:
-        logger.info("Using 3LO OAuth Bearer token for Atlassian API")
-        return BaseAtlassianClient(
-            base_url=url or "https://dummy.atlassian.net",
-            username=user or "",
-            token="",
-            tls_profile=tls_profile,
-            bearer_token=oauth_token,
-        )
+    client = _oauth_3lo_client(url, user, tls_profile)
+    if client is not None:
+        return client
 
-    # --- Path 3: Bearer Token / PAT (Server / Data Center) ---
-    bearer_token = (
-        setting(f"ATLASSIAN_{suite_prefix}_BEARER_TOKEN") if suite_prefix else None
-    ) or setting("ATLASSIAN_BEARER_TOKEN")
-    if bearer_token:
-        logger.info("Using bearer token (PAT) for Atlassian API")
-        return BaseAtlassianClient(
-            base_url=url or "https://dummy.atlassian.net",
-            username=user or "",
-            token="",
-            tls_profile=tls_profile,
-            bearer_token=bearer_token,
-        )
+    client = _pat_bearer_client(suite_prefix, url, user, tls_profile)
+    if client is not None:
+        return client
 
-    # --- Path 4: Basic Auth (email + API token) ---
-    logger.info("Using basic auth credentials for Atlassian API")
-    return BaseAtlassianClient(
-        base_url=url or "https://dummy.atlassian.net",
-        username=user or "",
-        token=token or "",
-        tls_profile=tls_profile,
-    )
+    return _basic_auth_client(url, user, token, tls_profile)
 
 
 def get_base_client() -> BaseAtlassianClient:
