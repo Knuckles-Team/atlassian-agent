@@ -82,34 +82,49 @@ def extract_issues(payload) -> list:
     return []
 
 
+def _issue_priority_name(fields: dict) -> str:
+    """Extract the priority name, whether ``fields["priority"]`` is a dict or a bare string."""
+    priority_obj = fields.get("priority") or {}
+    return (
+        priority_obj.get("name") if isinstance(priority_obj, dict) else priority_obj
+    ) or ""
+
+
+def _issue_status_name(fields: dict) -> str:
+    """Extract the status name, whether ``fields["status"]`` is a dict or a bare string."""
+    status = fields.get("status") or {}
+    return status.get("name") if isinstance(status, dict) else (status or "")
+
+
+def _score_issue(priority: str, fields: dict, now: datetime) -> tuple[int, int]:
+    """Compute (score, days_stale) for one issue from its priority + last-updated time."""
+    rank_val = PRIORITY_RANK.get(priority.lower(), DEFAULT_PRIORITY_RANK)
+    updated = fields.get("updated") or fields.get("updated_at") or ""
+    days_stale = max(0, (now - parse_dt(updated)).days) if updated else 0
+    score = rank_val * 100 + min(days_stale, STALE_CAP)
+    if days_stale > STALE_DAYS:
+        score += STALE_BONUS
+    return score, days_stale
+
+
+def _rank_one_issue(issue: dict, now: datetime) -> dict:
+    """Build one ranked-row dict for a single Jira issue."""
+    fields = issue.get("fields", issue) or {}
+    priority = _issue_priority_name(fields)
+    score, days_stale = _score_issue(priority, fields, now)
+    return {
+        "key": issue.get("key") or issue.get("id") or "?",
+        "summary": fields.get("summary") or fields.get("name") or "",
+        "priority": priority or "(none)",
+        "status": _issue_status_name(fields),
+        "days_stale": days_stale,
+        "stale": days_stale > STALE_DAYS,
+        "score": score,
+    }
+
+
 def rank(issues: list, now: datetime) -> list:
-    ranked = []
-    for issue in issues:
-        fields = issue.get("fields", issue) or {}
-        priority_obj = fields.get("priority") or {}
-        priority = (
-            priority_obj.get("name") if isinstance(priority_obj, dict) else priority_obj
-        ) or ""
-        rank_val = PRIORITY_RANK.get(priority.lower(), DEFAULT_PRIORITY_RANK)
-        updated = fields.get("updated") or fields.get("updated_at") or ""
-        days_stale = max(0, (now - parse_dt(updated)).days) if updated else 0
-        score = rank_val * 100 + min(days_stale, STALE_CAP)
-        if days_stale > STALE_DAYS:
-            score += STALE_BONUS
-        status = fields.get("status") or {}
-        ranked.append(
-            {
-                "key": issue.get("key") or issue.get("id") or "?",
-                "summary": fields.get("summary") or fields.get("name") or "",
-                "priority": priority or "(none)",
-                "status": status.get("name")
-                if isinstance(status, dict)
-                else (status or ""),
-                "days_stale": days_stale,
-                "stale": days_stale > STALE_DAYS,
-                "score": score,
-            }
-        )
+    ranked = [_rank_one_issue(issue, now) for issue in issues]
     ranked.sort(key=lambda r: (r["score"], r["days_stale"]), reverse=True)
     return ranked
 
