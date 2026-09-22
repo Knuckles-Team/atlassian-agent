@@ -35,6 +35,17 @@ from pydantic import Field
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
+from atlassian_agent.action_literals import (
+    _ADMIN_CLOUD_ACTIONS,
+    _API_ACCESS_CLOUD_ACTIONS,
+    _CONFLUENCE_PAGE_ACTIONS,
+    _CONTROL_CLOUD_ACTIONS,
+    _DLP_CLOUD_ACTIONS,
+    _JIRA_ISSUE_ACTIONS,
+    _ORG_CLOUD_ACTIONS,
+    _USER_MGMT_CLOUD_ACTIONS,
+    _USER_PROVISIONING_CLOUD_ACTIONS,
+)
 from atlassian_agent.api.base import BaseAtlassianClient
 from atlassian_agent.auth import (
     get_admin_cloud_client,
@@ -193,7 +204,7 @@ def register_atlassian_control_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian-control"})
     async def atlassian_atlassian_control(
-        action: str = Field(
+        action: _CONTROL_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -242,7 +253,7 @@ def register_atlassian_org_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian-org"})
     async def atlassian_atlassian_org(
-        action: str = Field(
+        action: _ORG_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -285,7 +296,7 @@ def register_atlassian_dlp_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian-dlp"})
     async def atlassian_atlassian_dlp(
-        action: str = Field(
+        action: _DLP_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -328,7 +339,7 @@ def register_atlassian_user_mgmt_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian-user-mgmt"})
     async def atlassian_atlassian_user_mgmt(
-        action: str = Field(
+        action: _USER_MGMT_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -377,7 +388,7 @@ def register_atlassian_admin_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian-admin"})
     async def atlassian_atlassian_admin(
-        action: str = Field(
+        action: _ADMIN_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -426,7 +437,7 @@ def register_atlassian_api_access_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian-api-access"})
     async def atlassian_atlassian_api_access(
-        action: str = Field(
+        action: _API_ACCESS_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -478,7 +489,7 @@ def register_atlassian_user_provisioning_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian-user-provisioning"})
     async def atlassian_atlassian_user_provisioning(
-        action: str = Field(
+        action: _USER_PROVISIONING_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -527,7 +538,7 @@ def register_atlassian_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"atlassian"})
     async def atlassian_atlassian(
-        action: str = Field(
+        action: _USER_MGMT_CLOUD_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -648,7 +659,7 @@ def register_jira_issue_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"jira-issue"})
     async def atlassian_jira_issue(
-        action: str = Field(
+        action: _JIRA_ISSUE_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(
@@ -858,7 +869,7 @@ def register_confluence_page_tools(mcp: FastMCP):
 
     @mcp.tool(tags={"confluence-page"})
     async def atlassian_confluence_page(
-        action: str = Field(
+        action: _CONFLUENCE_PAGE_ACTIONS = Field(
             description="The specific action or client method to execute."
         ),
         params_json: str = Field(

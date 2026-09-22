@@ -112,7 +112,7 @@ sync:
   updated_field: version
   pagination: null
   doc_type: confluence_page
-  tool_schema_sha256: 8c4bda7733728fb8a8ce53211edf69e5931212c088bb7c93ab342e19fdd3e173
+  tool_schema_sha256: f3feffec8a7917133ac47c7cb35f3bde67ed392a0c0977fe4b270d9e869fc2cf
   raw:
     server: atlassian-mcp
     tool: atlassian_confluence_page
@@ -134,7 +134,7 @@ sync:
   updated_field: fields.updated
   pagination: null
   doc_type: jira_issue
-  tool_schema_sha256: e23246d14d338cc81acbb5920ea81c9ed743e87689e1303229fb0e02a81f93aa
+  tool_schema_sha256: 5ac97eea4b30e611233d88bf9377238f1b507783f1b748451e5939dbb483d8e7
   raw:
     server: atlassian-mcp
     tool: atlassian_jira_issue

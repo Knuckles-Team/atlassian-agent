@@ -543,7 +543,11 @@ async def test_confluence_page_tool_direct():
     res2 = await mcp.call_tool(
         tool_name,
         {
-            "action": "confluence_server_get_pages",
+            # Confluence Server has no "get_pages" bulk endpoint (that shape is
+            # Cloud-only); "get_content" is the real, equivalent Server action
+            # now that `action` is a closed Literal enumerated from each
+            # deployment's actual client methods (EH-215/EH-217).
+            "action": "confluence_server_get_content",
             "deployment": "server",
             "params_json": '{"page_id": "123"}',
         },
