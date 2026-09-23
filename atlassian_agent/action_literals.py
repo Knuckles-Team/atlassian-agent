@@ -8,20 +8,37 @@ method -- both forms are genuinely dispatchable, not invented. ``request``
 and ``__init__`` are excluded; they are not domain actions.
 
 ``_JIRA_ISSUE_ACTIONS``/``_CONFLUENCE_PAGE_ACTIONS`` are the union across
-both the cloud and server clients (1000-2000+ real methods each) and are
-wired to exactly ONE tool each (``atlassian_jira_issue``,
-``atlassian_confluence_page`` -- the two with a real ``mcp_source_presets.json``
-entry that needs a certifiable enum). They are deliberately NOT reused on
-the other six ``atlassian_jira_*`` / three ``atlassian_confluence_*`` tools:
-wiring the same huge Literal onto all of them at once makes
-``agent_utilities.mcp.verbose_tools``'s ``MCP_TOOL_MODE=both`` autowiring
-(one derived verbose tool per action) register tens of thousands of
-components across the combined surface, which times out
-``LocalProvider._check_version_mixing``'s per-addition linear scan --
-reproduced directly (``tests/test_verbose_autowire.py``). One huge Literal is
-safe; twelve of them combined are not. Those other tools keep ``action: str``
-pending a real fix (a scoped per-domain sub-client, or an indexed
-version-mixing check) -- see CONTRACT-REQUEST.md.
+both the cloud and server clients (1000-2000+ real methods each). Every
+``atlassian_jira_*``/``atlassian_confluence_*`` tool dispatches through the
+exact same ``execute_client_method``/``_run_dispatch`` pair against the exact
+same ``client_cloud``/``client_server`` clients (see ``mcp_server.py`` --
+``register_jira_project_tools`` through ``register_jira_other_tools`` and
+``register_confluence_space_tools`` through ``register_confluence_other_tools``
+all call the identical dispatcher with the identical clients as
+``atlassian_jira_issue``/``atlassian_confluence_page``), so the true
+dispatchable action set of every one of those tools genuinely IS this same
+union -- the "project"/"user"/"comment"/"field"/"screen"/"workflow"/"other"
+split is a tool-naming convenience only, not a dispatch restriction. All 12
+Jira/Confluence tools now share these two Literal enums.
+
+A prior pass here was blocked on a real scaling hazard in
+``agent_utilities.mcp.verbose_tools``: deriving one verbose tool per action
+for a large ``Literal`` (``MCP_TOOL_MODE=both`` autowiring) registered each
+derived tool with a per-item ``add_tool()`` call, and FastMCP's
+``LocalProvider._check_version_mixing`` rescans every already-registered
+component on every single addition -- O(n^2) in the total component count as
+more large-enum tools are wired onto the same server. Fixed at the root in
+``agent_utilities.mcp.verbose_tools`` (AU ``fix/verbose-tools-large-enums``,
+``_bulk_add_tools``): the auto-wire now builds every derived tool first and
+registers them in one bulk pass, an O(1) duplicate check per tool instead of
+FastMCP's O(n) rescan -- see that repo's ``tests/unit/mcp/
+test_verbose_tools.py::test_autowire_large_action_enum_wires_in_well_under_a_second``
+for the isolated regression proof (a single 2000-action enum: ~2x faster on
+the fast path, and the fix removes an O(n^2) growth term that would only get
+worse as enum sizes grow). With the fix, registering all 12 Jira/Confluence
+tools' ~18.8k combined verbose tools here measures ~7-10s end to end
+(verified directly, not assumed) -- comfortably inside any reasonable
+build/certify budget.
 
 Kept out of mcp_server.py itself so a single generated enumeration does not
 inflate that module's own line count; regenerate together if a vendored API

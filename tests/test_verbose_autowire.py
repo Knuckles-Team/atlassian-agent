@@ -1,25 +1,62 @@
-"""Verbose auto-wire (ECO-4.90) is actually wired into atlassian-agent.
+"""Verbose auto-wire (ECO-4.89) is actually wired into atlassian-agent.
 
-The verbose auto-wire mechanism lives in agent-utilities, but it only emits
-verbose tools for a free-form ``action: str`` condensed tool when that tool's
-runtime action surface is registered via an **action provider**. These tests
-prove atlassian-agent passes that provider on the live registration path — the
-Wire-First guarantee — so ``MCP_TOOL_MODE=both`` exposes one
-``<tool>__<action>`` verbose tool per Jira/Confluence operation, each dispatching
-to the condensed handler with ``action`` preset.
+Every Jira/Confluence action-routed tool (``atlassian_jira_*``,
+``atlassian_confluence_*``) now declares a real, closed ``Literal`` action
+enum (``_JIRA_ISSUE_ACTIONS``/``_CONFLUENCE_PAGE_ACTIONS`` -- the true union
+across the cloud and server clients, since every one of these tools
+dispatches through the identical ``execute_client_method``/``_run_dispatch``
+pair against the identical clients; see ``action_literals.py``'s module
+docstring). That closed static enum is what the fleet-wide verbose auto-wire
+(``agent_utilities.mcp.verbose_tools.autowire_verbose_from_condensed``) reads
+directly (:func:`_action_enum`) -- no per-connector "action provider"
+registration is needed for these tools any more (the previous
+dynamic-provider path, ECO-4.90, is now only exercised by connectors whose
+action set genuinely cannot be a static enum).
 
-CONCEPT:ECO-4.90 — verbose auto-wire enumerates dynamic (runtime) actions
+These tests prove ``MCP_TOOL_MODE=both`` exposes one ``<tool>__<action>``
+verbose tool per Jira/Confluence operation, for every one of the 12 tools,
+each dispatching to the condensed handler with ``action`` preset.
+
+CONCEPT:ECO-4.89 — fleet-wide verbose auto-wire from condensed action enums
 """
 
 from __future__ import annotations
 
 import importlib
 import sys
-from unittest.mock import MagicMock
 
 import pytest
-from agent_utilities.mcp.action_dispatch import public_actions
 from agent_utilities.mcp.verbose_tools import _provider_tools
+
+from atlassian_agent.action_literals import (
+    _CONFLUENCE_PAGE_ACTIONS,
+    _JIRA_ISSUE_ACTIONS,
+)
+
+#: The 8 Jira / 4 Confluence tools that all dispatch through the same
+#: cloud+server client pair and therefore all share the same closed enum.
+_JIRA_TOOL_NAMES = (
+    "atlassian_jira_project",
+    "atlassian_jira_user",
+    "atlassian_jira_issue",
+    "atlassian_jira_comment",
+    "atlassian_jira_field",
+    "atlassian_jira_screen",
+    "atlassian_jira_workflow",
+    "atlassian_jira_other",
+)
+_CONFLUENCE_TOOL_NAMES = (
+    "atlassian_confluence_page",
+    "atlassian_confluence_space",
+    "atlassian_confluence_user",
+    "atlassian_confluence_other",
+)
+
+
+def _literal_values(literal: object) -> tuple[str, ...]:
+    import typing
+
+    return typing.get_args(literal)
 
 
 def _fresh_mcp_server():
@@ -34,70 +71,116 @@ def _fresh_mcp_server():
     return importlib.import_module("atlassian_agent.mcp_server")
 
 
-@pytest.fixture
-def both_mode_mcp(monkeypatch):
+@pytest.fixture(scope="module")
+def both_mode_mcp():
     """Build the atlassian MCP surface in ``MCP_TOOL_MODE=both`` with mocked auth.
 
-    The action providers introspect the client *classes* (credential-free), so no
-    live credentials are needed; the auth getters are still mocked so condensed
-    registration succeeds.
+    Module-scoped: registering ~19k verbose tools across the 12 Jira/Confluence
+    tools is real work (the whole point of this file), done once for every
+    test here rather than per test. Auth getters are still mocked (matching
+    the previous per-test fixture) so condensed registration succeeds without
+    live credentials.
     """
-    monkeypatch.setenv("MCP_TOOL_MODE", "both")
+    import os
+    from unittest.mock import MagicMock, patch
 
     import atlassian_agent.auth as auth_mod
 
-    for name in list(dir(auth_mod)):
-        if name.startswith("get_") and name.endswith("_client"):
-            monkeypatch.setattr(auth_mod, name, MagicMock(return_value=MagicMock()))
-
-    srv = _fresh_mcp_server()
-
-    # The module guards against duplicate registration with a process-global set;
-    # clear it so this test registers a fresh surface.
-    monkeypatch.setattr(srv, "_registered_tools", set())
-    mcp, _args, _mw = srv.get_mcp_instance()
+    getter_names = [
+        name
+        for name in dir(auth_mod)
+        if name.startswith("get_") and name.endswith("_client")
+    ]
+    old_mode = os.environ.get("MCP_TOOL_MODE")
+    os.environ["MCP_TOOL_MODE"] = "both"
+    try:
+        with patch.multiple(
+            auth_mod,
+            **{name: MagicMock(return_value=MagicMock()) for name in getter_names},
+        ):
+            srv = _fresh_mcp_server()
+            # `_registered_tools` is a module-level global mutated in place by
+            # every `register_*_tools` call; save/restore it explicitly (a
+            # plain `.clear()` with no restore, unlike `monkeypatch.setattr`,
+            # would permanently leak this module's real tool names into it
+            # and starve a later test file's own fresh-registration checks).
+            original_registered = set(srv._registered_tools)
+            srv._registered_tools.clear()
+            mcp, _args, _mw = srv.get_mcp_instance()
+    finally:
+        if old_mode is None:
+            os.environ.pop("MCP_TOOL_MODE", None)
+        else:
+            os.environ["MCP_TOOL_MODE"] = old_mode
+        srv._registered_tools.clear()
+        srv._registered_tools.update(original_registered)
     return srv, mcp
 
 
-def test_atlassian_action_providers_cover_every_condensed_tool():
-    """Every condensed action-routed tool has a backing client class declared,
-    so the auto-wire never silently skips one."""
+def test_no_action_routed_tool_left_as_free_form_str():
+    """Every Jira/Confluence/admin action-routed tool declares a real closed
+    enum -- none of the 20 dispatchers is left as an unbounded ``action: str``
+    (EH-215/EH-217)."""
     srv = _fresh_mcp_server()
+    import inspect
 
-    providers = srv._condensed_action_providers()
-    # All provider values are client classes (credential-free introspection).
-    assert all(isinstance(v, type) for v in providers.values())
-    # The two products are present and resolve to the documented action counts.
-    from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
-    from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
-
-    assert providers["atlassian_jira_other"] is JiraCloudAPI
-    assert providers["atlassian_confluence_other"] is ConfluenceCloudAPI
+    for name in _JIRA_TOOL_NAMES + _CONFLUENCE_TOOL_NAMES:
+        register_fn = getattr(srv, f"register_{name.removeprefix('atlassian_')}_tools")
+        source = inspect.getsource(register_fn)
+        assert "action: str" not in source, f"{name} still declares action: str"
 
 
-def test_both_mode_emits_one_verbose_tool_per_action(both_mode_mcp):
-    """The headline goal: in ``both`` mode the auto-wire derives one
-    ``<tool>__<action>`` verbose tool per Jira (621) and Confluence (214) action."""
-    from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
-    from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
-
+@pytest.mark.parametrize("tool_name", _JIRA_TOOL_NAMES)
+def test_jira_tool_action_enum_matches_closed_union(both_mode_mcp, tool_name):
+    """Every Jira tool's declared ``action`` enum is exactly the real closed
+    union (1933 actions) -- not a narrower or invented set."""
     _srv, mcp = both_mode_mcp
     tools = _provider_tools(mcp)
-    jira_actions = public_actions(JiraCloudAPI)
-    conf_actions = public_actions(ConfluenceCloudAPI)
+    tool = tools[tool_name]
+    props = (tool.parameters or {}).get("properties", {})
+    assert set(props["action"]["enum"]) == set(_literal_values(_JIRA_ISSUE_ACTIONS))
 
-    jira_verbose = sorted(n for n in tools if n.startswith("atlassian_jira_other__"))
-    conf_verbose = sorted(
-        n for n in tools if n.startswith("atlassian_confluence_other__")
+
+@pytest.mark.parametrize("tool_name", _CONFLUENCE_TOOL_NAMES)
+def test_confluence_tool_action_enum_matches_closed_union(both_mode_mcp, tool_name):
+    """Every Confluence tool's declared ``action`` enum is exactly the real
+    closed union (731 actions)."""
+    _srv, mcp = both_mode_mcp
+    tools = _provider_tools(mcp)
+    tool = tools[tool_name]
+    props = (tool.parameters or {}).get("properties", {})
+    assert set(props["action"]["enum"]) == set(
+        _literal_values(_CONFLUENCE_PAGE_ACTIONS)
     )
 
-    assert jira_verbose == sorted(f"atlassian_jira_other__{a}" for a in jira_actions)
-    assert conf_verbose == sorted(
-        f"atlassian_confluence_other__{a}" for a in conf_actions
-    )
-    # Sanity: the documented counts (621 Jira + 214 Confluence).
-    assert len(jira_verbose) == len(jira_actions) == 621
-    assert len(conf_verbose) == len(conf_actions) == 214
+
+@pytest.mark.parametrize("tool_name", _JIRA_TOOL_NAMES)
+def test_both_mode_emits_one_verbose_jira_tool_per_action(both_mode_mcp, tool_name):
+    """In ``both`` mode the auto-wire derives one ``<tool>__<action>`` verbose
+    tool per Jira action, for every one of the 8 Jira tools (1933 each)."""
+    _srv, mcp = both_mode_mcp
+    tools = _provider_tools(mcp)
+    jira_actions = _literal_values(_JIRA_ISSUE_ACTIONS)
+
+    verbose = sorted(n for n in tools if n.startswith(f"{tool_name}__"))
+    assert verbose == sorted(f"{tool_name}__{a}" for a in jira_actions)
+    assert len(verbose) == len(jira_actions) == 1933
+
+
+@pytest.mark.parametrize("tool_name", _CONFLUENCE_TOOL_NAMES)
+def test_both_mode_emits_one_verbose_confluence_tool_per_action(
+    both_mode_mcp, tool_name
+):
+    """In ``both`` mode the auto-wire derives one ``<tool>__<action>`` verbose
+    tool per Confluence action, for every one of the 4 Confluence tools
+    (731 each)."""
+    _srv, mcp = both_mode_mcp
+    tools = _provider_tools(mcp)
+    conf_actions = _literal_values(_CONFLUENCE_PAGE_ACTIONS)
+
+    verbose = sorted(n for n in tools if n.startswith(f"{tool_name}__"))
+    assert verbose == sorted(f"{tool_name}__{a}" for a in conf_actions)
+    assert len(verbose) == len(conf_actions) == 731
 
 
 def test_verbose_tool_presets_action_and_keeps_passthrough(both_mode_mcp):
