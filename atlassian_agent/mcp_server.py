@@ -657,7 +657,18 @@ def register_jira_issue_tools(mcp: FastMCP):
         return
     _registered_tools.add("jira_issue")
 
-    @mcp.tool(tags={"jira-issue"})
+    @mcp.tool(
+        tags={"jira-issue"},
+        annotations={
+            "readOnlyHint": False,
+            "destructiveHint": True,
+            "idempotentHint": False,
+            "openWorldHint": True,
+        },
+        meta={
+            "eg.annotations": {"modalities_in": ["text"], "modalities_out": ["text"]}
+        },
+    )
     async def atlassian_jira_issue(
         action: _JIRA_ISSUE_ACTIONS = Field(
             description="The specific action or client method to execute."
@@ -867,7 +878,18 @@ def register_confluence_page_tools(mcp: FastMCP):
         return
     _registered_tools.add("confluence_page")
 
-    @mcp.tool(tags={"confluence-page"})
+    @mcp.tool(
+        tags={"confluence-page"},
+        annotations={
+            "readOnlyHint": False,
+            "destructiveHint": True,
+            "idempotentHint": False,
+            "openWorldHint": True,
+        },
+        meta={
+            "eg.annotations": {"modalities_in": ["text"], "modalities_out": ["text"]}
+        },
+    )
     async def atlassian_confluence_page(
         action: _CONFLUENCE_PAGE_ACTIONS = Field(
             description="The specific action or client method to execute."
