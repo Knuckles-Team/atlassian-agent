@@ -1498,103 +1498,11 @@ The full list is in the [Available MCP Tools](#available-mcp-tools) table above
 | `EUNOMIA_POLICY_FILE` | Embedded policy file | `mcp_policies.json` |
 | `EUNOMIA_REMOTE_URL` | Remote Eunomia server URL | — |
 
-### Agent CLI (full `[agent]` runtime only)
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `MCP_URL` | URL of the MCP server the agent connects to | `http://localhost:8000/mcp` |
-| `PROVIDER` | LLM provider (e.g. `openai`) | `openai` |
-| `MODEL_ID` | Model id (e.g. `gpt-4o`) | `gpt-4o` |
-| `ENABLE_WEB_UI` | Serve the AG-UI web interface | `True` |
 
 See [`.env.example`](.env.example) for a copy-paste starting point.
 
-## Agent
-
-This repository features a fully integrated Pydantic AI Graph Agent. It communicates over the **Agent Control Protocol (ACP)** and interacts seamlessly with the **Agent Web UI (AG-UI)** and Terminal interface.
-
-### Running the Agent CLI
-To start the interactive command-line agent:
-
-```bash
-# Set credentials
-export ATLASSIAN_AGENT_URL="your_value"
-export ATLASSIAN_AGENT_USER="your_value"
-export ATLASSIAN_AGENT_TOKEN="your_value"
-export ATLASSIAN_TLS_PROFILE="private-pki"
-export DEBUG="your_value"
-export PYTHONUNBUFFERED="your_value"
-
-# Run the agent server
-atlassian-agent --provider openai --model-id gpt-4o
-```
-
 ### Docker Compose Orchestration
-The following `docker/agent.compose.yml` configures the Agent, Web UI, and Terminal Interface together:
-
-```yaml
-version: '3.8'
-
-services:
-  atlassian-agent-mcp:
-    image: example/atlassian-agent:mcp
-    container_name: atlassian-agent-mcp
-    hostname: atlassian-agent-mcp
-    restart: always
-    env_file:
-      - ../.env
-    environment:
-      - PYTHONUNBUFFERED=1
-      - HOST=0.0.0.0
-      - PORT=8000
-      - TRANSPORT=streamable-http
-    ports:
-      - "8000:8000"
-    healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-
-  atlassian-agent-agent:
-    image: example/atlassian-agent@sha256:<digest>
-    container_name: atlassian-agent-agent
-    hostname: atlassian-agent-agent
-    restart: always
-    depends_on:
-      - atlassian-agent-mcp
-    env_file:
-      - ../.env
-    command: [ "atlassian-agent" ]
-    environment:
-      - PYTHONUNBUFFERED=1
-      - HOST=0.0.0.0
-      - PORT=9004
-      - MCP_URL=http://atlassian-agent-mcp:8000/mcp
-      - PROVIDER=${PROVIDER:-openai}
-      - MODEL_ID=${MODEL_ID:-gpt-4o}
-      - ENABLE_WEB_UI=True
-      - ENABLE_OTEL=True
-    ports:
-      - "9004:9004"
-    healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:9004/health')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-
-```
+`docker/mcp.compose.yml` runs the MCP server as a hardened, least-privilege container (see the file for the full service definition).
 
 Detailed graph node architecture explanations, custom skill configurations, and agentic trace guides are available in [docs/deployment.md](docs/deployment.md).
 
@@ -1625,43 +1533,31 @@ Pick the extra that matches what you want to run:
 | Extra | Installs | Use when |
 |-------|----------|----------|
 | `atlassian-agent[mcp]` | Connector-focused MCP server (`agent-utilities[mcp]` — FastMCP/FastAPI + `epistemic-graph[full]`) | You only run the **MCP server** (smallest install / image) |
-| `atlassian-agent[agent]` | Agent runtime (`agent-utilities[agent-runtime,logfire]` — model orchestration + `epistemic-graph[full]`) | You run the **integrated agent** |
-| `atlassian-agent[all]` | Everything (`mcp` + `agent` + `logfire`) | Development / both surfaces |
 
 ```bash
 # Connector-focused MCP server (includes the shared graph engine)
 uv pip install "atlassian-agent[mcp]"
-
-# Agent runtime (adds model orchestration to the shared graph engine)
-uv pip install "atlassian-agent[agent]"
-
-# Everything (development)
-uv pip install "atlassian-agent[all]"      # or: python -m pip install "atlassian-agent[all]"
 ```
 
-### Container images (`:mcp` vs `:agent`)
+### Container images (`:mcp`)
 
-One multi-stage `docker/Dockerfile` builds two right-sized images, selected by `--target`:
+One `docker/Dockerfile` builds a single slim MCP-server image:
 
-| Image tag | Build target | Contents | Entrypoint |
-|-----------|--------------|----------|------------|
-| `example/atlassian-agent:mcp` | `--target mcp` | `atlassian-agent[mcp]` — **connector-focused**, includes `epistemic-graph[full]`; no model-orchestration stack | `atlassian-mcp` |
-| `example/atlassian-agent@sha256:<digest>` | `--target agent` (default) | `atlassian-agent[agent]` — **agent runtime**, model orchestration + `epistemic-graph[full]` | `atlassian-agent` |
+| Image tag | Contents | Entrypoint |
+|-----------|----------|------------|
+| `example/atlassian-agent:mcp` | `atlassian-agent[mcp]` -- connector-focused, includes `epistemic-graph[full]` | `atlassian-agent` |
 
 ```bash
-docker build --target mcp   -t example/atlassian-agent:mcp    docker/   # connector-focused MCP server
-docker build --target agent -t example/atlassian-agent:agent-local docker/   # agent runtime
+docker build -t example/atlassian-agent:mcp docker/   # connector-focused MCP server
 ```
 
-`docker/mcp.compose.yml` runs the connector-focused `:mcp` server; `docker/agent.compose.yml` runs the
-agent (`immutable agent digest`) with a co-located `:mcp` sidecar.
+`docker/mcp.compose.yml` runs the connector-focused `:mcp` server.
 
 ### Knowledge-graph database (`epistemic-graph`)
 
-Both `[mcp]` and `[agent]` carry the **epistemic-graph** engine through the required
-Agent Utilities core dependency (`epistemic-graph[full]`). The `[mcp]` extra keeps
-the server connector-focused; `[agent]` additionally enables model orchestration. Local
-deployments can use the bundled engine. For production or shared state, run
+The `[mcp]` extra carries the **epistemic-graph** engine through the required
+Agent Utilities core dependency (`epistemic-graph[full]`); the server stays
+connector-focused. Local deployments can use the bundled engine. For production or shared state, run
 **epistemic-graph as a dedicated database service** and configure the runtime to use it.
 Deployment recipes (single-node + Raft HA), connection configuration, and architecture
 diagrams are documented in the
@@ -1716,7 +1612,7 @@ to **"deploy `atlassian-agent` with agent-utilities-deployment"**.
 | Install mode | Command |
 |------|---------|
 | Installed package | `uv tool install "atlassian-agent[mcp]"`, then run `atlassian-mcp` |
-| Editable source | `uv pip install -e ".[agent]"`, then run `atlassian-mcp` |
+| Editable source | `uv pip install -e ".[mcp]"`, then run `atlassian-mcp` |
 | Immutable container | deploy `registry.example.invalid/atlassian-agent@sha256:<digest>` through the operator-selected orchestrator |
 
 The repository embeds no deployment profile, credential value, certificate path, or
