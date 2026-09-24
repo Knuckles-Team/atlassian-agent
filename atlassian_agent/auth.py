@@ -1,8 +1,8 @@
 import threading
 
-from agent_utilities.base_utilities import get_logger
-from agent_utilities.core.config import setting
-from agent_utilities.core.transport_security import resolve_configured_tls_profile
+from agent_connector_sdk.config import setting
+from agent_connector_sdk.tls.resolve import resolve_tls_profile
+from agent_connector_sdk.utilities import get_logger
 
 from .api.base import BaseAtlassianClient
 
@@ -147,7 +147,7 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
 
     url, user, token, tls_profile_name = _resolve_suite_settings(suite_prefix)
 
-    tls_profile = resolve_configured_tls_profile(
+    tls_profile = resolve_tls_profile(
         "ATLASSIAN",
         profile_name=tls_profile_name or setting("ATLASSIAN_TLS_PROFILE"),
     )

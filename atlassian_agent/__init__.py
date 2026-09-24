@@ -9,7 +9,6 @@ __all__: list[str] = []
 CORE_MODULES: list[str] = []
 
 OPTIONAL_MODULES = {
-    "atlassian_agent.agent_server": "agent",
     "atlassian_agent.mcp_server": "mcp",
 }
 

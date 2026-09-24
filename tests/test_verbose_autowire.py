@@ -26,7 +26,7 @@ import importlib
 import sys
 
 import pytest
-from agent_utilities.mcp.verbose_tools import _provider_tools
+from agent_connector_sdk.mcp.tool_mode import registered_tools as _provider_tools
 
 from atlassian_agent.action_literals import (
     _CONFLUENCE_PAGE_ACTIONS,

@@ -1,4 +1,3 @@
-import os
 import runpy
 from unittest.mock import MagicMock, patch
 
@@ -17,9 +16,10 @@ def test_init_coverage():
     res = atlassian_agent._import_module_safely("nonexistent_module_foo_bar")
     assert res is None
 
-    # Trigger availability flags
+    # Trigger availability flags. agent_server.py is retired (EH-480 policy
+    # update), so _AGENT_AVAILABLE is always False now.
     assert atlassian_agent._MCP_AVAILABLE
-    assert atlassian_agent._AGENT_AVAILABLE
+    assert not atlassian_agent._AGENT_AVAILABLE
 
     # Test availability flags when optional modules are not in OPTIONAL_MODULES
     with patch.dict(atlassian_agent.OPTIONAL_MODULES, {}, clear=True):
@@ -63,102 +63,10 @@ def test_init_coverage():
             mock_expose.assert_called_with(mock_mod)
 
 
-# 2. Tests for atlassian_agent/agent_server.py
-@pytest.fixture
-def mock_agent_utilities():
-    with (
-        patch("agent_utilities.initialize_workspace") as mock_init,
-        patch("agent_utilities.load_identity") as mock_load,
-        patch("agent_utilities.build_system_prompt_from_workspace") as mock_prompt,
-        patch("agent_utilities.create_agent_parser") as mock_parser,
-        patch("agent_utilities.create_agent_server") as mock_server,
-    ):
-        # Mock identity metadata
-        mock_load.return_value = {
-            "name": "Mocked Atlassian Agent",
-            "description": "Mocked Description",
-            "content": "Mocked system prompt",
-        }
-
-        # Mock argparse args
-        mock_args = MagicMock()
-        mock_args.mcp_url = "http://localhost:8000"
-        mock_args.mcp_config = "mock_config.json"
-        mock_args.host = "localhost"
-        mock_args.port = 8000
-        mock_args.provider = "openai"
-        mock_args.model_id = "gpt-4o"
-        mock_args.base_url = "http://api.openai.com"
-        mock_args.api_key = "dummy-key"
-        mock_args.custom_skills_directory = "skills"
-        mock_args.web = True
-        mock_args.otel = True
-        mock_args.otel_endpoint = "otel-endpoint"
-        mock_args.otel_headers = "otel-headers"
-        mock_args.otel_public_key = "pub-key"
-        mock_args.otel_secret_key = "sec-key"
-        mock_args.otel_protocol = "grpc"
-        mock_args.debug = True
-
-        parser_instance = MagicMock()
-        parser_instance.parse_args.return_value = mock_args
-        mock_parser.return_value = parser_instance
-
-        yield {
-            "init": mock_init,
-            "load": mock_load,
-            "prompt": mock_prompt,
-            "parser": mock_parser,
-            "server": mock_server,
-            "args": mock_args,
-        }
-
-
-def test_agent_server_debug_mode(mock_agent_utilities):
-    from atlassian_agent.agent_server import agent_server
-
-    with patch("sys.argv", ["atlassian-agent"]):
-        agent_server()
-
-    mock_agent_utilities["init"].assert_called_once()
-    mock_agent_utilities["load"].assert_called_once()
-    mock_agent_utilities["parser"].assert_called_once()
-    mock_agent_utilities["server"].assert_called_once()
-
-
-def test_agent_server_non_debug_and_fallback(mock_agent_utilities):
-    from atlassian_agent.agent_server import agent_server
-
-    # Adjust mock values to trigger alternative paths
-    mock_agent_utilities["args"].debug = False
-    mock_agent_utilities["load"].return_value = {
-        "name": "Mocked Atlassian Agent",
-        "description": "Mocked Description",
-        "content": None,  # Trigger fallback system prompt builder
-    }
-    mock_agent_utilities["prompt"].return_value = "fallback system prompt"
-
-    # Set environment variables to test env var prioritisation
-    with patch.dict(
-        os.environ,
-        {
-            "DEFAULT_AGENT_NAME": "Env Agent Name",
-            "AGENT_DESCRIPTION": "Env Agent Description",
-            "AGENT_SYSTEM_PROMPT": "Env Agent Prompt",
-        },
-    ):
-        with patch("sys.argv", ["atlassian-agent"]):
-            agent_server()
-
-
-def test_agent_server_direct_script_execution(mock_agent_utilities):
-    with patch("sys.argv", ["atlassian-agent"]):
-        runpy.run_module("atlassian_agent.agent_server", run_name="__main__")
-
-
-# 3. Tests for atlassian_agent/__main__.py
+# 2. Tests for atlassian_agent/__main__.py (agent_server.py retired; the
+# module entry point now launches mcp_server, EH-480 policy update)
 def test_main_execution():
-    with patch("atlassian_agent.agent_server.agent_server") as mock_server:
-        with patch("sys.argv", ["atlassian-agent"]):
+    with patch("atlassian_agent.mcp_server.mcp_server") as mock_server:
+        with patch("sys.argv", ["atlassian-mcp"]):
             runpy.run_module("atlassian_agent.__main__", run_name="__main__")
             mock_server.assert_called_once()
