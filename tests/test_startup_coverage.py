@@ -30,9 +30,10 @@ def test_init_coverage():
     with pytest.raises(AttributeError, match="has no attribute 'nonexistent_attr'"):
         _ = atlassian_agent.nonexistent_attr
 
-    # Trigger optional module getattr for variables (which aren't exposed by _expose_members)
-    # This covers line 69
-    assert atlassian_agent.DEFAULT_AGENT_NAME is None
+    # NOTE: this used to also assert `atlassian_agent.DEFAULT_AGENT_NAME is None`
+    # to cover the optional-module getattr fallback for module-level variables
+    # (not just classes/functions). DEFAULT_AGENT_NAME lived in the now-retired
+    # agent_server.py (EH-480 policy update) and has no replacement -- dropped.
 
     # Test _expose_members with dummy classes and functions
     class MockExposedClass:
