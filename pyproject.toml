@@ -83,3 +83,6 @@ exclude = [".venv", "venv", "tests/"]
 dev = [
     "pytest-timeout>=2.4.0",
 ]
+
+[tool.pipelines_hooks.ste]
+exempt = ["specs/*", "specs/**/*"]

@@ -1,7 +1,7 @@
 # Usage — MCP / Python API / CLI
 
 `atlassian-agent` exposes the same Atlassian capability three ways: as **MCP tools** an
-agent calls, as **Python clients** you import, and as a **CLI** that runs the MCP
+agent calls, as **Python clients** the operator import, and as a **CLI** that runs the MCP
 server or the A2A agent. The tool domains and concept registry are in
 [Overview](overview.md) and [Concepts](concepts.md).
 
