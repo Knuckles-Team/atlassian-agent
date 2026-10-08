@@ -1,6 +1,6 @@
 # atlassian-agent
 
-Comprehensive **MCP server + A2A agent** for Jira and Confluence management across
+Complete **MCP server + A2A agent** for Jira and Confluence management across
 Atlassian Cloud and Server.
 
 !!! info "Official documentation"
@@ -32,7 +32,7 @@ Pydantic-AI A2A agent that drives those tools conversationally. It provides:
 
 <div class="grid cards" markdown>
 
-- :material-rocket-launch: **[Installation](installation.md)** — pip, source, extras, and the prebuilt Docker image.
+- :material-rocket-start: **[Installation](installation.md)** — pip, source, extras, and the prebuilt Docker image.
 - :material-server-network: **[Deployment](deployment.md)** — run the MCP server, the agent server, Docker Compose, Caddy + Technitium.
 - :material-console: **[Usage](usage.md)** — the MCP tools, the Atlassian Python clients, and the CLI.
 - :material-sitemap: **[Architecture](overview.md)** — the layered tool / API / agent design.

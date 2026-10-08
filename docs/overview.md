@@ -5,7 +5,7 @@
 
 ## Description
 
-Comprehensive AI agent for Jira and Confluence management.
+Complete AI agent for Jira and Confluence management.
 
 ## Enterprise Readiness
 

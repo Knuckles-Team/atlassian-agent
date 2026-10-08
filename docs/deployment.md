@@ -80,7 +80,7 @@ The transport is selected with `--transport` (or the `TRANSPORT` env var):
     ```bash
     atlassian-mcp
     ```
-    For IDE / desktop MCP clients that launch the server as a subprocess.
+    For IDE / desktop MCP clients that start the server as a subprocess.
 
 === "streamable-http"
 
@@ -119,11 +119,11 @@ for the shared (Cloud) connection:
 Jira and Confluence **Server / Data Center** instances may be configured separately
 with their own credentials (`ATLASSIAN_JIRA_SERVER_URL` / `_USER` / `_TOKEN` /
 `_VERIFY`, and `ATLASSIAN_CONFLUENCE_SERVER_URL` / `_USER` / `_TOKEN` / `_VERIFY`).
-Each tool group additionally has a `*_TOOL` toggle (for example `JIRA_ISSUE_TOOL`,
-`CONFLUENCE_PAGE_TOOL`, `ATLASSIAN_ADMIN_TOOL`) to register only the surface you need.
+Each tool group also has a `*_TOOL` toggle (for example `JIRA_ISSUE_TOOL`,
+`CONFLUENCE_PAGE_TOOL`, `ATLASSIAN_ADMIN_TOOL`) to register only the surface the operator need.
 The full set, grouped by product, is documented in
 [`.env.example`](https://github.com/Knuckles-Team/atlassian-agent/blob/main/.env.example).
-Copy it to `.env` and populate only what you use; tools whose credentials are absent
+Copy it to `.env` and populate only what the operator use; tools whose credentials are absent
 remain inactive.
 
 ### Backing Service
@@ -131,9 +131,9 @@ remain inactive.
 Atlassian Jira and Confluence are managed as **Atlassian Cloud** (a SaaS platform) or
 as self-operated **Server / Data Center** products. `atlassian-agent` is a connector,
 not a host for those systems, so there is no local backing-platform recipe — only
-connection configuration is required. Provision an API token from your Atlassian
+connection configuration is required. Provision an API token from the operator's Atlassian
 account and point `ATLASSIAN_AGENT_URL`, `ATLASSIAN_AGENT_USER`, and
-`ATLASSIAN_AGENT_TOKEN` at the instance you intend to manage.
+`ATLASSIAN_AGENT_TOKEN` at the instance the operator intend to manage.
 
 ## Docker Compose
 
@@ -217,7 +217,7 @@ docker compose -f docker/agent.compose.yml up -d
 
 ## Behind a Caddy reverse proxy
 
-Expose the HTTP server on a hostname with automatic TLS. Add to your `Caddyfile`:
+Expose the HTTP server on a hostname with automatic TLS. Add to the operator's `Caddyfile`:
 
 ```caddy
 # Internal (self-signed) — homelab .example.invalid zone
@@ -261,7 +261,7 @@ this as a tool.
 
 ## Register with an MCP client
 
-Add to your client's `mcp_config.json`:
+Add to the operator's client's `mcp_config.json`:
 
 ```json
 {
