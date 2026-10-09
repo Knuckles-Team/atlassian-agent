@@ -61,7 +61,7 @@ for name in list(dir(atlassian_agent.auth)):
         setattr(atlassian_agent.auth, name, MagicMock(return_value=mock_client_inst))
 
 # Mock create_mcp_server to return empty middlewares to avoid rate limiting
-from agent_utilities.mcp import server_factory
+from agent_connector_sdk.mcp import server as server_factory
 
 original_create_mcp_server = server_factory.create_mcp_server
 

@@ -3,7 +3,7 @@
 A ``suite_prefix`` the caller's identity is not entitled to is denied before
 any credential resolution happens; an entitled or omitted suite_prefix behaves
 exactly as before. Tests the enforcement logic with the entitlement source
-mocked (the resolver itself is tested in agent-utilities).
+mocked, plus the SDK-actor-backed resolver directly.
 """
 
 import importlib
@@ -57,8 +57,8 @@ def test_named_entitled_suite_allowed(monkeypatch):
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=False,
+            "atlassian_agent.auth._exchange_delegated_token",
+            return_value=None,
         ),
     ):
         client = auth_mod.get_suite_client("JIRA_CLOUD")
@@ -76,24 +76,39 @@ def test_no_suite_prefix_skips_entitlement_check(monkeypatch):
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=False,
+            "atlassian_agent.auth._exchange_delegated_token",
+            return_value=None,
         ),
     ):
         client = auth_mod.get_suite_client(None)
         assert client.base_url == "https://test.atlassian.net"
 
 
-def test_missing_resolver_degrades_to_allow(monkeypatch):
-    """A broken/absent import of the shared resolver fails open (back-compat)."""
-    import builtins
-
-    real_import = builtins.__import__
-
-    def _blocked_import(name, *args, **kwargs):
-        if name == "agent_utilities.security.entitlements":
-            raise ImportError("simulated: resolver not available")
-        return real_import(name, *args, **kwargs)
-
-    monkeypatch.setattr(builtins, "__import__", _blocked_import)
+def test_no_bound_actor_degrades_to_allow():
+    """No bound actor (local/unauthenticated context) fails open (back-compat)."""
     assert auth_mod._entitled("atlassian", ["JIRA_CLOUD"]) == ["JIRA_CLOUD"]
+
+
+def test_authenticated_actor_is_scoped_to_entitled_suites():
+    from agent_connector_sdk.identity import ActorContext, ActorType, use_actor
+
+    def actor(*roles):
+        return ActorContext(
+            actor_id="u1",
+            actor_type=ActorType.HUMAN,
+            tenant_id="t1",
+            roles=roles,
+            authenticated=True,
+        )
+
+    suites = ["JIRA_CLOUD", "CONFLUENCE_CLOUD"]
+    with use_actor(actor("atlassian:JIRA_CLOUD")):
+        assert auth_mod._entitled("atlassian", suites) == ["JIRA_CLOUD"]
+    with use_actor(actor("CONFLUENCE_CLOUD")):
+        assert auth_mod._entitled("atlassian", suites) == ["CONFLUENCE_CLOUD"]
+    with use_actor(actor("atlassian:*")):
+        assert auth_mod._entitled("atlassian", suites) == suites
+    with use_actor(actor("admin")):
+        assert auth_mod._entitled("atlassian", suites) == suites
+    with use_actor(actor("k8s:prod")):
+        assert auth_mod._entitled("atlassian", suites) == []

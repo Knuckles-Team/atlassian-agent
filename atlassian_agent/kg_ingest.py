@@ -10,29 +10,40 @@ applies (the "maximum ingestion" bar):
   text + ``source_uri`` for semantic search via :func:`ingest_confluence_pages`.
 * **Attachments** → raw ``:Blob`` / ``:MediaAsset`` bytes via :func:`ingest_attachment`.
 
-All three ride the required native-ingestion authority
-(``agent_utilities.knowledge_graph.memory.native_ingest``), so this module ships only
-thin record→dict mappers. Node ids follow ``atlassian:<class>:<externalId>`` and
-``node_type`` matches a class the package's
+All three are submitted through the connector SDK's knowledge-ingest service
+(:mod:`agent_connector_sdk.ingest`) under this connector's :class:`IngestBinding`, so
+this module ships only thin record→dict mappers. Provenance (connector, stream) is
+carried by the binding server-side, not stamped onto node properties. Node ids follow
+``atlassian:<class>:<externalId>`` and ``node_type`` matches a class the package's
 ``ontology_providers`` ``atlassian.ttl`` federates.
+
+Every public ingest function is ``async`` and must be awaited; each accepts an
+``ingest=`` :class:`KnowledgeIngest` for injection (default: :func:`current_ingest`).
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-from agent_utilities.knowledge_graph.memory.native_ingest import (
-    ingest_documents as _native_ingest_documents,
-)
-from agent_utilities.knowledge_graph.memory.native_ingest import (
-    ingest_entities as _native_ingest_entities,
-)
-from agent_utilities.knowledge_graph.memory.native_ingest import (
-    media_store as _native_media_store,
+from agent_connector_sdk.ingest import (
+    ChangeSet,
+    Document,
+    Entity,
+    IngestBinding,
+    IngestError,
+    KnowledgeIngest,
+    MediaAsset,
+    Relationship,
+    current_ingest,
 )
 
-_SOURCE = "atlassian-agent"
-_DOMAIN = "atlassian"
+_CONNECTOR = "atlassian-agent"
+_STREAM = "atlassian"
+
+_BINDING = IngestBinding(connector=_CONNECTOR, stream=_STREAM)
+_PAGE_BINDING = IngestBinding(
+    connector=_CONNECTOR, stream=_STREAM, document_type="ConfluencePage"
+)
 
 
 def _fields(issue: dict[str, Any]) -> dict[str, Any]:
@@ -163,11 +174,38 @@ def _map_one_issue(
     return entities, relationships
 
 
-def ingest_issues(
+def _to_entity(record: dict[str, Any]) -> Entity:
+    return Entity(
+        id=record.get("id"),
+        node_type=record.get("node_type"),
+        properties={k: v for k, v in record.items() if k not in ("id", "node_type")},
+    )
+
+
+def _to_relationship(record: dict[str, Any]) -> Relationship:
+    props = {
+        k: v for k, v in record.items() if k not in ("source", "target", "relationship")
+    }
+    return Relationship(
+        source=record["source"],
+        target=record["target"],
+        relationship=record["relationship"],
+        properties=props or None,
+    )
+
+
+async def _submit(
+    binding: IngestBinding, change_set: ChangeSet, ingest: KnowledgeIngest | None
+) -> dict[str, int]:
+    service = ingest or current_ingest()
+    receipt = await service.submit(binding, change_set)
+    return {"nodes": receipt.affected_count, "edges": receipt.relationship_count}
+
+
+async def ingest_issues(
     issues: list[dict[str, Any]],
     *,
-    client: Any | None = None,
-    graph: str | None = None,
+    ingest: KnowledgeIngest | None = None,
 ) -> dict[str, int]:
     """Map Jira issue records → ``:Issue`` / ``:Epic`` / ``:Person`` nodes and ingest.
 
@@ -175,10 +213,8 @@ def ingest_issues(
     ``jira_cloud_search_for_issues_using_jql`` / ``jira_cloud_get_issue``), each with a
     ``key`` and a ``fields`` sub-dict. Epics (issuetype == "Epic") become ``:Epic`` nodes;
     everything else becomes an ``:Issue`` linked to its assignee/reporter (``:Person``) and
-    its parent epic (``:inEpic``). Returns committed node/edge counts; native
-    validation and engine failures propagate.
-    ``client``/``graph`` are accepted for parity/injection but the shared primitive resolves
-    the engine on demand.
+    its parent epic (``:inEpic``). Returns ``{"nodes", "edges"}`` from the commit
+    receipt; validation and engine failures propagate as :class:`IngestError`.
     """
     entities: list[dict[str, Any]] = []
     relationships: list[dict[str, Any]] = []
@@ -187,14 +223,13 @@ def ingest_issues(
         entities.extend(issue_entities)
         relationships.extend(issue_relationships)
 
-    return _native_ingest_entities(
-        entities,
-        relationships,
-        source=_SOURCE,
-        domain=_DOMAIN,
-        client=client,
-        graph=graph,
+    if not entities:
+        raise IngestError("ingest_issues needs at least one entity")
+    change_set = ChangeSet(
+        entities=tuple(_to_entity(e) for e in entities),
+        relationships=tuple(_to_relationship(r) for r in relationships),
     )
+    return await _submit(_BINDING, change_set, ingest)
 
 
 def _page_text(page: dict[str, Any]) -> str | None:
@@ -212,69 +247,63 @@ def _page_text(page: dict[str, Any]) -> str | None:
     return None
 
 
-def ingest_confluence_pages(
+async def ingest_confluence_pages(
     pages: list[dict[str, Any]],
     *,
-    client: Any | None = None,
-    graph: str | None = None,
+    ingest: KnowledgeIngest | None = None,
 ) -> dict[str, int]:
     """Map Confluence page records → ``:Document`` (``:ConfluencePage``) nodes and ingest.
 
     ``pages``: raw Confluence page dicts (as returned by ``confluence_cloud_get_pages`` /
     ``confluence_cloud_get_page_by_id``) — each with an ``id``, ``title`` and a ``body``
-    (request ``body_format=storage``). Each becomes a ``:Document`` carrying the page body
-    text + ``source_uri`` so hub-side enrichment chunks/embeds it. Returns committed
-    counts; native validation and engine failures propagate.
+    (request ``body_format=storage``). Each becomes a ``:ConfluencePage`` document
+    carrying the page body text + ``source_uri`` so hub-side enrichment chunks/embeds
+    it. Returns ``{"nodes", "edges"}`` from the commit receipt; validation and engine
+    failures propagate as :class:`IngestError`.
     """
-    documents: list[dict[str, Any]] = []
+    documents: list[Document] = []
     for page in pages or []:
         pid = page.get("id")
         text = _page_text(page)
         if not pid or not text:
             continue
         links = page.get("_links") or {}
-        source_uri = links.get("webui") or links.get("self") or page.get("webui")
         documents.append(
-            {
-                "id": f"atlassian:page:{pid}",
-                "document_type": "ConfluencePage",
-                "title": page.get("title"),
-                "text": text,
-                "source_uri": source_uri,
-                "space_id": page.get("spaceId") or page.get("space_id"),
-                "status": page.get("status"),
-                "externalToolId": str(pid),
-            }
+            Document(
+                id=f"atlassian:page:{pid}",
+                text=text,
+                title=page.get("title"),
+                source_uri=links.get("webui") or links.get("self") or page.get("webui"),
+                properties={
+                    "space_id": page.get("spaceId") or page.get("space_id"),
+                    "status": page.get("status"),
+                    "externalToolId": str(pid),
+                },
+            )
         )
-    return _native_ingest_documents(
-        documents,
-        source=_SOURCE,
-        domain=_DOMAIN,
-        client=client,
-        graph=graph,
-    )
+    if not documents:
+        raise IngestError("ingest_confluence_pages needs at least one document")
+    return await _submit(_PAGE_BINDING, ChangeSet(documents=tuple(documents)), ingest)
 
 
-def ingest_attachment(
+async def ingest_attachment(
     data: bytes,
     *,
     name: str = "",
     mime_type: str = "",
     issue_key: str | None = None,
-    store: Any | None = None,
-) -> Any | None:
-    """Store an Atlassian attachment's raw bytes as a ``:Blob`` / ``:MediaAsset``."""
+    ingest: KnowledgeIngest | None = None,
+) -> dict[str, int] | None:
+    """Store an Atlassian attachment's raw bytes as a ``:MediaAsset`` (Blob CAS).
+
+    Returns ``None`` for empty ``data``, else ``{"nodes", "edges"}`` from the receipt.
+    """
     if not data:
         return None
-    if store is None:
-        store = _native_media_store()
-    return store.store_media(
-        data,
-        media_type="attachment",
-        mime_type=mime_type,
-        source=_SOURCE,
+    asset = MediaAsset(
+        data=data,
+        mime_type=mime_type or "application/octet-stream",
         name=name,
-        extra={"domain": _DOMAIN, "issue_key": issue_key}
-        if issue_key
-        else {"domain": _DOMAIN},
+        properties={"issue_key": issue_key} if issue_key else {},
     )
+    return await _submit(_BINDING, ChangeSet(media=(asset,)), ingest)
