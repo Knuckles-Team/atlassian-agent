@@ -1,14 +1,12 @@
-"""Verbose auto-wire (ECO-4.90) is actually wired into atlassian-agent.
+"""The condensed action-routed surface is the only tool surface.
 
-The verbose auto-wire mechanism lives in agent-utilities, but it only emits
-verbose tools for a free-form ``action: str`` condensed tool when that tool's
-runtime action surface is registered via an **action provider**. These tests
-prove atlassian-agent passes that provider on the live registration path — the
-Wire-First guarantee — so ``MCP_TOOL_MODE=both`` exposes one
-``<tool>__<action>`` verbose tool per Jira/Confluence operation, each dispatching
-to the condensed handler with ``action`` preset.
-
-CONCEPT:ECO-4.90 — verbose auto-wire enumerates dynamic (runtime) actions
+agent-connector-sdk retired the verbose 1:1 ``<tool>__<action>`` surface: its
+``register_tool_surface`` registers only condensed, intent-gated tools and
+ignores the old ``MCP_TOOL_MODE`` / action-provider inputs. These tests pin that
+contract for atlassian-agent — even with ``MCP_TOOL_MODE=both`` set, no verbose
+tool is registered — and prove every Jira (621) / Confluence (214) operation is
+still reachable as an ``action`` on the condensed catch-all tools, which dispatch
+it through the shared action dispatcher.
 """
 
 from __future__ import annotations
@@ -18,8 +16,8 @@ import sys
 from unittest.mock import MagicMock
 
 import pytest
-from agent_utilities.mcp.action_dispatch import public_actions
-from agent_utilities.mcp.verbose_tools import _provider_tools
+from agent_connector_sdk.mcp.action_dispatch import public_actions
+from agent_connector_sdk.mcp.tool_surface import registered_tools
 
 
 def _fresh_mcp_server():
@@ -36,12 +34,7 @@ def _fresh_mcp_server():
 
 @pytest.fixture
 def both_mode_mcp(monkeypatch):
-    """Build the atlassian MCP surface in ``MCP_TOOL_MODE=both`` with mocked auth.
-
-    The action providers introspect the client *classes* (credential-free), so no
-    live credentials are needed; the auth getters are still mocked so condensed
-    registration succeeds.
-    """
+    """Build the atlassian MCP surface with the retired ``MCP_TOOL_MODE=both`` set."""
     monkeypatch.setenv("MCP_TOOL_MODE", "both")
 
     import atlassian_agent.auth as auth_mod
@@ -59,92 +52,48 @@ def both_mode_mcp(monkeypatch):
     return srv, mcp
 
 
-def test_atlassian_action_providers_cover_every_condensed_tool():
-    """Every condensed action-routed tool has a backing client class declared,
-    so the auto-wire never silently skips one."""
-    srv = _fresh_mcp_server()
-
-    providers = srv._condensed_action_providers()
-    # All provider values are client classes (credential-free introspection).
-    assert all(isinstance(v, type) for v in providers.values())
-    # The two products are present and resolve to the documented action counts.
-    from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
-    from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
-
-    assert providers["atlassian_jira_other"] is JiraCloudAPI
-    assert providers["atlassian_confluence_other"] is ConfluenceCloudAPI
-
-
-def test_both_mode_emits_one_verbose_tool_per_action(both_mode_mcp):
-    """The headline goal: in ``both`` mode the auto-wire derives one
-    ``<tool>__<action>`` verbose tool per Jira (621) and Confluence (214) action."""
-    from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
-    from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
-
+def test_no_verbose_tools_are_registered(both_mode_mcp):
     _srv, mcp = both_mode_mcp
-    tools = _provider_tools(mcp)
+    tools = registered_tools(mcp)
+    assert "atlassian_jira_other" in tools
+    assert "atlassian_confluence_other" in tools
+    assert not [name for name in tools if "__" in name]
+
+
+def test_every_product_operation_is_a_condensed_action():
+    from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
+    from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
+
     jira_actions = public_actions(JiraCloudAPI)
     conf_actions = public_actions(ConfluenceCloudAPI)
-
-    jira_verbose = sorted(n for n in tools if n.startswith("atlassian_jira_other__"))
-    conf_verbose = sorted(
-        n for n in tools if n.startswith("atlassian_confluence_other__")
-    )
-
-    assert jira_verbose == sorted(f"atlassian_jira_other__{a}" for a in jira_actions)
-    assert conf_verbose == sorted(
-        f"atlassian_confluence_other__{a}" for a in conf_actions
-    )
-    # Sanity: the documented counts (621 Jira + 214 Confluence).
-    assert len(jira_verbose) == len(jira_actions) == 621
-    assert len(conf_verbose) == len(conf_actions) == 214
-
-
-def test_verbose_tool_presets_action_and_keeps_passthrough(both_mode_mcp):
-    """A derived verbose tool hides the ``action`` arg (preset to its operation),
-    keeps ``params_json`` as a passthrough, and inherits the source tags +
-    ``verbose`` — i.e. it routes through the original condensed handler."""
-    _srv, mcp = both_mode_mcp
-    tools = _provider_tools(mcp)
-    name = "atlassian_jira_other__jira_cloud_add_attachment"
-    assert name in tools
-    tool = tools[name]
-
-    props = (tool.parameters or {}).get("properties", {})
-    assert "action" not in props  # preset + hidden by ArgTransform
-    assert "params_json" in props  # passthrough preserved
-    assert "verbose" in tool.tags
+    assert len(jira_actions) == 621
+    assert len(conf_actions) == 214
+    assert "jira_cloud_add_comment" in jira_actions
 
 
 @pytest.mark.asyncio
-async def test_verbose_tool_dispatches_with_action_preset(both_mode_mcp, monkeypatch):
-    """End-to-end: calling a verbose tool invokes the condensed handler with the
-    action preset to its operation name (the dispatch contract).
-
-    The verbose tool routes through the original condensed handler (FastMCP
-    ``Tool.from_tool``), so it resolves the same ``Depends`` client and calls the
-    same dispatcher — we intercept the dispatcher and call the tool through an
-    in-memory client so the request context (needed by ``Depends``) is active.
-    """
-    from fastmcp import Client
-
-    captured: dict[str, object] = {}
-
+async def test_condensed_tool_dispatches_the_requested_action(
+    both_mode_mcp, monkeypatch
+):
+    """Calling the condensed catch-all tool dispatches the requested ``action``."""
     srv, mcp = both_mode_mcp
+    captured: dict[str, object] = {}
 
     def _capture(client, action, *args, **kwargs):
         captured["action"] = action
         return {"ok": True, "action": action}
 
-    # Intercept the shared dispatcher so we observe the preset action without a
-    # live Atlassian call.
     monkeypatch.setattr(srv, "execute_client_method", _capture)
 
-    async with Client(mcp) as client:
-        await client.call_tool(
-            "atlassian_jira_other__jira_cloud_add_comment",
-            {"params_json": "{}"},
-        )
+    tool = registered_tools(mcp)["atlassian_jira_other"]
+    result = await tool.fn(
+        action="jira_cloud_add_comment",
+        params_json="{}",
+        deployment="cloud",
+        client_cloud=MagicMock(),
+        client_server=MagicMock(),
+        ctx=None,
+    )
 
-    # The verbose tool dispatched through the condensed handler with action preset.
     assert captured["action"] == "jira_cloud_add_comment"
+    assert result == {"ok": True, "action": "jira_cloud_add_comment"}

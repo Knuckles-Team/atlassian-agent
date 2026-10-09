@@ -35,8 +35,8 @@ def test_get_suite_client_basic_auth():
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=False,
+            "atlassian_agent.auth._exchange_delegated_token",
+            return_value=None,
         ),
     ):
         client = auth_mod.get_suite_client(None)
@@ -57,8 +57,8 @@ def test_get_suite_client_suite_prefix():
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=False,
+            "atlassian_agent.auth._exchange_delegated_token",
+            return_value=None,
         ),
     ):
         client = auth_mod.get_suite_client("JIRA")
@@ -69,29 +69,35 @@ def test_get_suite_client_suite_prefix():
 
 
 def test_get_suite_client_oidc_delegation_success():
-    # Test path 1: OIDC Delegation successful
+    # Test path 1: OIDC Delegation successful (SDK RFC 8693 exchange)
     env_mock = {
         "ATLASSIAN_AGENT_URL": "https://test.atlassian.net",
+        "ENABLE_DELEGATION": "true",
+        "OIDC_TOKEN_URL": "https://idp.example.com/token",
+        "OIDC_CLIENT_ID": "atlassian-agent",
+        "OIDC_CLIENT_SECRET_REF": "env://ATLASSIAN_OIDC_SECRET",
         "AUDIENCE": "test-audience",
         "DELEGATED_SCOPES": "read:jira write:jira",
     }
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=True,
+            "atlassian_agent.auth.current_user_token",
+            return_value="caller-token",
         ),
         patch(
-            "agent_utilities.mcp.delegated_auth.get_delegated_token",
-            return_value="delegated-token-xyz",
-        ) as mock_get_token,
+            "atlassian_agent.auth.exchange_token",
+            return_value=MagicMock(value="delegated-token-xyz"),
+        ) as mock_exchange,
     ):
         client = auth_mod.get_suite_client(None)
         assert client.bearer_token == "delegated-token-xyz"
         assert client.base_url == "https://test.atlassian.net"
-        mock_get_token.assert_called_once_with(
-            audience="test-audience", scopes="read:jira write:jira"
-        )
+        mock_exchange.assert_called_once()
+        settings = mock_exchange.call_args.args[0]
+        assert settings.audience == "test-audience"
+        assert settings.scopes == "read:jira write:jira"
+        assert mock_exchange.call_args.kwargs["subject_token"] == "caller-token"
 
 
 def test_get_suite_client_oidc_delegation_failure_fallback():
@@ -104,11 +110,7 @@ def test_get_suite_client_oidc_delegation_failure_fallback():
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=True,
-        ),
-        patch(
-            "agent_utilities.mcp.delegated_auth.get_delegated_token",
+            "atlassian_agent.auth._exchange_delegated_token",
             side_effect=RuntimeError("OIDC Error"),
         ),
     ):
@@ -127,8 +129,8 @@ def test_get_suite_client_oauth_3lo():
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=False,
+            "atlassian_agent.auth._exchange_delegated_token",
+            return_value=None,
         ),
     ):
         client = auth_mod.get_suite_client(None)
@@ -145,8 +147,8 @@ def test_get_suite_client_bearer_token_global():
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=False,
+            "atlassian_agent.auth._exchange_delegated_token",
+            return_value=None,
         ),
     ):
         client = auth_mod.get_suite_client(None)
@@ -165,8 +167,8 @@ def test_get_suite_client_bearer_token_suite_overrides_global():
     with (
         patch.dict(os.environ, env_mock, clear=True),
         patch(
-            "agent_utilities.mcp.delegated_auth.is_delegation_enabled",
-            return_value=False,
+            "atlassian_agent.auth._exchange_delegated_token",
+            return_value=None,
         ),
     ):
         client = auth_mod.get_suite_client("JIRA_SERVER")

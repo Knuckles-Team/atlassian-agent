@@ -1,30 +1,51 @@
+import logging
 import threading
 
-from agent_utilities.base_utilities import get_logger
-from agent_utilities.core.config import setting
-from agent_utilities.core.transport_security import resolve_configured_tls_profile
+import httpx
+from agent_connector_sdk.auth.delegation import (
+    DelegationSettings,
+    current_user_token,
+    exchange_token,
+)
+from agent_connector_sdk.config import setting
+from agent_connector_sdk.identity import IdentityRequiredError, current_actor
+from agent_connector_sdk.tls.resolve import resolve_tls_profile
 
 from .api.base import BaseAtlassianClient
 
 local = threading.local()
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 _base_client = None
 
+# Capabilities that entitle every suite (CONCEPT:AU-OS.identity.identity-scoped-resource-autoload).
+_SUPER_CAPS = frozenset({"admin", "system"})
+_NAMESPACE_WILDCARDS = frozenset({"*", "admin", "all"})
+
 
 def _entitled(namespace: str, names) -> list[str]:
-    """Filter ``names`` to the subset the calling identity's Okta/Keycloak groups
-    entitle (CONCEPT:AU-OS.identity.identity-scoped-resource-autoload). Degrades
-    to the full list if agent-utilities predates the resolver, or if the current
-    context has no verified, tenant-bound actor to resolve against (e.g. an
-    unauthenticated/local SYSTEM_ACTOR context) — sees all, unchanged from today.
-    """
-    try:
-        from agent_utilities.security.entitlements import identity_scoped_resources
+    """Filter ``names`` to the subset the calling identity's Okta/Keycloak roles
+    entitle (CONCEPT:AU-OS.identity.identity-scoped-resource-autoload).
 
-        return list(identity_scoped_resources(namespace, names))
-    except Exception:
-        return list(names)
+    Grammar: ``admin``/``system`` or ``<namespace>:*``/``:admin``/``:all`` entitle
+    every name; ``<namespace>:<name>`` or a bare ``<name>`` role entitles that one.
+    Degrades to the full list when the current context has no bound, verified,
+    tenant-bound actor (e.g. an unauthenticated/local context) — sees all,
+    unchanged from before.
+    """
+    available = list(dict.fromkeys(names))
+    try:
+        actor = current_actor()
+    except IdentityRequiredError:
+        return available
+    if not (actor.authenticated and actor.actor_id and actor.tenant_id):
+        return available
+    roles = set(actor.roles)
+    if roles & _SUPER_CAPS or any(
+        f"{namespace}:{wildcard}" in roles for wildcard in _NAMESPACE_WILDCARDS
+    ):
+        return available
+    return [n for n in available if f"{namespace}:{n}" in roles or n in roles]
 
 
 def _resolve_suite_settings(
@@ -46,31 +67,49 @@ def _resolve_suite_settings(
     return url, user, token, tls_profile_name
 
 
-def _delegated_client(url, user, tls_profile) -> BaseAtlassianClient | None:
-    """Path 1: OIDC Delegation (RFC 8693 Token Exchange). None if disabled or it fails."""
-    from agent_utilities.mcp.delegated_auth import (
-        get_delegated_token,
-        is_delegation_enabled,
+def _delegation_settings(url) -> DelegationSettings:
+    """Delegation settings with this connector's audience/scope defaults."""
+    return DelegationSettings(
+        enabled=bool(setting("ENABLE_DELEGATION", False)),
+        token_endpoint=str(setting("OIDC_TOKEN_URL", "")),
+        client_id=str(setting("OIDC_CLIENT_ID", "")),
+        client_secret_ref=str(setting("OIDC_CLIENT_SECRET_REF", "")),
+        audience=str(setting("AUDIENCE", url or "")),
+        scopes=str(setting("DELEGATED_SCOPES", "read:jira-work write:jira-work")),
     )
 
-    if not is_delegation_enabled():
+
+def _exchange_delegated_token(url) -> str | None:
+    """RFC 8693 exchange of the verified MCP caller token; None when disabled."""
+    if not bool(setting("ENABLE_DELEGATION", False)):
         return None
+    settings = _delegation_settings(url)
+    subject = current_user_token()
+    if not subject:
+        raise PermissionError("no verified caller token to delegate")
+    with httpx.Client() as http_client:
+        return exchange_token(
+            settings, subject_token=subject, http_client=http_client
+        ).value
+
+
+def _delegated_client(url, user, tls_profile) -> BaseAtlassianClient | None:
+    """Path 1: OIDC Delegation (RFC 8693 Token Exchange). None if disabled or it fails."""
     try:
-        delegated_token = get_delegated_token(
-            audience=setting("AUDIENCE", url),
-            scopes=setting("DELEGATED_SCOPES", "read:jira-work write:jira-work"),
-        )
-        logger.info("Using OIDC delegated token for Atlassian API")
-        return BaseAtlassianClient(
-            base_url=url or "https://dummy.atlassian.net",
-            username=user or "",
-            token="",
-            tls_profile=tls_profile,
-            bearer_token=delegated_token,
-        )
+        delegated_token = _exchange_delegated_token(url)
     except Exception as e:
         logger.warning("Operation failed: error_type=%s", type(e).__name__)
         return None
+    if delegated_token is None:
+        return None
+    logger.info("Using OIDC delegated token for Atlassian API")
+    return BaseAtlassianClient(
+        base_url=url or "https://dummy.atlassian.net",
+        username=user or "",
+        token="",
+        tls_profile=tls_profile,
+        bearer_token=delegated_token,
+    )
 
 
 def _oauth_3lo_client(url, user, tls_profile) -> BaseAtlassianClient | None:
@@ -137,8 +176,6 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
 
     A named ``suite_prefix`` the caller's identity is not entitled to is
     denied before any credential resolution happens.
-
-    See ``docs/guides/oauth_sso.md`` in agent-utilities for full details.
     """
     if suite_prefix and suite_prefix not in _entitled("atlassian", [suite_prefix]):
         raise PermissionError(
@@ -147,7 +184,7 @@ def get_suite_client(suite_prefix: str | None = None) -> BaseAtlassianClient:
 
     url, user, token, tls_profile_name = _resolve_suite_settings(suite_prefix)
 
-    tls_profile = resolve_configured_tls_profile(
+    tls_profile = resolve_tls_profile(
         "ATLASSIAN",
         profile_name=tls_profile_name or setting("ATLASSIAN_TLS_PROFILE"),
     )

@@ -19,15 +19,15 @@ import logging
 import sys
 from typing import Any
 
-from agent_utilities.core.config import load_config, setting
-from agent_utilities.mcp.action_dispatch import (
+from agent_connector_sdk.config import load_config, setting
+from agent_connector_sdk.mcp.action_dispatch import (
     DISCOVERY_ACTIONS,
     dispatch,
     public_actions,
 )
-from agent_utilities.mcp.concurrency import run_blocking
-from agent_utilities.mcp.server_factory import create_mcp_server
-from agent_utilities.mcp.verbose_tools import register_tool_surface
+from agent_connector_sdk.mcp.concurrency import run_blocking
+from agent_connector_sdk.mcp.server import create_mcp_server
+from agent_connector_sdk.mcp.tool_surface import register_tool_surface
 from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
 from fastmcp.utilities.logging import get_logger
@@ -117,7 +117,7 @@ def execute_client_method(
 
     Action discovery (``list_actions``/``help``/``actions``), plural->singular
     aliasing, and rich did-you-mean errors come from
-    ``agent_utilities.mcp.action_dispatch.dispatch``. The client's methods are
+    ``agent_connector_sdk.mcp.action_dispatch.dispatch``. The client's methods are
     deployment-prefixed (e.g. ``jira_cloud_add_comment``); we build an alias map
     so callers may pass the unprefixed name (``add_comment``) too.
     """
@@ -1071,7 +1071,7 @@ def register_kg_tools(mcp: FastMCP):
 
         data = resp.get("data") if isinstance(resp, dict) else resp
         issues = data.get("issues", []) if isinstance(data, dict) else []
-        result = ingest_issues(issues)
+        result = await ingest_issues(issues)
         return {"listed": len(issues), "ingested": result}
 
     @mcp.tool(tags={"kg", "confluence-page"})
@@ -1121,59 +1121,8 @@ def register_kg_tools(mcp: FastMCP):
 
         data = resp.get("data") if isinstance(resp, dict) else resp
         pages = data.get("results", []) if isinstance(data, dict) else []
-        result = ingest_confluence_pages(pages)
+        result = await ingest_confluence_pages(pages)
         return {"listed": len(pages), "ingested": result}
-
-
-def _condensed_action_providers() -> dict[str, type]:
-    """Map each condensed action-routed tool to the client class it dispatches to.
-
-    The condensed tools declare a free-form ``action: str`` and obtain their valid
-    action names at runtime from ``public_actions(client)`` — so they carry no static
-    JSON-schema ``enum`` and the verbose auto-wire (ECO-4.89) would otherwise skip
-    them. Recording each tool's backing **client class** here lets the auto-wire
-    enumerate that class's public methods credential-free (``dir()`` on the class)
-    and emit one ``<tool>__<action>`` verbose tool per action — turning the 621 Jira
-    and 214 Confluence operations into a directly-selectable 1:1 surface in
-    ``MCP_TOOL_MODE=both``.
-
-    All ``jira_*`` tools front the same ``JiraCloudAPI`` and all ``confluence_*``
-    tools the same ``ConfluenceCloudAPI`` (the per-tool split is a UX grouping, not a
-    client split). Exposing the full product action set on *every* sub-tool would
-    multiply it (8 jira sub-tools × 621 = redundant copies of the same operations),
-    so the full set is recorded on the single catch-all tool per product
-    (``*_other``) — yielding exactly 621 Jira + 214 Confluence verbose tools, each
-    operation reachable once. Each admin/governance suite tool fronts its own client
-    and gets its own action set.
-
-    CONCEPT:ECO-4.90 — verbose auto-wire enumerates dynamic (runtime) actions
-    """
-    from atlassian_agent.api.api_client_admin_cloud import AdminCloudAPI
-    from atlassian_agent.api.api_client_api_access_cloud import APIAccessCloudAPI
-    from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
-    from atlassian_agent.api.api_client_control_cloud import ControlCloudAPI
-    from atlassian_agent.api.api_client_dlp_cloud import DLPCloudAPI
-    from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
-    from atlassian_agent.api.api_client_org_cloud import OrgCloudAPI
-    from atlassian_agent.api.api_client_user_mgmt_cloud import UserMgmtCloudAPI
-    from atlassian_agent.api.api_client_user_provisioning_cloud import (
-        UserProvisioningCloudAPI,
-    )
-
-    return {
-        # Jira (621 actions) — recorded once on the catch-all jira tool.
-        "atlassian_jira_other": JiraCloudAPI,
-        # Confluence (214 actions) — recorded once on the catch-all confluence tool.
-        "atlassian_confluence_other": ConfluenceCloudAPI,
-        # Admin / org / governance suites — one client each.
-        "atlassian_atlassian": UserMgmtCloudAPI,
-        "atlassian_atlassian_admin": AdminCloudAPI,
-        "atlassian_atlassian_org": OrgCloudAPI,
-        "atlassian_atlassian_dlp": DLPCloudAPI,
-        "atlassian_atlassian_control": ControlCloudAPI,
-        "atlassian_atlassian_api_access": APIAccessCloudAPI,
-        "atlassian_atlassian_user_provisioning": UserProvisioningCloudAPI,
-    }
 
 
 def get_mcp_instance() -> tuple[Any, ...]:
@@ -1195,7 +1144,6 @@ def get_mcp_instance() -> tuple[Any, ...]:
         get_client=get_base_client,
         service="atlassian-agent",
         tools_module=sys.modules[__name__],
-        action_providers=_condensed_action_providers(),
     )
     logger.debug("Registered condensed tool tags: %s", registered_tags)
 
