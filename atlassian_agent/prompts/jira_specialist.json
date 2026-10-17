@@ -4,7 +4,7 @@
   "schema_version": "1.0",
   "prompt_version": "0.1.0",
   "source": "atlassian-agent",
-  "extends": "agent-utilities:base",
+  "extends": "agent-connector-sdk:base",
   "compose": "append",
   "description": "Jira specialist: issue triage, agile delivery, and backlog tracking over the atlassian-agent MCP server.",
   "metadata": {

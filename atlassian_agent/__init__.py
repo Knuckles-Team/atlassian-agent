@@ -9,7 +9,6 @@ __all__: list[str] = []
 CORE_MODULES: list[str] = []
 
 OPTIONAL_MODULES = {
-    "atlassian_agent.agent_server": "agent",
     "atlassian_agent.mcp_server": "mcp",
 }
 
@@ -35,7 +34,7 @@ def _eager_import_modules(core_modules):
 
 _eager_import_modules(CORE_MODULES)
 
-# Dynamic/lazy loading of optional modules (agent_server, mcp_server)
+# Dynamic/lazy loading of optional modules (mcp_server)
 _loaded_optional_modules: dict[str, Any] = {}
 
 
@@ -51,7 +50,6 @@ def _import_module_safely(module_name: str):
 # optional module each flag reports on.
 _AVAILABILITY_FLAGS = {
     "_MCP_AVAILABLE": "mcp_server",
-    "_AGENT_AVAILABLE": "agent_server",
 }
 
 
