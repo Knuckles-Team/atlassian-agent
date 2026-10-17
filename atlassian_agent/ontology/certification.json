@@ -1,5 +1,5 @@
 {
-  "api_version": "graphos.io/v1",
+  "api_version": "arbora.io/v1",
   "artifacts": {
     "atlassian_agent/connectors/mcp_source_presets.json": "a49be1fedea61f2a20b80ea6dbd3dff28e92617ad49764f1d58d5a4abae9206a",
     "atlassian_agent/connectors/tool_schema_fingerprints.json": "4672a472309a14062ee906b29db54b57773b8acfd8b6d4b0ca7118072ccf3e6b",

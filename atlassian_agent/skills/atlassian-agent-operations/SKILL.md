@@ -2,12 +2,12 @@
 name: atlassian-agent-operations
 skill_type: skill
 description: >-
-  Operate atlassian-agent through its governed MCP and GraphOS capabilities, including atlassian capture tasks from meeting notes, atlassian create issue guided, atlassian generate status report, atlassian jira filters, atlassian my priority queue, atlassian search company knowledge, atlassian spec to backlog, atlassian triage issue. Use when a request requires this provider's read, change, automation, ingestion, troubleshooting, or evidence workflows.
+  Operate atlassian-agent through its governed MCP and Arbora capabilities, including atlassian capture tasks from meeting notes, atlassian create issue guided, atlassian generate status report, atlassian jira filters, atlassian my priority queue, atlassian search company knowledge, atlassian spec to backlog, atlassian triage issue. Use when a request requires this provider's read, change, automation, ingestion, troubleshooting, or evidence workflows.
 ---
 
 # Atlassian Agent Operations
 
-Use the provider's governed MCP tools through GraphOS delegation.
+Use the provider's governed MCP tools through Arbora delegation.
 
 ## Workflow
 

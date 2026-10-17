@@ -1,7 +1,7 @@
 """Atlassian ontology contribution (CONCEPT:AU-KG.ontology.federation-provider-leg).
 
 Data-only subpackage: it carries ``atlassian.ttl`` (the ``owl:Ontology``
-``http://knuckles.team/kg/atlassian`` module) which the Graph OS hub federates in via
+``http://knuckles.team/kg/atlassian`` module) which the Arbora hub federates in via
 the ``agent_connector_sdk.ontology_providers`` entry-point. It holds no business logic
 and no heavy imports so the hub can resolve it cheaply.
 """
