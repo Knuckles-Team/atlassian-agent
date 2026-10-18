@@ -1,9 +1,9 @@
 {
-  "algorithm": "agent-connector-sdk:mcp-tool-schema-compat:v1",
+  "algorithm": "agent-connector-sdk:mcp-tool-contract-compat:v2",
   "connector": "atlassian-agent",
   "schema_version": "1",
   "tools": {
-    "atlassian_confluence_page": "8c4bda7733728fb8a8ce53211edf69e5931212c088bb7c93ab342e19fdd3e173",
-    "atlassian_jira_issue": "e23246d14d338cc81acbb5920ea81c9ed743e87689e1303229fb0e02a81f93aa"
+    "confluence_cloud_get_pages": "06739172d4492c08e0fc9d18c7536a218b8d7b172fe5782c4c9c1e8538d0250a",
+    "jira_cloud_search_for_issues_using_jql": "0edfba6d8a7d256a7ca123da537e16081f714c533091571016716c3ce16e6cab"
   }
 }

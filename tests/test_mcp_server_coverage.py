@@ -505,9 +505,12 @@ def test_mcp_server_entrypoint():
 def test_middlewares_addition():
     mock_mcp = MagicMock()
     mock_mw = MagicMock()
-    with patch(
-        "atlassian_agent.mcp_server.create_mcp_server",
-        return_value=(None, mock_mcp, [mock_mw]),
+    with (
+        patch(
+            "atlassian_agent.mcp_server.create_mcp_server",
+            return_value=(None, mock_mcp, [mock_mw]),
+        ),
+        patch("atlassian_agent.mcp_server.register_tool_surface"),
     ):
         get_mcp_instance()
         mock_mcp.add_middleware.assert_called_with(mock_mw)
@@ -517,57 +520,17 @@ def test_middlewares_addition():
 async def test_confluence_page_tool_direct():
     sys.modules["atlassian_agent.mcp_server"]._registered_tools.clear()
 
-    mcp_data = get_mcp_instance()
-    mcp = mcp_data[0]
+    mcp = get_mcp_instance()[0]
+    tools = {t.name: t for t in await mcp.list_tools()}
 
-    tools = await mcp.list_tools()
-    tool_names = [t.name for t in tools]
-    print("\nREGISTERED TOOLS:", tool_names)
-    tool_name = (
-        "atlassian_confluence_page"
-        if "atlassian_confluence_page" in tool_names
-        else "atlassian-confluence-page"
+    # One tool per operation, named per client suite; no deployment routing tool.
+    assert "confluence_cloud_get_pages" in tools
+    assert any(name.startswith("confluence_server_") for name in tools)
+    assert "atlassian_confluence_page" not in tools
+    assert "action" not in tools["confluence_cloud_get_pages"].parameters.get(
+        "properties", {}
     )
-
-    # Verify we can invoke the tool directly to ensure full branch coverage of Confluence page tool
-    res1 = await mcp.call_tool(
-        tool_name,
-        {
-            "action": "confluence_cloud_get_pages",
-            "deployment": "cloud",
-            "params_json": '{"page_id": "123"}',
-        },
-    )
-    assert res1 is not None
-
-    res2 = await mcp.call_tool(
-        tool_name,
-        {
-            "action": "confluence_server_get_pages",
-            "deployment": "server",
-            "params_json": '{"page_id": "123"}',
-        },
-    )
-    assert res2 is not None
-
-    # Test invalid json parameter
-    res3 = await mcp.call_tool(
-        tool_name,
-        {
-            "action": "confluence_cloud_get_pages",
-            "deployment": "cloud",
-            "params_json": "{invalid_json}",
-        },
-    )
-    # Since call_tool returns a ToolResult, we can inspect its content or structured_content
-    result_text = ""
-    if hasattr(res3, "content") and res3.content:
-        result_text = res3.content[0].text
-    elif isinstance(res3, dict):
-        result_text = res3.get("error", "")
-    # Exception details (e.g. raw JSON-parser internals) are sanitized out of the
-    # response (security hardening) rather than echoed back to the caller.
-    assert "Operation failed" in result_text
+    assert tools["confluence_cloud_get_pages"].annotations.readOnlyHint is True
 
 
 def test_requests_dependency_warning_import_error():
