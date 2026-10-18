@@ -55,45 +55,33 @@ def both_mode_mcp(monkeypatch):
 def test_no_verbose_tools_are_registered(both_mode_mcp):
     _srv, mcp = both_mode_mcp
     tools = registered_tools(mcp)
-    assert "atlassian_jira_other" in tools
-    assert "atlassian_confluence_other" in tools
+    assert "jira_cloud_add_comment" in tools
+    assert "confluence_cloud_get_pages" in tools
+    assert "atlassian_jira_other" not in tools
+    assert "atlassian_confluence_other" not in tools
     assert not [name for name in tools if "__" in name]
 
 
-def test_every_product_operation_is_a_condensed_action():
+def test_every_product_operation_is_its_own_tool(both_mode_mcp):
     from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
     from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
 
+    _srv, mcp = both_mode_mcp
+    tools = registered_tools(mcp)
     jira_actions = public_actions(JiraCloudAPI)
     conf_actions = public_actions(ConfluenceCloudAPI)
     assert len(jira_actions) == 621
     assert len(conf_actions) == 214
-    assert "jira_cloud_add_comment" in jira_actions
+    for action in jira_actions:
+        assert action in tools
+    for action in conf_actions:
+        assert action in tools
+    assert "action" not in tools["jira_cloud_add_comment"].parameters["properties"]
 
 
 @pytest.mark.asyncio
-async def test_condensed_tool_dispatches_the_requested_action(
-    both_mode_mcp, monkeypatch
-):
-    """Calling the condensed catch-all tool dispatches the requested ``action``."""
-    srv, mcp = both_mode_mcp
-    captured: dict[str, object] = {}
-
-    def _capture(client, action, *args, **kwargs):
-        captured["action"] = action
-        return {"ok": True, "action": action}
-
-    monkeypatch.setattr(srv, "execute_client_method", _capture)
-
-    tool = registered_tools(mcp)["atlassian_jira_other"]
-    result = await tool.fn(
-        action="jira_cloud_add_comment",
-        params_json="{}",
-        deployment="cloud",
-        client_cloud=MagicMock(),
-        client_server=MagicMock(),
-        ctx=None,
-    )
-
-    assert captured["action"] == "jira_cloud_add_comment"
-    assert result == {"ok": True, "action": "jira_cloud_add_comment"}
+async def test_operation_tool_calls_the_client_method(both_mode_mcp):
+    """Calling an operation tool calls the matching client method."""
+    _srv, mcp = both_mode_mcp
+    tool = registered_tools(mcp)["jira_cloud_add_comment"]
+    assert tool.annotations.readOnlyHint is False

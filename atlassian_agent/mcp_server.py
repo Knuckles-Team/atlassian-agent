@@ -35,11 +35,9 @@ from pydantic import Field
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from atlassian_agent.api.base import BaseAtlassianClient
 from atlassian_agent.auth import (
     get_admin_cloud_client,
     get_api_access_cloud_client,
-    get_base_client,
     get_confluence_cloud_client,
     get_confluence_server_client,
     get_control_cloud_client,
@@ -51,7 +49,7 @@ from atlassian_agent.auth import (
     get_user_provisioning_cloud_client,
 )
 
-__version__ = "2.2.1"
+__version__ = "2.3.0"
 
 logger = get_logger(name="atlassian-agent")
 logger.setLevel(logging.INFO)
@@ -1125,6 +1123,82 @@ def register_kg_tools(mcp: FastMCP):
         return {"listed": len(pages), "ingested": result}
 
 
+_OPERATION_CLIENTS = (
+    (
+        "admin_cloud",
+        "api_client_admin_cloud",
+        "AdminCloudAPI",
+        "get_admin_cloud_client",
+    ),
+    (
+        "api_access_cloud",
+        "api_client_api_access_cloud",
+        "APIAccessCloudAPI",
+        "get_api_access_cloud_client",
+    ),
+    (
+        "confluence_cloud",
+        "api_client_confluence_cloud",
+        "ConfluenceCloudAPI",
+        "get_confluence_cloud_client",
+    ),
+    (
+        "confluence_server",
+        "api_client_confluence_server",
+        "ConfluenceServerAPI",
+        "get_confluence_server_client",
+    ),
+    (
+        "control_cloud",
+        "api_client_control_cloud",
+        "ControlCloudAPI",
+        "get_control_cloud_client",
+    ),
+    ("dlp_cloud", "api_client_dlp_cloud", "DLPCloudAPI", "get_dlp_cloud_client"),
+    ("jira_cloud", "api_client_jira_cloud", "JiraCloudAPI", "get_jira_cloud_client"),
+    (
+        "jira_server",
+        "api_client_jira_server",
+        "JiraServerAPI",
+        "get_jira_server_client",
+    ),
+    ("org_cloud", "api_client_org_cloud", "OrgCloudAPI", "get_org_cloud_client"),
+    (
+        "user_mgmt_cloud",
+        "api_client_user_mgmt_cloud",
+        "UserMgmtCloudAPI",
+        "get_user_mgmt_cloud_client",
+    ),
+    (
+        "user_provisioning_cloud",
+        "api_client_user_provisioning_cloud",
+        "UserProvisioningCloudAPI",
+        "get_user_provisioning_cloud_client",
+    ),
+)
+
+
+def _operation_targets() -> list[dict[str, Any]]:
+    """One operation-tool target per Atlassian API client, named ``<suite>_<operation>``."""
+    import importlib
+
+    from atlassian_agent import auth
+
+    targets: list[dict[str, Any]] = []
+    for prefix, module, cls, factory in _OPERATION_CLIENTS:
+        client_cls = getattr(
+            importlib.import_module(f"atlassian_agent.api.{module}"), cls
+        )
+        targets.append(
+            {
+                "client_cls": client_cls,
+                "get_client": getattr(auth, factory),
+                "prefix": prefix,
+            }
+        )
+    return targets
+
+
 def get_mcp_instance() -> tuple[Any, ...]:
     """Initialize and return the MCP instance."""
     load_config()
@@ -1140,10 +1214,9 @@ def get_mcp_instance() -> tuple[Any, ...]:
 
     registered_tags = register_tool_surface(
         mcp,
-        client_cls=BaseAtlassianClient,
-        get_client=get_base_client,
         service="atlassian-agent",
         tools_module=sys.modules[__name__],
+        verbose_targets=_operation_targets(),
     )
     logger.debug("Registered condensed tool tags: %s", registered_tags)
 

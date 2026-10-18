@@ -103,8 +103,8 @@ schema_mappings:
 sync:
 - preset: atlassian-confluence-pages
   server: atlassian-mcp
-  tool: atlassian_confluence_page
-  action: get_pages
+  tool: confluence_cloud_get_pages
+  action: null
   records_path: data.results
   id_field: id
   title_field: title
@@ -112,11 +112,10 @@ sync:
   updated_field: version
   pagination: null
   doc_type: confluence_page
-  tool_schema_sha256: 8c4bda7733728fb8a8ce53211edf69e5931212c088bb7c93ab342e19fdd3e173
+  tool_schema_sha256: 06739172d4492c08e0fc9d18c7536a218b8d7b172fe5782c4c9c1e8538d0250a
   raw:
     server: atlassian-mcp
-    tool: atlassian_confluence_page
-    action: get_pages
+    tool: confluence_cloud_get_pages
     records_path: data.results
     id_field: id
     title_field: title
@@ -125,8 +124,8 @@ sync:
     doc_type: confluence_page
 - preset: atlassian-jira-issues
   server: atlassian-mcp
-  tool: atlassian_jira_issue
-  action: search_for_issues_using_jql
+  tool: jira_cloud_search_for_issues_using_jql
+  action: null
   records_path: data.issues
   id_field: key
   title_field: key
@@ -134,11 +133,10 @@ sync:
   updated_field: fields.updated
   pagination: null
   doc_type: jira_issue
-  tool_schema_sha256: e23246d14d338cc81acbb5920ea81c9ed743e87689e1303229fb0e02a81f93aa
+  tool_schema_sha256: 0edfba6d8a7d256a7ca123da537e16081f714c533091571016716c3ce16e6cab
   raw:
     server: atlassian-mcp
-    tool: atlassian_jira_issue
-    action: search_for_issues_using_jql
+    tool: jira_cloud_search_for_issues_using_jql
     records_path: data.issues
     id_field: key
     title_field: key
