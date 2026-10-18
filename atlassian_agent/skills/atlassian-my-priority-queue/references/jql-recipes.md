@@ -1,6 +1,6 @@
 # JQL recipes for "assigned to me" queues
 
-All queries below feed `atlassian_jira_issue` `action="search_and_reconsile_issues_using_jql"`
+All queries below feed `jira_search_and_reconsile_issues_using_jql`
 (or `search_for_issues_using_jql`) via `params_json.jql`. Request at least the fields
 `summary, priority, status, updated, issuetype, project` so `scripts/rank_items.py` can
 score them. The server-side `ORDER BY` is only a hint — the ranking script is authoritative.

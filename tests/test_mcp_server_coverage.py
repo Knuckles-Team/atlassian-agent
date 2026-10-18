@@ -80,109 +80,16 @@ for key in list(sys.modules.keys()):
         sys.modules.pop(key, None)
 
 # Now import mcp_server so default arguments evaluate to the mocked functions
-import ast
-import inspect
 
 import pytest
-from starlette.requests import Request
 
 import atlassian_agent.mcp_server
 from atlassian_agent.mcp_server import (
-    execute_client_method,
     get_mcp_instance,
     mcp_server,
-    register_atlassian_admin_tools,
-    register_atlassian_api_access_tools,
-    register_atlassian_control_tools,
-    register_atlassian_dlp_tools,
-    register_atlassian_org_tools,
-    register_atlassian_tools,
-    register_atlassian_user_mgmt_tools,
-    register_atlassian_user_provisioning_tools,
-    register_confluence_other_tools,
-    register_confluence_page_tools,
-    register_confluence_space_tools,
-    register_confluence_user_tools,
-    register_jira_comment_tools,
-    register_jira_field_tools,
-    register_jira_issue_tools,
-    register_jira_other_tools,
-    register_jira_project_tools,
-    register_jira_screen_tools,
-    register_jira_user_tools,
-    register_jira_workflow_tools,
 )
 
 
-def test_execute_client_method_branches():
-    class SpecificMockClient:
-        def __init__(self):
-            self.calls = []
-
-        def jira_cloud_test_action(self, **kwargs):
-            self.calls.append(("cloud", kwargs))
-            return "cloud_res"
-
-        def jira_server_test_action(self, **kwargs):
-            self.calls.append(("server", kwargs))
-            return "server_res"
-
-        def stripped_action(self, **kwargs):
-            self.calls.append(("stripped", kwargs))
-            return "stripped_res"
-
-    client = SpecificMockClient()
-
-    # 1. Direct name lookup
-    res = execute_client_method(
-        client,
-        "jira_cloud_test_action",
-        "jira_cloud_",
-        "jira_server_",
-        "cloud",
-        {"a": 1},
-    )
-    assert res == "cloud_res"
-
-    # 2. Prefix matching (cloud)
-    res = execute_client_method(
-        client, "test_action", "jira_cloud_", "jira_server_", "cloud", {"a": 1}
-    )
-    assert res == "cloud_res"
-
-    # 3. Prefix matching (server)
-    res = execute_client_method(
-        client, "test_action", "jira_cloud_", "jira_server_", "server", {"a": 1}
-    )
-    assert res == "server_res"
-
-    # 4. Stripped action matching
-    res = execute_client_method(
-        client,
-        "jira_cloud_stripped_action",
-        "jira_cloud_",
-        "jira_server_",
-        "cloud",
-        {"a": 1},
-    )
-    assert res == "stripped_res"
-
-    # 5. Unknown action matching raising ValueError (rich shared-helper error)
-    with pytest.raises(ValueError, match="Unknown action 'invalid_action'"):
-        execute_client_method(
-            client, "invalid_action", "jira_cloud_", "jira_server_", "cloud", {}
-        )
-    with pytest.raises(ValueError, match="list_actions"):
-        execute_client_method(
-            client, "invalid_action", "jira_cloud_", "jira_server_", "cloud", {}
-        )
-
-    # 6. Discovery: list_actions returns the bounded action set
-    disc = execute_client_method(
-        client, "list_actions", "jira_cloud_", "jira_server_", "cloud", {}
-    )
-    assert isinstance(disc, dict)
-    assert "jira_cloud_test_action" in disc["actions"]
 
 
 # Representative dynamic actions for tools with dynamic routing (avoids dynamic method explosion)
@@ -217,230 +124,34 @@ _DYNAMIC_TOOL_ACTION_MAPPINGS = {
 }
 
 
-def _action_equality_literal(subnode: ast.AST) -> str | None:
-    """If `subnode` is the AST for `action == "some_literal"`, return that literal."""
-    if not isinstance(subnode, ast.Compare):
-        return None
-    if not (
-        isinstance(subnode.left, ast.Name)
-        and subnode.left.id == "action"
-        and len(subnode.ops) == 1
-        and isinstance(subnode.ops[0], ast.Eq)
-        and len(subnode.comparators) == 1
-        and isinstance(subnode.comparators[0], ast.Constant)
-    ):
-        return None
-    val = subnode.comparators[0].value
-    return val if isinstance(val, str) else None
 
 
-def _tool_action_literals(node: ast.AsyncFunctionDef) -> list[str]:
-    """Collect every literal `action == "..."` string compared inside a tool function."""
-    actions: set[str] = set()
-    for subnode in ast.walk(node):
-        val = _action_equality_literal(subnode)
-        if val is not None:
-            actions.add(val)
-    return list(actions)
 
 
-def _discover_tool_actions(source_path: str) -> dict[str, list[str]]:
-    """AST-walk the mcp_server source, mapping each atlassian_* tool to its actions."""
-    tool_to_actions: dict[str, list[str]] = {}
-    try:
-        with open(source_path) as f:
-            tree = ast.parse(f.read())
-        for node in ast.walk(tree):
-            if isinstance(node, ast.AsyncFunctionDef) and node.name.startswith(
-                "atlassian_"
-            ):
-                tool_name = node.name.replace("-", "_")
-                tool_to_actions[tool_name] = _tool_action_literals(node)
-    except Exception as e:
-        print(f"Operation failed: {type(e).__name__}")
-    return tool_to_actions
 
 
-def map_tools_to_actions():
-    tool_to_actions = _discover_tool_actions("atlassian_agent/mcp_server.py")
-    for tool_name, mapped_actions in _DYNAMIC_TOOL_ACTION_MAPPINGS.items():
-        tool_to_actions[tool_name.replace("-", "_")] = mapped_actions
-    return tool_to_actions
 
 
-def _register_all_atlassian_tools(mcp) -> None:
-    """Register every tool group -- also triggers each group's duplicate-registration guard."""
-    register_atlassian_control_tools(mcp)
-    register_atlassian_org_tools(mcp)
-    register_jira_project_tools(mcp)
-    register_jira_user_tools(mcp)
-    register_jira_issue_tools(mcp)
-    register_jira_comment_tools(mcp)
-    register_jira_field_tools(mcp)
-    register_jira_screen_tools(mcp)
-    register_jira_workflow_tools(mcp)
-    register_jira_other_tools(mcp)
-    register_confluence_page_tools(mcp)
-    register_confluence_space_tools(mcp)
-    register_confluence_user_tools(mcp)
-    register_confluence_other_tools(mcp)
-    register_atlassian_dlp_tools(mcp)
-    register_atlassian_user_mgmt_tools(mcp)
-    register_atlassian_tools(mcp)
-    register_atlassian_admin_tools(mcp)
-    register_atlassian_api_access_tools(mcp)
-    register_atlassian_user_provisioning_tools(mcp)
 
 
-async def _assert_health_route_ok(mcp) -> None:
-    mock_req = MagicMock(spec=Request)
-    health_route = None
-    for route in getattr(mcp, "_additional_http_routes", []):
-        if route.path == "/health":
-            health_route = route.endpoint
-            break
-    if health_route:
-        res = await health_route(mock_req)
-        assert res.status_code == 200
 
 
-def _resolve_tool_actions(
-    func_name: str, normalized_tool_name: str, tool_to_actions: dict
-) -> list[str]:
-    """Look up a tool's known actions by exact func/tool name, else by substring match."""
-    actions = tool_to_actions.get(func_name, [])
-    if actions:
-        return actions
-    actions = tool_to_actions.get(normalized_tool_name, [])
-    if actions:
-        return actions
-    for name, acts in tool_to_actions.items():
-        if normalized_tool_name in name or name in normalized_tool_name:
-            return acts
-    return []
 
 
-def _deployments_for_action(action: str) -> list[str]:
-    if "server" in action:
-        return ["server"]
-    if "cloud" in action:
-        return ["cloud"]
-    return ["cloud", "server"]
 
 
-def _build_args_from_signature(sig, action: str, deployment: str, params_json: str) -> dict:
-    """Build call args from a tool's signature: explicit values for
-    action/deployment/params_json, 'test-value' for any other required param, `ctx` omitted."""
-    args = {}
-    for param_name, param in sig.parameters.items():
-        if param_name == "action":
-            args["action"] = action
-        elif param_name == "deployment":
-            args["deployment"] = deployment
-        elif param_name == "params_json":
-            args["params_json"] = params_json
-        elif param_name == "ctx":
-            pass
-        elif param.default == inspect.Parameter.empty:
-            args[param_name] = "test-value"
-    return args
 
 
-async def _exercise_tool_action(mcp, tool, sig, action: str, cycle_all_modes: bool) -> None:
-    """Call `tool` once per (mode x deployment) for one action.
-
-    Cycles all 4 response-formatting modes only when `cycle_all_modes` (the first
-    action for this tool, to save time and avoid timeouts) -- other actions use mode 0.
-    """
-    modes = [0, 1, 2, 3] if cycle_all_modes else [0]
-    for mode in modes:
-        mock_client_inst.mode = mode
-        for deployment in _deployments_for_action(action):
-            if sig:
-                args = _build_args_from_signature(sig, action, deployment, '{"id": "1"}')
-            else:
-                args = {
-                    "action": action,
-                    "deployment": deployment,
-                    "params_json": '{"id": "1"}',
-                }
-            try:
-                await mcp.call_tool(tool.name, args)
-            except Exception:
-                pass
 
 
-async def _exercise_valid_actions(mcp, tool, sig, actions: list[str]) -> None:
-    """1. Normal execution across every action (mode-cycled on the first only)."""
-    for i, action in enumerate(actions):
-        await _exercise_tool_action(mcp, tool, sig, action, cycle_all_modes=(i == 0))
 
 
-async def _exercise_invalid_json(mcp, tool, sig, first_action: str) -> None:
-    """2. Invalid params_json parsing-error coverage."""
-    if not (sig and "params_json" in sig.parameters):
-        return
-    args = _build_args_from_signature(sig, first_action, "cloud", "{invalid_json}")
-    try:
-        await mcp.call_tool(tool.name, args)
-    except Exception:
-        pass
 
 
-async def _exercise_unknown_action(mcp, tool, sig) -> None:
-    """3. Unknown-action ValueError coverage."""
-    if sig:
-        args = _build_args_from_signature(sig, "invalid_action", "cloud", "{}")
-    else:
-        args = {"action": "invalid_action"}
-    try:
-        await mcp.call_tool(tool.name, args)
-    except Exception:
-        pass
 
 
-async def _exercise_tool(mcp, tool, tool_to_actions: dict) -> None:
-    """Run all three brute-force coverage cases for one registered tool."""
-    normalized_tool_name = tool.name.replace("-", "_")
-    func_name = (
-        (tool.fn.__name__.replace("-", "_"))
-        if hasattr(tool, "fn")
-        else normalized_tool_name
-    )
-
-    actions = _resolve_tool_actions(func_name, normalized_tool_name, tool_to_actions)
-    print(
-        f"Tool: {tool.name} (normalized: {normalized_tool_name}) -> mapped actions: {actions}"
-    )
-    if not actions:
-        actions = ["dummy_action"]
-
-    sig = inspect.signature(tool.fn) if hasattr(tool, "fn") else None
-
-    await _exercise_valid_actions(mcp, tool, sig, actions)
-    await _exercise_invalid_json(mcp, tool, sig, actions[0])
-    await _exercise_unknown_action(mcp, tool, sig)
 
 
-@pytest.mark.anyio
-async def test_mcp_server_tools_coverage():
-    sys.modules["atlassian_agent.mcp_server"]._registered_tools.clear()
-
-    tool_to_actions = map_tools_to_actions()
-
-    mcp_data = get_mcp_instance()
-    mcp = mcp_data[0]
-
-    # Trigger duplicate registration guards
-    mock_mcp = MagicMock()
-    type(mock_mcp).__name__ = "Mock"
-    _register_all_atlassian_tools(mcp)
-
-    await _assert_health_route_ok(mcp)
-
-    tools = await mcp.list_tools()
-    for tool in tools:
-        await _exercise_tool(mcp, tool, tool_to_actions)
 
 
 def test_mcp_server_entrypoint():
@@ -523,14 +234,15 @@ async def test_confluence_page_tool_direct():
     mcp = get_mcp_instance()[0]
     tools = {t.name: t for t in await mcp.list_tools()}
 
-    # One tool per operation, named per client suite; no deployment routing tool.
-    assert "confluence_cloud_get_pages" in tools
-    assert any(name.startswith("confluence_server_") for name in tools)
+    # One tool per operation; Jira and Confluence tools pick Cloud or Server
+    # from configuration, so there is no deployment routing tool.
+    assert "confluence_get_pages" in tools
+    assert not any(name.startswith("confluence_server_") for name in tools)
     assert "atlassian_confluence_page" not in tools
-    assert "action" not in tools["confluence_cloud_get_pages"].parameters.get(
+    assert "action" not in tools["confluence_get_pages"].parameters.get(
         "properties", {}
     )
-    assert tools["confluence_cloud_get_pages"].annotations.readOnlyHint is True
+    assert tools["confluence_get_pages"].annotations.readOnlyHint is True
 
 
 def test_requests_dependency_warning_import_error():

@@ -87,10 +87,10 @@ atlassian-agent --provider openai --model-id gpt-4o --api-key $OPENAI_API_KEY
 
 # Manual testing of specific tools
 # Example: Test Jira cloud tools
-python -c "from atlassian_agent.tools.jira_cloud_tools import *; print('Tools loaded successfully')"
+python -c "from atlassian_agent.tools.jira_tools import *; print('Tools loaded successfully')"
 
 # Example: Test Confluence cloud tools
-python -c "from atlassian_agent.tools.confluence_cloud_tools import *; print('Tools loaded successfully')"
+python -c "from atlassian_agent.tools.confluence_tools import *; print('Tools loaded successfully')"
 
 # Docker-based testing
 # Build and run for quick verification
@@ -101,10 +101,10 @@ docker run --rm -e ATLASSIAN_AGENT_URL="http://dummy" -e ATLASSIAN_AGENT_TOKEN="
 ### Running a Single Test/Verification
 ```bash
 # Verify a specific tool module imports correctly
-python -c "import atlassian_agent.tools.jira_cloud_tools; print('Jira Cloud tools module loaded')"
+python -c "import atlassian_agent.tools.jira_tools; print('Jira Cloud tools module loaded')"
 
 # Verify a specific API client loads
-python -c "import atlassian_agent.api.jira_cloud_api; print('Jira Cloud API module loaded')"
+python -c "import atlassian_agent.api.jira_api; print('Jira Cloud API module loaded')"
 
 # Check environment variable loading
 python -c "import os; from dotenv import load_dotenv; load_dotenv(); print('URL:', os.getenv('ATLASSIAN_AGENT_URL', 'Not set'))"
@@ -158,10 +158,10 @@ atlassian-agent
 │   │   ├── org_cloud_api.py
 │   │   ├── api_access_cloud_api.py
 │   │   ├── admin_cloud_api.py
-│   │   ├── confluence_server_api.py
-│   │   ├── confluence_cloud_api.py
-│   │   ├── jira_server_api.py
-│   │   └── jira_cloud_api.py
+│   │   ├── confluence_api.py
+│   │   ├── confluence_api.py
+│   │   ├── jira_api.py
+│   │   └── jira_api.py
 │   └── tools
 │       ├── __init__.py
 │       ├── user_provisioning_cloud_tools.py
@@ -171,10 +171,10 @@ atlassian-agent
 │       ├── org_cloud_tools.py
 │       ├── api_access_cloud_tools.py
 │       ├── admin_cloud_tools.py
-│       ├── confluence_server_tools.py
-│       ├── confluence_cloud_tools.py
-│       ├── jira_server_tools.py
-│       └── jira_cloud_tools.py
+│       ├── confluence_tools.py
+│       ├── confluence_tools.py
+│       ├── jira_tools.py
+│       └── jira_tools.py
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
@@ -192,7 +192,7 @@ atlassian-agent
 - Follow PEP 8 style guidelines.
 - Use type hints for all function parameters and return values.
 - Keep lines to a maximum of 88 characters (Black default).
-- Use absolute imports within the package (e.g., `from atlassian_agent.tools.jira_cloud_tools import ...`).
+- Use absolute imports within the package (e.g., `from atlassian_agent.tools.jira_tools import ...`).
 - Group imports: standard library, third-party, local application/library.
 
 **Imports:**
@@ -208,7 +208,7 @@ from agent_connector_sdk import create_mcp_server
 
 # Local application/library
 from atlassian_agent.tools.base_tool import BaseTool
-from atlassian_agent.api.jira_cloud_api import JiraCloudApiClient
+from atlassian_agent.api.jira_api import JiraCloudApiClient
 ```
 
 **Formatting:**

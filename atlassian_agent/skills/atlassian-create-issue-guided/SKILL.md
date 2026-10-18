@@ -43,11 +43,11 @@ Tools take `action` + `params_json` + `deployment` (`jira_cloud` default / `jira
 Unsure of an action name? Call the tool with `action="list_actions"`.
 
 ## Tools & actions
-| Condensed tool | Key actions |
+| Product | Tools |
 |----------------|-------------|
-| `atlassian_jira_issue` | `get_issue_types_for_project`, `get_create_issue_meta_issue_type_id`, `get_create_issue_meta`, `create_issue` |
-| `atlassian_jira_field` | `get_fields` (map custom-field **name → id**) |
-| `atlassian_jira_project` | `search_projects` / `get_project` (resolve a project name → key/id) |
+| Jira | `jira_get_issue_types_for_project`, `jira_get_create_issue_meta_issue_type_id`, `jira_get_create_issue_meta`, `jira_create_issue` |
+| Jira | `jira_get_fields` (map custom-field **name → id**) |
+| Jira | `jira_search_projects` / `jira_get_project` (resolve a project name → key/id) |
 
 ## Recipes (discover → populate → create)
 
@@ -55,21 +55,21 @@ Unsure of an action name? Call the tool with `action="list_actions"`.
 ```json
 {"project_id_or_key":"PROJ"}
 ```
-`atlassian_jira_issue` `action="get_issue_types_for_project"` → the types (Bug, Story,
+`jira_get_issue_types_for_project` → the types (Bug, Story,
 Task, Epic, Sub-task, and any custom types) valid for that project. Pick one with the user.
 
 ### 2. Discover the exact field schema for project + issue type
 ```json
 {"project_id_or_key":"PROJ","issue_type_id":"10004"}
 ```
-`atlassian_jira_issue` `action="get_create_issue_meta_issue_type_id"` returns, per field:
+`jira_get_create_issue_meta_issue_type_id` returns, per field:
 `fieldId` (e.g. `summary`, `customfield_10011`), `name`, `required` (bool), `schema.type`,
 and `allowedValues` for option fields. This is the source of truth for **what to collect
 and what is mandatory** — including custom fields. See `references/field-discovery.md` for
 how to read the response and map each `schema.type` to a value shape.
 
 If the user names a custom field by label ("Sprint", "Story Points"), resolve its id with
-`atlassian_jira_field` `action="get_fields"` and match on `name`.
+`jira_get_fields` and match on `name`.
 
 ### 3. Collect values, then create
 Prompt the user only for **required** fields plus any they explicitly asked to set. Build
@@ -85,7 +85,7 @@ the payload keyed by field id (custom fields by their `customfield_*` id):
   "customfield_10016":5
 }}}
 ```
-`atlassian_jira_issue` `action="create_issue"`. Report the returned `key` and browse URL.
+`jira_create_issue`. Report the returned `key` and browse URL.
 
 ## Gotchas
 - **ADF, not markdown:** on Jira **Cloud** the `description` (and any rich-text custom

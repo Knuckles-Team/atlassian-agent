@@ -35,8 +35,8 @@ tool with `action="list_actions"` to enumerate them.
 ## Tools & actions
 | Condensed tool | Key actions used here |
 |----------------|-----------------------|
-| `atlassian_jira_issue` | `get_current_user`, `search_and_reconsile_issues_using_jql` (enhanced endpoint; fall back to `search_for_issues_using_jql`), `get_transitions`, `do_transition`, `update_issue` |
-| `atlassian_jira_comment` | `add_comment` |
+| Jira | `jira_get_current_user`, `jira_search_and_reconsile_issues_using_jql` (enhanced endpoint; fall back to `jira_search_for_issues_using_jql`), `jira_get_transitions`, `jira_do_transition`, `jira_update_issue` |
+| Jira | `jira_add_comment` |
 
 ### Key parameters
 - **Search** (`search_and_reconsile_issues_using_jql`): `params_json` = `{"jql": "...",
@@ -66,11 +66,11 @@ For each ranked issue, scan the **current conversation** for facts that concern 
 e.g. "I fixed the null-pointer in the auth handler" maps to the auth bug ticket, "we
 decided to defer the migration" maps to the migration story. For every match, **draft**
 one of the following and **show it to the user for confirmation before writing**:
-- A progress comment → `atlassian_jira_comment` `action="add_comment"`,
+- A progress comment → `jira_add_comment`,
   `params_json={"issue_id_or_key":"PROJ-123","payload":{...comment body...}}`.
-- A field edit (e.g. remaining estimate, labels) → `atlassian_jira_issue`
+- A field edit (e.g. remaining estimate, labels) → the `jira_<operation>` tools
   `action="update_issue"`, `params_json={"issue_id_or_key":"PROJ-123","payload":{"fields":{...}}}`.
-- A status change → `atlassian_jira_issue` `action="get_transitions"` to find the valid
+- A status change → `jira_get_transitions` to find the valid
   transition id, then `action="do_transition"`.
 
 Never apply a write without explicit user confirmation of the drafted change.
