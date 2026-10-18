@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-10-18
+
+### Changed
+- Jira and Confluence: one `jira_<operation>` / `confluence_<operation>` tool per
+  operation; Cloud or Server/DC comes from `ATLASSIAN_JIRA_DEPLOYMENT` /
+  `ATLASSIAN_CONFLUENCE_DEPLOYMENT` when the tool is called. Replaces the
+  per-deployment `jira_cloud_*` / `jira_server_*` (and Confluence) tools.
+
+### Removed
+- The 20 action-routed tools (`atlassian_jira_*`, `atlassian_confluence_*`,
+  `atlassian_atlassian_*`); every action is its own tool.
+
 ## [0.13.0] - 2026-05-22
 
 ### Added

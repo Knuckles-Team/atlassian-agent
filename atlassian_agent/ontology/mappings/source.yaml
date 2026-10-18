@@ -4,7 +4,7 @@ ontology_source: atlassian
 sync:
 - preset: atlassian-confluence-pages
   server: atlassian-mcp
-  tool: atlassian_confluence_page
+  tool: confluence_get_pages
   action: get_pages
   records_path: data.results
   id_field: id
@@ -15,7 +15,7 @@ sync:
   tool_schema_sha256: 8c4bda7733728fb8a8ce53211edf69e5931212c088bb7c93ab342e19fdd3e173
 - preset: atlassian-jira-issues
   server: atlassian-mcp
-  tool: atlassian_jira_issue
+  tool: jira_search_for_issues_using_jql
   action: search_for_issues_using_jql
   records_path: data.issues
   id_field: key

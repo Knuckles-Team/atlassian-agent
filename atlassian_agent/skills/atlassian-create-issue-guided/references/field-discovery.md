@@ -1,6 +1,6 @@
 # Reading Jira createmeta output & mapping field types
 
-`atlassian_jira_issue` `action="get_create_issue_meta_issue_type_id"`
+`jira_get_create_issue_meta_issue_type_id`
 (`params_json={"project_id_or_key":"PROJ","issue_type_id":"10004"}`) returns a paginated
 list of field descriptors for exactly one project + issue-type combination. Each descriptor
 looks like:
@@ -34,7 +34,7 @@ Ignore fields that are neither required nor requested — leave them to Jira def
 | `option` | `{"id":"10201"}` or `{"value":"Green"}` | Pick from `allowedValues`. |
 | `array` of `option` | `[{"id":"10201"},{"id":"10202"}]` | Multi-select. |
 | `array` of `string` | `["backend","urgent"]` | e.g. Labels. |
-| `user` | `{"accountId":"5b10..."}` (Cloud) / `{"name":"jsmith"}` (Server) | Resolve via `atlassian_jira_user` find-assignable-users. |
+| `user` | `{"accountId":"5b10..."}` (Cloud) / `{"name":"jsmith"}` (Server) | Resolve via the `jira_<operation>` tools find-assignable-users. |
 | `array` of `user` | list of the above | Multi-user pickers. |
 | `priority` | `{"name":"High"}` or `{"id":"2"}` | From `allowedValues`. |
 | `project` | `{"key":"PROJ"}` | Usually set once at top level. |
@@ -62,6 +62,6 @@ Each entry carries both `id` and a human field (`value`/`name`); prefer `id` for
 
 ## Fallback for older instances
 If `get_create_issue_meta_issue_type_id` 404s (older Jira), use:
-`atlassian_jira_issue` `action="get_create_issue_meta"` with
+`jira_get_create_issue_meta` with
 `params_json={"project_keys":"PROJ","issuetype_ids":"10004","expand":"projects.issuetypes.fields"}`
 and read `projects[0].issuetypes[0].fields` — the same descriptor shape under a nested path.

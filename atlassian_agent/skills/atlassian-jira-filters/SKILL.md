@@ -30,7 +30,7 @@ ownership, favourite state, column config, and a set of share permissions.
 
 ## When NOT to use
 - A throwaway JQL query with no need to persist it → run the search directly
-  (`atlassian_jira_issue` `search_and_reconsile_issues_using_jql`).
+  (the `jira_<operation>` tools `search_and_reconsile_issues_using_jql`).
 - "What's assigned to me" → `atlassian-my-priority-queue`.
 - Plane: its public v1 API has **no** Views/Saved-Filters resource, so there is no
   equivalent tool — this skill is Jira-only.
@@ -44,13 +44,13 @@ Connect via the `mcp-client` skill against the **`atlassian-agent`** MCP server.
 | `ATLASSIAN_JIRA_CLOUD_USER` / `_TOKEN` (or `ATLASSIAN_AGENT_USER`/`_TOKEN`) | ✅ | Auth |
 | `MCP_TOOL_MODE` | optional | `condensed` (default) exposes the action-routed tools |
 
-All filter actions run on the **`atlassian_jira_other`** condensed tool with
+All filter actions run on the **the `jira_<operation>` tools** condensed tool with
 `action` + `params_json` + `deployment` (`jira_cloud` default / `jira_server`). Filters
 exist on both Cloud (v3) and Server/DC (v2). Unsure of an action or its exact params?
-Call `atlassian_jira_other` with `action="list_actions"` or `action="help"`.
+Call the `jira_<operation>` tools with `action="list_actions"` or `action="help"`.
 
 ## Tools & actions
-| Action (on `atlassian_jira_other`) | Purpose |
+| Action (on the `jira_<operation>` tools) | Purpose |
 |-----------------------------------|---------|
 | `create_filter` | Create a filter (`payload`: name, jql, description, favourite, sharePermissions, editPermissions) |
 | `get_filter` | Read one filter (`id_`, optional `expand`) — returns its `jql`, `searchUrl`, permissions |
@@ -89,7 +89,7 @@ Read it, then run its JQL via the referenced filter id — JQL natively supports
 ```json
 {"id_":12345,"expand":"jql"}
 ```
-`action="get_filter"`, then `atlassian_jira_issue` `action="search_and_reconsile_issues_using_jql"`:
+`action="get_filter"`, then `jira_search_and_reconsile_issues_using_jql`:
 ```json
 {"jql":"filter = 12345 ORDER BY updated DESC","fields":["summary","status","assignee","updated"],"max_results":100}
 ```

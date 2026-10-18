@@ -210,7 +210,7 @@ async def ingest_issues(
     """Map Jira issue records → ``:Issue`` / ``:Epic`` / ``:Person`` nodes and ingest.
 
     ``issues``: raw Jira issue dicts (as returned by
-    ``jira_cloud_search_for_issues_using_jql`` / ``jira_cloud_get_issue``), each with a
+    ``jira_search_for_issues_using_jql`` / ``jira_get_issue``), each with a
     ``key`` and a ``fields`` sub-dict. Epics (issuetype == "Epic") become ``:Epic`` nodes;
     everything else becomes an ``:Issue`` linked to its assignee/reporter (``:Person``) and
     its parent epic (``:inEpic``). Returns ``{"nodes", "edges"}`` from the commit
@@ -254,8 +254,8 @@ async def ingest_confluence_pages(
 ) -> dict[str, int]:
     """Map Confluence page records → ``:Document`` (``:ConfluencePage``) nodes and ingest.
 
-    ``pages``: raw Confluence page dicts (as returned by ``confluence_cloud_get_pages`` /
-    ``confluence_cloud_get_page_by_id``) — each with an ``id``, ``title`` and a ``body``
+    ``pages``: raw Confluence page dicts (as returned by ``confluence_get_pages`` /
+    ``confluence_get_page_by_id``) — each with an ``id``, ``title`` and a ``body``
     (request ``body_format=storage``). Each becomes a ``:ConfluencePage`` document
     carrying the page body text + ``source_uri`` so hub-side enrichment chunks/embeds
     it. Returns ``{"nodes", "edges"}`` from the commit receipt; validation and engine

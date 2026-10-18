@@ -1,12 +1,10 @@
-"""The condensed action-routed surface is the only tool surface.
+"""One typed tool per Atlassian operation; Jira and Confluence pick Cloud or Server.
 
-agent-connector-sdk retired the verbose 1:1 ``<tool>__<action>`` surface: its
-``register_tool_surface`` registers only condensed, intent-gated tools and
-ignores the old ``MCP_TOOL_MODE`` / action-provider inputs. These tests pin that
-contract for atlassian-agent — even with ``MCP_TOOL_MODE=both`` set, no verbose
-tool is registered — and prove every Jira (621) / Confluence (214) operation is
-still reachable as an ``action`` on the condensed catch-all tools, which dispatch
-it through the shared action dispatcher.
+Jira and Confluence operations are served as ``jira_<operation>`` and
+``confluence_<operation>``. The tool list is the configured deployment's
+operations (``ATLASSIAN_JIRA_DEPLOYMENT`` / ``ATLASSIAN_CONFLUENCE_DEPLOYMENT``),
+and each call reads the deployment again and calls that client. No action-routed
+deployment tool remains.
 """
 
 from __future__ import annotations
@@ -16,72 +14,88 @@ import sys
 from unittest.mock import MagicMock
 
 import pytest
-from agent_connector_sdk.mcp.action_dispatch import public_actions
 from agent_connector_sdk.mcp.tool_surface import registered_tools
 
+from atlassian_agent import deployment_tools
 
-def _fresh_mcp_server():
-    """Import a clean ``atlassian_agent.mcp_server`` module.
 
-    A sibling coverage test mutates ``sys.modules['atlassian_agent.mcp_server']``
-    (pops + re-runs it as a script), which can leave a non-module object behind;
-    drop and re-import so this test always sees the real module regardless of
-    suite ordering.
-    """
+def _surface(monkeypatch, **env: str):
+    for key in ("ATLASSIAN_JIRA_DEPLOYMENT", "ATLASSIAN_CONFLUENCE_DEPLOYMENT"):
+        monkeypatch.delenv(key, raising=False)
+    for key, value in env.items():
+        monkeypatch.setenv(key, value)
     sys.modules.pop("atlassian_agent.mcp_server", None)
-    return importlib.import_module("atlassian_agent.mcp_server")
-
-
-@pytest.fixture
-def both_mode_mcp(monkeypatch):
-    """Build the atlassian MCP surface with the retired ``MCP_TOOL_MODE=both`` set."""
-    monkeypatch.setenv("MCP_TOOL_MODE", "both")
-
-    import atlassian_agent.auth as auth_mod
-
-    for name in list(dir(auth_mod)):
-        if name.startswith("get_") and name.endswith("_client"):
-            monkeypatch.setattr(auth_mod, name, MagicMock(return_value=MagicMock()))
-
-    srv = _fresh_mcp_server()
-
-    # The module guards against duplicate registration with a process-global set;
-    # clear it so this test registers a fresh surface.
-    monkeypatch.setattr(srv, "_registered_tools", set())
+    srv = importlib.import_module("atlassian_agent.mcp_server")
     mcp, _args, _mw = srv.get_mcp_instance()
-    return srv, mcp
+    return registered_tools(mcp)
 
 
-def test_no_verbose_tools_are_registered(both_mode_mcp):
-    _srv, mcp = both_mode_mcp
-    tools = registered_tools(mcp)
-    assert "jira_cloud_add_comment" in tools
-    assert "confluence_cloud_get_pages" in tools
-    assert "atlassian_jira_other" not in tools
-    assert "atlassian_confluence_other" not in tools
-    assert not [name for name in tools if "__" in name]
+def test_cloud_is_the_default_and_no_router_remains(monkeypatch):
+    tools = _surface(monkeypatch)
+    jira = [n for n in tools if n.startswith("jira_")]
+    confluence = [n for n in tools if n.startswith("confluence_")]
+    assert len(jira) == len(deployment_tools.operations("jira", "cloud")) == 621
+    assert (
+        len(confluence)
+        == len(deployment_tools.operations("confluence", "cloud"))
+        == 214
+    )
+    assert not [n for n in tools if n.startswith(("jira_cloud_", "jira_server_"))]
+    assert not [n for n in tools if n.startswith(("atlassian_jira_", "atlassian_conf"))]
+    assert not [n for n in tools if "__" in n]
+    comment = tools["jira_add_comment"]
+    assert "action" not in comment.parameters["properties"]
+    assert comment.annotations.readOnlyHint is False
+    assert tools["confluence_get_pages"].annotations.readOnlyHint is True
 
 
-def test_every_product_operation_is_its_own_tool(both_mode_mcp):
-    from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
-    from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
-
-    _srv, mcp = both_mode_mcp
-    tools = registered_tools(mcp)
-    jira_actions = public_actions(JiraCloudAPI)
-    conf_actions = public_actions(ConfluenceCloudAPI)
-    assert len(jira_actions) == 621
-    assert len(conf_actions) == 214
-    for action in jira_actions:
-        assert action in tools
-    for action in conf_actions:
-        assert action in tools
-    assert "action" not in tools["jira_cloud_add_comment"].parameters["properties"]
+def test_server_configuration_serves_server_operations(monkeypatch):
+    tools = _surface(
+        monkeypatch,
+        ATLASSIAN_JIRA_DEPLOYMENT="server",
+        ATLASSIAN_CONFLUENCE_DEPLOYMENT="server",
+    )
+    assert sum(n.startswith("jira_") for n in tools) == 435
+    assert sum(n.startswith("confluence_") for n in tools) == 154
+    assert "jira_search_1" in tools
 
 
-@pytest.mark.asyncio
-async def test_operation_tool_calls_the_client_method(both_mode_mcp):
-    """Calling an operation tool calls the matching client method."""
-    _srv, mcp = both_mode_mcp
-    tool = registered_tools(mcp)["jira_cloud_add_comment"]
-    assert tool.annotations.readOnlyHint is False
+def test_call_uses_the_configured_deployment(monkeypatch):
+    calls: list[tuple[str, dict]] = []
+    cloud, server = MagicMock(), MagicMock()
+    cloud.jira_cloud_add_comment.side_effect = lambda **kw: calls.append(
+        ("cloud", kw)
+    )
+    server.jira_server_add_comment.side_effect = lambda **kw: calls.append(
+        ("server", kw)
+    )
+    import atlassian_agent.auth as auth
+
+    monkeypatch.setattr(auth, "get_jira_cloud_client", lambda: cloud)
+    monkeypatch.setattr(auth, "get_jira_server_client", lambda: server)
+    client = deployment_tools.facade_class("jira", "cloud")()
+
+    monkeypatch.setenv("ATLASSIAN_JIRA_DEPLOYMENT", "cloud")
+    client.add_comment(issue_id_or_key="P-1")
+    monkeypatch.setenv("ATLASSIAN_JIRA_DEPLOYMENT", "server")
+    client.add_comment(issue_id_or_key="P-1")
+    assert calls == [
+        ("cloud", {"issue_id_or_key": "P-1"}),
+        ("server", {"issue_id_or_key": "P-1"}),
+    ]
+
+
+def test_operation_missing_on_the_configured_deployment_is_refused(monkeypatch):
+    import atlassian_agent.auth as auth
+
+    monkeypatch.setattr(auth, "get_jira_server_client", lambda: object())
+    monkeypatch.setenv("ATLASSIAN_JIRA_DEPLOYMENT", "server")
+    client = deployment_tools.facade_class("jira", "cloud")()
+    with pytest.raises(deployment_tools.DeploymentUnavailableError):
+        client.get_banner()
+
+
+def test_bad_deployment_value_is_rejected(monkeypatch):
+    monkeypatch.setenv("ATLASSIAN_JIRA_DEPLOYMENT", "datacenter")
+    with pytest.raises(ValueError, match="cloud' or 'server"):
+        deployment_tools.configured_deployment("jira")
