@@ -24,6 +24,8 @@ class _FakeTransport:
         self.blobs: list[bytes] = []
 
     async def source_status(self, connector, stream):
+
+        del connector, stream
         return SimpleNamespace(accepted_checkpoint=None)
 
     async def submit(self, request):
