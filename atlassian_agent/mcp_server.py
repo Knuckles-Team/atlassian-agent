@@ -31,7 +31,7 @@ from starlette.responses import JSONResponse
 
 from atlassian_agent.deployment_tools import client_factory, configured_deployment
 
-__version__ = "2.4.0"
+__version__ = "2.4.1"
 
 logger = get_logger(name="atlassian-agent")
 logger.setLevel(logging.INFO)
