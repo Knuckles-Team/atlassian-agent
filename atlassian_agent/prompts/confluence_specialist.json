@@ -4,8 +4,6 @@
   "schema_version": "1.0",
   "prompt_version": "0.1.0",
   "source": "atlassian-agent",
-  "extends": "agent-connector-sdk:base",
-  "compose": "append",
   "description": "Confluence specialist: company knowledge search, page authoring, and documentation over the atlassian-agent MCP server.",
   "metadata": {
     "topic": "Confluence knowledge",

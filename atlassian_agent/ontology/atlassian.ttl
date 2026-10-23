@@ -25,10 +25,8 @@
     rdfs:label "Jira Sprint" ;
     rdfs:comment "A time-boxed iteration on an agile board that groups issues for delivery." .
 
-:ConfluencePage a owl:Class ;
-    rdfs:subClassOf :Document ;
-    rdfs:label "Confluence Page" ;
-    rdfs:comment "A Confluence page — a :Document carrying the page body text and its source_uri (atlassian_confluence_page)." .
+:ConfluencePage a owl:Class .
+
 
 # --- links (owl:ObjectProperty) ---
 
@@ -92,5 +90,8 @@
     rdfs:comment """Atlassian work-tracking and knowledge model — Jira issues, epics and
     sprints with their assignment/epic/sprint relationships, plus Confluence pages as
     documents — federated into the agent-connector-sdk knowledge-graph hub. Reuses the base
-    :Document and :Person classes.""" ;
-    owl:imports <http://knuckles.team/kg/enterprise> .
+    :Document and :Person classes.""" .
+
+# ontology-codemod R3
+<http://knuckles.team/kg#Issue> rdfs:subClassOf <http://knuckles.team/kg#JiraIssue> .
+<http://knuckles.team/kg#Sprint> rdfs:subClassOf <http://knuckles.team/kg#Iteration> .
