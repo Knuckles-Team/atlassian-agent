@@ -1,4 +1,4 @@
-connector: atlassian-agent
+connector: atlassian-mcp
 ontology_source: atlassian
 schema_version: '1'
 resources:
