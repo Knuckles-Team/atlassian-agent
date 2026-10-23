@@ -1,14 +1,11 @@
 {
   "api_version": "arbora.io/v1",
   "artifacts": {
-    "atlassian_agent/connectors/mcp_source_presets.json": "5ea6f4c537ccae0308d253d138fdbe6fc16f643f37105e4e7c6098d123d4b5a3",
-    "atlassian_agent/connectors/tool_schema_fingerprints.json": "52f4cb8fea1d19d9af81087bff38b1779cf15f42bfb575ffb2c32841260aa12e",
     "atlassian_agent/ontology/atlassian.ttl": "29b6c89f774513585559ae7d03ba48e4589c1ec28fb244c6438386e9ba05330f",
     "atlassian_agent/ontology/fixtures/records.json": "2819c42ce997c32c00cb33e4c491e7060068e3d530b9be6f33ad095c27724256",
     "atlassian_agent/ontology/mappings/source.yaml": "20bd47e31d631028320efdde91805c5370fd24368f71c8f31a31ddd677b5bf71",
     "atlassian_agent/ontology/migrations/manifest.json": "6484fe0543d173177bdf93f3dde7de1e6e875ae23b7e81924f9937e50b1bda95",
-    "atlassian_agent/ontology/shapes/connector.shacl.ttl": "055b4471d4a31e50c0496cd8dd39eb504d434261ee48ba37f692e33cd7d0983c",
-    "connector_manifest.yml": "98218b942752d57867393fb3219db0deb5445c85d993fc89e7e824e6200f66be"
+    "atlassian_agent/ontology/shapes/connector.shacl.ttl": "055b4471d4a31e50c0496cd8dd39eb504d434261ee48ba37f692e33cd7d0983c"
   },
   "checks": {
     "declared_tool_schema": "passed",
