@@ -89,6 +89,10 @@ from atlassian_agent.mcp_server import (
     mcp_server,
 )
 
+# The factory patch only has to cover the import above. Left in place it would hide
+# this package from the SDK's caller lookup for every later test in the session.
+server_factory.create_mcp_server = original_create_mcp_server
+
 
 
 
