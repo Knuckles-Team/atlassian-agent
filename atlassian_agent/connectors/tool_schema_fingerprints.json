@@ -1,6 +1,6 @@
 {
   "algorithm": "agent-connector-sdk:mcp-tool-contract-compat:v2",
-  "connector": "atlassian-agent",
+  "connector": "atlassian-mcp",
   "schema_version": "1",
   "tools": {
     "confluence_cloud_get_pages": "06739172d4492c08e0fc9d18c7536a218b8d7b172fe5782c4c9c1e8538d0250a",
