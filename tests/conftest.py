@@ -1,8 +1,7 @@
 import sys
+from unittest.mock import MagicMock
 
 import pytest
-
-
 
 if __name__ == "__main__":
     # Allows `python tests/conftest.py` to bootstrap a fresh worktree BEFORE
@@ -39,8 +38,6 @@ def _clean_argv(monkeypatch):
     """
     monkeypatch.setattr(sys, "argv", ["pytest"])
 
-
-from unittest.mock import MagicMock
 
 # 1. Mock fastmcp.Context methods to avoid RuntimeError in test environments
 import fastmcp
