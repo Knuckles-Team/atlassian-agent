@@ -84,7 +84,7 @@ async def test_ingest_issues_maps_issue_epic_person(ingest):
     )
     assert res == {"nodes": 4, "edges": 3}
     request = transport.requests[0]
-    assert request.connector == "atlassian-agent"
+    assert request.connector == "atlassian-mcp"
     by_id = {r.record_id: r for r in request.records}
     issue = by_id["atlassian:issue:PROJ-1"]
     assert _node_type(issue) == "Issue"
@@ -174,3 +174,14 @@ async def test_ingest_empty_is_rejected(ingest):
         await kg.ingest_confluence_pages([], ingest=service)
     assert await kg.ingest_attachment(b"", ingest=service) is None
     assert transport.requests == []
+
+
+@pytest.mark.spec("CONN-ATLASSIAN-AGENT-CONNECTOR-CONTENT-R001")
+def test_ingest_bindings_match_the_declared_connector_identity():
+    from agent_connector_sdk.connector_identity import connector_name
+
+    canonical = connector_name("atlassian_agent")
+    assert kg._BINDING.connector == canonical
+    assert kg._PAGE_BINDING.connector == canonical
+    assert kg._BINDING.stream == kg._PAGE_BINDING.stream == "atlassian"
+    assert kg._PAGE_BINDING.document_type == "ConfluencePage"
