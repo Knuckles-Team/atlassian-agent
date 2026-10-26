@@ -93,7 +93,7 @@ def _issue_priority_name(fields: dict) -> str:
 def _issue_status_name(fields: dict) -> str:
     """Extract the status name, whether ``fields["status"]`` is a dict or a bare string."""
     status = fields.get("status") or {}
-    return status.get("name") if isinstance(status, dict) else (status or "")
+    return (status.get("name") if isinstance(status, dict) else status) or ""
 
 
 def _score_issue(priority: str, fields: dict, now: datetime) -> tuple[int, int]:

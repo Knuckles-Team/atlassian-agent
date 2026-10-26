@@ -47,7 +47,7 @@ jira = JiraCloudAPI(base)
 confluence = ConfluenceCloudAPI(base)
 
 # Reads
-projects = jira.jira_cloud_get_projects_with_field_schemes()   # structured Response
+projects = jira.jira_cloud_get_projects_with_field_schemes()  # structured Response
 spaces = confluence.confluence_cloud_get_spaces()
 pages = confluence.confluence_cloud_get_pages()
 
@@ -60,7 +60,8 @@ to basic auth):
 
 ```python
 from atlassian_agent.auth import get_suite_client
-base = get_suite_client()        # reads ATLASSIAN_* from the environment / .env
+
+base = get_suite_client()  # reads ATLASSIAN_* from the environment / .env
 ```
 
 ## As a CLI

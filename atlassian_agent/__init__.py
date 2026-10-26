@@ -4,6 +4,10 @@ import importlib
 import inspect
 from typing import Any
 
+from agent_connector_sdk.connector import Connector
+
+from atlassian_agent.mcp_server import _operation_targets
+
 __all__: list[str] = []
 
 CORE_MODULES: list[str] = []
@@ -89,3 +93,16 @@ def __getattr__(name: str) -> Any:
 
 def __dir__() -> list[str]:
     return sorted(list(globals().keys()) + __all__)
+
+
+# Preserve the legacy server's operation targets and KG registrar while making
+# the SDK's canonical server the declared connector surface.
+connector = Connector(
+    tools="atlassian_agent.mcp_server",
+    verbose_targets=tuple(_operation_targets()),
+    instructions=(
+        "Atlassian Agent MCP Server — typed Jira, Confluence, and Atlassian "
+        "administration operations."
+    ),
+)
+__all__.append("connector")

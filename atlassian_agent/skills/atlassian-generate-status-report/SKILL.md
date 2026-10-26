@@ -247,30 +247,26 @@ updateConfluencePage(
 ```python
 # Find project key first
 searchJiraIssuesUsingJql(
-    cloudId="...",
-    jql='project = "PHOENIX" OR project = "PHX"',
-    maxResults=1
+    cloudId="...", jql='project = "PHOENIX" OR project = "PHX"', maxResults=1
 )
 
 # Query completed issues
 searchJiraIssuesUsingJql(
     cloudId="...",
     jql='project = "PHX" AND status = Done AND resolved >= -7d',
-    maxResults=50
+    maxResults=50,
 )
 
 # Query blocked issues
 searchJiraIssuesUsingJql(
-    cloudId="...",
-    jql='project = "PHX" AND status = Blocked',
-    maxResults=50
+    cloudId="...", jql='project = "PHX" AND status = Blocked', maxResults=50
 )
 
 # Query in-progress high priority
 searchJiraIssuesUsingJql(
     cloudId="...",
     jql='project = "PHX" AND status IN ("In Progress", "In Review") AND priority IN (Highest, High)',
-    maxResults=50
+    maxResults=50,
 )
 ```
 
@@ -293,7 +289,7 @@ createConfluencePage(
     spaceId="12345",
     title="Project Phoenix - Weekly Status - Dec 3, 2025",
     body="[formatted markdown report]",
-    contentFormat="markdown"
+    contentFormat="markdown",
 )
 ```
 

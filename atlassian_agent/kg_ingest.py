@@ -37,12 +37,11 @@ from agent_connector_sdk.ingest import (
     current_ingest,
 )
 
-_CONNECTOR = "atlassian-agent"
 _STREAM = "atlassian"
 
-_BINDING = IngestBinding(connector=_CONNECTOR, stream=_STREAM)
-_PAGE_BINDING = IngestBinding(
-    connector=_CONNECTOR, stream=_STREAM, document_type="ConfluencePage"
+_BINDING = IngestBinding.for_package("atlassian_agent", stream=_STREAM)
+_PAGE_BINDING = IngestBinding.for_package(
+    "atlassian_agent", stream=_STREAM, document_type="ConfluencePage"
 )
 
 

@@ -1,5 +1,9 @@
 #!/usr/bin/python
 import warnings
+from pathlib import Path
+
+from agent_connector_sdk.connector_identity import connector_version
+from agent_connector_sdk.mcp.content import ConnectorContent
 
 # Filter RequestsDependencyWarning early to prevent log spam
 with warnings.catch_warnings():
@@ -31,7 +35,7 @@ from starlette.responses import JSONResponse
 
 from atlassian_agent.deployment_tools import client_factory, configured_deployment
 
-__version__ = "2.4.2"
+__version__ = connector_version("atlassian_agent")
 
 logger = get_logger(name="atlassian-agent")
 logger.setLevel(logging.INFO)
@@ -212,11 +216,16 @@ def get_mcp_instance() -> tuple[Any, ...]:
     load_config()
     args, mcp, middlewares = create_mcp_server(
         name="atlassian-agent MCP",
-        version=__version__,
+        version=connector_version("atlassian_agent"),
         instructions=(
             "atlassian-agent MCP Server: one typed tool per Atlassian API operation. "
             "Jira and Confluence tools use the Cloud or Server/Data Center client "
             "set by ATLASSIAN_JIRA_DEPLOYMENT / ATLASSIAN_CONFLUENCE_DEPLOYMENT."
+        ),
+        content=ConnectorContent.for_package(
+            "atlassian_agent",
+            Path(__file__).resolve().parent,
+            connector_version("atlassian_agent"),
         ),
     )
 

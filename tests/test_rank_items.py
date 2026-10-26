@@ -35,25 +35,35 @@ def _issue(key, priority, updated):
 def test_ordering_and_scores():
     issues = [
         _issue("SKAN-3", "Highest", "2026-07-07T00:00:00.000+0000"),  # 2d fresh
-        _issue("SKAN-1", "Medium", "2026-05-30T00:00:00.000+0000"),   # 40d stale
+        _issue("SKAN-1", "Medium", "2026-05-30T00:00:00.000+0000"),  # 40d stale
         _issue("SKAN-12", "Highest", "2026-06-25T00:00:00.000+0000"),  # 14d stale
-        _issue("SKAN-9", "High", "2026-06-19T00:00:00.000+0000"),     # 20d stale
-        _issue("SKAN-7", None, "2026-07-08T00:00:00.000+0000"),       # 1d, no priority
+        _issue("SKAN-9", "High", "2026-06-19T00:00:00.000+0000"),  # 20d stale
+        _issue("SKAN-7", None, "2026-07-08T00:00:00.000+0000"),  # 1d, no priority
     ]
     ranked = rank_items.rank(issues, NOW)
-    assert [r["key"] for r in ranked] == ["SKAN-12", "SKAN-3", "SKAN-9", "SKAN-1", "SKAN-7"]
+    assert [r["key"] for r in ranked] == [
+        "SKAN-12",
+        "SKAN-3",
+        "SKAN-9",
+        "SKAN-1",
+        "SKAN-7",
+    ]
     scores = {r["key"]: r["score"] for r in ranked}
     # priority_rank*100 + min(days,30) + (25 if days>7)
-    assert scores["SKAN-12"] == 5 * 100 + 14 + 25   # 539
-    assert scores["SKAN-3"] == 5 * 100 + 2           # 502
-    assert scores["SKAN-9"] == 4 * 100 + 20 + 25     # 445
-    assert scores["SKAN-1"] == 3 * 100 + 30 + 25     # 355 (staleness capped at 30)
-    assert scores["SKAN-7"] == 3 * 100 + 1           # 301 (missing priority -> Medium)
+    assert scores["SKAN-12"] == 5 * 100 + 14 + 25  # 539
+    assert scores["SKAN-3"] == 5 * 100 + 2  # 502
+    assert scores["SKAN-9"] == 4 * 100 + 20 + 25  # 445
+    assert scores["SKAN-1"] == 3 * 100 + 30 + 25  # 355 (staleness capped at 30)
+    assert scores["SKAN-7"] == 3 * 100 + 1  # 301 (missing priority -> Medium)
 
 
 def test_stale_flag_boundary():
-    seven = rank_items.rank([_issue("A", "High", "2026-07-02T00:00:00.000+0000")], NOW)[0]
-    eight = rank_items.rank([_issue("B", "High", "2026-07-01T00:00:00.000+0000")], NOW)[0]
+    seven = rank_items.rank([_issue("A", "High", "2026-07-02T00:00:00.000+0000")], NOW)[
+        0
+    ]
+    eight = rank_items.rank([_issue("B", "High", "2026-07-01T00:00:00.000+0000")], NOW)[
+        0
+    ]
     assert seven["days_stale"] == 7 and seven["stale"] is False
     assert eight["days_stale"] == 8 and eight["stale"] is True
 
@@ -67,4 +77,21 @@ def test_parse_dt_handles_offsets_and_z():
 def test_extract_from_envelope_and_list():
     env = {"issues": [_issue("A", "Low", "2026-07-08T00:00:00.000+0000")]}
     assert len(rank_items.extract_issues(env)) == 1
-    assert len(rank_items.extract_issues([_issue("A", "Low", "2026-07-08T00:00:00.000+0000")])) == 1
+    assert (
+        len(
+            rank_items.extract_issues(
+                [_issue("A", "Low", "2026-07-08T00:00:00.000+0000")]
+            )
+        )
+        == 1
+    )
+
+
+def test_rank_preserves_scores_when_status_name_is_null():
+    missing = _issue("NULL", "High", "2026-07-08T00:00:00.000+0000")
+    named = _issue("OPEN", "High", "2026-07-08T00:00:00.000+0000")
+    missing["fields"]["status"] = {"name": None}
+    named["fields"]["status"] = {"name": "In Progress"}
+    rows = rank_items.rank([missing, named], NOW)
+    assert [row["status"] for row in rows] == ["", "In Progress"]
+    assert rows[0]["score"] == rows[1]["score"] == 401
