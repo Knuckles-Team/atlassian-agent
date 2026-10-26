@@ -175,8 +175,8 @@ def _map_one_issue(
 
 def _to_entity(record: dict[str, Any]) -> Entity:
     return Entity(
-        id=record.get("id"),
-        node_type=record.get("node_type"),
+        id=record["id"],
+        node_type=record["node_type"],
         properties={k: v for k, v in record.items() if k not in ("id", "node_type")},
     )
 
