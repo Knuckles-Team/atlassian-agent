@@ -94,8 +94,6 @@ from atlassian_agent.mcp_server import (
 server_factory.create_mcp_server = original_create_mcp_server
 
 
-
-
 # Representative dynamic actions for tools with dynamic routing (avoids dynamic method explosion)
 _DYNAMIC_TOOL_ACTION_MAPPINGS = {
     "atlassian_jira_project": ["jira_cloud_get_project", "jira_server_get_project"],
@@ -126,36 +124,6 @@ _DYNAMIC_TOOL_ACTION_MAPPINGS = {
         "confluence_server_get_info",
     ],
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def test_mcp_server_entrypoint():

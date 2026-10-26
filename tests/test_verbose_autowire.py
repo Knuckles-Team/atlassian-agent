@@ -63,9 +63,7 @@ def test_server_configuration_serves_server_operations(monkeypatch):
 def test_call_uses_the_configured_deployment(monkeypatch):
     calls: list[tuple[str, dict]] = []
     cloud, server = MagicMock(), MagicMock()
-    cloud.jira_cloud_add_comment.side_effect = lambda **kw: calls.append(
-        ("cloud", kw)
-    )
+    cloud.jira_cloud_add_comment.side_effect = lambda **kw: calls.append(("cloud", kw))
     server.jira_server_add_comment.side_effect = lambda **kw: calls.append(
         ("server", kw)
     )

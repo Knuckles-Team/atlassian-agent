@@ -76,9 +76,7 @@ def _call_client_method_best_effort(method, common_args: dict) -> None:
 def _brute_force_client(client_class, base_client, common_args: dict) -> None:
     """Instantiate one API client class and best-effort call every public method."""
     client_instance = client_class(base_client)
-    for name, method in inspect.getmembers(
-        client_instance, predicate=inspect.ismethod
-    ):
+    for name, method in inspect.getmembers(client_instance, predicate=inspect.ismethod):
         if name.startswith("_") or name == "__init__":
             continue
         _call_client_method_best_effort(method, common_args)
