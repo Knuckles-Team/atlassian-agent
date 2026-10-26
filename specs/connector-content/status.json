@@ -13,10 +13,13 @@
       "delivery_state": "VERIFIED",
       "landed_in": [
         "4067eedd29d7",
+        "a1a03c689679",
         "d6c8fd1c0a56"
       ],
       "verified_by": [
-        "tests/test_default_content_surfaces.py:15"
+        "tests/test_connector_tool_parity.py:12",
+        "tests/test_default_content_surfaces.py:17",
+        "tests/test_kg_ingest.py:179"
       ]
     }
   ]
