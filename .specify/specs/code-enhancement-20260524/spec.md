@@ -19,7 +19,7 @@
 
 - **FR-001**: Detected 5 agent skill(s) — will grade in CE-026
 - **FR-002**: Minor update: pytest-xdist 3.6.0 (constraint — not installed) -> 3.8.0
-- **FR-003**: Minor update: agent-connector-sdk 0.2.40 (installed) -> 0.16.0
+- **FR-003**: Minor update: scion-sdk 0.2.40 (installed) -> 0.16.0
 - **FR-004**: 21 functions exceed 50 lines
 - **FR-005**: Monolithic: mcp_server.py (1106L) — Low cohesion: 25 distinct concepts in one file; 23 public functions — consider grouping into modules
 - **FR-006**: Needs attention: api_client_admin_cloud.py (1262L) — God class: AdminCloudAPI (58 methods) — consider mixins/composition
@@ -56,7 +56,7 @@
 - **FR-037**: 1 tests exceed 100 lines — likely doing too much per test
 - **FR-038**: Undocumented env vars: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, AUTH_TYPE, DELEGATED_SCOPES, EUNOMIA_POLICY_FILE, EUNOMIA_TYPE, OTEL_EXPORTER_OTLP_ENDPOINT, OTEL_EXPORTER_OTLP_PROTOCOL, OTEL_EXPORTER_OTLP_PUBLIC_KEY, OTEL_EXPORTER_OTLP_SECRET_KEY
 - **FR-039**: 3 Python env vars not in .env.example: ATLASSIAN_OAUTH_TOKEN, AUDIENCE, DELEGATED_SCOPES
-- **FR-040**: Analysis error: No module named 'agent_connector_sdk.knowledge_graph'
+- **FR-040**: Analysis error: No module named 'scion_sdk.knowledge_graph'
 
 ## Success Criteria
 

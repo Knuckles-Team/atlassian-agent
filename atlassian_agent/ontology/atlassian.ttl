@@ -89,7 +89,7 @@
     rdfs:label "Atlassian Ontology" ;
     rdfs:comment """Atlassian work-tracking and knowledge model — Jira issues, epics and
     sprints with their assignment/epic/sprint relationships, plus Confluence pages as
-    documents — federated into the agent-connector-sdk knowledge-graph hub. Reuses the base
+    documents — federated into the scion-sdk knowledge-graph hub. Reuses the base
     :Document and :Person classes.""" .
 
 # ontology-codemod R3

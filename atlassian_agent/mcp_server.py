@@ -2,8 +2,8 @@
 import warnings
 from pathlib import Path
 
-from agent_connector_sdk.connector_identity import connector_version
-from agent_connector_sdk.mcp.content import ConnectorContent
+from scion_sdk.connector_identity import connector_version
+from scion_sdk.mcp.content import ConnectorContent
 
 # Filter RequestsDependencyWarning early to prevent log spam
 with warnings.catch_warnings():
@@ -22,14 +22,14 @@ import logging
 import sys
 from typing import Any
 
-from agent_connector_sdk.config import load_config
-from agent_connector_sdk.mcp.concurrency import run_blocking
-from agent_connector_sdk.mcp.server import create_mcp_server
-from agent_connector_sdk.mcp.tool_surface import register_tool_surface
 from fastmcp import Context, FastMCP
 from fastmcp.dependencies import Depends
 from fastmcp.utilities.logging import get_logger
 from pydantic import Field
+from scion_sdk.config import load_config
+from scion_sdk.mcp.concurrency import run_blocking
+from scion_sdk.mcp.server import create_mcp_server
+from scion_sdk.mcp.tool_surface import register_tool_surface
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 

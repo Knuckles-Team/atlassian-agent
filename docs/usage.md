@@ -34,7 +34,7 @@ reachable instance.
 from atlassian_agent.api.base import BaseAtlassianClient
 from atlassian_agent.api.api_client_jira_cloud import JiraCloudAPI
 from atlassian_agent.api.api_client_confluence_cloud import ConfluenceCloudAPI
-from agent_connector_sdk.core.transport_security import resolve_configured_tls_profile
+from scion_sdk.core.transport_security import resolve_configured_tls_profile
 
 base = BaseAtlassianClient(
     base_url="https://your-company.atlassian.net",

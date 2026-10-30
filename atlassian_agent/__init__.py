@@ -4,7 +4,7 @@ import importlib
 import inspect
 from typing import Any
 
-from agent_connector_sdk.connector import Connector
+from scion_sdk.connector import Connector
 
 from atlassian_agent.mcp_server import _operation_targets
 

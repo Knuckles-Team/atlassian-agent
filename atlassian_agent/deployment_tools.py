@@ -22,7 +22,7 @@ import re
 from collections.abc import Callable
 from typing import Any
 
-from agent_connector_sdk.config import setting
+from scion_sdk.config import setting
 
 DEPLOYMENTS = ("cloud", "server")
 

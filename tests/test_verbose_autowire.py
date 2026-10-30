@@ -14,7 +14,7 @@ import sys
 from unittest.mock import MagicMock
 
 import pytest
-from agent_connector_sdk.mcp.tool_surface import registered_tools
+from scion_sdk.mcp.tool_surface import registered_tools
 
 from atlassian_agent import deployment_tools
 

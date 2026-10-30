@@ -13,7 +13,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 import pytest
-from agent_connector_sdk.ingest import IngestError, KnowledgeIngest
+from scion_sdk.ingest import IngestError, KnowledgeIngest
 
 import atlassian_agent.kg_ingest as kg
 
@@ -178,7 +178,7 @@ async def test_ingest_empty_is_rejected(ingest):
 
 @pytest.mark.spec("CONN-ATLASSIAN-AGENT-CONNECTOR-CONTENT-R001")
 def test_ingest_bindings_match_the_declared_connector_identity():
-    from agent_connector_sdk.connector_identity import connector_name
+    from scion_sdk.connector_identity import connector_name
 
     canonical = connector_name("atlassian_agent")
     assert kg._BINDING.connector == canonical
