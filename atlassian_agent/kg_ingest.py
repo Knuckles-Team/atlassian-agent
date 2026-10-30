@@ -11,7 +11,7 @@ applies (the "maximum ingestion" bar):
 * **Attachments** → raw ``:Blob`` / ``:MediaAsset`` bytes via :func:`ingest_attachment`.
 
 All three are submitted through the connector SDK's knowledge-ingest service
-(:mod:`agent_connector_sdk.ingest`) under this connector's :class:`IngestBinding`, so
+(:mod:`scion_sdk.ingest`) under this connector's :class:`IngestBinding`, so
 this module ships only thin record→dict mappers. Provenance (connector, stream) is
 carried by the binding server-side, not stamped onto node properties. Node ids follow
 ``atlassian:<class>:<externalId>`` and ``node_type`` matches a class the package's
@@ -25,7 +25,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from agent_connector_sdk.ingest import (
+from scion_sdk.ingest import (
     ChangeSet,
     Document,
     Entity,

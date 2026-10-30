@@ -13,7 +13,7 @@ description: >-
 license: MIT
 tags: [jira, atlassian, my-work, triage, staleness, priority, mcp]
 metadata:
-  author: Genius
+  author: Knuckles-Team
   version: '0.1.0'
 ---
 # My Jira Priority Queue

@@ -13,7 +13,7 @@ description: >-
 license: MIT
 tags: [jira, atlassian, filters, jql, saved-search, permissions, sharing, mcp]
 metadata:
-  author: Genius
+  author: Knuckles-Team
   version: '0.1.0'
 ---
 # Jira Saved Filters

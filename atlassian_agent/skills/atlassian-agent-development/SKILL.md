@@ -10,7 +10,7 @@ license: MIT
 tags: [atlassian-agent, development, connector, jira, confluence, gates]
 tier: repository
 metadata:
-  author: Genius
+  author: Knuckles-Team
   version: '0.1.0'
 ---
 
@@ -18,7 +18,7 @@ metadata:
 
 This repository owns Jira and Confluence calls, mappings, MCP tools, and agent
 entry points. Shared connector contracts and transports belong to
-`agent-connector-sdk`; admission, serving, and durable graph state belong to
+`scion-sdk`; admission, serving, and durable graph state belong to
 their owning repositories. Read `AGENTS.md` before changing code and keep
 Atlassian credentials and raw customer data out of source, logs, and skill
 content.

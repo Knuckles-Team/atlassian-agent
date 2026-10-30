@@ -2,14 +2,14 @@ import logging
 import threading
 
 import httpx
-from agent_connector_sdk.auth.delegation import (
+from scion_sdk.auth.delegation import (
     DelegationSettings,
     current_user_token,
     exchange_token,
 )
-from agent_connector_sdk.config import setting
-from agent_connector_sdk.identity import IdentityRequiredError, current_actor
-from agent_connector_sdk.tls.resolve import resolve_tls_profile
+from scion_sdk.config import setting
+from scion_sdk.identity import IdentityRequiredError, current_actor
+from scion_sdk.tls.resolve import resolve_tls_profile
 
 from .api.base import BaseAtlassianClient
 

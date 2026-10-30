@@ -90,7 +90,7 @@ def test_no_bound_actor_degrades_to_allow():
 
 
 def test_authenticated_actor_is_scoped_to_entitled_suites():
-    from agent_connector_sdk.identity import ActorContext, ActorType, use_actor
+    from scion_sdk.identity import ActorContext, ActorType, use_actor
 
     def actor(*roles):
         return ActorContext(
