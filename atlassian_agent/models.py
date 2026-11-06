@@ -1,3 +1,4 @@
+import re
 from typing import Any, Generic, TypeVar
 
 import requests
@@ -21,13 +22,22 @@ class Response(BaseModel, Generic[T]):
 
     @classmethod
     def from_requests_response(cls, response: requests.Response) -> "Response":
+        detail = ""
         try:
             data = response.json()
+            if not response.ok and isinstance(data, dict):
+                detail = str(data.get("errorMessage") or data.get("message") or "")
         except Exception:
-            data = {"content": response.text}
+            text = response.text
+            if text.lstrip().startswith("<"):
+                # An HTML page (site removed, login redirect, outage) is not data.
+                text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text)).strip()[:300]
+                detail = text
+            data = {"content": text}
 
-        return cls(
-            status_code=response.status_code,
-            data=data,
-            message="Success" if response.ok else f"Error: {response.reason}",
-        )
+        message = "Success"
+        if not response.ok:
+            message = f"Error: {response.reason}"
+            if detail:
+                message = f"{message}: {detail}"
+        return cls(status_code=response.status_code, data=data, message=message)

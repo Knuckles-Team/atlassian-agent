@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.7] - 2026-11-06
+
+### Fixed
+- A non-success HTML reply (a removed site, a login redirect) is reduced to its text in the response message instead of being returned whole as data; JSON error bodies surface their `errorMessage`.
+
 ## [2.4.6] - 2026-10-30
 
 ### Changed
