@@ -37,6 +37,9 @@ async def _listings():
         resources = {str(r.uri) for r in await client.list_resources()}
         prompts = {p.name for p in await client.list_prompts()}
         for uri in resources:
+            # contracts.ttl is rendered by the SDK from connector_contracts.py.
+            if uri.endswith("/contracts.ttl"):
+                continue
             if uri.startswith(("ontology://", "shapes://")):
                 directory = ROOT / "ontology"
                 if uri.startswith("shapes://"):
@@ -109,6 +112,8 @@ def test_production_pack_includes_packaged_ontology_and_shapes() -> None:
     assert pack.server_package_version == version("atlassian-agent")
     uris = {str(entry.uri) for entry in pack.archive.entries}
     for entry in pack.archive.entries:
+        if entry.uri.endswith("/contracts.ttl"):
+            continue
         if entry.uri.startswith(("ontology://", "shapes://")):
             name = entry.uri.rsplit("/", 1)[-1]
             directory = (

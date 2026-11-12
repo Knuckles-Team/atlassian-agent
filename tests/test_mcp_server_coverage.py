@@ -201,7 +201,6 @@ def test_middlewares_addition():
 
 @pytest.mark.anyio
 async def test_confluence_page_tool_direct():
-    sys.modules["atlassian_agent.mcp_server"]._registered_tools.clear()
 
     mcp = get_mcp_instance()[0]
     tools = {t.name: t for t in await mcp.list_tools()}

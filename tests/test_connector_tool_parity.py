@@ -36,10 +36,8 @@ def test_canonical_server_preserves_legacy_tools_and_schemas(monkeypatch):
     )
     legacy_module = importlib.import_module("atlassian_agent.mcp_server")
 
-    legacy_module._registered_tools.clear()
     legacy = legacy_module.get_mcp_instance()[0]
     legacy_tools = _tool_snapshot(legacy)
-    legacy_module._registered_tools.clear()
     _, canonical = build_server(PACKAGE, command_args=[])
     canonical_tools = _tool_snapshot(canonical)
 
@@ -78,6 +76,9 @@ def test_canonical_server_serves_every_packaged_content_payload(monkeypatch):
         expected_resources.add(f"shapes://atlassian-mcp/{path.name}")
     assert expected_resources <= resources
     for uri, text in payloads.items():
+        if uri.endswith("/contracts.ttl"):
+            # Rendered by the SDK from connector_contracts.py.
+            continue
         directory = ROOT / "ontology"
         if uri.startswith("shapes://"):
             directory /= "shapes"

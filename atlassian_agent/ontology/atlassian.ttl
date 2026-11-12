@@ -18,6 +18,7 @@
     rdfs:comment "A tracked Jira work item — story, task, bug, or sub-task (atlassian_jira_issue)." .
 
 :Epic a owl:Class ;
+    rdfs:subClassOf :Issue ;
     rdfs:label "Jira Epic" ;
     rdfs:comment "A large body of work that aggregates related Jira issues (the epic link)." .
 
