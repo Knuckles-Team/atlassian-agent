@@ -40,8 +40,6 @@ __version__ = connector_version("atlassian_agent")
 logger = get_logger(name="atlassian-agent")
 logger.setLevel(logging.INFO)
 
-_registered_tools: set[str] = set()
-
 
 def _plain(res: Any) -> Any:
     """A client Response as a plain dict."""
@@ -56,9 +54,9 @@ def register_kg_tools(mcp: FastMCP):
     Adds Wire-First tools that list via the existing Jira/Confluence clients and push the
     records into the knowledge graph as typed nodes / documents. Gated by ``KGTOOL``.
     """
-    if "kg" in _registered_tools and not type(mcp).__name__ == "Mock":
+    if getattr(mcp, "_atlassian_kg_registered", False) is True:
         return
-    _registered_tools.add("kg")
+    mcp._atlassian_kg_registered = True
 
     @mcp.tool(tags={"kg", "jira-issue"})
     async def atlassian_ingest_issues(
