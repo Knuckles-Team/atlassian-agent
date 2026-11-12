@@ -1,4 +1,4 @@
-"""Native epistemic-graph ingestion — Wire-First coverage for atlassian-agent.
+"""Native medulla ingestion — Wire-First coverage for atlassian-agent.
 
 Exercises the ``ingest_issues`` / ``ingest_confluence_pages`` / ``ingest_attachment``
 mappers against the connector SDK's :class:`KnowledgeIngest` over a fake transport

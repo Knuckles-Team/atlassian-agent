@@ -49,7 +49,7 @@ def _plain(res: Any) -> Any:
 
 
 def register_kg_tools(mcp: FastMCP):
-    """Native epistemic-graph ingestion tools (CONCEPT:AU-KG.ingest.enterprise-source-extractor).
+    """Native medulla ingestion tools (CONCEPT:AU-KG.ingest.enterprise-source-extractor).
 
     Adds Wire-First tools that list via the existing Jira/Confluence clients and push the
     records into the knowledge graph as typed nodes / documents. Gated by ``KGTOOL``.
@@ -72,7 +72,7 @@ def register_kg_tools(mcp: FastMCP):
             default=None, description="MCP context for progress reporting"
         ),
     ) -> Any:
-        """Natively ingest Jira issues into epistemic-graph as typed :Issue/:Epic/:Person nodes.
+        """Natively ingest Jira issues into medulla as typed :Issue/:Epic/:Person nodes.
 
         Searches Jira with ``jql`` and pushes each issue (with its assignee/reporter
         :Person nodes and :inEpic / :assignedTo / :reportedBy links) into the knowledge
@@ -117,7 +117,7 @@ def register_kg_tools(mcp: FastMCP):
             default=None, description="MCP context for progress reporting"
         ),
     ) -> Any:
-        """Natively ingest Confluence pages into epistemic-graph as :Document nodes.
+        """Natively ingest Confluence pages into medulla as :Document nodes.
 
         Lists pages (body_format=storage) and pushes each as a :ConfluencePage :Document
         carrying the page body text + source_uri for semantic search. Best-effort:

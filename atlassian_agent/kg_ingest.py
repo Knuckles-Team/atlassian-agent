@@ -1,7 +1,7 @@
-"""Native epistemic-graph ingestion for Atlassian records (typed graph nodes).
+"""Native medulla ingestion for Atlassian records (typed graph nodes).
 
 CONCEPT:AU-KG.ingest.enterprise-source-extractor. The atlassian-agent package natively
-pushes its data into the ONE epistemic-graph knowledge graph in every modality that
+pushes its data into the ONE medulla knowledge graph in every modality that
 applies (the "maximum ingestion" bar):
 
 * **Jira issues** → typed OWL nodes ``:Issue`` / ``:Epic`` / ``:Person`` (+ ``:assignedTo``
