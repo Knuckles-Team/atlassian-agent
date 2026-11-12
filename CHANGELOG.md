@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.9] - 2026-11-12
+
+### Changed
+- Declare tool-use contracts for all served tools, links, data locations, business roles, role prompts and per-domain skills.
+- Rename the `action` query parameter of the audit-event and project-search operations to `event_action` / `permission_action` (the upstream query key is unchanged).
+- `Epic` extends `Issue` in the ontology.
+- Require `scion-sdk>=0.10.1,<1.0.0`.
+
 ## [2.4.8] - 2026-11-06
 
 ### Security
