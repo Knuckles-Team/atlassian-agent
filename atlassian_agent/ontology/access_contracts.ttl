@@ -1,0 +1,22 @@
+@prefix ac: <https://knuckles-team.github.io/ontology/access#> .
+@prefix : <https://knuckles-team.github.io/ontology/connector/atlassian#> .
+
+# Competency read of the Jira work items served by jira_search_for_issues_using_jql.
+
+:issueAccess a ac:AccessContract ;
+    ac:classIri :Issue ;
+    ac:sourceId "atlassian-jira-issues" ;
+    ac:entity "issue" ;
+    ac:keyField "key" ;
+    ac:accessKind "mcp_tool" ;
+    ac:operation "jira_search_for_issues_using_jql" ;
+    ac:pagination "none" .
+
+:issueStatusBinding a ac:PropertyBinding ;
+    ac:contract :issueAccess ; ac:property :status ; ac:field "status" .
+:issueAssigneeBinding a ac:PropertyBinding ;
+    ac:contract :issueAccess ; ac:property :assignee ; ac:field "assignee" .
+:issueBlockedByBinding a ac:PropertyBinding ;
+    ac:contract :issueAccess ; ac:property :blockedBy ; ac:field "blockedBy" .
+:issuePullRequestUrlBinding a ac:PropertyBinding ;
+    ac:contract :issueAccess ; ac:property :pullRequestUrl ; ac:field "pullRequestUrl" .

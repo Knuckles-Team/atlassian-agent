@@ -88,6 +88,24 @@
     rdfs:comment "Short one-line summary/title of a Jira Issue or Epic." ;
     rdfs:range xsd:string .
 
+:assignee a owl:DatatypeProperty ;
+    rdfs:label "assignee" ;
+    rdfs:comment "Display name of the person an Issue is currently assigned to." ;
+    rdfs:domain :Issue ;
+    rdfs:range xsd:string .
+
+:blockedBy a owl:DatatypeProperty ;
+    rdfs:label "blocked by" ;
+    rdfs:comment "Key of the Issue that blocks this Issue, when one does." ;
+    rdfs:domain :Issue ;
+    rdfs:range xsd:string .
+
+:pullRequestUrl a owl:DatatypeProperty ;
+    rdfs:label "pull request URL" ;
+    rdfs:comment "URL of the pull request linked to an Issue." ;
+    rdfs:domain :Issue ;
+    rdfs:range xsd:string .
+
 <https://knuckles-team.github.io/ontology/connector/atlassian> a owl:Ontology ;
     rdfs:label "Atlassian Ontology" ;
     rdfs:comment """Atlassian work-tracking and knowledge model — Jira issues, epics and
