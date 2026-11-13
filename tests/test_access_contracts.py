@@ -33,7 +33,9 @@ def _declared_terms() -> set[str]:
     return set(re.findall(r"^:(\w+)\s+a\s+owl:", text, flags=re.M))
 
 
-def _findings(contracts, tools: set[str], terms: set[str], recordings: Path) -> list[str]:
+def _findings(
+    contracts, tools: set[str], terms: set[str], recordings: Path
+) -> list[str]:
     found: list[str] = []
     by_entity = {c.entity: c for c in contracts}
     for entity, want in EXPECTED.items():
