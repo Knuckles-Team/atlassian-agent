@@ -1,0 +1,16 @@
+[
+  {
+    "key": "PROJ-101",
+    "status": "In Progress",
+    "assignee": "Alex Example",
+    "blockedBy": "PROJ-99",
+    "pullRequestUrl": "https://example.invalid/org/repo/pull/12"
+  },
+  {
+    "key": "PROJ-102",
+    "status": "Done",
+    "assignee": "Sam Example",
+    "blockedBy": null,
+    "pullRequestUrl": "https://example.invalid/org/repo/pull/13"
+  }
+]
