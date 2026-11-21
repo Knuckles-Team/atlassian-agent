@@ -27,17 +27,7 @@
     rdfs:label "Jira Sprint" ;
     rdfs:comment "A time-boxed iteration on an agile board that groups issues for delivery." .
 
-:ConfluencePage a owl:Class ;
-    rdfs:subClassOf core:ConfluencePage .
-
-
 # --- links (owl:ObjectProperty) ---
-
-:assignedTo a owl:ObjectProperty ;
-    rdfs:label "assigned to" ;
-    rdfs:comment "Links an Issue to the Person it is currently assigned to." ;
-    rdfs:domain :Issue ;
-    rdfs:range core:Person .
 
 :inEpic a owl:ObjectProperty ;
     rdfs:label "in epic" ;
@@ -71,32 +61,15 @@
     rdfs:domain :Issue ;
     rdfs:range xsd:string .
 
-:priority a owl:DatatypeProperty ;
-    rdfs:label "priority" ;
-    rdfs:comment "Priority of an Issue (Highest, High, Medium, Low, Lowest)." ;
-    rdfs:domain :Issue ;
-    rdfs:range xsd:string .
-
 :issueType a owl:DatatypeProperty ;
     rdfs:label "issue type" ;
     rdfs:comment "Type of a Jira Issue (Story, Task, Bug, Sub-task, …)." ;
     rdfs:domain :Issue ;
     rdfs:range xsd:string .
 
-:summary a owl:DatatypeProperty ;
-    rdfs:label "summary" ;
-    rdfs:comment "Short one-line summary/title of a Jira Issue or Epic." ;
-    rdfs:range xsd:string .
-
 :assignee a owl:DatatypeProperty ;
     rdfs:label "assignee" ;
     rdfs:comment "Display name of the person an Issue is currently assigned to." ;
-    rdfs:domain :Issue ;
-    rdfs:range xsd:string .
-
-:blockedBy a owl:DatatypeProperty ;
-    rdfs:label "blocked by" ;
-    rdfs:comment "Key of the Issue that blocks this Issue, when one does." ;
     rdfs:domain :Issue ;
     rdfs:range xsd:string .
 

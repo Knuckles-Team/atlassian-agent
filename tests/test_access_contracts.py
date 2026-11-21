@@ -30,7 +30,9 @@ def _local(iri: str) -> str:
 
 def _declared_terms() -> set[str]:
     text = (ONTOLOGY / "atlassian.ttl").read_text(encoding="utf-8")
-    return set(re.findall(r"^:(\w+)\s+a\s+owl:", text, flags=re.M))
+    contracts = (ONTOLOGY / "access_contracts.ttl").read_text(encoding="utf-8")
+    core = set(re.findall(r"\bkg:(\w+)", contracts))
+    return set(re.findall(r"^:(\w+)\s+a\s+owl:", text, flags=re.M)) | core
 
 
 def _findings(
