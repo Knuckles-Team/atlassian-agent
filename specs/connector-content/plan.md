@@ -54,6 +54,7 @@ The repository pre-commit hooks apply: `ruff-format`, `connector-standard`, `sec
 ## Production caller chain
 
 1. `CONN-ATLASSIAN-AGENT-CONNECTOR-CONTENT-R001`: the scion_sdk.connector entry point atlassian-mcp in pyproject.toml resolves to atlassian_agent/__init__.py::connector (line 100), and the atlassian-mcp console script runs atlassian_agent/mcp_server.py::mcp_server (line 249), which builds the server with ConnectorContent.for_package at line 225.
+2. `CONN-ATLASSIAN-AGENT-CONNECTOR-CONTENT-R004`: the ontology loader reads `atlassian_agent/ontology/` at server start; the engine imports the served pack and finds no redeclared core term.
 
 ## Cross-repo seams
 
