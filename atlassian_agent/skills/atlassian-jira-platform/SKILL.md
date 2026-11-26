@@ -30,6 +30,21 @@ Typed site-level operations, including ones that act on installed apps.
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Read site state with `jira_get_advanced_settings` or `jira_get_atlassian_team`. Verify the call returns without an authorization error.
+2. Evaluate a Jira expression with `jira_analyse_expression`(check, payload). Verify the response lists no errors.
+3. Poll long-running work with `jira_cancel_task`(task_id) only when asked to stop it. Verify the task status reads cancelled afterwards.
+4. Remove a webhook with `jira_delete_webhook_by_id`(confirm) only after approval. Verify the webhook is absent from the webhook list.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Admin call returns 403 | The account lacks Jira administrator rights | Report the gap and ask an administrator to run the call. |
+| Expression analysis fails | The expression has a syntax error | Fix the expression named in the error and run `jira_analyse_expression` again with `check` set. |
+| Delete refused | `confirm=true` missing | Obtain approval naming the webhook and resubmit with `confirm=true`. |
+
 ## Tools (60)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

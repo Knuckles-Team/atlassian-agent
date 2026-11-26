@@ -1,10 +1,13 @@
 ---
 name: atlassian-capture-tasks-from-meeting-notes
 skill_type: skill
-description: "Analyze meeting notes to find action items and create Jira tasks for assigned work. When an agent needs to: (1) Create Jira tasks or tickets from meeting notes, (2) Extract or find action items from notes or Confluence pages, (3) Parse meeting notes for assigned tasks, or (4) Analyze notes and generate tasks for team members. Identifies assignees, looks up account IDs, and creates tasks with proper context."
+description: >-
+  Analyze meeting notes to find action items and create Jira tasks for assigned work. When an agent needs to: (1) Create Jira tasks or tickets from meeting notes, (2) Extract or find action items from notes or Confluence pages, (3) Parse meeting notes for assigned tasks, or (4) Analyze notes and generate tasks for team members.
 ---
 
 # Capture Tasks from Meeting Notes
+
+Scope: Analyze meeting notes to find action items and create Jira tasks for assigned work. When an agent needs to: (1) Create Jira tasks or tickets from meeting notes, (2) Extract or find action items from notes or Confluence pages, (3) Parse meeting notes for assigned tasks, or (4) Analyze notes and generate tasks for team members. Identifies assignees, looks up account IDs, and creates tasks with proper context.
 
 ## Keywords
 meeting notes, action items, create tasks, create tickets, extract tasks, parse notes, analyze notes, assigned work, assignees, from meeting, post-meeting, capture tasks, generate tasks, turn into tasks, convert to tasks, action item, to-do, task list, follow-up, assigned to, create Jira tasks, create Jira tickets, meeting action items, extract action items, find action items, analyze meeting
@@ -16,6 +19,22 @@ Automatically extract action items from meeting notes and create Jira tasks with
 **Use this skill when:** Users have meeting notes with action items that need to become Jira tasks.
 
 ---
+
+## Steps
+
+1. Get the notes by calling `getConfluencePage` for a URL, or accept pasted text. Verify the body is non-empty before parsing.
+2. Extract action items and their assignees from the notes using `references/action-item-patterns.md`. Verify each item has an action verb and a named owner or is marked unassigned.
+3. Ask for the project key and check it with `getVisibleJiraProjects`. Verify the key is in the returned list.
+4. Resolve each assignee with `lookupJiraAccountId`(searchString). Verify exactly one account matched, and ask the user when none or several matched.
+5. Show the list to the user and create approved tasks with `createJiraIssue`. Verify each response returns an issue key and report all keys.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| No action items found | The notes lack a recognizable pattern | Show the user what was scanned and apply the patterns in `references/action-item-patterns.md`, or ask for the items directly. |
+| Assignee lookup returns none | The name differs from the Jira display name | Retry `lookupJiraAccountId` with the email or surname, or create the task unassigned and say so. |
+| Task creation rejected | A required field or issue type is missing | Read `getJiraProjectIssueTypesMetadata` for the project and supply the missing field. |
 
 ## Workflow
 
@@ -433,131 +452,9 @@ TODO: Create report - Sarah
 
 ---
 
-## Handling Edge Cases
+## Additional reference
 
-### No Action Items Found
-
-If no action items with assignees are detected:
-
-```
-I analyzed the meeting notes but couldn't find any action items with clear assignees.
-
-Action items typically follow patterns like:
-- @Name to do X
-- Name will do X
-- Action: Name - do X
-- TODO: X (Name)
-
-Options:
-1. I can search for TODO items without assignees
-2. You can point out specific action items to create
-3. I can create tasks for bullet points you specify
-
-What would you like to do?
-```
-
----
-
-### Mixed Formats
-
-If some action items have assignees and some don't:
-
-```
-I found [N] action items:
-- [X] with clear assignees
-- [Y] without assignees
-
-Should I:
-1. Create all [N] tasks ([X] assigned, [Y] unassigned)
-2. Only create the [X] tasks with assignees
-3. Ask you to assign the [Y] unassigned tasks
-
-Which option would you prefer?
-```
-
----
-
-### Assignee Name Variations
-
-If the same person is mentioned different ways:
-
-```
-Notes mention: @sarah, Sarah, Sarah J.
-
-These likely refer to the same person. I'll look up "Sarah" once and use
-that account ID for all three mentions. Is that correct?
-```
-
----
-
-### Duplicate Action Items
-
-If the same task appears multiple times:
-
-```
-I found what appears to be the same action item twice:
-1. "@Sarah to create user stories" (line 15)
-2. "Action: Sarah - create user stories" (line 42)
-
-Should I:
-1. Create one task (combine duplicates)
-2. Create two separate tasks
-3. Skip the duplicate
-
-What would you prefer?
-```
-
----
-
-### Long Task Descriptions
-
-If action item text is very long (>200 characters):
-
-```
-The task "[long text...]" is quite detailed.
-
-Should I:
-1. Use first sentence as summary, rest in description
-2. Use full text as summary
-3. Let you edit it to be more concise
-
-Which would you prefer?
-```
-
----
-
-## Tips for High-Quality Results
-
-### Do:
-✅ Use consistent @mention format in notes
-✅ Include full names when possible
-✅ Be specific in action item descriptions
-✅ Add context (why/what/when)
-✅ Review parsed tasks before confirming
-
-### Don't:
-❌ Mix multiple tasks for one person in one bullet
-❌ Use ambiguous names (just "John" if you have 5 Johns)
-❌ Skip action verbs (unclear what to do)
-❌ Forget to specify project
-
-### Best Meeting Notes Format
-
-```
-# Meeting Title - Date
-
-Attendees: [Names]
-
-## Decisions
-[What was decided]
-
-## Action Items
-- @FullName to [specific task with context]
-- @AnotherPerson will [specific task with context]
-- etc.
-```
-
----
+Edge cases, quality tips and worked examples (moved verbatim). See [edge-cases-and-examples](references/edge-cases-and-examples.md).
 
 ## When NOT to Use This Skill
 
@@ -571,86 +468,6 @@ This skill is for **converting meeting action items to Jira tasks only**.
 ❌ General note-taking
 
 **Use only when:** Meeting notes exist and action items need to become Jira tasks.
-
----
-
-## Examples
-
-### Example 1: Simple @Mentions
-
-**Input:**
-```
-Team Sync - Dec 3, 2025
-
-Action Items:
-- @Sarah to create user stories for chat feature
-- @Mike will update the architecture doc
-- @Lisa should review design mockups
-```
-
-**Process:**
-1. Parse → 3 action items found
-2. Project → "PROJ"
-3. Lookup → Sarah (123), Mike (456), Lisa (789)
-4. Present → User confirms
-5. Create → PROJ-100, PROJ-101, PROJ-102
-
-**Output:**
-```
-✅ Created 3 tasks in PROJ:
-
-1. PROJ-100 - Create user stories for chat feature
-   Assigned to: Sarah Johnson
-
-2. PROJ-101 - Update the architecture doc
-   Assigned to: Mike Chen
-
-3. PROJ-102 - Review design mockups
-   Assigned to: Lisa Park
-```
-
----
-
-### Example 2: Mixed Formats
-
-**Input:**
-```
-Product Review Meeting
-
-Discussed new features and priorities.
-
-Follow-ups:
-- Sarah will draft the PRD
-- Mike: implement API changes
-- TODO: Review security audit (Lisa)
-- Update stakeholders on timeline
-```
-
-**Process:**
-1. Parse → Found 4 items (3 with assignees, 1 without)
-2. Ask → "Found 3 with assignees, 1 without. Create all or only assigned?"
-3. User → "All, make the last one unassigned"
-4. Create → 4 tasks (3 assigned, 1 unassigned)
-
----
-
-### Example 3: Name Lookup Issue
-
-**Input:**
-```
-Sprint Planning
-
-Action Items:
-- @John to update tests
-- @Sarah to refactor code
-```
-
-**Process:**
-1. Parse → 2 action items
-2. Lookup "John" → Found 3 Johns!
-3. Ask → "Which John? (John Smith, John Doe, John Wilson)"
-4. User → "John Smith"
-5. Create → Both tasks assigned correctly
 
 ---
 

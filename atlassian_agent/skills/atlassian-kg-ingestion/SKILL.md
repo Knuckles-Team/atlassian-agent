@@ -28,6 +28,21 @@ Two Wire-First ingest tools: they list through the product clients and push the 
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Pick the source: a JQL string for issues or a space id for pages. Verify the query by calling `jira_search_and_reconsile_issues_using_jql` or `confluence_get_pages_in_space` and confirming it returns records.
+2. Ingest issues with `atlassian_ingest_issues`(jql, max_results). Verify the result reports a non-zero ingested count.
+3. Ingest pages with `atlassian_ingest_confluence`(space_id, limit). Verify the result reports a non-zero ingested count.
+4. Query the graph for one ingested key, for example with `find(intent="ingested Jira issue")`. Verify the record appears as a typed node.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Zero records ingested | The JQL or space id matches nothing | Run the read tool from step 1 and correct the JQL or `space_id` before ingesting again. |
+| Authentication error | Atlassian credentials are missing or expired | Check the connector credential environment variables are set and refresh the token. |
+| Ingest times out | `max_results` or `limit` is too large | Lower `max_results` or `limit` and ingest in smaller batches. |
+
 ## Tools (2)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

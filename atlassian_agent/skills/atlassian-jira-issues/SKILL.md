@@ -2,12 +2,7 @@
 name: atlassian-jira-issues
 skill_type: skill
 description: >-
-  Jira issue work through typed operations: search with JQL, read and edit
-  issues, comment, log work, attach files, watch and vote, link issues, read
-  changelogs, bulk-edit and archive. Use when the agent must find, triage,
-  change or report on Jira issues. Do NOT use for project or workflow
-  configuration (use atlassian-jira-configuration) or for boards, filters and
-  dashboards (use atlassian-jira-boards-dashboards).
+  Jira issue work through typed operations: search with JQL, read and edit issues, comment, log work, attach files, watch and vote, link issues, read changelogs, bulk-edit and archive. Use when the agent must find, triage, change or report on Jira issues.
 license: MIT
 tags: [atlassian, jira, issues, jql]
 metadata:
@@ -15,6 +10,8 @@ metadata:
   version: '0.2.0'
 ---
 # Jira issues: search, comments, worklogs, attachments and bulk changes
+
+Scope: Jira issue work through typed operations: search with JQL, read and edit issues, comment, log work, attach files, watch and vote, link issues, read changelogs, bulk-edit and archive. Use when the agent must find, triage, change or report on Jira issues. Do NOT use for project or workflow configuration (use atlassian-jira-configuration) or for boards, filters and dashboards (use atlassian-jira-boards-dashboards).
 
 Typed `jira_<operation>` tools for issues. Cloud or Server/Data Center is chosen by ATLASSIAN_JIRA_DEPLOYMENT, and each tool picks the matching client.
 
@@ -33,6 +30,21 @@ Typed `jira_<operation>` tools for issues. Cloud or Server/Data Center is chosen
 - Changes follow the signed-in account's permissions; the product refuses what the account may not do.
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
+
+## Steps
+
+1. Find the issue with `jira_search_and_reconsile_issues_using_jql`(jql, max_results). Verify the returned key matches the intended issue.
+2. Read it with `jira_get_issue`(issue_id_or_key). Verify status, assignee and summary before editing.
+3. Change it with `jira_edit_issue`(issue_id_or_key, payload), `jira_add_comment`(issue_id_or_key, payload) or `jira_add_attachment`(issue_id_or_key). Verify the response or a fresh `jira_get_issue` shows the change.
+4. Run bulk or destructive changes only after approval, for example `jira_bulk_delete_worklogs`(confirm). Verify the affected count matches the approved scope.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Issue not found | The key is wrong or the account cannot browse the project | Search with `jira_search_and_reconsile_issues_using_jql` for the summary text and use the exact key. |
+| Edit returns 400 | A field is not on the screen or `payload` is malformed | Read the allowed fields with `jira_get_issue` and fix the `payload` keys. |
+| Delete refused | `confirm=true` missing | Obtain approval naming the issue or worklog and resubmit with `confirm=true`. |
 
 ## Tools (105)
 

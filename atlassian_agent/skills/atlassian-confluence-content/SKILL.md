@@ -31,6 +31,22 @@ Typed `confluence_<operation>` tools. Cloud or Server/Data Center is chosen by A
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Find the space and page with `confluence_get_pages_in_space`(id_). Verify the response contains the page id you need.
+2. Read the current body with `confluence_get_page_by_id`(id_, body_format). Verify the version number and title match what the user expects.
+3. Create or update with `confluence_create_page`(payload) or `confluence_update_page`(id_, payload) using a storage-format body. Verify the response carries the new id or an incremented version.
+4. Add comments, labels or attachments with `confluence_create_footer_comment`(payload). Verify the new object appears in the matching `confluence_get_*` read.
+5. Delete only after approval with `confluence_delete_page`(id_, confirm). Verify a follow-up `confluence_get_page_by_id` reports the page gone or trashed.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Create returns 400 | The payload body is not valid storage format or the space id is wrong | Re-read the space with `confluence_get_spaces`, fix the `payload` body and resubmit. |
+| Update returns a version conflict | The page changed since it was read | Reread with `confluence_get_page_by_id`, apply the edit to the latest version number and resubmit. |
+| Delete is refused | `confirm=true` was not supplied or the account lacks permission | Ask the user to approve the named page, then call with `confirm=true`; otherwise report the permission gap. |
+
 ## Tools (160)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

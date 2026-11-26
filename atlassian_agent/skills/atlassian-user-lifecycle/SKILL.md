@@ -29,6 +29,21 @@ Typed operations for the user management and user provisioning APIs. Deleting or
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Look up the account with `user_mgmt_cloud_get_users_account_id_manage`(account_id). Verify the profile matches the person intended.
+2. Check provisioning links with `user_provisioning_cloud_get_scim_links`(org_id, aa_id). Verify the directory id is returned.
+3. Disable or enable with `user_mgmt_cloud_post_users_account_id_manage_lifecycle_disable`(account_id) or the `_enable` variant. Verify `user_mgmt_cloud_get_users_account_id_manage` shows the new status.
+4. Delete with `user_mgmt_cloud_post_users_account_id_manage_lifecycle_delete`(account_id, confirm) only after approval. Verify the account status reads pending deletion.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Account not found | `account_id` is wrong | Find the account through the SCIM read `user_provisioning_cloud_get_users_from_an_active_directory`(directory_id, filter). |
+| 403 on lifecycle call | The account is not an organization admin | Report the permission gap and stop. |
+| Delete refused | `confirm=true` missing | Obtain approval naming the account and resubmit with `confirm=true`. |
+
 ## Tools (34)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

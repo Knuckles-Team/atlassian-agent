@@ -32,6 +32,21 @@ Typed configuration operations. Scheme and workflow changes affect every project
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Read the scheme or workflow you plan to change with `jira_get_all_issue_type_schemes` or `jira_get_all_field_configurations`. Verify which projects use it before editing.
+2. Make the smallest change with `jira_add_issue_types_to_issue_type_scheme`(issue_type_scheme_id, payload) or `jira_add_field_to_default_screen`(field_id). Verify the response confirms the change.
+3. Re-read the object with the matching `jira_get_*` call. Verify the new field, option or scheme entry appears.
+4. Delete only after approval with `jira_delete_custom_field`(id_, confirm). Verify a follow-up read no longer lists it.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Change returns 400 | The id refers to a missing or incompatible scheme | Re-list with `jira_get_all_issue_type_schemes` and use a valid id. |
+| Change affects too many projects | The scheme is shared | Stop, report the project list from the read in step 1 and ask for approval. |
+| Delete refused | `confirm=true` not supplied | Ask for approval naming the target and resubmit with `confirm=true`. |
+
 ## Tools (298)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

@@ -2,14 +2,7 @@
 name: atlassian-jira-filters
 skill_type: skill
 description: >-
-  Manage Jira saved filters (saved JQL searches) end to end — create, get, search,
-  update, delete, run/use them, star them as favourites, manage their columns, change
-  owner, and administer their share/edit permissions (add, get, delete) and the
-  instance default share scope. Use when the agent must create or curate reusable JQL
-  filters, share a filter with a group/project/user, audit who a filter is shared with,
-  or run a saved filter's results. Do NOT use for one-off ad-hoc JQL queries (just run
-  the search directly), listing the user's own issues (use atlassian-my-priority-queue),
-  or Plane — Plane's public API exposes no saved-views/filters equivalent.
+  Manage Jira saved filters (saved JQL searches) end to end — create, get, search, update, delete, run/use them, star them as favourites, manage their columns, change owner, and administer their share/edit permissions (add, get, delete) and the instance default share scope.
 license: MIT
 tags: [jira, atlassian, filters, jql, saved-search, permissions, sharing, mcp]
 metadata:
@@ -17,6 +10,8 @@ metadata:
   version: '0.1.0'
 ---
 # Jira Saved Filters
+
+Scope: Manage Jira saved filters (saved JQL searches) end to end — create, get, search, update, delete, run/use them, star them as favourites, manage their columns, change owner, and administer their share/edit permissions (add, get, delete) and the instance default share scope. Use when the agent must create or curate reusable JQL filters, share a filter with a group/project/user, audit who a filter is shared with, or run a saved filter's results. Do NOT use for one-off ad-hoc JQL queries (just run the search directly), listing the user's own issues (use atlassian-my-priority-queue), or Plane — Plane's public API exposes no saved-views/filters equivalent.
 
 Create and curate reusable **saved filters** (named JQL searches), run them, and
 administer their **sharing/edit permissions**. A filter is just a stored JQL query plus
@@ -69,6 +64,22 @@ Call the `jira_<operation>` tools with `action="list_actions"` or `action="help"
 > Path-id params use the trailing-underscore name `id_` (and `permission_id`) — that is
 > the exact keyword the generated client expects. If a call rejects the key, run
 > `action="help"` on the tool to confirm the parameter names for your instance.
+
+## Steps
+
+1. Find existing filters with `jira_get_filters_paginated`(filter_name). Verify whether a filter of that name already exists.
+2. Create or update with `jira_create_filter`(payload) or `jira_update_filter`(id_, payload). Verify the response returns the id, jql and searchUrl.
+3. Run the filter with `jira_search_and_reconsile_issues_using_jql` and `{"jql":"filter = <id>"}`. Verify the returned issues match the expected query.
+4. Set sharing with `jira_add_share_permission`(id_, payload). Verify `jira_get_share_permissions`(id_) lists the new permission.
+5. Delete with `jira_delete_filter`(id_) only after approval. Verify `jira_get_filter`(id_) reports not found.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Create returns 400 | The JQL is invalid | Validate the JQL with `jira_search_and_reconsile_issues_using_jql` and fix the clause named in the error. |
+| Parameter rejected | The path id key was passed without the trailing underscore | Pass `id_` and `permission_id` as listed in the Tools table, or call with `action="help"`. |
+| Update refused | The caller does not own the filter | Ask the owner, or use `change_filter_owner` through an administrator. |
 
 ## Recipes (`params_json`)
 

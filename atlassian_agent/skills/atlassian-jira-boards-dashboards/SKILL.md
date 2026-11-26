@@ -28,6 +28,21 @@ Typed operations for saved views of Jira work.
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. List what exists with `jira_get_all_dashboards` or `jira_get_filters_paginated`(filter_name). Verify the target id is in the result.
+2. Read the object with `jira_get_dashboard`(id_) or `jira_get_filter`(id_). Verify the name and owner match the request.
+3. Create or update with `jira_create_dashboard`(payload), `jira_update_filter`(id_, payload) or `jira_add_gadget`(dashboard_id, payload). Verify the response returns the id and changed fields.
+4. Delete with `jira_delete_dashboard`(id_, confirm) or `jira_delete_filter`(id_, confirm) only after approval. Verify a follow-up read returns not found.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Filter update rejected | The JQL in `payload` is invalid | Test the JQL with `jira_search_and_reconsile_issues_using_jql` and correct it before updating. |
+| Dashboard not visible | The caller is not the owner and lacks share rights | Use `jira_get_dashboards_paginated` to find shared ones, or ask the owner to share it. |
+| Delete refused | `confirm=true` missing | Obtain approval naming the object and resubmit with `confirm=true`. |
+
 ## Tools (38)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.
