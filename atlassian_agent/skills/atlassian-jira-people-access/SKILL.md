@@ -29,6 +29,21 @@ Typed people and access operations for one Jira site.
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Find the user with `jira_find_users`(query). Verify the returned `accountId` matches the person intended.
+2. Read current access with `jira_get_user_groups`(account_id) or `jira_get_project_role`. Verify the existing groups before any change.
+3. Add access with `jira_add_user_to_group`(groupname, payload) or `jira_add_actor_users`(project_id_or_key, id_, payload). Verify `jira_get_users_from_group`(groupname) lists the user.
+4. Remove access with `jira_remove_user_from_group`(account_id, groupname, confirm) only after approval. Verify the user no longer appears in `jira_get_users_from_group`.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| User not found | The query matched no account | Search by email or display name variants with `jira_find_users` and use the returned `accountId`. |
+| Group change refused | The account lacks administer permission | Report the permission gap with `jira_get_my_permissions` output. |
+| Removal refused | `confirm=true` missing | Obtain approval naming the user and group, then resubmit with `confirm=true`. |
+
 ## Tools (54)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

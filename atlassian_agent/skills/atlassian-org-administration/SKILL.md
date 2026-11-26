@@ -30,6 +30,21 @@ Typed organization operations on the cloud admin APIs (v1 and v2). Policy and ro
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. List organizations and directories with `admin_cloud_get_directories_for_org`(org_id). Verify the directory you need is listed.
+2. Read the target with `admin_cloud_get_directory_users`(org_id, directory_id). Verify the expected users appear.
+3. Change policy or roles with `admin_cloud_create_policy`(org_id, payload) or `admin_cloud_assign_role`(org_id, user_id, payload). Verify the response echoes the new policy or role.
+4. Delete with `admin_cloud_delete_policy`(org_id, policy_id, confirm) only after approval. Verify the policy no longer appears in a follow-up read.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Organization not found | `org_id` is wrong | List organizations with the read tools of this skill and use the returned id. |
+| 403 on policy change | The account lacks organization admin rights | Report the permission gap and stop. |
+| Delete refused | `confirm=true` missing | Obtain approval naming the policy and resubmit with `confirm=true`. |
+
 ## Tools (114)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

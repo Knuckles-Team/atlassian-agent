@@ -28,6 +28,22 @@ Typed space operations. Permission and role changes widen or narrow access: ask 
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. List spaces with `confluence_get_spaces`(keys, limit). Verify the target space id and key appear.
+2. Read the current access with `confluence_get_space_permissions_assignments`(id_) and `confluence_get_space_role_assignments`(id_). Verify the output lists the principals before any change.
+3. Create or adjust with `confluence_create_space`(payload) or `confluence_set_space_role_assignments`(id_, payload). Verify the response echoes the new assignments.
+4. Set classification with `confluence_put_space_default_classification_level`(id_, payload). Verify `confluence_get_space_default_classification_level` returns the level.
+5. Delete a role with `confluence_delete_space_role`(id_, confirm) only after approval. Verify `confluence_get_available_space_roles` no longer lists it.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Space not found | The numeric space id was replaced by the key | Resolve the id with `confluence_get_spaces`(keys) and use the returned id. |
+| Role change refused | The account lacks space administration rights | Report the missing permission and stop; do not widen access. |
+| Delete refused | `confirm=true` not supplied | Ask for approval naming the role, then resubmit with `confirm=true`. |
+
 ## Tools (43)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

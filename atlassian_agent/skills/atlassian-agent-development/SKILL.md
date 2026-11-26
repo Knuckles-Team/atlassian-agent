@@ -39,6 +39,22 @@ owning spec row in the commit trailer.
 - One logical change per commit, with `Spec: <ID>` and the assisting agent
   trailer adjacent in the final paragraph.
 
+## Steps
+
+1. Locate the owning spec row with `git grep -n "<term>" -- specs`. Verify the match names a requirement id you will cite in the `Spec:` trailer.
+2. Create the pinned environment with `uv sync --locked`. Verify the command exits 0 and `uv run python --version` prints the pinned interpreter.
+3. Implement the change in this connector only, reusing the existing clients and tool factories. Verify with `git diff --stat` that no file outside this repository's scope changed.
+4. Run the focused tests with `uv run --all-extras pytest tests/test_connector_tool_parity.py -q`. Verify the summary line shows zero failures.
+5. Run the repository gate with `uvx pre-commit run --all-files`. Verify every hook reports Passed and `git status --short` lists only reviewed paths.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| No owning spec row found | The change is not yet specified | Extend the closest existing spec under `specs/` with a new row before writing code. |
+| Pre-commit hook fails | The change breaks a shared connector-standard, secrets or spec check | Read the hook output, fix the named file, stage it with an explicit `git add -- <path>` and rerun `uvx pre-commit run --all-files`. |
+| Tests need live credentials | A test calls the real Atlassian API | Mock the external call in the test; never place credentials in the local gate. |
+
 ## Setup and gates
 
 Use the pinned environment from `uv sync --locked`. Run the repository

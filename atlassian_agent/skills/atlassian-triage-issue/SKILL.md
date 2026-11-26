@@ -1,10 +1,13 @@
 ---
 name: atlassian-triage-issue
 skill_type: skill
-description: "Intelligently triage bug reports and error messages by searching for duplicates in Jira and offering to create new issues or add comments to existing ones. When an agent needs to: (1) Triage a bug report or error message, (2) Check if an issue is a duplicate, (3) Find similar past issues, (4) Create a new bug ticket with proper context, or (5) Add information to an existing ticket. Searches Jira for similar issues, identifies duplicates, checks fix history, and helps create well-structured bug reports."
+description: >-
+  Intelligently triage bug reports and error messages by searching for duplicates in Jira and offering to create new issues or add comments to existing ones. When an agent needs to: (1) Triage a bug report or error message, (2) Check if an issue is a duplicate, (3) Find similar past issues, (4) Create a new bug ticket with proper context, or (5) Add information to an existing ticket.
 ---
 
 # Triage Issue
+
+Scope: Intelligently triage bug reports and error messages by searching for duplicates in Jira and offering to create new issues or add comments to existing ones. When an agent needs to: (1) Triage a bug report or error message, (2) Check if an issue is a duplicate, (3) Find similar past issues, (4) Create a new bug ticket with proper context, or (5) Add information to an existing ticket. Searches Jira for similar issues, identifies duplicates, checks fix history, and helps create well-structured bug reports.
 
 ## Keywords
 triage bug, check duplicate, is this a duplicate, search for similar issues, create bug ticket, file a bug, report this error, triage this error, bug report, error message, similar issues, duplicate bug, who fixed this, has this been reported, search bugs, find similar bugs, create issue, file issue
@@ -16,6 +19,22 @@ Automatically triage bug reports and error messages by searching Jira for duplic
 **Use this skill when:** Users need to triage error messages, bug reports, or issues to determine if they're duplicates and take appropriate action.
 
 ---
+
+## Steps
+
+1. Extract the error message, component and symptoms from the report into a `searchJiraIssuesUsingJql` text query. Verify at least one distinctive phrase is captured for searching.
+2. Search for duplicates with `searchJiraIssuesUsingJql`(jql). Verify the search ran at least twice with different terms.
+3. Classify the matches as duplicate, related or none, and present findings using the formats in `references/search-patterns.md`. Verify the user chose an action before anything is written.
+4. Add information with `addCommentToJiraIssue`(issueIdOrKey, commentBody) or create a bug with `createJiraIssue`. Verify the response returns a comment id or issue key.
+5. Summarize the outcome with the issue link from the `createJiraIssue` or `addCommentToJiraIssue` response. Verify the link opens the intended issue.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Search returns nothing relevant | Terms are too specific | Broaden the JQL with the component or key error phrase and search again with different words. |
+| Create rejected | A required field is missing for the Bug type | Read project metadata and supply the field, as described in the references. |
+| Wrong project chosen | The report did not name a project | Ask the user for the project key before creating. |
 
 ## Workflow
 
@@ -410,259 +429,9 @@ Type: Bug | Priority: Medium | Status: Open
 
 ---
 
-## Edge Cases & Troubleshooting
+## Additional reference
 
-### Multiple Potential Duplicates
-
-If you find 3+ very similar issues:
-
-```
-🔍 **Triage Results: Multiple Possible Duplicates**
-
-I found 3 issues that might be related:
-
-**Most Likely Duplicate:**
-**PROJ-456** - [summary] (Open, 2 days ago)
-Match: 95% - Same error and component
-
-**Also Possibly Related:**
-**PROJ-234** - [summary] (Open, 1 month ago)
-Match: 70% - Similar symptoms, different error
-
-**PROJ-123** - [summary] (Resolved, 8 months ago)
-Match: 60% - Related component, but was fixed
-
-**Recommendation:**
-1. Add to PROJ-456 (most similar)
-2. Reference PROJ-234 in your comment (might be related)
-3. Note PROJ-123 was previously fixed (possible regression)
-
-Which issue should I add your details to? (Or create new)
-```
-
-### Unclear Project Context
-
-If user doesn't specify which project:
-
-```
-Which Jira project should I search for similar issues?
-
-Available projects:
-- BACKEND (Backend Services)
-- MOBILE (Mobile Apps)
-- WEB (Web Platform)
-- INFRA (Infrastructure)
-
-Or tell me the project key directly (e.g., BACKEND, MOBILE)
-```
-
-### Insufficient Information
-
-If the bug report lacks critical details:
-
-```
-I need more information to effectively triage this issue:
-
-**What I have:**
-- Error: "Something went wrong"
-
-**What would help:**
-- Specific error message or code
-- Which part of the system (login, payment, etc.)
-- What the user was trying to do
-- Which environment (production, staging, mobile, web)
-
-Can you provide any of these details?
-```
-
-### Resolved Regression
-
-If you find a resolved issue that matches:
-
-```
-🔍 **Triage Results: Possible Regression**
-
-This looks like it might be a regression of a previously fixed issue:
-
-**PROJ-567** - [Same issue description]
-Status: Resolved (Fixed) | Fixed: 3 months ago | Fixed by: @jane.smith
-Resolution: [Brief description of fix]
-https://yoursite.atlassian.net/browse/PROJ-567
-
-**This suggests:**
-- The original fix may not have fully addressed the root cause
-- OR there's been a regression in recent changes
-- OR this is a different issue with similar symptoms
-
-**Recommendation:** Create a new issue and link it to PROJ-567 as "may be related to" or "regression of"
-
-Should I create a new issue with this context?
-```
-
-### Custom Required Fields
-
-If creating an issue fails due to required fields:
-
-1. **Check what fields are required:**
-```
-getJiraIssueTypeMetaWithFields(
-  cloudId="...",
-  projectIdOrKey="PROJ",
-  issueTypeId="10001"
-)
-```
-
-2. **Ask user for values:**
-```
-This project requires additional fields to create a Bug:
-- Severity: [High/Medium/Low]
-- Affected Version: [Version number]
-
-Please provide these values so I can create the issue.
-```
-
-3. **Retry with additional fields:**
-```
-createJiraIssue(
-  ...existing parameters...,
-  additional_fields={
-    "priority": {"name": "High"},
-    "customfield_10001": {"value": "Production"}
-  }
-)
-```
-
----
-
-## Tips for Effective Triage
-
-### For Search:
-
-**Do:**
-✅ Use multiple search queries with different angles
-✅ Include both open and resolved issues in search
-✅ Search for error signatures and symptoms separately
-✅ Look at recent issues first (last 30-90 days)
-✅ Check for patterns (multiple reports of same thing)
-
-**Don't:**
-❌ Search with entire error messages (too specific)
-❌ Only search open issues (miss fix history)
-❌ Ignore resolved issues (miss regressions)
-❌ Use too many keywords (reduces matches)
-
-### For Issue Creation:
-
-**Do:**
-✅ Write clear, specific summaries with component names
-✅ Include complete error messages in code blocks
-✅ Add environment and impact details
-✅ Reference related issues found during search
-✅ Use "Bug" issue type for actual bugs
-
-**Don't:**
-❌ Create vague summaries like "Error in production"
-❌ Paste entire stack traces in summary (use description)
-❌ Skip reproduction steps
-❌ Forget to mention user impact
-❌ Hard-code issue type without checking availability
-
-### For Duplicate Assessment:
-
-**High Confidence Duplicates:**
-- Exact same error + same component + recent (< 30 days)
-- Same root cause identified
-
-**Likely Different Issues:**
-- Different error signatures
-- Different components/systems
-- Significantly different contexts
-
-**When Unsure:**
-- Present both options to user
-- Lean toward creating new issue (can be closed as duplicate later)
-- Linking issues is better than hiding information
-
----
-
-## Examples
-
-### Example 1: Clear Duplicate Found
-
-**User Input:**
-```
-Triage this error: "Connection timeout error when users try to login on iOS app"
-```
-
-**Process:**
-1. Extract: "Connection timeout", "login", "iOS"
-2. Search: Find PROJ-456 (open, 2 days ago) with exact same error
-3. Analyze: 95% match - same error, component, symptom
-4. Present: Show PROJ-456 as duplicate, recommend adding comment
-5. Execute: User confirms, add comment with iOS-specific details
-6. Confirm: Comment added to PROJ-456
-
-**Output:**
-```
-✅ Comment added to PROJ-456
-
-Your iOS-specific error details have been added to the existing issue.
-The assignee will be notified.
-```
-
-### Example 2: New Issue with Related Context
-
-**User Input:**
-```
-Error: NullPointerException in PaymentProcessor.processRefund() at line 245
-Stack trace: [full stack trace]
-```
-
-**Process:**
-1. Extract: "NullPointerException", "PaymentProcessor", "processRefund", "line 245"
-2. Search: Find PROJ-789 (resolved, 3 weeks ago) about payment errors, but different line
-3. Analyze: Related component but different specific error
-4. Present: No duplicates, found related issue, recommend new ticket
-5. Execute: User confirms, create new Bug with context
-6. Confirm: PROJ-890 created
-
-**Output:**
-```
-✅ New Issue Created
-
-PROJ-890 - Payment API: NullPointerException in refund processing
-https://yoursite.atlassian.net/browse/PROJ-890
-
-References related issue PROJ-789 for context.
-```
-
-### Example 3: Possible Regression
-
-**User Input:**
-```
-Users can't upload files larger than 5MB, getting "Upload failed" error
-```
-
-**Process:**
-1. Extract: "Upload failed", "5MB", "file upload"
-2. Search: Find PROJ-234 (resolved 2 months ago) - exact same issue
-3. Analyze: Was fixed but now happening again
-4. Present: Possible regression, recommend new issue linked to old one
-5. Execute: Create new issue, link to PROJ-234 as "may be caused by"
-6. Confirm: PROJ-891 created with regression context
-
-**Output:**
-```
-✅ New Issue Created (Possible Regression)
-
-PROJ-891 - File Upload: Upload failed for files >5MB (Regression?)
-https://yoursite.atlassian.net/browse/PROJ-891
-
-This may be a regression of PROJ-234, which was resolved 2 months ago.
-Issue includes reference to original fix for investigation.
-```
-
----
+Edge cases, triage tips and worked examples (moved verbatim). See [edge-cases-tips-examples](references/edge-cases-tips-examples.md).
 
 ## When NOT to Use This Skill
 

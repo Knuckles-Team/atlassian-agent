@@ -2,13 +2,7 @@
 name: atlassian-create-issue-guided
 skill_type: skill
 description: >-
-  Create a Jira issue after discovering, from the live instance, exactly which
-  fields the chosen project + issue type support — including which are required and
-  which are custom fields (customfield_xxxxx) — then populate and submit it. Use
-  when the agent must open a Jira issue/bug/story/task and needs to know the correct,
-  possibly custom, field schema instead of guessing. Do NOT use for listing the
-  user's own work (use atlassian-my-priority-queue), bulk spec breakdowns (use
-  atlassian-spec-to-backlog), or Plane work items (use plane-create-work-item-guided).
+  Create a Jira issue after discovering, from the live instance, exactly which fields the chosen project + issue type support — including which are required and which are custom fields (customfield_xxxxx) — then populate and submit it. Use when the agent must open a Jira issue/bug/story/task and needs to know the correct, possibly custom, field schema instead of guessing.
 license: MIT
 tags: [jira, atlassian, create-issue, custom-fields, createmeta, mcp]
 metadata:
@@ -16,6 +10,8 @@ metadata:
   version: '0.1.0'
 ---
 # Guided Jira Issue Creation
+
+Scope: Create a Jira issue after discovering, from the live instance, exactly which fields the chosen project + issue type support — including which are required and which are custom fields (customfield_xxxxx) — then populate and submit it. Use when the agent must open a Jira issue/bug/story/task and needs to know the correct, possibly custom, field schema instead of guessing. Do NOT use for listing the user's own work (use atlassian-my-priority-queue), bulk spec breakdowns (use atlassian-spec-to-backlog), or Plane work items (use plane-create-work-item-guided).
 
 Never guess a field schema. This skill **queries the instance** for the issue types a
 project offers and the exact field set (required + optional + custom) each type accepts,
@@ -48,6 +44,22 @@ Unsure of an action name? Call the tool with `action="list_actions"`.
 | Jira | `jira_get_issue_types_for_project`, `jira_get_create_issue_meta_issue_type_id`, `jira_get_create_issue_meta`, `jira_create_issue` |
 | Jira | `jira_get_fields` (map custom-field **name → id**) |
 | Jira | `jira_search_projects` / `jira_get_project` (resolve a project name → key/id) |
+
+## Steps
+
+1. Resolve the project and its issue types with `jira_get_issue_types_for_project`(project_id_or_key). Verify the chosen issue type id appears in the result.
+2. Fetch the field schema with `jira_get_create_issue_meta_issue_type_id`(project_id_or_key, issue_type_id). Verify the response lists each field's `required` flag.
+3. Map custom field labels with `jira_get_fields`. Verify every field the user named resolves to a `customfield_*` id.
+4. Ask the user only for required fields plus those they named, and build the payload keyed by field id, such as `{"fields":{"summary":"..."}}`. Verify no required field is missing before submitting.
+5. Submit with `jira_create_issue`(payload). Verify the response returns an issue key and report its browse URL.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Create returns 400 | A required field is missing or a rich-text field is a plain string | Re-run `jira_get_create_issue_meta_issue_type_id`, add the missing field and send ADF on Cloud. |
+| Authentication error | `ATLASSIAN_JIRA_CLOUD_URL`, user or token is not set | Set the variables listed under Prerequisites and confirm with `jira_get_current_user`. |
+| Field not on the create screen | The project screen scheme omits it | Create without it, then set it via `jira_edit_issue` if editable, or ask a Jira admin to add it to the screen. |
 
 ## Recipes (discover → populate → create)
 

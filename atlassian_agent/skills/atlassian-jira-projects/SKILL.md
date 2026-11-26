@@ -30,6 +30,21 @@ Typed project operations. Archiving or deleting a project is destructive and nee
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Find the project with `jira_search_projects`(keys, max_results). Verify the project key and id match the request.
+2. Read details with `jira_get_project`(project_id_or_key). Verify type, lead and components before changing anything.
+3. Create or update with `jira_create_component`(payload), `jira_create_version`(payload) or `jira_update_project`(project_id_or_key, payload). Verify the response returns the id and new values.
+4. Archive with `jira_archive_project`(project_id_or_key) or delete with `jira_delete_project`(project_id_or_key, confirm) only after approval. Verify a follow-up `jira_get_project` shows the new state.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Create fails on key | The project key is invalid or already used | Check it with `jira_validate_project_key`(key) and pick a free key. |
+| Version delete leaves issues | Affected issues were not moved | Pass `move_fix_issues_to` and `move_affected_issues_to` to `jira_delete_version`. |
+| Project delete refused | `confirm=true` missing | Obtain approval naming the project and resubmit with `confirm=true`. |
+
 ## Tools (66)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

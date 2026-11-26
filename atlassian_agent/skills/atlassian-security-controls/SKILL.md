@@ -29,6 +29,21 @@ Typed security-control operations. Revoking a key or reordering levels takes eff
 - Destructive tools (delete, remove, archive, revoke) need explicit approval naming the target.
 - Never print tokens or API keys.
 
+## Steps
+
+1. Read the current state with `api_access_cloud_get_all_api_keys_by_org_id`(org_id) and `dlp_cloud_get_level_list`(org_id). Verify the organization id returns data.
+2. Count affected items with `api_access_cloud_get_api_key_count_by_org_id`(org_id). Verify the count matches expectation.
+3. Revoke a key with `api_access_cloud_revoke_api_key`(org_id, api_key_id) only after approval. Verify the key is absent from the next `api_access_cloud_get_all_api_keys_by_org_id` call.
+4. Change classification with `dlp_cloud_create_level`(org_id, payload) or `dlp_cloud_reorder`(org_id, payload). Verify `dlp_cloud_get_level_list` shows the new order.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Organization not found | `org_id` is wrong | Use the id from the organization administration skill's directory read and retry with it. |
+| 403 on revoke | The account is not an organization admin | Report the permission gap; do not use another account without approval. |
+| Bulk revoke refused | `confirm=true` missing | Obtain approval naming the scope and resubmit with `confirm=true`. |
+
 ## Tools (39)
 
 R = read-only, W = changes data, D = destructive (needs approval). Parameters in brackets are the typed inputs.

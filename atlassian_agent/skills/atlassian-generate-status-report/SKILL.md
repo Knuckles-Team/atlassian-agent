@@ -1,10 +1,13 @@
 ---
 name: atlassian-generate-status-report
 skill_type: skill
-description: "Generate project status reports from Jira issues and publish to Confluence. When an agent needs to: (1) Create a status report for a project, (2) Summarize project progress or updates, (3) Generate weekly/daily reports from Jira, (4) Publish status summaries to Confluence, or (5) Analyze project blockers and completion. Queries Jira issues, categorizes by status/priority, and creates formatted reports for delivery managers and executives."
+description: >-
+  Generate project status reports from Jira issues and publish to Confluence. When an agent needs to: (1) Create a status report for a project, (2) Summarize project progress or updates, (3) Generate weekly/daily reports from Jira, (4) Publish status summaries to Confluence, or (5) Analyze project blockers and completion.
 ---
 
 # Generate Status Report
+
+Scope: Generate project status reports from Jira issues and publish to Confluence. When an agent needs to: (1) Create a status report for a project, (2) Summarize project progress or updates, (3) Generate weekly/daily reports from Jira, (4) Publish status summaries to Confluence, or (5) Analyze project blockers and completion. Queries Jira issues, categorizes by status/priority, and creates formatted reports for delivery managers and executives.
 
 ## Keywords
 status report, project status, weekly update, daily standup, Jira report, project summary, blockers, progress update, Confluence report, sprint report, project update, publish to Confluence, write to Confluence, post report
@@ -22,6 +25,22 @@ Generating a status report follows these steps:
 3. **Analyze data** - Categorize issues and identify key insights
 4. **Format report** - Structure content based on audience and purpose
 5. **Publish to Confluence** - Create or update a page with the report
+
+## Steps
+
+1. Confirm the project key, period and audience with the user. Verify the project exists by calling `searchJiraIssuesUsingJql` with `project = KEY` and `maxResults=1`.
+2. Build the queries with `python scripts/jql_builder.py` or the patterns in `references/jql-patterns.md`. Verify each JQL string runs without error.
+3. Fetch completed, in-progress and blocked issues with `searchJiraIssuesUsingJql`. Verify the counts are non-zero or state explicitly that a category is empty.
+4. Format the report using the template in `references/report-templates.md`. Verify every section of the template is filled and each issue is linked by key.
+5. Publish with `createConfluencePage`(spaceId, title, body, contentFormat). Verify the response returns a page id and URL, and report the link.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| JQL returns an error | A field or project key is wrong | Fix the clause named in the error using `references/jql-patterns.md` and rerun the query. |
+| No space accepts the page | The space id is wrong | List spaces with `getConfluenceSpaces` and use the numeric `spaceId`. |
+| Publish duplicates an existing report | A page with the same title exists | Use `updateConfluencePage` on the existing page id after reading it with `getConfluencePage`. |
 
 ## Step 1: Identify Scope
 

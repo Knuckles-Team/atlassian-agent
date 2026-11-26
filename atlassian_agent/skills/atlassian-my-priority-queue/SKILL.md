@@ -2,14 +2,7 @@
 name: atlassian-my-priority-queue
 skill_type: skill
 description: >-
-  Surface the Jira issues assigned to the current user, rank them by a combined
-  priority + staleness score (highest priority at the top, items untouched for
-  more than 7 days flagged and boosted), and suggest updates to those issues from
-  the current session's context. Use when the agent must answer "what should I
-  work on", "what's assigned to me", "what's gone stale", or wants to push
-  conversation findings back onto the user's open tickets. Do NOT use for creating
-  new issues (use atlassian-create-issue-guided), full project status reports (use
-  atlassian-generate-status-report), or Plane work items (use plane-my-priority-queue).
+  Surface the Jira issues assigned to the current user, rank them by a combined priority + staleness score (highest priority at the top, items untouched for more than 7 days flagged and boosted), and suggest updates to those issues from the current session's context.
 license: MIT
 tags: [jira, atlassian, my-work, triage, staleness, priority, mcp]
 metadata:
@@ -17,6 +10,8 @@ metadata:
   version: '0.1.0'
 ---
 # My Jira Priority Queue
+
+Scope: Surface the Jira issues assigned to the current user, rank them by a combined priority + staleness score (highest priority at the top, items untouched for more than 7 days flagged and boosted), and suggest updates to those issues from the current session's context. Use when the agent must answer "what should I work on", "what's assigned to me", "what's gone stale", or wants to push conversation findings back onto the user's open tickets. Do NOT use for creating new issues (use atlassian-create-issue-guided), full project status reports (use atlassian-generate-status-report), or Plane work items (use plane-my-priority-queue).
 
 Find everything assigned to the current user, present it as **one list ordered by a
 combined priority + staleness score**, and turn what was learned in this session into
@@ -58,6 +53,22 @@ tool with `action="list_actions"` to enumerate them.
   "max_results": 100}`. Page with `next_page_token`.
 - The staleness/priority math lives in `scripts/rank_items.py` — do NOT eyeball the
   ordering; pipe the raw search JSON through it.
+
+## Steps
+
+1. Confirm who the token authenticates as with `jira_get_current_user`. Verify the account name matches the user.
+2. Search assigned work with `jira_search_and_reconsile_issues_using_jql` and `{"jql":"assignee = currentUser() AND statusCategory != Done"}`. Verify the response has an `issues` list and save it to `results.json`.
+3. Rank the results with `python scripts/rank_items.py results.json`. Verify the table shows the highest priority first with stale items flagged.
+4. Draft updates from this session's context, for example a `jira_add_comment` body, and show them to the user. Verify each draft names an issue key and the user confirmed it.
+5. Apply confirmed updates with `jira_add_comment`(issue_id_or_key, payload) or `jira_do_transition`. Verify the issue shows the comment or new status via `jira_get_issue`.
+
+## Failure recovery
+
+| Failure | Cause | Recovery |
+|---|---|---|
+| Empty queue | The token authenticates as a different account or no issues are open | Check `jira_get_current_user` and loosen the JQL in `references/jql-recipes.md`. |
+| Ranking script fails | The saved file is not the raw search JSON | Save the full tool response to `results.json` and rerun `python scripts/rank_items.py results.json`. |
+| Comment rejected | The Cloud body is not ADF | Send a valid Atlassian Document Format document as the comment body. |
 
 ## Recipes
 
